@@ -1,0 +1,73 @@
+{template 'common/header'}
+{template 'common'}
+<div class="main">
+    <ul class="nav nav-tabs">	 	
+      <li {if $op=='list' || empty($op)}class="active"{/if}><a href="{php echo $this->createWebUrl('Shakewinner',array('op'=>'list'));}">获奖列表</a></li>    
+    </ul>
+    <form action="" class="form-horizontal form" method="post" enctype="multipart/form-data" onsubmit="return formcheck()">
+        <input type="hidden" name="id" value="{$item['id']}">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                获奖详情
+            </div>
+            <div class="panel-body"> 
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝昵称</label>
+                    <div class="col-sm-9 col-xs-12">  
+                     	<input type='text' id='nickname' name='nickname' value="{$faninfo['nickname']}"  class="form-control" disabled="disabled"/>
+                    </div>
+                </div> 
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝头像</label>
+                    <div class="col-sm-9 col-xs-12">  
+						<img src="{$faninfo['headimg']}" height="50" width="50"/>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">奖品名称</label>
+                    <div class="col-sm-9 col-xs-12">  
+                     	<input type='text' id='name' name='name' value="{$awardinfo['name']}"  class="form-control" disabled="disabled"/>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">奖品描述</label>
+                    <div class="col-sm-9 col-xs-12">  
+                     	<input type='text' id='description' name='description' value="{$awardinfo['description']}"  class="form-control" disabled="disabled"/>
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">兑换码</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="code" name="code" value="{$awardinfo['code']}"  disabled="disabled"/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">兑换地址</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="address" name="address" value="{$awardinfo['address']}"  disabled="disabled"/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">奖品所属活动关键字</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="replywords" name="replywords" value="{$replywords}"  disabled="disabled"/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="statusstr" name="statusstr" value="{$statusstr}"  disabled="disabled"/>
+						</div>
+					</div>
+				</div>
+            </div>
+		</div>
+    </form>
+</div>

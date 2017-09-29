@@ -1,0 +1,79 @@
+
+<br>
+<div class='weui-footer'><p class='weui-footer__text'>Copyright &copy; 2008-{php echo date('Y')} {$_W['uniaccount']['name']}</p></div>
+<br><br><br>
+	
+	<div class="weui-tabbar tab-bottom">
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'list'))}"  class="weui-tabbar__item" >
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-tuku weui-tabbar__icon"></i><br>海报</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'list','cid'=>'-1'))}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-hot1 weui-tabbar__icon"></i><br>推荐</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index')}" class="weui-tabbar__item" >
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-home weui-tabbar__icon"></i><br>主页</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'watermark'))}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-suoding weui-tabbar__icon"></i><br>水印</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('myedit')}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-avatar2 weui-tabbar__icon"></i><br>我的</p>
+		</a>              
+	</div>
+	<div id="half" class='weui-popup__container popup-bottom'>
+		<div class="weui-popup__overlay weui-popup-overlay"></div>
+		<div class="weui-popup__modal">
+			<div class="toolbar">
+				<div class="toolbar-inner">
+					<a href="javascript:;" class="picker-button close-popup">关闭</a>
+					<h1 class="title">系统菜单</h1>
+				</div>
+			</div>
+			<div class="modal-content">
+				<div class="weui-grids">
+				  <a href="{php echo url('entry',array('do' => 'myedit','m' => 'zmcn_cer'));}" class="weui-grid js_grid">
+					<p class="weui-grid__label">
+					  <span class="zmui-icon zmui-icon-avatar2 f36 f-blue"></span><br>我的资料
+					</p>
+				  </a>
+				  <a href="{php echo url('entry',array('do' => 'mycer','m' => 'zmcn_cer'));}" class="weui-grid js_grid">
+					<p class="weui-grid__label">
+					  <span class="zmui-icon zmui-icon-practice f36 f-zi"></span><br>我的证书
+					</p>
+				  </a>
+				<a href="{php echo url('entry',array('do' => 'myteam','m' => 'zmcn_cer'));}" class="weui-grid">
+					<p class="weui-grid__label" style="position: relative;">
+					  <span class="zmui-icon zmui-icon-usergroup2 f36 f-zi"></span><br>我的团队
+					</p>
+				</a>
+				  <a href="{php echo url('entry',array('do' => 'qr','m' => 'zmcn_cer'));}" class="weui-grid js_grid">
+					<p class="weui-grid__label">
+					  <span class="zmui-icon zmui-icon-user-add f36 f-green"></span><br>邀请代理
+					</p>
+				  </a>
+				  <a href="{php echo url('entry',array('do' => 'index','m' => 'zmcn_cer'));}" class="weui-grid js_grid">
+					<p class="weui-grid__label">
+					  <span class="zmui-icon zmui-icon-search f36 f-blue"></span><br>授权查询
+					</p>
+				  </a>
+				  <a href="{$settings['sys']['help']}" class="weui-grid js_grid">
+					<p class="weui-grid__label">
+					  <span class="zmui-icon zmui-icon-help f36 f-blue"></span><br>系统帮助
+					</p>
+				  </a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+<!--加快统一素质材进程-->
+<script type="text/javascript">var zmurl="{$_W['siteroot']}";var asss=zmurl + "addons/zmcn_erp/zmui/mp3/alpha.mp3";var errs=zmurl + "addons/zmcn_erp/zmui/mp3/bark.mp3";</script>
+<script type="text/javascript" src="{$_W['siteroot']}addons/zmcn_erp/zmui/js/jquery.min.js?a={TIMESTAMP}11"></script>
+<script type="text/javascript" src="{$_W['siteroot']}addons/zmcn_erp/zmui/js/jquery-weui.min.js?a={TIMESTAMP}11"></script>
+</html>
+
+
+
+

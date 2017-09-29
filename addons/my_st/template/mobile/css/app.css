@@ -1,0 +1,42 @@
+/* Write your styles */
+
+.header{
+    width:100%;
+    height:98px;
+    background-color:red;
+    text-align:center;
+    background-size:contain;
+    background:url(../images/headbg.jpg) no-repeat center;
+}
+
+.img-head{
+    padding-top:50px;
+    color:#fff;
+}
+.img-head p{
+
+    font-size:24px;
+    text-align:center;
+}
+
+.am-list-item-bar {
+    margin-top: .5rem;
+    text-align: right;
+    color: #b2b2b2;
+    font-size:1.25rem;
+}
+.am-list-item-time {
+    float: left;
+    font-size:1.25rem;
+}
+
+.am-list-icon {
+    display: inline-block;
+    margin-right: 1rem;
+    font-size:1.25rem;
+}
+
+.bmbtn{
+    text-align:center;
+    padding-top:5px;
+}

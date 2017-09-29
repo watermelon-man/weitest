@@ -1,0 +1,98 @@
+{template 'common/header'}
+
+
+
+  
+  
+
+  
+  
+  
+  
+  <form action="#" method="post" id="form1" class="ng-pristine ng-valid">
+	<div class="panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover" style="width:100%;z-index:-10;" cellspacing="0" cellpadding="0">
+			<thead class="navbar-inner">
+				<tr>
+
+					<th style="width:50px;overflow:hidden;">ID</th>
+					
+					<th style="width:90px;overflow:hidden;">金额（元）</th>
+					<th style="width:150px;overflow:hidden;">微信名</th>
+					<th style="width:280px;overflow:hidden;">openid</th>
+					<th style="width:280px;overflow:hidden;">借用openid</th>
+					<th style="width:180px;overflow:hidden;">是否拉黑</th>
+					<th style="width:100px;overflow:hidden;">审核状态</th>
+					<th style="width:280px;overflow:hidden;">提示信息</th>
+			
+					<th style="min-width:100px;" class="text-right">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			{loop $list $i $item}
+				<tr>
+					
+                    	<td>{$item['id']}</td>				 
+					
+					
+					<td>{$item['dtotal_amount']}</td>
+					<td>{$item['dwnick']}</td>
+					<td><a href="#"><span>{$item['dopenid']}</span></a></td>
+					<td><a href="#"><span>{$item['jopenid']}</span></a></td>
+					
+					<td class="tag-show-15956">
+				
+					<?php echo date('Y-m-d H:i:s', $item['dtime']);?>
+					</td>
+					<td>
+					
+				{if $item['dissuccess'] == 1}
+				<span class="label label-success">提现成功</span>
+				{elseif $item['dissuccess'] == 2}
+				<span class="label label-warning">提现失败</span>
+				{else}
+				<span class="label label-warning">特殊</span>
+				{/if}
+					
+					</td>
+<td class="tag-show-15956">
+				
+					{$item['dresult']}
+					</td>
+					<td class="text-right" style="overflow:visible;">
+					
+						<a href="{php echo $this->createWebUrl('Jilu', array('id' => $item['id'], 'op' => 'del'))}" class="btn btn-default btn-sm">删除</a>
+					</td>
+				</tr> {/loop}
+				
+							</tbody>
+		</table>
+		<table class="table table-hover">
+			<tbody><tr>
+				<td width="30">
+					
+				</td>
+				<td class="text-left">
+			
+				
+				
+					</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<span class="help-block">提现记录: 提现记录</span>
+		
+				</td>
+			</tr>
+		</tbody></table>
+	</div>
+	</div>
+	<div class="footactions" style="padding-left:10px">
+		<div class="pages" style="text-align:right;">{$pager}</div>
+			</div></form>
+  
+
+  
+  
+{template 'common/footer'}

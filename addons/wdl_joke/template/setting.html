@@ -1,0 +1,69 @@
+{php $newUI = true;}
+{template 'common/header'}
+<div class="main">		
+	<form action="" method="post" class="form-horizontal form" id="form1">
+		<div class="panel panel-default">
+			<div class="panel-heading">参数设置</div>
+			<div class="panel-body">
+				<div class="alert alert-info">
+					<p>
+感谢使用笑话大全模块，本模块无需做复杂的设置，就可以使用。<br/>
+可以随机发送一个笑话，娱乐粉丝，丰富公众号的内容。<br/>
+请在笑话大全的回复规则中，设置“笑话”关键字，即可使用。具体的步骤可以查看模块发布页面。
+					</p>
+				</div>				
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">前置语句1</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="set[preword1]" class="form-control" value="{$set['preword1']}" />
+						<span class="help-block">每段笑话内容之前可以显示一句前置语句，可以填写三条，随机出现一条，留空则不显示</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">前置语句2</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="set[preword2]" class="form-control" value="{$set['preword2']}" />
+						<span class="help-block">每段笑话内容之前可以显示一句前置语句，可以填写三条，随机出现一条，留空则不显示</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">前置语句3</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="set[preword3]" class="form-control" value="{$set['preword3']}" />
+						<span class="help-block">每段笑话内容之前可以显示一句前置语句，可以填写三条，随机出现一条，留空则不显示</span>
+					</div>
+				</div>
+						
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">后置语句1</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="set[postword1]" class="form-control" value="{$set['postword1']}" />
+						<span class="help-block">每段笑话内容之后可以显示一句后置语句，可以填写三条，随机出现一条，留空则不显示</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">后置语句2</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="set[postword2]" class="form-control" value="{$set['postword1']}" />
+						<span class="help-block">每段笑话内容之后可以显示一句后置语句，可以填写三条，随机出现一条，留空则不显示</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">后置语句3</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="set[postword3]" class="form-control" value="{$set['postword1']}" />
+						<span class="help-block">每段笑话内容之后可以显示一句后置语句，可以填写三条，随机出现一条，留空则不显示</span>
+					</div>
+				</div>			
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+{template 'common/footer'}

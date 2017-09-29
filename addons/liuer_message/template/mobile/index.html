@@ -1,0 +1,221 @@
+{template 'header'}
+<style>
+    @keyframes myrotate {
+        0% {
+            transform: rotate(0);
+            -webkit-transform: rotate(0);
+        }
+
+        100% {
+            transform: rotate(-360deg);
+            -webkit-transform: rotate(-360deg);
+        }
+    }
+
+    @-webkit-keyframes myrotate {
+        0% {
+            transform: rotate(0);
+            -webkit-transform: rotate(0);
+        }
+
+        100% {
+            transform: rotate(-360deg);
+            -webkit-transform: rotate(-360deg);
+        }
+    }
+    .music{
+        position: absolute;
+        right: 30px;
+        top: 20px;
+        z-index: 19880114;
+    }
+    .music i{
+        font-size: 25px;
+        color: #692458;
+        display: inline-block;
+    }
+    .music i[play=stop] {
+        animation: myrotate 4s linear infinite;
+        -webkit-animation: myrotate 4s linear infinite;
+    }
+</style>
+<?php if($music): ?>
+<div class="music">
+    <i id="music_icon" class="iconfont icon-music" onclick="switchsound()" play="on"></i>
+</div>
+<?php endif; ?>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        {loop $banners $ad}
+        <div class="swiper-slide"><img src="{php echo tomedia($ad);}" alt="" width="100%"></div>
+        {/loop}
+    </div>
+    <div class="swiper-pagination"></div>
+</div><!--/幻灯片-->
+<style>
+    .reply{
+        font-size: 12px;
+        color: #ff4949;
+    }
+    .webgg{
+        display: flex;
+        align-items: center;
+        margin-top: 1px;
+        height: 35px;
+        line-height: 35px;
+        padding:0 10px;
+        background: #ffffff;
+        color: #999999;
+    }
+    .webgg i{
+        margin-right: 10px;
+        width: 20px;
+    }
+    .webgg marquee{
+        flex:1;
+        align-items: center;
+    }
+    .statistics li{
+        position: relative;
+    }
+    .statistics .logo{
+        position: absolute;
+        top: -75px;
+        z-index: 19880114;
+        left: -10px;
+        width: 110px;
+        height: 110px;
+
+    }
+    .statistics .logo img{
+        width: 100%;
+        object-fit: cover;
+        max-width: 100%;
+        height: 100%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        padding: 2px;
+        box-shadow: 0 0 5px rgba(0,0,0,1);
+    }
+</style>
+<div class="statistics">
+    <ul>
+        <li><span><i class="fa fa-database"></i></span> <span>留言数<br>{$count}</span></li>
+        <li><div class="logo"><a href="{php echo $link ? $link : 'javascript:;'}"><img src="{php echo tomedia($logo);}" alt=""></a></div></li>
+        <li class="addmsgindex"><a href="{php echo $this->createMobileUrl('add');}"><i class="fa fa-edit"></i> 我要留言</a></li>
+    </ul>
+</div><!--/统计-->
+<?php if($webgg): ?>
+<div class="webgg">
+    <i class="fa fa-bullhorn"></i>
+    <marquee direction="left" scrollamount="3" scrolldelay="0">
+        {$webgg}
+    </marquee>
+</div>
+<?php endif; ?>
+<div class="msglist">
+    {php $timesArr = array();}
+    {loop $data $k=>$v}
+    {php $starttime = strtotime(date('Ymd',$v['addtime']));}
+    {php if ($v['addtime'] >= $starttime && !in_array($starttime,$timesArr)):}
+    {php array_push($timesArr,$starttime);}
+    <div class="msg-item">
+        <div class="msg-media msg-ttime">
+            {php echo date('Y年m月d日',$v['addtime']);}
+        </div>
+    </div>
+    {php endif;}
+    <div class="msg-item">
+        <div class="msg-media">
+            <img src="{$v['avatar']}" alt="">
+            <span>{php echo date('H:i',$v['addtime']);}</span>
+        </div>
+        <div class="msg-info">
+            <h2><i class="fa fa-angle-right"></i> {$v['title']}</h2>
+            <p>{$v['content']}</p>
+            {if $v['reply']}
+            <div class="reply">
+                回复：{$v['reply']}
+            </div>
+            {/if}
+            <style>
+                .admindo{
+                    margin-top: 8px;
+                    text-align: right;
+                }
+                .admindo a{
+                    border:1px solid #eaeaea;
+                    color: #666666;
+                    font-size: 10px;
+                    padding: 3px 5px;
+                }
+                .replycont textarea{
+                    width: calc(100% - 50px);
+                    margin: 15px 15px 0 15px;
+                    padding: 10px;
+                    border: 1px solid #eaeaea;
+                }
+                .replycont .btn{
+                    padding: 8px;
+                    float: right;
+                    margin-right: 15px;
+                    margin-bottom: 15px;
+                    margin-top: 5px;
+                    color: #fff;
+                    border: none;
+                    background: #ff4949;
+                }
+            </style>
+            {if $isaccess == 1}
+            <div class="admindo">
+                {if $v['status'] == 0}
+                <a href="{php echo $this->createMobileUrl('adcheck',array('id'=>$v['id']));}" class="adcheck"><i class="fa fa-check"></i> 审核</a>
+                {/if}
+                {if !$v['reply']}
+                <a href="{php echo $this->createMobileUrl('adreply');}" data-id="{$v['id']}" class="adreply"><i class="fa fa-reply"></i> 回复</a>
+                {/if}
+                <a href="{php echo $this->createMobileUrl('addel',array('id'=>$v['id']));}" class="addel"><i class="fa fa-trash"></i> 删除</a>
+            </div>
+            {/if}
+        </div>
+    </div>
+    {/loop}
+</div>
+<style>
+    footer{
+        text-align: center;
+        padding: 0 15px 15px;
+    }
+    footer a{
+        color: #666666;
+    }
+</style>
+<?php if($copyright): ?>
+<footer>
+    <?php if($link): ?>
+    <a href="{$link}">{$copyright}</a>
+    <?php else: ?>
+    {$copyright}
+    <?php endif; ?>
+</footer>
+<?php endif; ?>
+<audio id="bgsound" src="http://m2.music.126.net/Xizkxu4j89Wh3M0h1SD3ag==/5834008697199018.mp3" loop=""></audio>
+<script type="text/html" id="reply">
+    <div class="replycont">
+        <textarea name="" id="" placeholder="输入要回复的内容"></textarea>
+        <button class="btn">提交回复</button>
+    </div>
+</script>
+<script>
+    var music_url = "{$music}";
+</script>
+<script src="{MODULE_URL}static/js/jquery-2.1.4.js"></script>
+<script src="{MODULE_URL}static/libs/jquery-weui/jquery-weui.min.js"></script>
+<script src="{MODULE_URL}static/libs/swiper/swiper.min.js"></script>
+<script src="{MODULE_URL}static/libs/validform/validform.js"></script>
+<script src="{MODULE_URL}static/libs/layer/layer.js"></script>
+<script src="{MODULE_URL}static/js/index.js"></script>
+<script src="{MODULE_URL}static/js/music.js"></script>
+
+{template 'footer'}

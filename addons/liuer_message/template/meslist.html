@@ -1,0 +1,103 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li class="active"><a href="{php echo $this->createWebUrl('activity');}">留言列表</a></li>
+    <li><a href="{php echo $this->createWebUrl('addfields');}">添加字段</a></li>
+</ul>
+<style>
+    .mytable th,.mytable td{
+        text-align: center;
+        font-family:'Verdana','Microsoft Yahei';
+        font-size: 14px;
+    }
+</style>
+<div class="table-responsive clearfix">
+    <div class="panel panel-default">
+        <form action="{php echo $this->createWebUrl('check')}" method="post" class="myform">
+        <div class="panel-body table-responsive mybody">
+            <table class="table table-hover mytable">
+                <thead class="navbar-inner">
+                <tr>
+                    <th width="50"><input type="checkbox" class="checkall"></th>
+                    <th width="80">ID</th>
+                    {loop $res $vh}
+                    <th>{$vh}</th>
+                    {/loop}
+                    <th>状态</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $data $v}
+                <tr>
+                    <td width="50">
+                        <input type="checkbox" name="ids[]" value="{$v['id']}">
+                    </td>
+                    <td width="80">{$v['id']}</td>
+                    {loop $res $key=>$kv}
+                    <td style="vertical-align:middle;"><div>{$v[$key]}</div></td>
+                    {/loop}
+                    <td><span class="label {php echo $v['status'] ? 'label-success' : 'label-default';}">{php echo $v['status'] ? '已审核' : '未审核';}</span></td>
+                    <td style="vertical-align:middle;">{php echo date('Y-m-d H:i',$v['addtime']);}</td>
+                    <td style="vertical-align:middle;">
+                        <a href="{php echo $this->createWebUrl('show',array('id'=>$v['id']));}" class="btn btn-default btn-sm"><i class="fa fa-eye"></i> 查看回复</a>
+                        <a href="{php echo $this->createWebUrl('del',array('id'=>$v['id']))}" onclick="return confirm('确定要删除吗？')" class="btn btn-default btn-sm"><i class="fa fa-trash"></i> 删除</a>
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+
+        </div>
+        <div class="panel-footer">
+            <div class="pagesize" style="overflow: hidden;">
+                <div class="pull-left">
+                    <button class="btn btn-success mycheck" style="margin-right: 10px;">审核</button>
+                    <button class="btn btn-danger mydel">删除</button>
+                </div>
+                <div class="pull-right">
+                    {$pager}
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div>
+    </div>
+</div>
+<script>
+    var delurl = "{php echo $this->createWebUrl('muldel')}";
+    require(['jquery'],function($) {
+        $(function(){
+            $('.checkall').click(function(){
+                var ischecked = $(this).prop('checked');
+                if(ischecked){
+                    $('.mybody input').prop('checked',true);
+                }else{
+                    $('.mybody input').prop('checked',false);
+                }
+            });
+            //删除
+            $('.mydel').click(function(){
+                if($('.mybody input:checked').length < 1){
+                    alert('请选择要删除的选项！');
+                    return false;
+                }
+                if(confirm('确定要删除吗？')){
+                    $('.myform').attr('action',delurl);
+                    return true;
+                }
+                return false;
+            });
+            //审核
+            $('.mycheck').click(function(){
+                if($('.mybody input:checked').length < 1){
+                    alert('请选择要审核的选项！');
+                    return false;
+                }
+                return true;
+            })
+        });
+    });
+</script>
+{template 'common/footer'}

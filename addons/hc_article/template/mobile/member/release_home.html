@@ -1,0 +1,74 @@
+{template 'member/menuhead'}
+<style>
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+color: #FFF;
+background-color: #428bca;
+border-color: #428bca;
+}
+.panel-default {
+border-color: #ddd;
+margin-top: 20px;
+}
+</style>
+<div class="col-xs-12 col-sm-9 col-lg-10">
+	<ul class="nav nav-tabs">
+	  <li class="active"><a>个人信息</a></li> 
+	</ul>
+	<div class="main">
+		<form action="" method="post" class="form-horizontal form" encarticle="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$article['id']}" />
+		<input type="hidden" name="opp" value="post" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				个人设置
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">账号头像</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('headurl', $member['headurl'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">账号昵称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="nickname" class="form-control" value="{$member['nickname']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">电话号码</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="mobile" class="form-control" value="{$member['mobile']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">会员级别</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" readonly class="form-control" value="{$viplevel['title']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">剩余次数</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" readonly class="form-control" placeholder="" value="{$member['articlenum']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">总金额</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" readonly class="form-control" placeholder="请输入整数" value="{$credit2}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">备注</label>
+					<div class="col-sm-9 col-xs-12">
+						<textarea class="form-control" name="remark" placeholder="" >{$member['remark']}</textarea>
+					</div>
+				</div>
+			</div>
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+	</div>
+</div>

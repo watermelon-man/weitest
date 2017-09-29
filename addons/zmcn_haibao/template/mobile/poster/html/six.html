@@ -1,0 +1,127 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="edit10">
+        <div class="edit10_con"> 
+          <div class="edit10_con1">
+              <div class="konghang"></div>
+              <div class="edit10_conp1">
+                  <p contenteditable="true">{$settings['team_title']}家族</p>
+              </div>
+              <div class="edit10_conp2">
+                  <p contenteditable="true">{$settings['team_title_en']} FAMILY</p>
+              </div>
+              <div class="edit10_conp3">
+                <div class="pbg"><p contenteditable="true">输/在/犹/豫/赢/在/行/动</p></div>
+              </div>
+              <div class="edit10_conp4">
+                <div class="edit10_conp41">
+                    <p contenteditable="true">微信：{$myset['wechat']}</p>
+                    <p contenteditable="true">QQ：{$myset['qq']}</p>
+                    <p contenteditable="true">电话：{$myset['phone']}</p>
+                </div>
+              </div>
+              <div class="edit10_con5pic">
+                <img src="{$settings['share_qr']}" width="168px" height="168px" />
+              </div>
+              <div class="edit10_up1">
+                  <div class="edit10_up11">
+                      <div class="edit10_fileInput left">
+                            <input type="file" name="edit10_upfile" id="edit10_upfile" style="display:none" class="edit10_upfile" onchange="document.getElementById('edit10_upfileResult').innerHTML=this.value;"/>
+                            <input class="edit10_upFileBtn" id="edit10_upfileResult" type="button" value="上传图片" onclick="document.getElementById('edit10_upfile').click();" />
+                      </div>
+                  </div>
+              </div>  
+          </div>
+          <div class="edit10_con2">
+              <div class="edit10_con2pic" id="editmove">
+                <img src="{MODULE_URL}template/mobile/poster/images/mpup1.jpg"/>
+              </div>
+               <div class="edit10_up2">
+                  <div class="edit10_up22">
+                      <div class="edit10_fileInput2 left">
+                            <input type="file" name="edit10_upfile2" id="edit10_upfile2" style="display:none" class="edit10_upfile2" onchange="document.getElementById('edit10_upfileResult2').innerHTML=this.value;"/>
+                            <input class="edit10_upFileBtn2" id="edit10_upfileResult2" type="button" value="上传图片" onclick="document.getElementById('edit10_upfile2').click();" />
+                      </div>
+                  </div>
+              </div>  
+          </div>  
+        </div>
+        <div class="shengcheng10">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!-- 第十个页面结束 -->
+    <script type="text/javascript">
+       $("#edit10_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+          $(".edit10_con5pic img").attr("src", objUrl);
+        }
+      });
+        $("#edit10_upfile2").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+          $(".edit10_con2pic img").attr("src", objUrl);
+        }
+      });
+         //建立一个可存取到该file的url
+      function getObjectURL(file) {
+        var url = null; 
+
+        if (window.createObjectURL!=undefined) { // basic
+          url = window.createObjectURL(file);
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+          url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+          url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+      }
+      $(".shengcheng10").click(function(){
+                
+                $(".shengcheng10").hide();
+                $(".edit10_up1").hide();
+                $(".edit10_up2").hide();
+                $(".weui-header").hide();$(".weui-tabbar").hide();
+                $("body").css("background","none");
+                $(".edit10_con1").css("background","url({MODULE_URL}template/mobile/poster/images/mpbg1.png)");
+                $(".edit10_con1").css("background-size","100% 100%");
+                html2canvas($(".edit10_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        width: $("body").outerHeight() + 500,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base64图片数据
+                            $(".weui-header").show();$(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                          $(".edit10").hide();
+                        }
+                });
+        });
+    //第十个页面结束
+    </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+<application setting="false">
+    <name><![CDATA[惩罚大转盘]]></name>
+    <identifie><![CDATA[demo_choujiang]]></identifie>
+    <version><![CDATA[1.1.2]]></version>
+    <type><![CDATA[activity]]></type>
+    <ability><![CDATA[惩罚大转盘]]></ability>
+    <description><![CDATA[惩罚大转盘]]></description>
+    <author><![CDATA[tyzy313481929]]></author>
+    <url><![CDATA[]]></url>
+</application>
+<platform>
+    <handles>
+        <message type="text" />
+    </handles>
+    <rule embed="true" />
+</platform>
+<bindings>
+</bindings>
+<install><![CDATA[]]></install>
+<uninstall><![CDATA[]]></uninstall>
+<upgrade><![CDATA[]]></upgrade>
+</manifest>

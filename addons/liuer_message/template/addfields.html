@@ -1,0 +1,98 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li><a href="{php echo $this->createWebUrl('fieldlist');}">字段列表</a></li>
+    {if !$_GPC['id']}
+    <li class="active"><a href="{php echo $this->createWebUrl('addfields');}">添加字段</a></li>
+    {else}
+    <li class="active"><a href="{php echo $this->createWebUrl('editfields',array('id'=>$_GPC['id']));}">编辑字段</a></li>
+    {/if}
+</ul>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form class="form-horizontal" method="post">
+            <div class="form-group">
+                <label for="field" class="col-sm-2 control-label">字段名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="field" id="field" placeholder="只能用字母或数字组合" value="{$data['field']}" {if $_GPC['id']}readonly{/if}>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="field" class="col-sm-2 control-label">字段类型</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="field_type" value="1" {if $data['field_type'] == 1 || !$_GPC['id']}checked{/if}> 文本
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="field_type" value="2" {if $data['field_type'] == 2}checked{/if}> 多行文本
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">表单提示</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="title" placeholder="文字的提示信息" value="{$data['title']}">
+                    <p class="help-block">例：手机号</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">是否启用</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="1" {if $data['status'] == 1 || !$_GPC['id']}checked{/if}> 启用
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="0" {if $data['status'] == 0 && $_GPC['id']}checked{/if}> 禁用
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">是否必填</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="required" value="1" {if $data['required'] == 1 || !$_GPC['id']}checked{/if}> 是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="required" value="0" {if $data['required'] == 0 && $_GPC['id']}checked{/if}> 否
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">必填规则</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="rules" placeholder="参考validform规则" value="{$data['rules']}">
+                    <p class="help-block"><a href="http://validform.rjboy.cn/document.html" target="_blank">规则传送门</a></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-2 control-label">提示信息</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="desc" placeholder="placeholder和格式错误提示，用|分隔" value="{$data['desc']}">
+                    <p class="help-block">例：手机号必填|手机号格式不正确</p>
+                </div>
+            </div>
+            <hr>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">是否在后台显示</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="isshow" value="1" {if $data['isshow'] == 1 || !$_GPC['id']}checked{/if}> 是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="isshow" value="0" {if $data['isshow'] == 0 && $_GPC['id']}checked{/if}> 否
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    {if $_GPC['id']}
+                    <input type="hidden" name="id" value="{$_GPC['id']}">
+                    {/if}
+                    <input type="hidden" name="submit" value="提交">
+                    <input type="hidden" name="token" value="{$_W['token']}">
+                    <button type="submit" class="btn btn-default">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{template 'common/footer'}

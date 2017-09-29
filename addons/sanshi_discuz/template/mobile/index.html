@@ -1,0 +1,88 @@
+<!--{template 'common/header'}-->
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="../addons/sanshi_discuz/template/mobile/dist/css/mui.css">
+	<link rel="stylesheet" type="text/css" href="../addons/sanshi_discuz/template/mobile/lib/css/lib.css">
+</head>
+<style>
+        .mui-bar{
+		background-color: white;
+		/* background-image: url('images/back.png'); */
+	}
+	.mui-title{
+		color: black;
+                font-weight: 900;
+	}
+	ul li{
+		/*height: 6rem;*/
+		line-height: 3rem;
+                color: white;
+	}
+        
+	ul li img{
+		margin-top: 0.5rem;
+	}
+        ul li:nth-of-type(5n+1){
+		background-color: #fd6560;
+	}
+	ul li:nth-of-type(5n+2){
+		background-color: #fea139;
+	}
+	ul li:nth-of-type(5n+3){
+		background-color: #fdb700;
+	}
+	ul li:nth-of-type(5n+4){
+		background-color: #68ce13;
+	}
+	ul li:nth-of-type(5n+5){
+		background-color: #00c89a;
+	}
+        .mui-table-view-cell p {
+            line-height: 2rem;
+        }
+	.mui-table-view .mui-media-object {
+	    line-height: 56px;
+	    max-width: 65px;
+	    height: 65px;
+	}
+	.mui-ellipsis{
+		line-height: 1.5rem;
+		color: white;
+	}
+	.mui-ellipsis span{
+		/*color: #8f8f94;*/
+	}
+/* 	.mui-ellipsis img{
+		width: 1rem;
+	} */
+</style>
+	<header class="mui-bar mui-bar-nav">
+		<h1 class="mui-title">话题墙</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="mui-table-view">
+                    {loop $list $item}
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="{php echo $this->createMobileUrl('topic',array('id'=>$item['id']));}">
+                                <img class="mui-media-object mui-pull-left" src="../attachment/{$item['topicback']}">
+                                <div class="mui-media-body">
+                                    {$item['topicname']}
+                                    <p class='mui-ellipsis'>{$item['topicdesc']}</p>
+                                    <p class='mui-ellipsis'><span>{$item['topic_num']}人讨论</span>&nbsp;&nbsp;<span>{$item['topic_read']}人阅读</span></p>
+                                </div>
+                            </a>
+                        </li>
+                    {/loop}
+		</ul>
+	</div>
+</body>
+</html>

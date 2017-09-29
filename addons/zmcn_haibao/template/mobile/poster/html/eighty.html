@@ -1,0 +1,111 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="edit80">
+        <div class="edit80_con">
+          <div class="edit80_conbg11" id="editmove">
+            <img src="{MODULE_URL}template/mobile/poster/images/m80up1.jpg" alt="uppic">
+          </div>
+          <div class="edit80_conbg2"></div>
+          <div class="edit80_con1">
+             <p contenteditable="true">元旦有好礼  感恩大赠送</p>
+          </div>
+          <div class="edit80_con2">
+             <p contenteditable="true">再见{php echo date("Y", TIMESTAMP-2419200)}</p>
+             <p contenteditable="true">感恩所有</p>
+             <p contenteditable="true">对我们的</p>
+             <p contenteditable="true">支持! </p>
+          </div>
+          <div class="edit80_con3">
+              <p contenteditable="true">你好{php echo date("Y", TIMESTAMP+2419200)}</p>
+              <p contenteditable="true">我们必将</p>
+              <p contenteditable="true">继续为你们做到</p>
+              <p contenteditable="true">全力以赴！</p>
+          </div>
+          <div class="edit80_con4">
+             <p contenteditable="true"><span class="left">微信：{$myset['wechat']}</span><span class="right">QQ：{$myset['qq']}</span></p>
+             <p contenteditable="true">未来我们努力前行创造奇迹</p>
+          </div>
+          <div class="edit80_up1"> 
+                <div class="edit80_up11">
+                    <div class="edit80_fileInput left">
+                          <input type="file" name="edit80_upfile" id="edit80_upfile" style="display:none" class="edit80_upfile" onchange="document.getElementById('edit80_upfileResult').innerHTML=this.value;"/>
+                          <input class="edit80_upFileBtn" id="edit80_upfileResult" type="button" value="上传图片" onclick="document.getElementById('edit80_upfile').click();"/>
+                    </div>
+                </div>
+          </div>
+         
+        </div>
+        <div class="shengcheng80">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!-- 第八十个页面结束 -->
+     <script type="text/javascript">
+        $("#edit80_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+           $(".edit80_conbg11 img").attr("src", objUrl);
+            }
+        });
+         //建立一个可存取到该file的url
+        function getObjectURL(file){
+	        var url = null; 
+	        if (window.createObjectURL!=undefined) { // basic
+	          url = window.createObjectURL(file);
+	        } else if (window.URL!=undefined) { // mozilla(firefox)
+	          url = window.URL.createObjectURL(file);
+	        } else if (window.webkitURL!=undefined) { // webkit or chrome
+	          url = window.webkitURL.createObjectURL(file);
+	        }
+	        return url;
+	    }
+        $(".shengcheng80").click(function(){
+                
+                $(".shengcheng80").hide();
+                $(".edit80_up1").hide();
+                $(".edit80_up2").hide();
+                $(".edit80_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".edit80_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base80图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".edit80").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //第八十个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

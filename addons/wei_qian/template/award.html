@@ -1,0 +1,151 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display'} class="active" {/if}><a href="{php echo $this->createWebUrl('award',array('op' =>'display'))}">奖励措施</a></li>
+	<li{if empty($award['id']) && $operation == 'post'} class="active" {/if}><a href="{php echo $this->createWebUrl('award',array('op' =>'post'))}">添加奖励措施</a></li>
+	{if !empty($award['id']) &&  $operation == 'post'}<li  class="active"><a href="{php echo $this->createWebUrl('award',array('op' =>'post','id'=>$award['id']))}">编辑奖励措施</a></li>{/if}
+</ul>
+
+{if $operation == 'display'}
+<div class="main panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:20%;">ID / 排序ID</th>
+					<th style="width:30%;">连续签到天数</th>
+					<th style="width:30%;">奖励积分</th>					
+					<th style="width:20%;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $award}
+				<tr>
+					<td><!-- <input type="checkbox" name="check" value="{$award['id']}"> -->{$award['id']} / {$award['orderid']}</td>
+					<td>{$award['number']}</td>
+					<td>{$award['integral']}</td>
+					<td style="text-align:left;">
+						<a href="{php echo $this->createWebUrl('award', array('op' => 'post', 'id' => $award['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="修改"><i class="fa fa-edit"></i></a>
+						<a href="{php echo $this->createWebUrl('award', array('op' => 'delete', 'id' => $award['id']))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+				<tr>
+                    <td colspan="5">
+                     <!--  <span class="btn btn-success btn-sm checkall" id="checkall"><i class="icon-edit"></i>全选</span>
+                      <span class="btn btn-success btn-sm uncheckall" id="uncheckall"><i class="icon-edit"></i>全不选</span>
+                      <input type="button" class="btn btn-primary deleteall" id="deleteall" name="deleteall" value="删除选择的" /> -->
+                    </td>
+                </tr>
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+</div>
+<script>
+$(function(){
+   
+    $('.checkall').bind('click',function(){
+        console.log('checkall');
+        $("input[name='check']").each(function(){
+           $(this).prop("checked","checked");
+        });
+    });
+    $('.uncheckall').bind('click',function(){
+        console.log('uncheckall');
+        $("input[name='check']").each(function(){
+           $(this).prop("checked",false);
+        });
+    });
+
+
+    $('#deleteall').click(function(){
+          
+        var check = $("input:checked");
+        if(check.length<1){
+            alert("请选择要删除的记录!");
+            return false;
+        }
+        if(confirm("确认要删除选择的记录?")){
+            var id = new Array();
+            check.each(function(i){ id[i] = $(this).val(); });
+            //alert(id);
+            $.post("<?php echo $this->createWebUrl('award',array('op'=>'deleteall')); ?>",{idArr:id},         
+                function(data){
+                    if(data == '0'){
+                       alert('没有选择编号！');
+                       location.reload();
+                    }else{
+                       alert('删除成功！');
+                       location.reload();
+                    }
+                }
+            );
+        }
+    });
+});
+
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{elseif $operation == 'post'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="c" value="site" />
+	    <input type="hidden" name="a" value="entry" />
+	    <input type="hidden" name="m" value="wei_qian" />
+	    <input type="hidden" name="do" value="award" />
+    	<input type="hidden" name="op" value="post" />
+		<input type="hidden" name="id" value="{$award['id']}" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				奖励措施设置
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="orderid" id="orderid" class="form-control" value="{php echo empty($award['orderid'])?0:$award['orderid']}" />
+						<div class="help-block">排序（值越小越靠前）</div>
+					</div>
+				</div>
+				<div class="form-group" id="atotal">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">连续签到天数</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="number" id="number" class="form-control" value="{$award['number']}" />
+						<div class="help-block">连续签到天数</div>
+					</div>
+				</div>
+				<div class="form-group" id="atotal">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">奖励积分</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="integral" id="integral" class="form-control" value="{$award['integral']}" />
+						<div class="help-block">奖励积分</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(function(){
+		 $("input[name=type]").click(function(){
+		 		if(this.value==0){
+		 			$("#redmoney").hide();
+		 		}else if(this.value==1){
+		 			$("#redmoney").show();
+		 		}
+		 });
+	});
+</script>
+{/if}
+{template 'common/footer'}

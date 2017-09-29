@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+	<title>{$coupon['title']}</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="max-age=0" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="stylesheet" href="../addons/hc_monkey/style/css/mobi.css"/>
+</head>
+<body style="background-image:url(../addons/hc_monkey/style/images/bg.jpg);">
+<section class="main animated fadeInDown">
+<div class="main-box client">
+	<div class="regular rule">
+		<div>
+			{$coupon['detail']}
+		</div>
+	</div>
+	<a onclick="history.go(-1);" class="btn">返回</a> 
+</div>
+<footer class="foot">
+	<div id="copyright" style="color:#fff;">@{$_W['account']['name']}</div>
+</footer>
+</section>
+</body>
+</html>

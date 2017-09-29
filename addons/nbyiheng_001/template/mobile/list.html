@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+{template 'header'}
+	<head>
+		<meta charset="utf-8">
+		<title>在线签到</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="http://www.dcloud.io/hellomui/css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="http://www.dcloud.io/hellomui/css/app.css" />
+		
+		
+
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+	</head> 
+
+	<body>
+	
+
+	
+	
+	<div class="mui-content">
+	
+	
+	
+	
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">签到列表</h1>
+		</header>
+	<div style="margin-top:45px;display:block"></div>
+			<div class="mui-content-padded" >
+			
+				
+				
+				
+				{loop $list $list}
+			
+				<div class="mui-card" style="padding:10px;">
+					<div class="mui-card-content">
+						<div class="mui-card-content-inner">
+							{$list['title']}
+						</div>
+					</div>
+						<a href="{php echo $this->createMobileUrl('detail',array(id=>$list['id']))}">
+					<div class="mui-card-footer">{php echo date('Y-m-d H:i', $list['timesp'])}<br >{$list['addr']}</div>
+					</a>
+				</div>
+				
+				{/loop}
+				
+				<div class="mui-input-row">
+			
+					{$pager}
+					
+					
+				</div>
+			</div>    
+			
+			
+		   
+	{template 'footer'}		
+</div>
+	</body>
+
+</html>

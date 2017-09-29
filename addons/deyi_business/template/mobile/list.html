@@ -1,0 +1,38 @@
+{template 'header'}
+<body class="select">
+<img class="bg" src="{php echo $this->module['config']['bgcover'] ? $_W['attachurl'].$this->module['config']['bgcover'] : '/addons/deyi_business/images/bg.jpg'}"/>
+<section class="list">
+        <div class="list-tit">
+            <a id="areaTit">{php echo $dist ? $dist : '全部' }</a>
+            <div class="selectpup">
+                <div>
+                    <a href="{php echo $this->createMobileUrl('list', array('dist' => urlencode('全部'), 'rec' => $rec))}">全部</a>
+                    {if !empty($dists)}
+                    {loop $dists $row}
+                    <a href="{php echo $this->createMobileUrl('list', array('dist' => urlencode($row['dist']), 'rec' => $rec))}">{$row['dist']}</a>
+                    {/loop}
+                    {/if}
+                </div>
+            </div>
+        </div>
+    <ul>
+        {if !empty($list)}
+        {loop $list $row}
+        <li>
+            <a href="{php echo $this->createMobileUrl('detail', array('id' => $row['id']))}">
+                <img src="{$_W['attachurl']}{$row['thumb']}">
+                <div class="text">
+                    <h3>{$row['title']}{if $row['isrecommend'] == 1}<i>荐</i>{/if}</h3>
+                    <div>
+                        <span>{$row['dist']}</span>
+                        {if $row['distance'] && $row['isrecommend'] != 1}<span>{php echo number_format($row['distance']/1000, 2, '.', '')}km</span>{/if}
+                    </div>
+                </div>
+            </a>
+        </li>
+        {/loop}
+        {/if}
+    </ul>
+
+</section>
+{template 'foot'}

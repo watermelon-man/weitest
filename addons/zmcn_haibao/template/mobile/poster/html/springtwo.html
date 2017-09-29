@@ -1,0 +1,101 @@
+﻿{template 'poster'.DS.'html'.DS.'zmcn_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="spring2 edit_common" id="edit_common">
+        <div class="spring2_con">
+    			<div class="spring2_conbg11" id="editmove">
+    			     <img src="{MODULE_URL}template/mobile/poster/images/spring2up.jpg" alt="uppic"/>
+    			</div>
+    			<div class="spring2_conbg2"></div>
+            <div class="spring2_con1">
+                <p contenteditable="true">春季新品上市</p>
+            </div>
+        	<div class="spring2_up1">
+              <div class="spring2_up11">
+                  <div class="spring2_fileInput left">
+                        <input type="file" name="spring2_upfile" id="spring2_upfile" style="display:none" class="spring2_upfile" onchange="document.getElementById('spring2_upfileResult').innerHTML=this.value;"/>
+                        <input class="spring2_upFileBtn" id="spring2_upfileResult" type="button" value="上传图片" onclick="document.getElementById('spring2_upfile').click();"/>
+                  </div>
+              </div>
+        	</div>
+         	
+        </div>
+        <div class="shengchengs2">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!-- 第八十三个页面结束 -->
+     <script type="text/javascript">
+        $("#spring2_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+           $(".spring2_conbg11 img").attr("src", objUrl);
+            }
+        });
+        $("#spring2_upfile2").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+           $(".spring2_con2 img").attr("src", objUrl);
+            }
+        });
+         //建立一个可存取到该file的url
+        function getObjectURL(file){
+	        var url = null; 
+	        if (window.createObjectURL!=undefined) { // basic
+	          url = window.createObjectURL(file);
+	        } else if (window.URL!=undefined) { // mozilla(firefox)
+	          url = window.URL.createObjectURL(file);
+	        } else if (window.webkitURL!=undefined) { // webkit or chrome
+	          url = window.webkitURL.createObjectURL(file);
+	        }
+	        return url;
+	    }
+        $(".shengchengs2").click(function(){
+                
+                $(".shengchengs2").hide();
+                $(".spring2_up1").hide();
+                $(".spring2_up2").hide();
+                $(".spring2_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".spring2_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base83图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".spring2").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //第八十三个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

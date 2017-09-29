@@ -1,0 +1,19 @@
+*,html,body{
+	margin: 0;
+	padding: 0;
+}
+/* header{
+	text-align: center;
+	height: 3rem;
+	line-height: 3rem;
+	font-size: 1.5rem;
+} */
+li{
+	list-style: none;
+}
+body .mui-content > .mui-table-view:first-child {
+    margin-top: 0;
+}
+a:hover{
+    text-decoration: none;
+}

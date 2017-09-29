@@ -1,0 +1,85 @@
+{template 'common/header'}
+{php load()->func('tpl');}
+ <ul class="nav nav-tabs">
+  <li{if $_GPC['do'] == 'manage' || $_GPC['do'] == '' } class="active"{/if}><a href="{php echo $this->createWebUrl('manage');}">班级人数预览</a></li>	
+  <li{if $_GPC['do'] == 'class'} class="active"{/if}><a href="{php echo $this->createWebUrl('class');}">班级信息管理</a></li>
+  <li{if $_GPC['do'] == 'major'} class="active"{/if}><a href="{php echo $this->createWebUrl('major');}">专业管理</a></li>
+ </ul> 
+ 
+    
+<style>
+    .classBtn{
+        color: #fff;
+        background-color: #428bca;
+        border-color: #357ebd;
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        margin-bottom: 35px;
+    }
+    .classBtn a:hover{
+        color:white;
+    }
+</style>
+<div class="main">
+<div class="main">
+   <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+            <button class='classBtn'><a href="{php echo $this->createWebUrl('addclass')}">添加班级</a></button>
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                    <tr>
+                        <th>班级</th>
+                        <th>班主任</th>	
+                        <th>专业</th>					
+                        <th>&nbsp;</th>					
+                        <th>&nbsp;</th>					
+                        <th>&nbsp;</th>					
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {loop $list $item}
+                    <tr>
+                        <td>{$item['classname']}</td>
+                        <td>{$item['owner']}</td>
+                        <td>{$item['majorname']}</td>				
+                        <td>&nbsp;</td>					
+                        <td>&nbsp;</td>					
+                        <td>&nbsp;</td>	
+                        <td>
+                           <a href="{php echo $this->createWebUrl('addclass', array('op' => 'display', 'id'=> $item['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                        <a href="{php echo $this->createWebUrl('delclass', array('op' => 'delete', 'id' => $item['id']))}" onclick="return confirm('确认删除吗？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+                         </td>
+                    </tr>
+                    {/loop}
+                </tbody>
+            </table>
+            {$pager}
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+
+{template 'common/footer'}

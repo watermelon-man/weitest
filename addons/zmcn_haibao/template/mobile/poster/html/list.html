@@ -1,0 +1,241 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>{$title}</title>
+	<link rel="stylesheet" href="{$_W['siteroot']}addons/zmcn_erp/zmui/icon/iconfont.css"/><!--加快统一素质材-->
+<link rel="stylesheet" href="{$_W['siteroot']}addons/zmcn_erp/zmui/css/weui.min.css?a={TIMESTAMP}"/>
+    <link rel="stylesheet" type="text/css" href="{MODULE_URL}template/mobile/poster/css/newpostermore.css?a=2">
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+	{php echo register_jssdk(false);}
+<script>
+	wx.ready(function () {
+		sharedata = {
+			title: '{$_share['title']}',
+			desc: '{$_share['content']}',
+			link: '{$_share['link']}',
+			imgUrl: '{$_share['imgUrl']}',
+			success: function(){
+				//alert('success');
+			},
+			cancel: function(){
+				//alert('cancel');
+			}
+		};
+		wx.onMenuShareAppMessage(sharedata);
+	});
+</script>
+    <script type="text/javascript">
+        var docEl = document.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                docEl.style.fontSize = 10 * (docEl.clientWidth / 320) + 'px';
+            };
+        window.addEventListener(resizeEvt, recalc, false);
+        document.addEventListener('DOMContentLoaded', recalc, false);
+    </script>
+<style>
+.tab-blue {background: rgba(0, 0, 0, 0) none repeat scroll 0 0;border-bottom: 3px solid #18b4ed;color: #18b4ed;}
+.weui-navbar__item:after, .weui_navbar_item:after {border-right:none;}
+.weui-navbar__item{text-decoration:none;color:#666;display:block;}
+</style>
+</head>
+<body>
+<div style="position:fixed; z-index:1; top:0; width:100%; background-color:#ccc;}">
+	<div class="weui-btn_primary weui-header">
+		<div class="weui-header-left"><a class="zmui-icon zmui-icon-slider-left f-white" onclick='javascript:history.go(-1);'></a></div>
+		<h1 class="weui-header-title"><a class="f-white" href="{php echo $this->createMobileUrl('index')}">{$title}</a></h1>
+		<div class="weui-header-right"><a class="zmui-icon zmui-icon-manage f-white" href="{php echo $this->createMobileUrl('myedit')}"></a></div>
+	</div>
+	<div id="tagnav" class="weui-tab weui-tab_blue" style="height:44px;">
+		<div class="weui-navbar" style="height:44px;">{php $tp8=array('5'=>'封面','1'=>'名片','2'=>'培训','3'=>'招商','6'=>'时节','7'=>'头像','4'=>'趣图');}
+			{loop $tp8 $i=>$na}
+				<a class="weui-navbar__item{if $i==$cid} tab-blue{/if}"  href="{php echo $this->createMobileUrl('index',array('pag'=> 'list','cid'=>$i))}"></>{$na}</a>
+			{/loop}
+		</div>
+	</div>
+</div>
+<div class="weui-panel__bd" style="height:88px;"></div>
+   <div class="content">
+        <!-- 瀑布流样式开始 -->
+        <div class="waterfull clearfloat" id="waterfull">
+            <ul class="waterlist" style="margin-top: 10px;">
+				{loop $list $item}
+                 <li class="item" style="margin-bottom: 0px;">
+                    <a href="{php echo $this->createMobileUrl('index',array('pag'=> $item['name']))}" class="a-img">
+                        <img src="{MODULE_URL}template/mobile/poster/images/{$item['pic']}" alt="pic"/>
+                    </a>
+                </li>
+				{/loop}
+            </ul>
+        </div>
+        <!-- loading按钮自己通过样式调整 -->
+        <div id="imloading" style="width:150px;height:30px;line-height:30px;font-size:16px;text-align:center;border-radius:3px;opacity:0.7;background:#000;margin:10px auto 30px;color:#fff;display:none">
+            加载中......
+        </div>
+    </div>
+	
+	
+<br><br><br>
+	<div class="weui-tabbar tab-bottom">
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'list'))}"  class="weui-tabbar__item" >
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-tuku weui-tabbar__icon"></i><br>海报</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'list','cid'=>'-1'))}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-hot1 weui-tabbar__icon"></i><br>推荐</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index')}" class="weui-tabbar__item" >
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-home weui-tabbar__icon"></i><br>主页</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'watermark'))}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-suoding weui-tabbar__icon"></i><br>水印</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('myedit')}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-avatar2 weui-tabbar__icon"></i><br>我的</p>
+		</a>              
+	</div>
+    <script type="text/javascript" src="{MODULE_URL}template/mobile/poster/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="{MODULE_URL}template/mobile/poster/js/jQueryColor.js"></script>
+    <script type="text/javascript" src="{MODULE_URL}template/mobile/poster/js/jquery.masonry.min.js"></script>
+    <script type="text/javascript" src="{MODULE_URL}template/mobile/poster/js/jQeasing.js"></script>
+    <script type="text/javascript">
+        $(".bottomnav li:eq(3) a").css("color","#ffffff");
+        $(function(){
+                /*瀑布流开始*/
+                var container = $('.waterfull ul');
+                var loading=$('#imloading');
+                // 初始化loading状态
+                loading.data("on",true);
+                /*判断瀑布流最大布局宽度，最大为1280*/
+                function tores(){
+                    var tmpWid=$(window).width();
+                    if(tmpWid>1280){
+                        tmpWid=1280;
+                    }else{
+                        var column=Math.floor(tmpWid/320);
+                        tmpWid=column*320;
+                    }
+                    $('.waterfull').width(tmpWid);
+                }
+                //tores();
+                $(window).resize(function(){
+                    tores();
+                });
+                container.imagesLoaded(function(){
+                  container.masonry({
+                    itemSelector : '.item',
+                    isFitWidth: true,//是否根据浏览器窗口大小自动适应默认false
+                    isAnimated: true,//是否采用jquery动画进行重拍版
+                    isRTL:false,//设置布局的排列方式，即：定位砖块时，是从左向右排列还是从右向左排列。默认值为false，即从左向右
+                    isResizable: true,//是否自动布局默认true
+                    animationOptions: {
+                        duration: 800,
+                        easing: 'easeInExpo',//如果你引用了jQeasing这里就可以添加对应的动态动画效果，如果没引用删除这行，默认是匀速变化
+                        queue: false//是否队列，从一点填充瀑布流
+                    }
+                  });
+                });
+                var datas;
+                $.ajax({
+                            type: 'GET',
+                            url: '{php echo $this->createMobileUrl('index',array('pag'=> 'json','cid'=> $cid,'tt'=>TIMESTAMP))}',
+                            dataType: 'json',
+                            success: function(data){
+                                datas=data;
+                            }
+                        });
+                var counter = 1;
+                // 每页展示4个
+                var num = 6;
+                var pageStart = 0,pageEnd = 0;
+                $(window).scroll(function(){
+                                 
+                            if(!loading.data("on")) return;
+                            // 计算所有瀑布流块中距离顶部最大，进而在滚动条滚动时，来进行ajax请求，方法很多这里只列举最简单一种，最易理解一种
+                            var itemNum=$('#waterfull').find('.item').length;
+                            var itemArr=[];
+                            itemArr[0]=$('#waterfull').find('.item').eq(itemNum-1).offset().top+$('#waterfull').find('.item').eq(itemNum-1)[0].offsetHeight;
+                            itemArr[1]=$('#waterfull').find('.item').eq(itemNum-2).offset().top+$('#waterfull').find('.item').eq(itemNum-1)[0].offsetHeight;
+                            itemArr[2]=$('#waterfull').find('.item').eq(itemNum-3).offset().top+$('#waterfull').find('.item').eq(itemNum-1)[0].offsetHeight;
+                            var maxTop=Math.max.apply(null,itemArr);
+                            if(maxTop<$(window).height()+$(document).scrollTop()){
+                                //加载更多数据
+                                loading.data("on",false).fadeIn(800);
+                                
+                                (function(datas){
+                                    /*这里会根据后台返回的数据来判断是否你进行分页或者数据加载完毕这里假设大于30就不在加载数据*/
+                                    // console.log(datas.lists[0]);
+                                    // console.log(datas.lists.length);
+									var zmab=datas.lists.length;
+                                    counter++;
+                                    pageEnd = num * counter;
+
+									if(pageEnd>zmab){
+										pageEnd = zmab;
+										pageStart = (counter-1) * num;
+									}else{
+										pageStart = pageEnd - num;
+									}
+                                    if(itemNum >= zmab){
+                                        loading.text('1.已经全部加载完毕');
+                                    }else{
+                                        var html="";
+                                        for(var i= pageStart; i < pageEnd; i++){
+                                            html+="<li class='item'><a href='{php echo $this->createMobileUrl('index')}&pag="+datas.lists[i].link+"' class='a-img'><img src='{MODULE_URL}template/mobile/poster/images/"+datas.lists[i].pic+"'></a></li>";    
+                                            if((i)>=zmab){
+                                                loading.text('2.已经全部加载完毕');
+                                            }
+                                        }
+                                        /*模拟ajax请求数据时延时800毫秒*/
+                                        var time=setTimeout(function(){
+                                            $(html).find('img').each(function(index){
+                                                loadImage($(this).attr('src'));
+                                            })
+                                            var $newElems = $(html).css({ opacity: 0}).appendTo(container);
+                                            $newElems.imagesLoaded(function(){
+                                                $newElems.animate({ opacity: 1},800);
+                                                container.masonry( 'appended', $newElems,true);
+                                                loading.data("on",true).fadeOut();
+                                                clearTimeout(time);
+                                            });
+                                        },800)
+                                    }
+                                })(datas);
+                            }
+                    
+                });
+                function loadImage(url) {
+                     var img = new Image(); 
+                     //创建一个Image对象，实现图片的预下载
+                      img.src = url;
+                      if (img.complete) {
+                         return img.src;
+                      }
+                      img.onload = function () {
+                        return img.src;
+                      };
+                 };
+                 loadImage('{MODULE_URL}template/mobile/poster/images/1.jpg');
+                /*item hover效果*/
+                var rbgB=['#71D3F5','#F0C179','#F28386','#8BD38B'];
+                $('#waterfull').on('mouseover','.item',function(){
+                    var random=Math.floor(Math.random() * 4);
+                    $(this).stop(true).animate({'backgroundColor':rbgB[random]},1000);
+                });
+                $('#waterfull').on('mouseout','.item',function(){
+                    $(this).stop(true).animate({'backgroundColor':'#fff'},1000);
+                });
+        })
+    </script>
+    
+    
+     <!-- 更多模板页面结束 -->
+     
+</body>
+</html>
+
+
+
+
+

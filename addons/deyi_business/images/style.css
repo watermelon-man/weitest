@@ -1,0 +1,488 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
+    background-color: #f6f6f6;
+    color: #151515;
+    font: 14px Microsoft YaHei, arial, \5b8b\4f53;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none
+}
+
+ul, li {
+    list-style: none
+}
+
+img {
+    border: 0
+}
+
+a {
+    text-decoration: none
+}
+
+input, label, select {
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent
+}
+
+input, fieldset {
+    border: 0
+}
+
+i {
+    font-style: normal
+}
+
+.select .alink, .select .area {
+    width: 90%;
+    margin: 0 auto
+}
+
+.bg {
+    display: block;
+    width: 100%
+}
+
+.select .alink {
+    overflow: hidden
+}
+
+.select .alink a {
+    display: block;
+    text-align: center;
+    border-radius: 5px 5px 5px 5px;
+    background-clip: padding-box
+}
+
+.select .alink a:nth-of-type(1) {
+    float: right;
+    height: 34px;
+    background-color: #db281f;
+    width: 98px;
+    margin-top: 10px;
+    position: relative
+}
+
+.select .alink a:nth-of-type(1) i {
+    display: block;
+    position: absolute;
+    left: -5px;
+    top: -10px;
+    width: 96px;
+    height: 36px;
+    line-height: 36px;
+    background-color: #face25;
+    border-bottom: 4px solid #ffab07;
+    border-radius: 5px 5px 5px 5px;
+    background-clip: padding-box;
+    font-size: 16px;
+    color: #f16f1b
+}
+
+.select .alink a:nth-of-type(2) {
+    margin-right: 108px;
+    height: 44px;
+    line-height: 44px;
+    color: #f16f1b;
+    background-color: #f8f6e7
+}
+
+.select .area {
+    background-color: #f8f6e7;
+    margin: 30px auto 10px;
+    padding: 20px 0 10px;
+    position: relative;
+    border-radius: 10px 10px 10px 10px;
+    background-clip: padding-box
+}
+
+.select .area h3 {
+    width: 100%;
+    padding-top: 15%;
+    background-image: url("/addons/deyi_business/images/icon.png");
+    background-repeat: no-repeat;
+    background-size: 210px 600px;
+    background-position: center 0;
+    position: absolute;
+    top: -20px;
+    left: 0
+}
+
+.select .area h4 {
+    background-color: #face25;
+    width: 112px;
+    padding-left: 25px;
+    height: 20px;
+    line-height: 20px;
+    color: #c95500;
+    font-size: 11px;
+    font-weight: normal;
+    margin: 0 auto;
+    border-radius: 10px 10px 10px 10px;
+    background-clip: padding-box;
+    background-image: url("/addons/deyi_business/images/icon.png");
+    background-repeat: no-repeat;
+    background-size: 210px 600px;
+    background-position: -24px -56px
+}
+
+.select .area div {
+    width: 90%;
+    margin: 0 auto;
+    overflow: hidden
+}
+
+.select .area div a {
+    float: left;
+    display: block;
+    width: 30%;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    margin: 15px 0 0 5%;
+    color: #fff;
+    background-color: #f94b42;
+    border-radius: 5px 5px 5px 5px;
+    background-clip: padding-box
+}
+
+.select .area div a:nth-child(3n+1) {
+    margin-left: 0
+}
+
+.det .businame {
+    background-color: #fff;
+    width: 90%;
+    padding: 0 5%;
+    height: 55px;
+    overflow: hidden;
+    background-image: url("/addons/deyi_business/images/icon.png");
+    background-repeat: no-repeat;
+    background-size: 210px 600px;
+    background-position: -10px -135px
+}
+
+.det .businame h6 {
+    padding-left: 40px;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 55px;
+    margin-right: 90px;
+    overflow: hidden
+}
+
+.det .businame a {
+    float: right;
+    display: block;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 12px;
+    background-color: #f94b42;
+    color: #fff;
+    text-align: center
+}
+
+.det-sprite {
+    background-color: #fff;
+    margin-top: 10px;
+    line-height: 44px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.det-sprite p, .det-sprite a {
+    width: 80%;
+    padding: 0 5% 0 15%
+}
+
+.det-sprite p {
+    background-image: url("/addons/deyi_business/images/icon.png");
+    background-repeat: no-repeat;
+    background-size: 210px 600px;
+    background-position: -4px -214px;
+}
+
+.det-sprite a {
+    display: block;
+    border-top: 1px solid #ebebeb;
+    position: relative;
+    overflow: hidden;
+    color: #151515
+}
+
+.det-sprite .phone {
+    background-image: url("/addons/deyi_business/images/icon.png");
+    background-repeat: no-repeat;
+    background-size: 210px 600px;
+    background-position: -4px -283px;
+}
+
+.det-sprite .qq {
+    background-image: url("/addons/deyi_business/images/icon.png");
+    background-repeat: no-repeat;
+    background-size: 210px 600px;
+    background-position: -4px -359px;
+}
+
+.det-sprite .address {
+    background-image: url("/addons/deyi_business/images/icon.png");
+    background-repeat: no-repeat;
+    background-size: 210px 600px;
+    background-position: -4px -444px;
+}
+
+.det-sprite .bisto:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 27px;
+    height: 45px;
+    background-image: url("/addons/deyi_business/images/icon.png");
+    background-repeat: no-repeat;
+    background-size: 210px 600px;
+    background-position: right -535px;
+}
+
+.det-intro {
+    background-color: #fff;
+    margin-top: 15px
+}
+
+.det-intro h6 {
+    width: 90%;
+    padding: 0 5%;
+    height: 43px;
+    line-height: 43px;
+    border-bottom: 1px solid #ebebeb;
+    font-size: 14px;
+    font-weight: normal
+}
+
+.det-intro div {
+    width: 90%;
+    padding: 10px 5%;
+    line-height: 22px
+}
+
+.det-intro div img {
+    display: block;
+    width: 100%
+}
+
+.list {
+    background-color: #fff;
+    width: 90%;
+    margin: 0 auto 20px;
+    border-radius: 10px 10px 10px 10px;
+    background-clip: padding-box
+}
+
+.list-tit {
+    width: 90%;
+    padding: 0 5%;
+    height: 42px;
+    line-height: 42px;
+    font-size: 16px;
+    text-align: center;
+    border-bottom: 1px solid #ebebeb
+}
+
+.list-tit #areaTit:nth-of-type(1) {
+    display: inline-block;
+    position: relative
+}
+
+.list-tit #areaTit:nth-of-type(1):after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: -26px;
+    background-image: url("/addons/deyi_business/images/icon.png");
+    background-repeat: no-repeat;
+    background-size: 210px 600px;
+    background-position: -84px -68px
+}
+
+.list ul li {
+    width: 94%;
+    padding: 0 3%;
+    height: 86px;
+    border-bottom: 1px solid #ebebeb;
+    overflow: hidden
+}
+
+.list ul li:last-child {
+    border-bottom: none
+}
+
+.list ul li img {
+    display: block;
+    float: left;
+    width: 68px;
+    height: 68px;
+    margin-top: 9px
+}
+
+.list ul li .text {
+    margin-left: 78px
+}
+
+.list ul li .text h3 {
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: normal;
+    position: relative;
+    padding-right: 26px;
+    margin-top: 10px;
+    color: #151515
+}
+
+.list ul li .text h3 i {
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    background-color: #349cf3;
+    color: #fff;
+    font-size: 11px
+}
+
+#hot {
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    background-color: #f94b42;
+    color: #fff;
+    font-size: 11px
+}
+
+.list ul li .text div {
+    margin-top: 3px;
+    font-size: 12px;
+    color: #777777;
+    overflow: hidden
+}
+
+.list ul li .text div span:nth-of-type(2) {
+    float: right
+}
+
+.list .selectpup {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 90%;
+    margin: 0 5%;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.6)
+}
+
+.list .selectpup div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    background-color: #fff
+}
+
+.list .selectpup div a {
+    display: block;
+    border-bottom: 1px solid #ebebeb;
+    padding-left: 50px;
+    text-align: left;
+    color: #151515;
+    line-height: 28px
+}
+
+.list .selectpup div a.active {
+    color: #f94b42;
+    position: relative
+}
+
+.list .selectpup div a.active:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 18px;
+    width: 20px;
+    height: 20px;
+    background-image: url("/addons/deyi_business/images/icon.png");
+    background-repeat: no-repeat;
+    background-size: 210px 600px;
+    background-position: -32px -111px
+}
+
+.list .open {
+    animation: openk .2s linear forwards;
+    -webkit-animation: openk .2s linear forwards;
+    transform-origin: center top
+}
+
+.list .close {
+    animation: closek .2s linear forwards;
+    -webkit-animation: closek .2s linear forwards;
+    transform-origin: center top
+}
+
+@keyframes openk {
+    0% {
+        transform: scale(1, 0)
+    }
+    100% {
+        transform: scale(1, 1)
+    }
+}
+
+@-webkit-keyframes openk {
+    0% {
+        -webkit-transform: scale(1, 0)
+    }
+    100% {
+        -webkit-transform: scale(1, 1)
+    }
+}
+
+@keyframes closek {
+    0% {
+        transform: scale(1, 1)
+    }
+    100% {
+        transform: scale(1, 0)
+    }
+}
+
+@-webkit-keyframes closek {
+    0% {
+        -webkit-transform: scale(1, 1)
+    }
+    100% {
+        -webkit-transform: scale(1, 0)
+    }
+}
+
+/*# sourceMappingURL=style.css.map */

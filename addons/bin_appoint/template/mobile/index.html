@@ -1,0 +1,104 @@
+{template 'header'}
+<body>
+    <div class="row" style="margin-bottom: 20px">
+        <div class="col-md-12 text-center">
+            <img src="{php echo toimage($list['activity_img']);}" class="img-responsive img-thumbnail">
+        </div>
+    </div>
+    <div class='container border-black'>
+        {if $list['description']}
+        <div class="panel panel-danger">
+            <div class="panel-heading">活动描述：</div>
+        </div>
+        <div class='panel-body'>
+            <div class='col-xs-5 col-xs-offset-1 text-center'> <img style="" src="{php echo toimage($list['thumb'])}" class='img-responsive'></div>
+            <div class='col-xs-6'>
+                {$list['description']}
+                <br />
+                {/if}
+                {if trim($list['content'])}
+                {php $content=explode(',',$list['content'])}
+                {loop $content $v}
+                {php echo $v."<br />"}
+                {/loop}
+            </div>
+        </div>
+        {/if}
+    </div>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">用户信息</div>
+            <div class="panel-body">
+                <div class="col-sm-12 col-xs-12 ">
+                    <form class="form-horizontal form" role="form" method="post" action='{php echo $this->createMobileUrl("record");}' onsubmit="return checksubmit()">
+                        <input type="hidden" name="rid" value="{$rid}">
+                        <input type="hidden" name="ruleid" value="{$list['id']}">
+                        <input type="hidden" name="typeid" value="{$list['typeid']}">
+                        <input type="hidden" name="fromuser" value="{$_W['openid']}">
+                        <div class="form-group">
+                            <label for="username" class="col-xs-12 col-sm-2 col-md-2 control-label">姓名</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <input type="text" name="realname" class="form-control" id="username" placeholder="姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="userphone" class="col-xs-12 col-sm-2 col-md-2 control-label">手机</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <input type="number" name="mobile" class="form-control" id="userphone" placeholder="手机号码">
+                            </div>
+                        </div>
+                        {if $list['typecontent']}
+                        {php $typecontent=explode(',',$list['typecontent'])}
+                        {loop $typecontent $k $v}
+                        <div class="form-group">
+                            <label for="data{$k}" class="col-xs-12 col-sm-2 col-md-2 control-label">{$v}</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <input type="text" name="data[{$k}]" class="form-control" id="data{$k}" placeholder="{$v}">
+                            </div>
+                        </div>
+                        {/loop}
+                        {/if}
+                        <div class="form-group">
+                            <label for="othercontent" class="col-xs-12 col-sm-2 col-md-2 control-label">备注</label>
+                            <div class="col-xs-12 col-sm-10">
+                                <textarea class='form-control' rows='3' name="othercontent"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-offset-2 col-sm-10 col-xs-10">
+                                {if $list['starttime'] > TIMESTAMP}
+                                <button type="submit" class="btn btn-danger btn-block disabled">未开始</button>
+                                {else if $list['endtime'] < TIMESTAMP}
+                                <button  class="btn btn-error btn-block disabled">活动己结束</button>
+                                {else}
+                                <button  type="submit" name="submit" class="btn btn-danger btn-block" value="提交">提交</button>
+                                <input type="hidden" name="token" value="{$_W['token']}">
+                                {/if}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-2 col-xs-2"></div>
+        </div>
+    </div>
+    <script>
+        function checksubmit() {
+            if ($.trim($('input[name="realname"]').val()) == '') {
+                alert('姓名必须填写！');
+                return false;
+            }
+            if ($.trim($('input[name="mobile"]').val()) == '') {
+                alert('联系电话必须填写！');
+                return false;
+            }
+            reg = /^1[34578]\d{9}$/;
+            if (!reg.test($.trim($('input[name="mobile"]').val()))) {
+                alert("请输入正确的手机号码！");
+                return false;
+            }
+
+        }
+    </script>
+</body>
+{template 'footer'}

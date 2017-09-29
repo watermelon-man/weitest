@@ -1,0 +1,30 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>摇一摇大屏幕</title>
+<script type="text/javascript" src="../addons/hpmd_shakewin/template/mobile/js/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="../addons/hpmd_shakewin/template/css/style.css">
+<body style="background:url(../addons/hpmd_shakewin/template/images/113.jpg) no-repeat center  0px #a5062a;">
+	<article class="htmleaf-container">		
+		<div class="snow-container"></div>
+	</article>
+<script type="text/javascript">
+	var Checkingtime; 
+	function CheckingTimer(){
+		$.post("{php echo $this->createWebUrl('CheckRunningAct',null)}", {ruleid:1}, function(data){
+			if (data.errno == 1)
+			{
+				location.href = data.url;
+			} 
+		},'json');
+
+		window.Checkingtime = window.setTimeout(CheckingTimer,1000);
+	}
+	CheckingTimer();
+</script>
+
+<script>
+	window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')
+</script>
+<script src="../addons/hpmd_shakewin/style/three.js" type="text/javascript" charset="utf-8"></script>
+<script src="../addons/hpmd_shakewin/style/snow.js" type="text/javascript" charset="utf-8"></script>
+</body></html>

@@ -1,0 +1,462 @@
+{template 'common'}
+<style>span.red{color: red;display:inline;}</style>
+<input type="hidden" name="id" value="{$reply['id']}" />
+<div class="panel panel-default">
+	<div class="panel-heading">
+		基本设置
+	</div>
+	<div class="panel-body">
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 活动名称：</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" id="title" class="form-control span7"
+					   placeholder="" name="title" value="{$reply['title']}">
+			</div>
+		</div>
+        
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">插入广告：</label>
+
+			<div class="col-sm-9 col-xs-12">
+				{php echo tpl_form_field_image('adimgurl',$reply['adimgurl']);}
+				<p style="margin-top:.5em;">建议宽*高(640*100) </p>
+                <p style="margin-top:.5em;"><input type="text" id="adurl" class="form-control span7" placeholder="广告图链接地址，留空默认不显示广告" name="adurl" value="{$reply['adurl']}"></p>
+			</div>
+		</div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>活动时间：</label>
+          <div class="col-sm-9 form-inline"> {php echo tpl_form_field_date('starttime',$reply['starttime'],true)} ~ 
+            {php echo tpl_form_field_date('endtime',$reply['endtime'],true)} </div>
+        </div>
+
+        
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>分享标题：</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" id="share_title" class="form-control span7" placeholder="" name="share_title" value="{$reply['share_title']}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>分享图标：</label>
+			<div class="col-sm-9 col-xs-12">
+				{php echo tpl_form_field_image('share_image',$reply['share_image']);}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>分享描述：</label>
+			<div class="col-sm-9 col-xs-12">
+			<textarea style="height: 60px;" name="share_desc"
+					  class="form-control span7" cols="60">{$reply['share_desc']}</textarea>
+            <p style="margin-top:.6em;"><input type="text" id="share_url" class="form-control span7" placeholder="分享链接地址" name="share_url" value="{$reply['share_url']}"></p>          
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">底部版权：</label>
+			<div class="col-sm-9 col-xs-12">
+                       <textarea style="height:36px;" name="copyright"
+					  class="form-control span7" cols="100">{$reply['copyright']}</textarea>
+                      <div class="help-block">可直接加A标签</div>		
+			</div>
+		</div>
+
+	</div>
+
+	</div>
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			奖项设置
+		</div>
+		<div class="panel-body">
+	<div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">显示奖品的显示数量：</label>
+      <div class="col-sm-9">
+        <label class="radio-inline">
+          <input type="radio" name="shownum" value="0" {if $reply['shownum'] == 0 } checked{/if} />
+          否</label>
+        <label class="radio-inline">
+          <input type="radio" name="shownum" value="1" {if $reply['shownum'] == 1} checked{/if} />
+          是</label> <label style="color:#999;" class="radio-inline">活动排行榜页面显示奖品数量</label>
+        
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否需到店兑奖：</label>
+      <div class="col-sm-9">
+        <label class="radio-inline">
+          <input type="radio" name="exchange" value="0" {if $reply['exchange'] == 0 } checked{/if} />
+          否</label>
+        <label class="radio-inline">
+          <input type="radio" name="exchange" value="1" {if $reply['exchange'] == 1} checked{/if} />
+          是</label> <label style="color:#999;" class="radio-inline">获奖用户需到店，出示兑换码，更改兑奖状态，才完成兑奖</label>
+        
+      </div>
+    </div>
+			<div class="form-group">
+				
+				<div class="col-sm-12 col-xs-12">
+
+					<table class="table table-hover">
+						<thead>
+						<tr align="center">
+                        	<th width="60">序号</th>
+							<th width="90">奖品级别</th>
+							<th width="{if $this->module['config']['ismerchant']==1}140{else}160{/if}">奖品名称</th>
+							<th width="70">数量</th>
+							<th width="70">概率</th>
+                            <th width="{if $this->module['config']['ismerchant']==1}170{else}180{/if}">奖品说明</th>
+                            {if $this->module['config']['ismerchant']==1}
+                            <th width="140">所属商家</th>
+                            {/if}
+							<th width="{if $this->module['config']['ismerchant']==1}110{else}120{/if}">奖品图片</th>
+                            <th width="{if $this->module['config']['ismerchant']==1}110{else}130{/if}">上传图片</th>
+							<th>操作</th>
+						</tr>
+						</thead>
+						<tbody id="type-items">
+
+                        {loop $prizes $key $prize}                       
+                                {template 'tp_prize'}                        
+                        {/loop}
+						</tbody>
+					</table>
+
+
+				</div>
+			</div>
+            
+            <div class="form-group" style="margin-top:-20px;">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label" ></label>
+                        <div class="col-sm-9 col-xs-12">
+                            <a class="btn btn-default btn-add-type" href="javascript:;" onclick="addType();"><i class="fa fa-plus" title=""></i> 增加一个奖品</a>
+                        </div>
+                    </div>
+            
+            
+			</div>
+
+		</div>
+        
+<div class="panel panel-default">
+	<div class="panel-heading">
+		 活动设置
+	</div>
+	<div class="panel-body">
+    
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">关注门槛：</label>
+      <div class="col-sm-9 isfollow">
+        <label class="radio-inline">
+          <input type="radio" name="isfollow" value="0" {if $reply['isfollow'] == 0 } checked{/if} />
+          关闭</label>
+        <label class="radio-inline">
+          <input type="radio" name="isfollow" value="1" {if $reply['isfollow'] == 1} checked{/if} />
+          开启</label>
+          <label class="radio-inline">
+          <input type="radio" name="isfollow" value="2" {if $reply['isfollow'] == 2} checked{/if} />
+          弹出二维码</label>
+        
+      </div>
+    </div>
+    <div class="form-group followurl" style="{if empty($reply['isfollow'])||$reply['isfollow']==2}display:none{/if}">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">引导关注链接：</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" id="followurl" class="form-control span7" placeholder="" name="followurl" value="{$reply['followurl']}">
+                <div class="help-block">用户打开好友发送或分享至朋友圈的链接，欲参与活动会先跳转该链接。建议用公众号新增图文素材，内容为活动规则，重点引导用户关注，再在公众号内设置关键词回复。如果出现错误请使用 <a target="_blank" href="http://www.dwz.cn/">短网址转换</a></div>
+			</div>
+            
+		</div>
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">关注二维码图：</label>
+			<div class="col-sm-9 col-xs-12">
+				{php echo tpl_form_field_image('qrcode',$reply['qrcode']);}
+                <p style="margin-top:.5em;">建议宽*高(180*180) 大小小于50k</p>
+                <p style="margin-top:.5em;"><input type="text" id="qrcodetext" class="form-control span7" placeholder="长按二维码，关注我们公众号" name="qrcodetext" value="{$reply['qrcodetext']}"></p>
+			</div>
+		</div>
+
+        <div class="form-group" style="display:none;">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>游戏时间：</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="gametime" value="{$reply['gametime']}" />
+                    <span class="input-group-addon">秒</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="display:none;">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>游戏难度：</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" class="form-control" name="gamelevel" value="{$reply['gamelevel']}" placeholder="请输入1～5的数字"/>
+            </div>
+        </div>
+        <div class="form-group" style="display:none;">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">游戏模式：</label>
+            <div class="col-sm-9">
+                <label for="mode1" class="radio-inline"><input type="radio" name="mode" value="0" id="mode1" {if $reply['mode'] == 0}checked="true"{/if} /> 单次成绩</label>
+                &nbsp;&nbsp;&nbsp;
+                <label for="mode2" class="radio-inline"><input type="radio" name="mode" value="1" id="mode2"  {if $reply['mode'] == 1}checked="true"{/if} /> 累积成绩</label>
+                <span class="help-block"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>显示排名数量：</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" class="form-control" name="showusernum" value="{$reply['showusernum']}"/>
+            </div>
+        </div>
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>每人每天游戏次数：</label>
+			<div class="col-sm-9 col-xs-12">
+				<div class="input-group">
+					<input type="text" name="everydaytimes" id="everydaytimes" class="form_time form-control"
+						   value="{if $reply['everydaytimes']}{$reply['everydaytimes']}{else}1{/if}">
+                                    <span class="input-group-addon">
+                                       大于{$reply['everydaytimes']}，游戏玩第{php echo $reply['everydaytimes']+1;}次时强制要求分享
+                                    </span>
+                                 
+				</div>
+
+			</div>
+		</div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>每人总游戏次数：</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="playtimes" value="{$reply['playtimes']}" />
+                    <span class="input-group-addon">次</span>
+                </div>
+                <div class="help-block">0 为不限制</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>每人每天分享次数：</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="input-group">
+                    <span class="input-group-addon">每天可分享：</span>
+                    <input type="text" class="form-control" name="daysharenum" value="{$reply['daysharenum']}" />
+                    <span class="input-group-addon" style="border-left:0px;border-right:0px;">次,每次增加游戏次数</span>
+                    <input type="text" class="form-control" name="shareawardnum" value="{$reply['shareawardnum']}" />
+                    <span class="input-group-addon">次</span>
+                </div>
+                <div class="help-block">分享次数设置0为不奖励游戏次数</div>
+            </div>
+        </div>
+        
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'></span>活动规则：</label>
+			<div class="col-sm-9 col-xs-12">
+		<textarea name="ruletext" class="form-control span7{if $this->module['config']['editor']==1} richtext{/if}" id="ruletext" cols="70" style="height:120px;" >{$reply['ruletext']}</textarea>
+			</div>
+		</div>
+        
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">兑奖说明：</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" id="awardtext" class="form-control span7"
+					   placeholder="用户兑奖时显示" name="awardtext" value="{$reply['awardtext']}">
+			</div>
+		</div>
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">用户提示语：</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" id="awardtext" class="form-control span7"
+					   placeholder="用户信息提示语" name="profilemsg" value="{$reply['profilemsg']}">
+			</div>
+		</div>
+        <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">用户信息登记：</label>
+      <div class="col-sm-9 isprofile">
+        <label class="radio-inline">
+          <input type="radio" name="isprofile" value="0" {if $reply['isprofile'] == 0 } checked{/if} />
+          关闭</label>
+        <label class="radio-inline">
+          <input type="radio" name="isprofile" value="1" {if $reply['isprofile'] == 1} checked{/if} />
+          开启</label>
+        
+      </div>
+    </div>
+    
+        <div class="form-group profile" style="{if empty($reply['isprofile'])}display:none{/if}">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label">用户信息：</label>
+							<div class="col-sm-9 col-xs-12">
+                                <div class="input-group">
+                                
+                                {if !empty($reply['profile'])}
+                                {php $profile = iunserializer($reply['profile']);}
+                                {/if}
+                                    <p style="margin:0 auto;margin-top:8px;">
+                                    <label><input type="checkbox" name="umobile" value="1" checked="checked" disabled="disabled" /> 手机号 </label>
+                                    <label><input type="checkbox" name="uname" value="1" checked="checked" disabled="disabled" /> 姓名 </label>
+                                    <label><input type="checkbox" name="uaddress" value="1" {if $profile['uaddress']==1} checked="checked"{/if} /> 邮寄地址 </label>
+                                    <label><input type="checkbox" name="uqq" value="1"  {if $profile['uqq']==1} checked="checked"{/if} /> QQ号 </label>	
+                                    </p>
+                                </div>
+                            </div>
+							<div class="clear"></div>
+			</div>
+
+	</div>
+</div>        
+        
+<div class="panel panel-default">
+	<div class="panel-heading">
+		 自定义风格
+	</div>
+	<div class="panel-body">
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>封面图：</label>
+			<div class="col-sm-9 col-xs-12">
+				{php echo tpl_form_field_image('coverurl',$reply['coverurl']);}
+                <p style="margin-top:.5em;">建议宽*高(640*1068) 不上传为默认</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>背景图：</label>
+			<div class="col-sm-9 col-xs-12">
+				{php echo tpl_form_field_image('bgurl',$reply['bgurl']);}
+                <p style="margin-top:.5em;">建议宽*高(640*1068) 不上传为默认</p>
+			</div>
+		</div>
+        
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>跑道图：</label>
+			<div class="col-sm-9 col-xs-12">
+				{php echo tpl_form_field_image('loopbgurl',$reply['loopbgurl']);}
+                <p style="margin-top:.5em;">建议宽*高(640*1068) 不上传为默认</p>
+			</div>
+		</div>
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>男主角：</label>
+			<div class="col-sm-9 col-xs-12">
+				{php echo tpl_form_field_image('selfurl',$reply['selfurl']);}
+                <p style="margin-top:.5em;">建议宽*高(1000*176) 不上传为默认</p>
+			</div>
+		</div>
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>女神：</label>
+			<div class="col-sm-9 col-xs-12">
+				{php echo tpl_form_field_image('targeturl',$reply['targeturl']);}
+                <p style="margin-top:.5em;">建议宽*高(116*200) 不上传为默认</p>
+			</div>
+		</div>
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>女神背景：</label>
+			<div class="col-sm-9 col-xs-12">
+				{php echo tpl_form_field_image('targetbgurl',$reply['targetbgurl']);}
+                <p style="margin-top:.5em;">建议宽*高(166*262) 不上传为默认</p>
+			</div>
+		</div>
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>游戏结束成功：</label>
+			<div class="col-sm-9 col-xs-12">
+				{php echo tpl_form_field_image('gamesuccess',$reply['gamesuccess']);}
+                <p style="margin-top:.5em;">建议宽*高(532*164) 不上传为默认</p>
+			</div>
+		</div>
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>游戏结束失败：</label>
+			<div class="col-sm-9 col-xs-12">
+				{php echo tpl_form_field_image('gamefail',$reply['gamefail']);}
+                <p style="margin-top:.5em;">建议宽*高(532*164) 不上传为默认</p>
+			</div>
+		</div>
+        {php $styless = $this->module['config']['style'];}
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>背景音乐</label>
+          <div class="col-sm-9"> {php echo tpl_form_field_audio('bgmusic', $reply['bgmusic'] ? $reply['bgmusic'] :'../addons/uber_flower/template/mobile/'.$styless.'/images/music.mp3')}
+            <div class="help-block">请使用软件截断音乐mp3格式，音乐大小1024k以内。</div>
+          </div>
+        </div>
+
+	</div>
+</div>
+
+<script>
+require(['jquery','util'], function($, util){
+	$(':radio[name=isfollow]').click(function(){
+                var isfollow = parseInt($(this).val());
+                bindFollow(isfollow);
+     });
+	 function bindFollow(isfollow){
+             if(isfollow=='1'){
+                 $(".followurl").show();    
+             } else if(isfollow=='0'||isfollow=='2'){
+                    $(".followurl").hide();
+             }
+     }
+	 $(':radio[name=isprofile]').click(function(){
+                var isprofile = parseInt($(this).val());
+                bindProfile(isprofile);
+     });
+	 function bindProfile(isprofile){
+             if(isprofile=='1'){
+                 $(".profile").show();    
+             } else if(isprofile=='0'){
+                    $(".profile").hide();
+             }
+     }
+	 
+	 $('#type-items tr').each(function(index){
+			 $('#type-items tr td span.addbtn'+index).on('click',function(){
+					util.image('',function(data){
+						//console.log(data);
+						$('#img_dv'+index).html('<img src="'+data['url']+'" style="margin:0 auto;text-align:center;display:block;max-width: 60px; max-height:60px;"><input name="prize_img['+index+']" type="hidden" value="'+data['attachment']+'" />');
+					});
+		});
+	});
+	
+
+});
+function uploadType(index){
+	util.image('',function(data){
+						//console.log(data);
+						$('#img_dv'+index).html('<img src="'+data['url']+'" style="margin:0 auto;text-align:center;display:block;max-width: 60px; max-height:60px;"><input name="prize_img['+index+']" type="hidden" value="'+data['attachment']+'" />');
+	});
+}
+</script>
+
+
+
+
+
+	<script type="text/javascript">
+	 //////////////////////////////////////////
+	 var kw = 1;
+    function addType() {
+        $(".btn-add-type").button("loading");
+		var key = $("#type-items tr").length;
+		kw = key+1;
+		//console.log(kw);
+        $.ajax({
+            url: "{php echo $this->createWebUrl('addprize',array('op'=>'addtype','addt'=>'type'))}&kw="+kw,
+            cache: false
+        }).done(function (html) {
+            $(".btn-add-type").button("reset");
+            $("#type-items").append(html);
+			$("#addOld").remove();
+        });
+		
+    }
+    
+    function removeType(obj) {
+        $(obj).parent().parent().remove();
+    } 
+{if $this->module['config']['editor']==1}	
+require(['jquery', 'util'], function($, u){
+	$(function(){
+		u.editor($('#ruletext')[0]);
+	});
+});
+{/if}
+</script>
+
+
+

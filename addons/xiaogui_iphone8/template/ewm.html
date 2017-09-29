@@ -1,0 +1,76 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display'} class="active" {/if}><a href="{php echo $this->createWebUrl('ewm',array('op' =>'display'))}">二维码管理</a></li>
+	<li{if empty($adv['id']) && $operation == 'post'} class="active" {/if}><a href="{php echo $this->createWebUrl('ewm',array('op' =>'post'))}">添加二维码</a></li>
+	{if !empty($adv['id']) &&  $operation == 'post'}<li  class="active"><a href="{php echo $this->createWebUrl('ewm',array('op' =>'post','id'=>$adv['id']))}">编辑二维码</a></li>{/if}
+</ul>
+
+{if $operation == 'display'}
+<div class="main panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:10%">ID</th>
+					<th style="width:50%">图片</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $i $adv}
+				<tr>
+					<td>{php $i++;}{$i}</td>
+					<td><img src="{$adv['ewm']}" width="80" height="80"></td>
+					<td style="text-align:left;">
+						<a href="{php echo $this->createWebUrl('ewm', array('op' => 'post', 'id' => $adv['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="修改"><i class="fa fa-edit"></i></a>
+						<a href="{php echo $this->createWebUrl('ewm', array('op' => 'delete', 'id' => $adv['id']))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+	</div>
+</div>
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{elseif $operation == 'post'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$reply['id']}" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				添加二维码（若添加多张二维码则随机出）
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">二维码图片</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('ewm', $reply['ewm'])}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+		</div>
+	</form>
+</div>
+<script language='javascript'>
+	function formcheck() {
+		if ($("[name='ewm']").val()=="") {
+			alert("请添加二维码!");
+			return false;
+		}
+		return true;
+	}
+</script>
+
+{/if}

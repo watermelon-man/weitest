@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cn" style="height:100%;">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>商家登录</title>
+	<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+	<link href="./resource/css/common.css" rel="stylesheet">
+	<script src="./resource/js/require.js"></script>
+	<script src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<style>
+	@media screen and (max-width:767px){.login .panel.panel-default{width:90%; min-width:300px;}}
+	@media screen and (min-width:768px){.login .panel.panel-default{width:70%;}}
+	@media screen and (min-width:1200px){.login .panel.panel-default{width:50%;}}
+	.login, .register {
+		background: #3a3a3a url('../addons/hc_article/style/images/gw-bg.jpg') no-repeat fixed;
+		background-size: cover;
+		-webkit-background-size: cover;
+		-o-background-size: cover;
+		padding-top: 5em;
+	}
+	.login .logo, .register .logo {
+		width: 100%;
+		text-align: center;
+		margin-bottom: 2em;
+	}
+	.login .logo a, .register .logo a {
+		background: url('../addons/hc_article/style/images/gw-logo.png') no-repeat;
+		display: inline-block;
+		width: 420px;
+		height: 95px;
+		margin-left: 0 !important;
+	}
+</style>
+<div class="login">
+	<div class="logo">
+		<a href="./?refresh" ></a>
+	</div>
+	<div class="clearfix" style="margin-bottom:5em;">
+		<div class="panel panel-default container">
+			<div class="panel-body">
+				<div class="form-group input-group">
+					<div class="input-group-addon"><i class="fa fa-user"></i></div>
+					<input name="username" type="text" id="usernames" value="{$username}" class="form-control input-lg" placeholder="请输入电话号码">
+				</div>
+				<div class="form-group input-group">
+					<div class="input-group-addon"><i class="fa fa-unlock-alt"></i></div>
+					<input name="pwd" type="password" id="passwords" class="form-control input-lg" placeholder="请输入验证码">
+				</div>
+				<div class="form-group">
+					<label class="checkbox-inline input-lg">
+						<input type="checkbox" id="rember">记住用户名
+					</label>
+					<div class="pull-right">
+						<input type="submit" name="submit" onclick="login();" value="登录" class="btn btn-primary btn-lg" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+require(['jquery'],function($){
+	var h = document.documentElement.clientHeight;
+	$(".login").css('min-height',h);
+});
+</script>
+<script src="../addons/hc_article/style/js/business.js"></script>
+<script>
+function login(){
+	if(!datalogin()){
+		return false;
+	}
+	var mobile = $('#usernames').val();
+	var authcode = $('#passwords').val();
+	var rember = 0;
+	if($('#rember').is(':checked')){
+		rember = 1;
+	}
+	$.ajax({
+		type: "POST",
+		url: "{php echo $this->createMobileurl('release_index', array('op'=>'login'))}",
+		data: {mobile: mobile, authcode: authcode, rember: rember},
+		dataType: "text",
+		
+		success: function (d) {
+			if(d==1){
+				window.location.href = "{php echo $this->createMobileurl('release_index', '', true)}";
+			} else if (d==0) {
+				alert('验证码超时');
+			} else {
+				alert('登录失败！');
+			}
+		},
+		error: function (xml, text, thrown){
+			alert("出错啦!");
+		}
+	});
+}
+</script>
+</body>
+</html>

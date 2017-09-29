@@ -1,0 +1,489 @@
+{template 'common/header'}
+<style>
+.userinfoArea td {
+    /* display: block; */
+    margin-left: 10px;
+    padding: 8px 0;
+    color: #666;
+    font-size: 12px;
+}
+.content p, .content table, .content tr, .content td, .content th, .content dl, .content dt, .content dd, .content ol, .content ul, .content li, .content input, .content button, .content select, .content stextarea {
+    line-height: 1.5;
+}
+.px, .pt, .ps, select {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #ffffff;
+    border-radius: 2px 2px 2px 2px;
+}
+.px {
+    height: 25px;
+}
+.px, .pt {
+    padding: 2px 4px;
+    line-height: 25px;
+}
+.px, .pt, .ps, select {
+    border: 1px solid;
+    border-color: #848484 #E0E0E0 #E0E0E0 #848484;
+    /* background: #FFF url(../images/img/px.png) repeat-x 0 0; */
+    color: ;
+}
+.px, .pt, .ps, select {
+    background: url(../images/img/px.png) repeat-x scroll 0 0 #FFFFFF;
+    border-color: #848484 #E0E0E0 #E0E0E0 #848484;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px 2px 2px 2px;
+}
+.px, .pt {
+    padding: 5px;
+}
+TABLE.ListProduct {
+	BORDER-TOP: #d3d3d3 1px solid;
+	MARGIN-TOP: 5px;
+	WIDTH: 100%;
+	MARGIN-BOTTOM: 5px;_border-collapse: collapse;
+
+}
+TABLE.ListProduct THEAD TH {
+	BORDER-BOTTOM: #E7E9F3 1px solid; PADDING-BOTTOM: 5px; BACKGROUND-COLOR: #F4F5F9; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; COLOR: #666; FONT-SIZE: 14px; BORDER-TOP: #e3e3e3 1px solid; FONT-WEIGHT: normal; BORDER-RIGHT: #ddd 1px solid; PADDING-TOP: 5px; color:#222; font-weight:bold
+}
+TABLE.ListProduct TBODY TD {
+	BORDER-BOTTOM: #eee 1px solid; PADDING-BOTTOM: 10px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BORDER-RIGHT: #eee 1px solid; PADDING-TOP: 10px;
+	font-size:12px;_empty-cells:show;word-break: break-all;
+}
+TABLE.ListProduct TBODY TR:nth-child(2n+1) {
+    background-color:#FCFCFC;
+}
+TABLE.ListProduct TBODY TR:hover {
+    background-color:#F1FCEA;
+}
+TABLE.ListProduct TBODY TD p{
+	PADDING: 0;font-size:12px;_empty-cells:show;word-break: break-all;
+}
+TABLE.ListProduct Tfoot TD {
+	BORDER-BOTTOM: #eee 1px solid; PADDING-BOTTOM: 10px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BORDER-RIGHT: #eee 1px solid; PADDING-TOP: 10px; background-color:#f9f9f9;
+	font-size:12px;_empty-cells:show;word-break: break-all;
+}
+TABLE.ListProduct THEAD TH.norightborder {
+	BORDER-RIGHT: 0;
+}
+TABLE.ListProduct TBODY TD.norightborder {
+	BORDER-RIGHT: 0;
+}
+TABLE.ListProduct .select{
+	width: 30px;
+}
+TABLE.ListProduct .keywords{width: 150px;
+}
+TABLE.ListProduct .answer{
+	width: 375px;
+}
+TABLE.ListProduct .answer_text{
+	 width: 360px; overflow:hidden;white-space:nowrap;text-overflow:ellipsis; height:16px
+}
+.answer_text img{
+	 margin-right: 5px; float:left;
+}
+TABLE.ListProduct .category{
+	width: 70px;
+}
+TABLE.ListProduct .time{
+	width: 70px;
+}
+
+
+TABLE.ListProduct .edit{
+	width: 120px;
+}
+
+
+
+.ListProduct td.norightborder a {
+	background-image: none !important;
+	border: 1px solid #E6E7EC !important;
+	text-shadow: none !important;
+	padding: 4px 12px !important;
+	cursor: pointer !important;
+	display: inline-block !important;
+	overflow: visible !important;
+	border-radius: 4px !important;
+	-moz-border-radius: 4px !important;
+	-webkit-border-radius: 4px !important;
+	background-color: #F4F5F9 !important;
+	color: #222 !important;
+	font-size: 14px !important;
+	margin-bottom: 5px;
+	margin-left:3px;
+}
+
+.ListProduct td.norightborder a:hover {
+	background-color: #E6E7EC !important;
+	color: #222 !important;
+	text-decoration: none;
+	text-shadow: none;
+}
+</style>
+<div class="content">
+        <div class="cLineB">
+                <h4>
+                        图片-投票设置
+                </h4>
+                <a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">
+                        返回
+                </a>
+        </div>
+        <div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-bottom:5px;font-size:12px;">
+                温馨提示：1.如不填写活动简介手机端的活动介绍菜单将只显示投票次数说明；如不填写如何参与、流程介绍、奖品设置三项,手机端活动介绍菜单将不显示这三项。
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.如果开启了地区限制则‘是否需要粉丝信息’项必须选择“是”。选择省市时如果只选省份不选城市则该省份下所有城市都可参与。
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.开启地区限制,需购买短信。
+        </div>
+        <div class="msgWrap bgfc">
+                <form class="form" method="post" action="/index.php?g=User&amp;m=Voteimg&amp;a=add_voteimg&amp;token=ekokba1439885704"
+                enctype="multipart/form-data" onsubmit="return save_voteimg();">
+                        <input type="hidden" name="id" value="7">
+                        <table class="userinfoArea" style="margin:0;" border="0" cellspacing="0"
+                        cellpadding="0" width="100%">
+                                <tbody>
+                                        <tr>
+                                                <th width="120">
+                                                        <span class="red">
+                                                                *
+                                                        </span>
+                                                        关键词：
+                                                </th>
+                                                <td>
+                                                        <input type="text" name="keyword" value="测试" class="px" style="width:550px;">
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <span id="keyword_msg">
+                                                        </span>
+                                                        <br>
+                                                        <span class="red">
+                                                                只能写一个关键词,功能面板必须开启投票,不超过10个汉字
+                                                        </span>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <th width="120">
+                                                        <span class="red">
+                                                                *
+                                                        </span>
+                                                        活动名称：
+                                                </th>
+                                                <td>
+                                                        <input type="text" name="action_name" value="测试" class="px" style="width:550px;">
+                                                        <br>
+                                                        <span class="ff">
+                                                                (不超过50个汉字)
+                                                        </span>
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <span id="action_name_msg">
+                                                        </span>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <th width="120">
+                                                        <span class="red">
+                                                                *
+                                                        </span>
+                                                        回复标题：
+                                                </th>
+                                                <td>
+                                                        <input type="text" name="reply_title" value="测试测试测试" class="px" style="width:550px;">
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <span id="reply_title_msg">
+                                                        </span>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <th width="120">
+                                                        <span class="red">
+                                                                *
+                                                        </span>
+                                                        回复内容：
+                                                </th>
+                                                <td>
+                                                        <textarea class="px" id="reply_content" name="reply_content" style="width: 560px; height: 120px; display: ;">
+                                                                测试测试测试测试测试测试
+                                                        </textarea>
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <span id="reply_content_msg">
+                                                        </span>
+                                                </td>
+                                        </tr>
+										  <tr>
+                                                <th width="120">
+                                                        <span class="red">
+                                                                *
+                                                        </span>
+                                                        回复内容：
+                                                </th>
+                                                <td>
+                                                        <textarea class="px" id="reply_content" name="reply_content" style="width: 560px; height: 120px; display: ;">
+                                                                测试测试测试测试测试测试
+                                                        </textarea>
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <span id="reply_content_msg">
+                                                        </span>
+                                                </td>
+                                        </tr>
+										  <tr>
+                                                <th width="120">
+                                                        <span class="red">
+                                                                *
+                                                        </span>
+                                                        回复内容：
+                                                </th>
+                                                <td>
+                                                        <textarea class="px" id="reply_content" name="reply_content" style="width: 560px; height: 120px; display: ;">
+                                                                测试测试测试测试测试测试
+                                                        </textarea>
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <span id="reply_content_msg">
+                                                        </span>
+                                                </td>
+                                        </tr>
+                                       
+                                        <tr>
+                                                <th width="120">
+                                                        未关注默认提示语：
+                                                </th>
+                                                <td>
+                                                        <textarea class="px" id="follow_msg" name="follow_msg" style="width: 550px; height: 50px;">
+                                                                请进入公众号"xtsh1688",回复关键词"测试"参加投票活动。
+                                                        </textarea>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <th width="120">
+                                                        引导关注按钮提示语：
+                                                </th>
+                                                <td>
+                                                        <input type="text" name="follow_btn_msg" value="立即关注" class="px" style="width:550px;">
+                                                </td>
+                                        </tr>
+                                       
+                                       
+                                        <tr>
+                                                <th>
+                                                        活动时间：
+                                                </th>
+                                                <td>
+                                                        <input type="input" class="px" id="start_time" value="2015-10-15 15:56"
+                                                        onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" name="start_time">
+                                                        到
+                                                        <input type="input" class="px" id="end_time" value="2015-11-03 11:57"
+                                                        name="end_time" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})">
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <th>
+                                                        报名时间：
+                                                </th>
+                                                <td>
+                                                        <input type="input" class="px" id="apply_start_time" value="2015-10-15 15:56"
+                                                        onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" name="apply_start_time">
+                                                        到
+                                                        <input type="input" class="px" id="apply_end_time" value="2015-11-02 15:56"
+                                                        name="apply_end_time" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;(报名截止时间请设置在活动开始时间之前)
+                                                </td>
+                                        </tr>
+                                       
+                                        <tr>
+                                                <th>
+                                                        未关注是否可以参与：
+                                                </th>
+                                                <td>
+                                                        <input type="radio" name="is_follow" value="1">
+                                                        是
+                                                        <input type="radio" name="is_follow" value="2" checked="">
+                                                        否
+                                                        <span style="width:318px;">
+                                                                &nbsp;&nbsp;&nbsp;（该选项目前仅适用于认证服务号,非认证服务号体验稍差）
+                                                        </span>
+                                                </td>
+                                        </tr>
+                                       
+                                       
+                                       
+                                </tbody>
+                           
+                                        <tr>
+                                                <th>
+                                                        添加允许投票的省市：
+                                                </th>
+                                                <td>
+                                                        <div id="add_city">
+                                                                <select id="select_pro">
+                                                                        <option value="-1">
+                                                                                ---请选择---
+                                                                        </option>
+                                                                        <option value="0">
+                                                                                北京市
+                                                                        </option>
+                                                                        <option value="1">
+                                                                                天津市
+                                                                        </option>
+                                                                        <option value="2">
+                                                                                上海市
+                                                                        </option>
+                                                                        <option value="3">
+                                                                                重庆市
+                                                                        </option>
+                                                                        <option value="4">
+                                                                                河北省
+                                                                        </option>
+                                                                        <option value="5">
+                                                                                山西省
+                                                                        </option>
+                                                                        <option value="6">
+                                                                                台湾省
+                                                                        </option>
+                                                                        <option value="7">
+                                                                                辽宁省
+                                                                        </option>
+                                                                        <option value="8">
+                                                                                吉林省
+                                                                        </option>
+                                                                        <option value="9">
+                                                                                黑龙江省
+                                                                        </option>
+                                                                        <option value="10">
+                                                                                江苏省
+                                                                        </option>
+                                                                        <option value="11">
+                                                                                浙江省
+                                                                        </option>
+                                                                        <option value="12">
+                                                                                安徽省
+                                                                        </option>
+                                                                        <option value="13">
+                                                                                福建省
+                                                                        </option>
+                                                                        <option value="14">
+                                                                                江西省
+                                                                        </option>
+                                                                        <option value="15">
+                                                                                山东省
+                                                                        </option>
+                                                                        <option value="16">
+                                                                                河南省
+                                                                        </option>
+                                                                        <option value="17">
+                                                                                湖北省
+                                                                        </option>
+                                                                        <option value="18">
+                                                                                湖南省
+                                                                        </option>
+                                                                        <option value="19">
+                                                                                广东省
+                                                                        </option>
+                                                                        <option value="20">
+                                                                                甘肃省
+                                                                        </option>
+                                                                        <option value="21">
+                                                                                四川省
+                                                                        </option>
+                                                                        <option value="22">
+                                                                                贵州省
+                                                                        </option>
+                                                                        <option value="23">
+                                                                                海南省
+                                                                        </option>
+                                                                        <option value="24">
+                                                                                云南省
+                                                                        </option>
+                                                                        <option value="25">
+                                                                                青海省
+                                                                        </option>
+                                                                        <option value="26">
+                                                                                陕西省
+                                                                        </option>
+                                                                        <option value="27">
+                                                                                内蒙古
+                                                                        </option>
+                                                                        <option value="28">
+                                                                                新疆
+                                                                        </option>
+                                                                        <option value="29">
+                                                                                广西壮族自治区
+                                                                        </option>
+                                                                        <option value="30">
+                                                                                西藏自治区
+                                                                        </option>
+                                                                        <option value="31">
+                                                                                宁夏回族自治区
+                                                                        </option>
+                                                                </select>
+                                                                ---
+                                                                <select id="select_city">
+                                                                        <option value="-1">
+                                                                                ---请先选择---
+                                                                        </option>
+                                                                </select>
+                                                                <br>
+                                                                <br>
+                                                                <input type="hidden" name="province_name[]" id="pro0" value="">
+                                                                <input type="hidden" name="city_name[]" id="city0" value="">
+                                                        </div>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <th>
+                                                </th>
+                                                <td>
+                                                        <a id="addProCity" class="btnGray" href="javascript:void(0);">
+                                                                添加省市
+                                                        </a>
+                                                </td>
+                                        </tr>
+                                </tbody>
+                                <tbody>
+                                        <tr>
+                                                <th>
+                                                        是否可以给自己投票：
+                                                </th>
+                                                <td>
+                                                        <input type="radio" name="self_id" value="1">
+                                                        可以&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input type="radio" name="self_id" value="0" checked="">
+                                                        不可以
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <th>
+                                                        是否开启活动：
+                                                </th>
+                                                <td>
+                                                        <input type="radio" name="display" value="1" checked="">
+                                                        开启&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input type="radio" name="display" value="0">
+                                                        关闭
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <th>
+                                                        &nbsp;
+                                                </th>
+                                                <td>
+                                                        <button type="submit" name="button" class="btnGreen sub">
+                                                                保存
+                                                        </button>
+                                                        <a href="/index.php?g=User&amp;m=Voteimg&amp;a=index" class="btnGray vm">
+                                                                取消
+                                                        </a>
+                                                </td>
+                                        </tr>
+                                </tbody>
+                        </table>
+                        <input type="hidden" name="__hash__" value="745558f0762c303bb6bd7ad46f8e9bab_d4c64588dbf111585b3ed960b88b4f3b">
+                </form>
+        </div>
+</div>
+{template 'common/footer'}

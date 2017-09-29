@@ -1,0 +1,68 @@
+<!doctype html>
+<html class="no-js" lang="" xhtml>
+<head>
+  <meta charset="utf-8">
+  <title>{php echo $setting['name']}</title>
+  <meta name="description" content="">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="cleartype" content="on">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!--<meta http-equiv="pragma" content="no-cache">-->
+  <!--<meta http-equiv="cache-control" content="no-cache">-->
+  <!--<meta http-equiv="expires" content="0">-->
+<link href="../addons/imeepos_runner/template/mobile/styles.aa3c9e5577560d5561dd.bundle.css" rel="stylesheet"/></head>
+<body>
+<app-root></app-root>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&DXEBZ-G3IRF-2YFJO-NVYN5-4LSIQ-T4BIY"></script>
+<script src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  // jssdk config 对象
+  jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig']);} || {};
+  // 是否启用调试
+  jssdkconfig.debug = false;
+  jssdkconfig.jsApiList = [
+    'checkJsApi',
+    'onMenuShareTimeline',
+    'onMenuShareAppMessage',
+    'onMenuShareQQ',
+    'onMenuShareWeibo',
+    'hideMenuItems',
+    'showMenuItems',
+    'hideAllNonBaseMenuItem',
+    'showAllNonBaseMenuItem',
+    'translateVoice',
+    'startRecord',
+    'stopRecord',
+    'onRecordEnd',
+    'playVoice',
+    'pauseVoice',
+    'stopVoice',
+    'uploadVoice',
+    'downloadVoice',
+    'chooseImage',
+    'previewImage',
+    'uploadImage',
+    'downloadImage',
+    'getNetworkType',
+    'openLocation',
+    'getLocation',
+    'hideOptionMenu',
+    'showOptionMenu',
+    'closeWindow',
+    'scanQRCode',
+    'chooseWXPay',
+    'openProductSpecificView',
+    'addCard',
+    'chooseCard',
+    'openCard',
+    'openAddress'
+  ];
+  wx.config(jssdkconfig);
+</script>
+
+<script type="text/javascript" src="../addons/imeepos_runner/template/mobile/inline.e51bafb228ea0193b7c7.bundle.js"></script><script type="text/javascript" src="../addons/imeepos_runner/template/mobile/polyfills.a4264a4262f3d5477030.bundle.js"></script><script type="text/javascript" src="../addons/imeepos_runner/template/mobile/scripts.d80aa853b085d1311269.bundle.js"></script><script type="text/javascript" src="../addons/imeepos_runner/template/mobile/vendor.8332ae8fac0206721fc0.bundle.js"></script><script type="text/javascript" src="../addons/imeepos_runner/template/mobile/main.a8b0034ea3c43e9df0fe.bundle.js"></script></body>
+</html>

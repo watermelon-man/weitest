@@ -1,0 +1,46 @@
+﻿
+/* 全局 */
+html,body {height: 100%;}
+body {font:14px "Microsoft Yahei",sans-serif; color:#555;-webkit-text-size-adjust: 100%;background:#f5f5f5;}
+body,form,menu,dir,fieldset,blockquote,p,pre,ul,ol,dl,dd,h1,h2,h3,h4,h5,h6 { padding:0; margin:0;line-height: 1;}
+ul,ol,dl { list-style:none;}
+a {color: #333;text-decoration: none;}
+a:hover {color: #009bff;text-decoration: none;}
+a img {border: none;}
+.clear {clear: both;line-height: 0px;height:0px;font-size:0px;}
+.content {width:1030px;margin:0 auto;}
+.left {float:left;}
+.right {float:right;}
+.hide {display:none;}
+* {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+body{background:#fff;}
+
+
+/*大屏开始*/
+.tagBall{width:800px;height:800px;margin:0px auto;position:relative; margin-top:0px;}
+.tag{display:block;position:absolute;left:0px;top:0px;color:#000;text-decoration:none;font-size:15px;font-family:"微软雅黑";font-weight:bold;}
+.tag:hover{border:1px solid #666;}
+
+
+.tagBall a img{width:50px; height:50px; border-radius: 50px; border-radius: 5px solid #fff;}
+
+
+.peoplebox{width:800px; height:460px;margin:0 auto; margin-top:190px;}
+.title-top h3{text-align: center; color:#643300; font-size: 18px; height:30px; line-height:30px;}
+
+.jianglist ul{overflow: auto; height:495px; text-align: left; margin-left:15px;}
+.jianglist ul li{display: inline-block; width:360px; padding:5px 0px; border-bottom: 1px dashed #f19d3d; margin:0 10px;}
+.jianglist ul li img{width:35px; height:35px; border-radius: 35px; vertical-align: middle; margin-right:5px;}
+.jianglist ul li span{display: inline-block; font-style:normal; height:35px; text-align: center; line-height:35px; width:100px; font-size:14px; font-weight:bold; margin-right:5px;}
+.jianglist ul li b{display: inline-block; font-style:normal; height:35px; line-height:35px; font-weight:normal; font-size:12px; margin-right:10px; color:#999;}
+.jianglist ul li i{display: inline-block; font-style:normal; height:35px; line-height:35px; color:red; font-weight:bold; margin-right:10px;}
+
+#centerphotodiv{position: fixed; top:370px; left:50%; margin-left:-75px; z-index:9955; width:150px; height:150px; border-radius: 150px; border: 5px solid  rgba(255,255,255,0.5);}
+
+
+.snow-container{position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100001;}
+
+
+.peopleboxrs{width:306px; height:95px; line-height:65px; font-family:"microsoft yahei"; font-size:40px; font-weight:normal; color:#643300; padding-top:105px; background:url(../images/jieguobg.png) no-repeat top center; position: fixed; z-index: 998; top:10px; right:10px;background-size:306px; height:200px; }
+.renshu{text-align: center;}
+.title-top h4{text-align: center; color:#643300; font-size: 16px; height:18px; line-height:18px;}

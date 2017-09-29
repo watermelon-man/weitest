@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html><html>
+<head>
+<meta charset="utf-8">
+<title>{$settings['life_title']}</title>
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-title" content="海报首页">
+	<link rel="stylesheet" href="{$_W['siteroot']}addons/zmcn_erp/zmui/icon/iconfont.css"/><!--加快统一素质材-->
+    <link rel="stylesheet" href="/addons/zmcn_haibao/template/mobile/poster/css/newposterindex.css">
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+	{php echo register_jssdk(false);}
+<script>
+	wx.ready(function () {
+		sharedata = {
+			title: '{$_share['title']}',
+			desc: '{$_share['content']}',
+			link: '{$_share['link']}',
+			imgUrl: '{$_share['imgUrl']}',
+			success: function(){
+				//alert('success');
+			},
+			cancel: function(){
+				//alert('cancel');
+			}
+		};
+		wx.onMenuShareAppMessage(sharedata);
+	});
+</script>
+    <script src="/addons/zmcn_haibao/template/mobile/poster/js/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript">
+        var docEl = document.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                docEl.style.fontSize = 10 * (docEl.clientWidth / 320) + 'px';
+            };
+        window.addEventListener(resizeEvt, recalc, false);
+        document.addEventListener('DOMContentLoaded', recalc, false);
+    </script>
+</head>
+<body>
+	<div class="weui-btn_primary weui-header">
+		<div class="weui-header-left"><a class="zmui-icon zmui-icon-slider-left f-white" onclick='javascript:history.go(-1);'></a></div>
+		<h1 class="weui-header-title"><a class="f-white" href="{php echo $this->createMobileUrl('index',array('pag'=> 'list'))}">{$settings['life_title']}</a></h1>
+		<div class="weui-header-right"><a class="zmui-icon zmui-icon-manage f-white" href="{php echo $this->createMobileUrl('myedit')}"></a></div>
+	</div>
+  <div>
+    <ul class="list-inline">
+      <li class="li1">最新海报</li><li>
+      </li>
+    </ul>
+  </div>
+  <div class="poster-list-index">
+    <ul style="width: 4640px;" class="poster-new">
+		{loop $news $item}
+        <li>
+          <a href="{php echo $this->createMobileUrl('index',array('pag'=> $item['name']))}">
+            <img src="/addons/zmcn_haibao/template/mobile/poster/images/{$item['pic']}" alt="pic"/>
+          </a>
+        </li>
+		{/loop}
+    </ul>
+  </div>
+  <div>
+    <ul class="list-inline">
+      <li class="li1">名片海报</li><li>
+      </li>
+    </ul>
+  </div>
+  <div class="poster-list-index">
+    <ul style="width: 4640px;" class="poster-display">
+		{loop $display $item}
+        <li>
+          <a href="{php echo $this->createMobileUrl('index',array('pag'=> $item['name']))}">
+            <img src="/addons/zmcn_haibao/template/mobile/poster/images/{$item['pic']}" alt="pic"/>
+          </a>
+        </li>
+		{/loop}
+    </ul>
+  </div>
+  <div>
+    <ul class="list-inline">
+      <li class="li1">培训海报</li><li>
+      </li>
+    </ul>
+  </div>
+  <div class="poster-list-index">
+    <ul style="width: 4640px;" class="poster-train">
+		{loop $train $item}
+        <li>
+          <a href="{php echo $this->createMobileUrl('index',array('pag'=> $item['name']))}">
+            <img src="/addons/zmcn_haibao/template/mobile/poster/images/{$item['pic']}" alt="pic"/>
+          </a>
+        </li>
+		{/loop}
+    </ul>
+  </div>
+  <div>
+    <ul class="list-inline">
+      <li class="li1">招商海报</li><li>
+      </li>
+    </ul>
+  </div>
+  <div class="poster-list-index">
+    <ul style="width: 4640px;" class="poster-business">
+		{loop $business $item}
+        <li>
+          <a href="{php echo $this->createMobileUrl('index',array('pag'=> $item['name']))}">
+            <img src="/addons/zmcn_haibao/template/mobile/poster/images/{$item['pic']}" alt="pic"/>
+          </a>
+        </li>
+		{/loop}
+    </ul>
+  </div>
+  <div>
+    <ul class="list-inline">
+      <li class="li1">1:1方形海报</li><li>
+      </li>
+    </ul>
+  </div>
+  <div class="poster-list-index">
+    <ul style="width: 4640px;">
+		{loop $fangtu $item}
+        <li class="fang">
+          <a href="{php echo $this->createMobileUrl('index',array('pag'=> $item['name']))}">
+            <img src="/addons/zmcn_haibao/template/mobile/poster/images/{$item['pic']}" alt="pic"/>
+          </a>
+        </li>
+		{/loop}
+    </ul>
+  </div>
+  <div>
+    <ul class="list-inline" id="tagmore">
+      <li class="li1 tagmore"><a href="{php echo $this->createMobileUrl('index',array('pag'=> 'list'))}">更多海报模板<img src="/addons/zmcn_haibao/template/mobile/poster/images/tagmore.png" alt="tagmore"></a></li><li>
+      </li>
+    </ul>
+  </div>
+<br><br><br>
+	<div class="weui-tabbar tab-bottom">
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'list'))}"  class="weui-tabbar__item" >
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-tuku weui-tabbar__icon"></i><br>海报</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'list','cid'=>'-1'))}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-hot1 weui-tabbar__icon"></i><br>推荐</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index')}" class="weui-tabbar__item" >
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-home weui-tabbar__icon"></i><br>主页</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'watermark'))}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-suoding weui-tabbar__icon"></i><br>水印</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('myedit')}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-avatar2 weui-tabbar__icon"></i><br>我的</p>
+		</a>              
+	</div>
+  <div class="poster-mask">
+    <div class="poster-maskinner">
+       <img src="/addons/zmcn_haibao/template/mobile/poster/images/loading.gif" alt="load"/>
+      <p>Loading......</p>
+    </div>
+  </div>
+  <script>
+    $(function(){
+          setTimeout(function(){
+                $('.poster-mask').fadeOut();
+          },1500);
+    })
+  </script>
+</body>
+</html>

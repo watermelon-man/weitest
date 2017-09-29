@@ -1,0 +1,382 @@
+@import "http://at.alicdn.com/t/font_5zq1mhs86mzhbyb9.css";
+html,
+body {
+  height: 100%;
+}
+body > .ol {
+  min-height: 100%;
+}
+li {
+  list-style-type: none;
+}
+.ol,
+.ul {
+  display: -webkit-box;
+  display: box;
+}
+.ol {
+  -webkit-box-orient: vertical;
+}
+.ul {
+  -webkit-box-orient: horizontal;
+}
+.ol .f1,
+.ul .f1 {
+  -webkit-box-flex: 1;
+  box-flex: 1;
+}
+.ol .f2,
+.ul .f2 {
+  -webkit-box-flex: 2;
+  box-flex: 2;
+}
+.ol.center {
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+}
+.ol.center1 {
+  -webkit-box-pack: center;
+}
+.textc {
+  text-align: center;
+}
+.eqbox li {
+  float: left;
+  width: 49%;
+  background-size: 100% 100%;
+  margin-bottom: 10px;
+  position: relative;
+}
+.eqbox li img {
+  width: 100%;
+}
+.eqbox li:nth-of-type(even) {
+  float: right;
+}
+.rightBottom {
+  position: relative;
+}
+.rightBottom .rightBottomTitle {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: #fff;
+}
+.rightTop {
+  position: relative;
+}
+.rightTop .rightTopTitle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #333;
+  padding: 3px 6px;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 3px;
+  line-height: 1.3;
+}
+._bottom .fixed {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+._bottom .fixed .weui_cell {
+  padding: 0;
+}
+._bottom .fixed .weui_cell .weui_btn:after {
+  border-radius: 0;
+  border: none;
+}
+.weui_btn {
+  border-radius: 0;
+}
+.weui_cell:before {
+  display: none;
+}
+.weui-navbar {
+  display: flex;
+  z-index: 500;
+  top: 0;
+  width: 100%;
+  background-color: #fafafa;
+}
+.weui-navbar + .weui-tab__panel {
+  padding-top: 50px;
+  padding-bottom: 0;
+}
+.weui-navbar__item {
+  position: relative;
+  display: block;
+  flex: 1;
+  padding: 13px 0;
+  text-align: center;
+  font-size: 15px;
+  color: #7B7B7B;
+}
+.weui-navbar__item:active {
+  background-color: #ededed;
+}
+.weui-navbar__item.weui-bar__item_on {
+  background-color: #eaeaea;
+  color: red;
+}
+.weui-navbar__item:last-child:after {
+  display: none;
+}
+.weui_cells_form .weui_cell_ft.btn {
+  font-size: 16px;
+}
+.weui_cells_form:before,
+.new:after,
+.weui_cells_form:after {
+  display: none;
+}
+.weui_cell_select .weui_cell_primary + .weui_cell_primary {
+  margin-left: 10px;
+}
+.weui_label {
+  width: auto;
+}
+.weui_select_before .weui_select {
+  height: 31px;
+  width: 100%;
+  padding-left: 0;
+}
+.weui_cells_title {
+  padding-left: 6px;
+}
+.p_lr_5 {
+  padding: 0 5px;
+}
+.redbg,
+.on {
+  background: #E60044 !important;
+  color: #fff !important;
+}
+.new {
+  padding: 0;
+  margin: 10px 0;
+  color: #797979;
+}
+.new .weui_cell_primary {
+  background: #eee;
+  padding: 13px;
+}
+.new .weui_cell_ft {
+  margin-left: 10px;
+  text-align: center;
+  background: #eee;
+  padding: 13px;
+}
+.new .weui_cell_hd.title {
+  background: #eee;
+  padding: 13px;
+  margin-right: 10px;
+  text-align: center;
+}
+.weui_cell_sm .weui_cell_primary {
+  padding: 8px;
+}
+.weui_cells_form .weui_cell_sm .weui_cell_ft.btn {
+  padding: 8px 13px;
+}
+.main {
+  padding: 10px;
+  padding-top: 0;
+}
+.label {
+  color: #666;
+  line-height: 2.8;
+  padding: 0px;
+}
+.userCardBox {
+  padding-top: 10px;
+}
+.userCardBox .userCard {
+  border: 1px rgba(0, 0, 0, 0.42) solid;
+  box-shadow: 1px 1px 1px rgba(51, 51, 51, 0.11);
+}
+.userCardBox .userCard .img {
+  width: 70px;
+  height: 100px;
+  position: relative;
+}
+.userCardBox .userCard .img i {
+  width: 81%;
+  display: inline-block;
+  font-size: 70px;
+  position: relative;
+  top: -12px;
+  left: -6px;
+  color: #787878;
+}
+.userCardBox .userCard .title {
+  background: #fff;
+}
+.userCardBox .userCard .qrcode {
+  right: 10px;
+  bottom: 10px;
+}
+.userCardBox .userCard .qrcode img {
+  height: 36px;
+  width: 36px;
+  display: block;
+}
+.userCardBox .userCard .qrcode i {
+  font-size: 28px;
+  color: #666;
+}
+.billBox {
+  padding-top: 10px;
+}
+.billBox .bill li {
+  background: #eee;
+  color: #797979;
+  padding: 10px;
+  position: relative;
+  margin-bottom: 10px;
+}
+.billBox .bill li .qrcode {
+  right: 10px;
+  bottom: 10px;
+}
+.billBox .bill li .qrcode img {
+  display: block;
+  height: 36px;
+  width: 36px;
+}
+.billBox .bill li .qrcode i {
+  font-size: 28px;
+  color: #666;
+}
+.tableBox .table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tableBox .table td {
+  padding: 4px 10px;
+  border: 1px #DBDBDB solid;
+  font-size: 13px;
+  background: #f1f1f1;
+  color: #333;
+  text-align: right;
+}
+.tableBox .table tr td:first-child {
+  width: 100px;
+  text-align: left;
+}
+.selLevel {
+  margin-top: 21px;
+  margin-bottom: 21px;
+}
+.selLevel .weui_cell_primary {
+  margin-right: 10px;
+  text-align: center;
+}
+.selLevel .weui_cell_primary:last-child {
+  margin-right: 0;
+}
+.selQute .btn {
+  margin-left: 10px;
+}
+.selQute .btn:first-child {
+  margin-left: 0;
+}
+.tide .weui_cell_primary {
+  margin-right: 0;
+}
+.tide .weui_cell_primary + .weui_cell_ft {
+  margin-left: 0;
+}
+.map {
+  margin: 10px;
+}
+.em {
+  color: #E60044;
+  margin: 0 5px;
+}
+.h50 {
+  height: 50px;
+}
+.moneyIcon,
+.litreIcon {
+  display: inline-block;
+  border: 1px #797979 solid;
+  border-radius: 100%;
+  width: 17px;
+  height: 17px;
+  line-height: 19px;
+  text-align: center;
+  margin-right: 4px;
+  font-size: 15px;
+}
+.weui_msg {
+
+}
+.weui_msg i {
+  font-size: 111px;
+  color: #fff;
+  position: relative;
+}
+.weui_msg i span {
+  position: absolute;
+  background: #7a7a7a;
+  top: 0;
+  left: 0;
+  border-radius: 100%;
+  height: 166px;
+  width: 166px;
+  margin-left: -29px;
+  z-index: -1;
+  margin-top: -26px;
+  font-size: 19px;
+  vertical-align: bottom;
+  line-height: 282px;
+}
+.weui_msg i.red span {
+  background-color: #E60044;
+}
+.icon-tubiaozitihua11,
+.icon-dingwei {
+  font-size: 16px;
+  -webkit-transform: scale(1.7);
+  display: inline-block;
+  color: #666;
+}
+.icon-dingwei {
+  top: -3px;
+  margin-left: 1px;
+  right: -4px;
+  position: relative;
+}
+.billBox .bill li .qrcode i {
+  color: #ccc;
+}
+.billBox .bill li.wait .qrcode .icon-iconfonterweima {
+  color: #f90000;
+}
+.bill .weui_dialog,
+.admin_center .weui_dialog {
+  background-color: transparent;
+}
+.go {
+  background: #F0F0F0;
+}
+.weui_btn:after {
+  border-radius: 0!important;
+}
+.weui_cells_access .weui_cell_ft:after,
+.weui_select_before .weui_cell_hd:before {
+  border-color: #3D3D3D;
+}
+
+
+.weui_cell_sm .weui_cell_primary {
+		padding: 8px;
+}
+
+.weui_cells_form  .weui_cell_sm .weui_cell_ft.btn{
+	padding: 8px 13px;
+}

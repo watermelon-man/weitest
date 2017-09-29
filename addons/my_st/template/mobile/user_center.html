@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>个人中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/css/amazeui.min.css">
+</head>
+<style type="text/css">
+    body{
+        background-color: #EEEEF3;
+        /*白色 #FEFEFE*/
+        /*灰色字体 #949499*/
+        /*边框 #C9C8CD*/
+    }
+    .touxiang{
+        text-align: center;
+        margin: 20px 5px 10px 5px;
+    }
+    .touxiang img{
+        height: 120px;
+    }
+    .about{
+        background-color: #FEFEFE;
+        text-align: center;
+        font-size:15px;
+    }
+    .geren{
+        background-color: #FEFEFE;
+        font-size: 17px;
+        border-top: 1px solid #C9C8CD;
+        border-bottom: 1px solid #C9C8CD;
+    }
+    .geren .am-cf{
+        padding: 5px 30px 5px 30px;
+    }
+    .join{
+        background-color: #FEFEFE;
+        margin-top:15px;
+        padding: 5px 30px 5px 30px;
+        border-top: 1px solid #C9C8CD;
+        border-bottom: 1px solid #C9C8CD;
+    }
+    .join td{
+        text-align: center;
+    }
+    .join img{
+        height: 40px;
+    }
+    .huodong{
+        background-color: #FEFEFE;
+        margin-top:15px;
+        padding: 5px 30px 5px 30px;
+        border-top: 1px solid #C9C8CD;
+        border-bottom: 1px solid #C9C8CD;
+    }
+    .huodong ul{
+        list-style-type :none;
+        margin:0;
+        padding:0;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .huodong li{
+        padding-bottom: 2px;
+        padding-top: 2px;
+        border-bottom: 1px solid #C9C8CD;
+    }
+</style>
+<body>
+<div class="touxiang" >
+    <img src="{$pic}" class="am-img-thumbnail am-circle">
+</div>
+<p style="text-align: center;">{$name}</p>
+
+<div class="about">
+    <table class="am-table am-table-bordered" style="border-color:#C9C8CD;">
+        <tr>
+            <td style="border-color:#C9C8CD;">
+                参加社团
+                <br>
+                <b>{$total}个</b>
+            </td>
+            <td style="border-color:#C9C8CD;">
+                参加活动
+                <br>
+                <b>{$total_activity}个</b>
+            </td>
+            <td style="border-color:#C9C8CD;">
+                获得学分
+                <br>
+                <b>{$students_info['xuefen']}分</b>
+            </td>
+            <td style="border-color:#C9C8CD;">
+                社团考核
+                <br>
+                <b>{$students_info['jifen']}分</b>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+<div class="join">
+    <b>我的社团</b>
+    <table class="am-table">
+        <tr>
+            {loop $my_shetuan $k $row}
+            <td style="border-style:none;">
+                <img src="<?php echo tomedia($row['pic']);?>" class="am-img-thumbnail am-circle"><br>
+                {$row['name']}<span style="font-size:12px;color:red;display:<?php echo $row['status']==1?'none':'block';?>;">【未审核】</span><span style="font-size:12px;color:green;display:<?php echo $row['status']==1?'block':'none';?>;">【已审核】</span>
+            </td>
+            {/loop}
+        </tr>
+    </table>
+</div>
+
+<div class="huodong">
+    <b>我的活动</b>
+    <ul>
+        {loop $activity_info $k $row}
+           <li>[{$row['st']}] <?php echo date('Y年m月d日',$row['createtime']);?> {$row['activity_name']}———<span style="color:indianred;"><?php echo $row['status'] == 1?'已签到':'未签到';?></span></li>
+        {/loop}
+    </ul>
+</div>
+
+</body>
+</html>

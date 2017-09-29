@@ -1,0 +1,104 @@
+{template 'header'}
+<style>
+    body{
+        background-color: #f0f5f2;
+    }
+    header{
+        height: 30px;
+        line-height: 30px;
+        background-color: #999;
+    }
+    header img{
+        width: 30px;
+        margin-left: 10px;
+    }
+/*    form,table{
+        width: 90%;
+        margin: 0 auto;
+    }*/
+    .touxiang{
+        width:100%;
+        padding: 10px;
+        text-align: center;
+        background-image: url("../addons/sanshi_class/template/style/images/header.jpg");
+        background-size: 100% 100%;
+    }
+    .touxiang img{
+        border-radius: 50%;
+        width: 60px;
+    }
+    .touxiang p{
+        text-align: center;
+        margin: 10px 0 -5px;
+        font-size: 16px;
+    }
+    form div{
+        margin: 10px 0 10px 5%;
+    }
+    .field{
+        width: 60%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    table{  
+            border-collapse: collapse; /*相邻边被合并;separate: 边框独立*/  
+            border: none;  
+            width: 100%;  
+    }  
+    thead tr{
+        background-color: #d4e3e5;
+    }
+    th{
+        text-align: center;
+    }
+    td{  
+        border: solid #CCC 1px;  
+        padding:2px 5px;
+        border-color: #a9c6c9;
+        text-align: center;
+    }
+    tr:nth-child(even){
+        background-color: #d4e3e5;
+    }
+</style>
+    <header>
+        <a href="{php echo $this->createMobileurl('index')}"><img src='../addons/sanshi_class/template/style/images/back.png'></a>
+    </header>
+    <div class="touxiang" >
+        <img src="{$pic}" class="am-img-thumbnail am-circle">
+        <p>{$nickname}</p>
+    </div>
+   <form action="{php echo $this->createMobileurl('check')}" method="post" class="form-horizontal" role="form" id="form1" >
+      <div>
+        <label>班级:</label>
+        <select class='field' name="classid" >
+            {loop $classlist $item}
+                <option {if $classid == $item['id']} selected{/if} value="{$item['id']}">{$item['classname']}</option>
+            {/loop}
+        </select>
+            <a href="{php echo $this->createMobileurl('index')}">继续添加</a>
+
+      </div>
+   </form>
+    <table>
+        <thead>
+            <tr>
+                <th width='20%'>男生</th>
+                <th width='20%'>女生</th>
+                <th width='20%'>总数</th>
+                <th width='40%'>时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            {loop $list $item}
+                <tr>
+                    <td>{$item['male']}</td>
+                    <td>{$item['female']}</td>			
+                    <td><?php echo $item['male']+$item['female'];?></td>
+                    <td>{$item['createday']}</td>
+                </tr>
+            {/loop}
+        </tbody>
+    </table>
+  </body>
+</html>

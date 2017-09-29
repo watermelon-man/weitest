@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<title>每日一句英语学习</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<link rel="stylesheet" type="text/css" href="{MODULE_URL}public/css/baraja.css" />
+	<link rel="stylesheet" type="text/css" href="{MODULE_URL}public/css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="{MODULE_URL}public/css/custom.css" />
+	<script type="text/javascript" src="{MODULE_URL}public/js/modernizr.custom.79639.js"></script>
+</head>
+<body>
+	<div class="container">
+		<section class="main">
+			<div class="baraja-demo">
+				<ul id="baraja-el" class="baraja-container">
+					{loop $list $v}
+					<li>
+						<img src="{php echo tomedia($v['picture']);}" alt="image1"/>
+						<h4>{$v['content']}</h4>
+						<p>{$v['note']}</p>
+					</li>
+					{/loop}
+				</ul>
+			</div>
+		</section>
+	</div>
+	<div class="check">
+		<nav class="actions" >
+			<span id="nav-prev">&lt;</span>
+			<span id="nav-next">&gt;</span>
+		</nav>
+	</div>
+
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="{MODULE_URL}public/js/jquery.baraja.js"></script>
+	<script type="text/javascript">	
+		$(function() {
+
+			var $el = $( '#baraja-el' ),
+			baraja = $el.baraja();
+
+
+			$( '#nav-prev' ).on( 'click', function( event ) {
+
+				baraja.previous();
+
+			} );
+
+			$( '#nav-next' ).on( 'click', function( event ) {
+
+				baraja.next();
+
+			} );
+			$( '#close' ).on( 'click', function( event ) {
+
+				baraja.close();
+
+			} );
+
+		});
+	</script>
+</body>
+</html>

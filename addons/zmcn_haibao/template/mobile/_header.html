@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{if !empty($_W['zmcn']['mk']['name'])}{php echo $_W['zmcn']['mk']['name']}{else}{php echo $_W['uniaccount']['name']}{/if}</title>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<link rel="stylesheet" href="{$_W['siteroot']}addons/zmcn_erp/zmui/css/weui.min.css?a={TIMESTAMP}"/>
+<link rel="stylesheet" href="{$_W['siteroot']}addons/zmcn_erp/zmui/css/jquery-weui.min.css?a={ZMUIVS}"/>
+<link rel="stylesheet" href="{$_W['siteroot']}addons/zmcn_erp/zmui/icon/iconfont.css?a={ZMUIVS}"/><!--加快统一素质材-->
+<link rel="stylesheet" href="{$_W['siteroot']}addons/zmcn_erp/zmui/css/zmcnui.css?a={TIMESTAMP}1"/>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+{php echo register_jssdk(false);} 
+<script>
+	wx.ready(function () {
+		sharedata = {
+			title: '{$_share['title']}',
+			desc: '{$_share['content']}',
+			link: '{$_share['link']}',
+			imgUrl: '{$_share['imgUrl']}',
+			success: function(){
+				//alert('success');
+			},
+			cancel: function(){
+				//alert('cancel');
+			}
+		};
+		wx.onMenuShareAppMessage(sharedata);
+	});
+</script>
+
+<style>
+.weui-popup__container{z-index:21;}
+.weui-tabbar{z-index:20;}
+.weui-tabbar__label .zmui-icon{font-size: 22px;line-height:1;}
+.weui-tabbar__label {
+  text-align: center;
+  color: #999999;
+  font-size: 10px;
+  line-height: 0.8;
+}
+.weui-tabbar {
+height:45px;
+}
+
+.weui-tabbar__item {
+
+  padding: 8px 0 0;
+
+}
+</style>
+
+</head>
+<body ontouchstart>

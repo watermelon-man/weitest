@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel='stylesheet' href='{RES}/style.css?v=5' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="{RES}/huajuan/style.css?v=16">
+		<title>画卷</title>
+	</head>
+	<body>
+		<div class="cover" id="cover">写的不错！发给朋友看看吧！</div>
+		<div class="container">
+			<div class="graph-cell">
+				<div class="tiao-cell">
+					<img class="tiao" src="{RES}/images/tiao.png">
+				</div>
+				<div class="tiao-cell">
+					<img class="tiao" src="{RES}/images/tiao.png">
+				</div>
+				<div class="btn-cell" id="btn-cell">
+					<div tag="0" id="write-again">
+						<span>我也要写</span>
+					</div>
+					<div tag="1" style="display:none" id="write">
+						<span>再写一次</span>
+					</div>
+					<div tag="9" id="follow" style="display:none"><!-- 暂时去掉 -->
+						<span>更多精彩</span>
+					</div>
+				</div>
+				<div class="flower-cell">
+					<img class="ye1dong" src="{RES}/images/ye1.png">
+					<img class="ye2dong" src="{RES}/images/ye2.png">
+					<img class="hua1dong" src="{RES}/images/hua1.png">
+					<img class="hua2dong" src="{RES}/images/hua2.png">
+				</div>
+			</div>
+			<script>
+		var sxdata = '{$item["content"]}';
+		var followurl = "{$followur}";
+</script>
+<div class="previewPage" id="col1"></div>
+<div class="previewPage" id="col2"></div>
+<div class="username">
+	<span id="username"></span>
+</div>
+<div class="headimg">
+	<img id="headimg">
+</div>
+</div>
+		
+	{php echo register_jssdk(false);} <!-- 放到其他引入的 js 之前 -->
+<script>
+	wx.ready(function () {
+		var shareData = {
+            title: '{$share_title}',
+            desc: '{$share_desc}',
+            link: '{$share_url}',
+            imgUrl: '{$share_image}'
+        };
+		
+		 wx.hideAllNonBaseMenuItem();
+             wx.showMenuItems({
+                    menuList: [
+                        'menuItem:share:appMessage',
+                        'menuItem:share:timeline',
+						'menuItem:share:qq',
+                        'menuItem:share:QZone'
+                    ]
+             });
+		
+		wx.onMenuShareAppMessage(shareData);
+		wx.onMenuShareTimeline(shareData);
+		wx.onMenuShareQQ(shareData);
+		wx.onMenuShareQZone(shareData);
+	});
+	</script>
+	
+		<script>
+			var _D = function(str) {
+				return document.getElementById(str);
+			}
+			var addPenSize = 12;
+			var type = getQueryString("type");
+
+			window.onload = function() {
+				var tiaoCell = document.querySelectorAll(".tiao-cell");
+				tiaoCell[0].className += " scrollUp";
+				tiaoCell[1].className += " scrollDown";
+				setTimeout(function(){
+					tiaoCell[0].style.height = "none";
+					tiaoCell[1].style.height = "none";
+					paintstart(function(){
+						// _D("btn-cell").className += " fadeInLarge";
+						if(type != 1) _D("cover").className += " fadeInOut";
+					});
+				}, 800);
+
+				
+				_D("write").onclick = function() {
+					
+					window.location.href = followurl;
+				}
+				
+				_D("write-again").onclick = function() {
+					window.location.href = followurl; 
+				}
+				
+				_D("follow").onclick = function() {
+					window.location.href = followurl;
+				}
+
+				if (type == 1) {
+					var btns = document.querySelectorAll(".btn-cell>div");
+					for(var i=0,lens=btns.length; i<lens; i++) {
+						switch(btns[i].getAttribute("tag")) {
+							case '0':
+								btns[i].style.display = "none";
+								break;
+							case '1':
+								btns[i].style.display = "block";
+						}
+					}
+				};
+			}
+			function getQueryString(name) {
+			    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+			    var r = window.location.search.substr(1).match(reg);
+			    if (r != null) {
+			        return unescape(r[2]);
+			    }
+			    return null;
+			}
+		</script>
+		<script src='{RES}/show.js?v=15'></script>
+	</body>
+</html>

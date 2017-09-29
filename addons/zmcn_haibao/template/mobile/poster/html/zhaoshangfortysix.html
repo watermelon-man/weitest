@@ -1,0 +1,113 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="editz46">
+        <div class="editz46_con">
+          <div class="editz46_conbg11" id="editmove">
+              <img src="{MODULE_URL}template/mobile/poster/images/z46up1.jpg" alt="uppic"/>
+          </div>
+          <div class="editz46_conbg2"></div>
+          <div class="editz46_con1">
+                <p contenteditable="true">经营不忘初心只做诚信微商</p>
+          </div>
+          <div class="editz46_con2">
+                <p contenteditable="true">{$settings['team_title']}团队欢迎你</p>
+          </div>
+          <div class="editz46_con3">
+                <img src="{$settings['share_qr']}" width="168px" height="168px"  alt="qrcode"/>
+          </div>
+          <div class="editz46_up1">
+                <div class="editz46_up11">
+                    <div class="editz46_fileInput left">
+                          <input type="file" name="editz46_upfile" id="editz46_upfile" style="display:none" class="editz46_upfile" onchange="document.getElementById('editz46_upfileResult').innerHTML=this.value;"/>
+                          <input class="editz46_upFileBtn" id="editz46_upfileResult" type="button" value="上传图片" onclick="document.getElementById('editz46_upfile').click();" />
+                    </div>
+                </div>
+          </div>
+          <div class="editz46_up2"> 
+                <div class="editz46_up22">
+                    <div class="editz46_fileInput2 left">
+                          <input type="file" name="editz46_upfile2" id="editz46_upfile2" style="display:none" class="editz46_upfile2" onchange="document.getElementById('editz46_upfileResult2').innerHTML=this.value;"/>
+                          <input class="editz46_upFileBtn2" id="editz46_upfileResult2" type="button" value="上传图片" onclick="document.getElementById('editz46_upfile2').click();" />
+                    </div>
+                </div>
+          </div>
+        </div>
+        <div class="shengchengz46">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+  <!-- 招商第四十六个页面结束 -->
+     <script type="text/javascript">
+        $("#editz46_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+         $(".editz46_conbg11 img").attr("src", objUrl);
+          }
+        });
+      $("#editz46_upfile2").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+          $(".editz46_con3 img").attr("src", objUrl);
+        }
+      });   
+         //建立一个可存取到该file的url
+      function getObjectURL(file) {
+        var url = null; 
+        if (window.createObjectURL!=undefined) { // basic
+          url = window.createObjectURL(file);
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+          url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+          url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+      }
+      $(".shengchengz46").click(function(){
+                
+                $(".shengchengz46").hide();
+                $(".editz46_up1").hide();
+                $(".editz46_up2").hide();
+                $(".editz46_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".editz46_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base64图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".editz46").hide();
+                        }
+                });
+        });
+    //招商第四十六个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

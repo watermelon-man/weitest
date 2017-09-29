@@ -1,0 +1,134 @@
+﻿{template 'poster'.DS.'html'.DS.'zmcn_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="editf37">
+        <div class="editf37_con">
+            <!--<div class="editf37_conbg1">-->
+            <!--<img src="images/ft36bg.png">-->
+            <!--</div>-->
+            <div class="editf37_conbg11" id="editmove">
+                <img src="{MODULE_URL}template/mobile/poster/images/ft37up.jpg">
+            </div>
+            <div class="editf37_con1">
+                <p contenteditable="true">{$settings['team_title']}家族</p>
+            </div>
+            <div class="editf37_con2">
+                <p contenteditable="true">{$settings['team_title']}团队创始人</p>
+                <p contenteditable="true">微商年度风云人物</p>
+            </div>
+            <div class="editf37_con3">
+                <p contenteditable="true">{$myset['name']}</p>
+            </div>
+            <div class="editf37_con4">
+                <p contenteditable="true">6个月</p>
+                <p contenteditable="true">微商小白</p>
+                <p contenteditable="true">从0到1001万</p>
+                <p contenteditable="true">打破业界神话</p>
+            </div>
+            <div class="editf37_con5">
+                <p contenteditable="true">做独立成功的女人</p>
+            </div>
+            <div class="editf37_con6">
+                <p contenteditable="true">诚信微商&nbsp;做正能量微商</p>
+            </div>
+            <div class="editf37_conbg2"></div>
+            <div class="editf37_con3pic">
+                <img src="{$settings['share_qr']}">
+            </div>
+            <div class="editf37_up2">
+                <div class="editf37_up22">
+                    <div class="editf37_fileInput2 left">
+                        <input type="file" name="editf37_upfile2" id="editf37_upfile2" style="display:none" class="editf37_upfile2" onchange="document.getElementById('editf37_upfileResult2').innerHTML=this.value;"/>
+                        <input class="editf37_upFileBtn2" id="editf37_upfileResult2" type="button" value="上传图片" onclick="document.getElementById('editf37_upfile2').click();" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="editf37_up3">
+                <div class="editf37_up33">
+                    <div class="editf37_fileInput3 left">
+                        <input type="file" name="editf37_upfile3" id="editf37_upfile3" style="display:none" class="editf37_upfile3" onchange="document.getElementById('editf37_upfileResult3').innerHTML=this.value;"/>
+                        <input class="editf37_upFileBtn3" id="editf37_upfileResult3" type="button" value="上传图片" onclick="document.getElementById('editf37_upfile3').click();" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="shengchengf37">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+</div>
+</div>
+</div>
+<!--方图第37个页面结束 -->
+<!-- 生成后显示页面结束 -->
+<script type="text/javascript">
+    $("#editf37_upfile2").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+            $(".editf37_con3pic img").attr("src", objUrl);
+        }
+    });
+    $("#editf37_upfile3").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+            $(".editf37_conbg11 img").attr("src", objUrl);
+        }
+    });
+    //建立一个可存取到该file的url
+    function getObjectURL(file){
+        var url = null;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+    $(".shengchengf37").click(function(){
+        $(".shengchengf37").hide();
+        $(".editf37_up1").hide();
+        $(".editf37_up2").hide();
+        $(".editf37_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+        $("body").css("background","none");
+        html2canvas($(".editf37_con"), {
+            allowTaint: true,
+            taintTest: false,
+            onrendered: function(canvas) {
+                canvas.id = "mycanvas";
+                //生成base75图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                $(".baocun").show();
+                $(".tool").show();
+                var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                $(".editf37").hide();
+                console.log("已生成");
+            }
+        });
+    });
+    //第七十五个页面结束
+</script>
+{template 'poster'.DS.'html'.DS.'_footer'}

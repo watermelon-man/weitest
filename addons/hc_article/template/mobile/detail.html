@@ -1,0 +1,387 @@
+<html class="hairlines">
+<head>
+	<meta charset="utf-8">
+	<title>{$article['title']}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" type="text/css" href="../addons/hc_article/style/css/qscui.css?v=332">
+	<script type="text/javascript">
+		var baseURL = '';
+		var logged = '';
+		var clientId = '';
+		var projectUrl = '';
+		var platform = 'mobile';
+		var geo = '';
+	</script>
+</head>
+<body class="platform_mobile /notice">
+	<div class="global-notice">
+		<i class="icon">
+		</i>
+		<span>
+			<a href="/page/notice">
+				火池网络全新改版，点击查看新版介绍
+			</a>
+		</span>
+		<a href="javascript:void(0);" class="notice-close">
+		</a>
+	</div>
+	<div class="qsc-alert" style="display: none;">
+		<i class="info-base64">
+		</i>
+		<span>
+		</span>
+	</div>
+	<header class="qsc-bar bar-green bar-fixed project-detail-bar">
+		<a href="{php echo $this->createMobileUrl('index')}" class="bar-item pull-left">
+			<i class="icon bar-arrow-left">
+			</i>
+			<span>
+				首页
+			</span>
+		</a>
+		<a href="{php echo $this->createMobileUrl('detail', array('op'=>'report1'))}" class="bar-item pull-right report">
+			举报
+		</a>
+		<h1 class="bar-title qsc-logo_white">
+			<a href="">
+				<img src="../addons/hc_article/style/images/qsc-logo_white.png" width="80" alt="文章阅读">
+			</a>
+		</h1>
+	</header>
+	<div class="content-fixed top bottom mod-project mod-project-detail project-4eb9c1ed-f5d1-45c6-921c-b3e1487c5179">
+		<div class="mod-project-detail">
+			<div class="mod-project-card card-type-1">
+				<div class="mod-project-card_header clearfix">
+					<div class="mod-project-card_header__avatar">
+						<img class="lazy-load" src="{$articlemember['headurl']}" data-original="{$articlemember['headurl']}" width="24" height="24" alt="{$article['title']}" style="display: inline;">
+					</div>
+					<div class="mod-project-card_header__user">
+						<span>
+							{$articlemember['nickname']}
+						</span>
+						<em class="mod-project-card_header__time">
+							{php echo date('Y-m-d', $article['starttime'])}
+						</em>
+					</div>
+					<div class="mod-project-card_header__lefttime">
+						{php echo haha($article['endtime'])}
+					</div>
+				</div>
+				<div class="mod-project-card_content">
+					<header class="mod-project-card_content__header">
+						<h2>
+							{$article['description']}
+						</h2>
+					</header>
+					<div class="mod-project-card_content__status clearfix">
+						<span>
+							<strong>
+								{$visitnum}
+								<small>
+									人
+								</small>
+							</strong>
+							浏览量
+						</span>
+						<span>
+							<strong>
+								<font id="allmoney">{$article['allmoney']}</font>
+								<small>
+									元
+								</small>
+							</strong>
+							总奖励
+						</span>
+						<span>
+							<strong>
+								{$article['eachmoney']}
+								<small>
+									元
+								</small>
+							</strong>
+							奖励金额
+						</span>
+					</div>
+					<div class="mod-project-card_content__detail">
+					   {$article['content']}
+						  
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mod-project-card mod-project-supporter mod-project-support ajax-loading">
+			<div class="project-detail_title">
+				文章的评论
+			</div>
+			<div id="comments">
+			{loop $comments $c}
+			<div class="mod-project-support_item clearfix item J_tpl">
+				<div class="mod-project-support_item__user">
+					<img class="lazy-load" src="../addons/hc_article/style/images/grey.png" data-original="{$member['headurl'][$c['mid']]}" width="100%" alt="{$member['nickname'][$c['mid']]}">
+				</div>
+				<div class="mod-project-support_item__detail">
+					<div class="project-support_item__detail__user">
+						{$member['nickname'][$c['mid']]}
+					</div>
+					<div class="project-support_item__detail__time">
+						{php echo date('Y-m-d H:i', $c['createtime'])}
+						<a class="project-support_item__detail_comment publish_comment" href="javascript:void(0)">
+							<i class="icon-comment">
+							</i>
+						</a>
+					</div>
+					<div class="project-support_item__detail__content">
+						{$c['content']}
+					</div>
+				</div>
+			</div>
+			{/loop}
+			</div>
+		</div>
+		<input type="hidden" id="psize" value="0" />
+		<input type="hidden" id="flag" value="0" />
+		<div class="loading" id="loadings" style="display:none;">
+			<a href="{php echo $this->createMobileUrl('index')}" data-remote="true" onclick="return false;">
+				<i>
+				</i>
+				正在加载更多
+			</a>
+		</div>
+	</div>
+	<footer class="qsc-bar bar-fixed bar-support bar-4eb9c1ed-f5d1-45c6-921c-b3e1487c5179">
+		<span class="bar-item" onclick="isgz({$article['id']});">
+			<i class="icon {if $gz['isgz']==1}icon-star{else}icon-star-o{/if}" id="btn-follow">
+			</i>
+			关注
+			<small id="gznum">
+				{$gznum}
+			</small>
+		</span>
+		<span onclick="issupport({$article['id']});" class="bar-item btn-support">
+			<span>我说一句</span>
+		</span>
+		<span data-toggle="modal" data-target="#project-share" class="bar-item" href="javascript:;" id="J_share">
+			<i class="icon icon-share">
+			</i>
+			分享
+			<small id="sharenum">
+				{$sharenum}
+			</small>
+		</span>
+	</footer>
+	<div class="qsc-modal dialog" id="modal-comment-create">
+		<div class="modal-dialog middle">
+			<div class="modal-content">
+				<div class="modal-header">
+					我说一句
+				</div>
+				<div class="modal-body">
+					<textarea class="control-input" id="content" name="content" rows="3" placeholder="请为TA说几句吧"></textarea>
+				</div>
+				<div class="modal-footer clearfix">
+					<span onclick="$('#modal-comment-create').hide();" class="btn" data-dismiss="modal">
+						取消
+					</span>
+					<input type="submit" class="btn active" onclick="sendsupport({$article['id']}, 1);" value="确定">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="qsc-toast" id="toast-follow-project">
+		<div class="toast-backdrop">
+		</div>
+		<div class="toast-dialog">
+			<div class="toast-content">
+				<span id="gzword">
+					关注成功
+				</span>
+			</div>
+		</div>
+	</div>
+<link rel="stylesheet" type="text/css" href="../addons/hc_article/style/css/icons.css">
+<script type="text/javascript" src="../addons/hc_article/style/js/index.min.js"></script>
+<script>
+$(window).scroll(function(){
+	var flag = $('#flag').val();
+	var psize = $('#psize').val();
+	if(flag == psize){
+		var scrollTop = $(this).scrollTop();
+	　　var scrollHeight = $(document).height();
+	　　var windowHeight = $(this).height();
+	　　if(scrollTop + windowHeight >= scrollHeight-40){
+			$('#flag').val(-1);
+			loadMore($('#comments'));
+		}
+　　}
+});
+window.onload = function(){
+	$('#psize').val(0);
+	$('#flag').val(0);
+}
+function loadMore(comments){
+	var psize = parseInt($('#psize').val());
+	var psize1 = parseInt({$psize});
+	if(psize1+psize >= {$total}){
+		return;
+	}
+	$('#loadings').show();
+	$.post("{php echo $this->createMobileUrl('detail', array('op'=>'loadmore', 'id'=>$id))}",{psize:psize},function(d){
+		if(d.comments!=0){
+			var html = '';
+			for(i in d.comments){
+				html = html + '<div class="mod-project-support_item clearfix item J_tpl"><div class="mod-project-support_item__user"><img class="lazy-load" src="'+d.comments[i]['headurl']+'" data-original="'+d.comments[i]['headurl']+'" width="100%" alt="'+d.comments[i]['nickname']+'"></div><div class="mod-project-support_item__detail"><div class="project-support_item__detail__user">'+d.comments[i]['nickname']+'</div><div class="project-support_item__detail__time">'+d.comments[i]['createtime']+'<a class="project-support_item__detail_comment publish_comment" href="javascript:void(0)"><i class="icon-comment"></i></a></div><div class="project-support_item__detail__content">'+d.comments[i]['content']+'</div></div></div>';
+			}
+			if(psize1+d.psize < {$total}){
+				$('#psize').val(d.psize);
+				$('#flag').val(d.psize);
+			}
+			$('#loadings').hide();
+			comments.append(html);
+		}
+	},"json");
+}
+</script>
+<script>
+function isgz(aid){
+	var isgz = 0;
+	if($('#btn-follow').attr('class')=='icon icon-star-o'){
+		isgz = 1;
+	}
+	$.ajax({
+		type: "POST",
+		url: "{php echo $this->createMobileurl('detail',array('op'=>'isgz'))}",
+		data: {aid:aid, isgz:isgz},
+		dataType: "text",
+		
+		success: function (d) {
+			if (d == "1") {
+				$('#btn-follow').removeClass('icon-star-o');
+				$('#btn-follow').addClass('icon-star');
+				$('#gznum').text(parseInt($('#gznum').text())+1);
+				messagealert('关注成功');
+			} else if (d == "0") {
+				$('#btn-follow').removeClass('icon-star');
+				$('#btn-follow').addClass('icon-star-o');
+				$('#gznum').text(parseInt($('#gznum').text())-1);
+				messagealert('取消关注成功');
+			} else {
+				messagealert('出错啦！');
+			}
+		},
+		
+		error: function (xml, text, thrown) {
+			messagealert('出错啦！');
+		}
+	});
+	//$('#toast-follow-project').show();
+}
+
+function issupport(){
+	$('#modal-comment-create').show();
+}
+
+function sendsupport(aid){
+	var content = $('#content').val();
+	if(content==''){
+		messagealert('请为TA说几句吧');
+		return;
+	}
+	$.ajax({
+		type: "POST",
+		url: "{php echo $this->createMobileurl('detail', array('op'=>'issupport'))}",
+		data: {aid:aid, content:content},
+		dataType: "text",
+		
+		success: function (d) {
+			$('#modal-comment-create').hide();
+			if (d == "1") {
+				$('#allmoney').text(parseInt($('#allmoney').text())-parseInt({$article['eachmoney']}));
+				messagealert('奖励成功，恭喜你！'+{$article['eachmoney']}+'元已入库');
+			} else if (d == "2") {
+				messagealert('奖励成功');
+			} else if (d == "0") {
+				messagealert('奖励出错');
+			} else if (d == '-1') {
+				messagealert('该活动已失效');
+			}
+		},
+		
+		error: function (xml, text, thrown) {
+			messagealert('出错啦！');
+		}
+	});
+}
+
+function messagealert(word){
+	$('#gzword').text(word);
+	$('#toast-follow-project').show();
+	setTimeout("$('#toast-follow-project').hide()", 2000);
+}
+
+var share = $('#J_share');
+share.on('click',function(){
+	if($('.share-tips').length==0){
+		$('body').append('<div class="share-tips"><a href="javascript:;" class="close">关闭</a><img src="../addons/juketong/style/images/bg-guide.png" alt="" /></div>');
+	}
+	$('.share-tips').on('click',function(){
+		$('.share-tips,.share-tips .close,.share-tips img').remove();
+	});
+});
+
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+{php $signPackage = $_W['account']['jssdkconfig'];}	
+<script>
+wx.config({
+	debug: false,   
+	appId: '<?php echo $signPackage["appId"];?>',
+	timestamp: '<?php echo $signPackage["timestamp"];?>',
+	nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+	signature: '<?php echo $signPackage["signature"];?>',
+	jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo',]
+});
+
+wx.ready(function () {
+	var shareData = {
+		title: "{$article['title']}",
+		desc: "{$article['description']}",
+		link: "{php echo $_W['siteroot'].'app/'.$this->createMobileUrl('detail', array('id'=>$article['id']))}",
+		imgUrl: "{$_W['attachurl']}{$article['sharethumb']}",
+		trigger: function (res) {},
+		complete: function (res) {},
+		success: function (res) {
+            messagealert('分享成功');
+			{if $gz['isshare']!=1}
+				$('#sharenum1').text(parseInt($('#sharenum').text())+1);
+				var aid = {$article['id']};
+				$.ajax({
+					type: "POST",
+					url: "{php echo $this->createMobileurl('detail', array('op'=>'share'))}",
+					data: {aid:aid},
+					dataType: "text",
+					
+					success: function (d) {
+						
+					},
+					
+					error: function (xml, text, thrown) {
+					}
+				});
+			{/if}
+		},
+		cancel: function (res) {
+              
+		},
+		fail: function (res) {}
+	};
+	wx.onMenuShareAppMessage(shareData);
+	wx.onMenuShareQQ(shareData);
+	wx.onMenuShareWeibo(shareData);
+	wx.onMenuShareTimeline(shareData);
+});
+</script>
+</body>
+</html>

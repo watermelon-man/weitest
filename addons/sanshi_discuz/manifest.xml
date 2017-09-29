@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="">
+	<application setting="false">
+		<name><![CDATA[微信尬聊墙]]></name>
+		<identifie><![CDATA[sanshi_discuz]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[话题讨论]]></ability>
+		<description><![CDATA[话题讨论]]></description>
+		<author><![CDATA[tyzy313481929]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+		<supports>
+		</supports>
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="话题管理" do="topic" state="ims_sanshi_topic" direct="false" />
+			<entry title="讨论管理" do="discuss" state="ims_sanshi_discuss" direct="false" />
+		</menu>
+                <cover>
+			<entry title="尬聊入口" do="index" state="" direct="false" />
+		</cover>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install>
+            <![CDATA[
+    CREATE TABLE IF NOT EXISTS `ims_sanshi_topic` (
+        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+        `weid` int(10) unsigned NOT NULL DEFAULT '0',
+        `topicname` varchar(255) NOT NULL COMMENT '话题名称',
+        `topicdesc` varchar(255) NOT NULL COMMENT '话题描述',
+        `topicback` varchar(255) NOT NULL COMMENT '话题背景图',
+        `topic_num` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '话题讨论人数',
+        `topic_read` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '话题阅读数量',
+        `is_check` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '是否需要审核',
+        PRIMARY KEY (`id`)
+    ) ENGINE=Innodb  DEFAULT CHARSET=utf8;
+   CREATE TABLE IF NOT EXISTS `ims_sanshi_discuss` (
+  `id` int(10) NOT NULL auto_increment,
+  `weid` int(10) unsigned NOT NULL DEFAULT '0',
+  `topic_id` int(10) NOT NULL COMMENT '话题ID',
+  `openid` varchar(100) character set utf8 NOT NULL COMMENT '讨论人openid',
+  `oauthid` varchar(100)  COMMENT '讨论人openid',
+  `discuss` varchar(255) NOT NULL COMMENT '回复内容',
+  `checked` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '是否审核通过',
+  PRIMARY KEY  (`id`),
+  KEY `openid` (`openid`)
+    ) ENGINE=Innodb  DEFAULT CHARSET=utf8;
+    CREATE TABLE IF NOT EXISTS `ims_sanshi_discuss_zan` (
+  `id` int(10) NOT NULL auto_increment,
+  `weid` int(10) unsigned NOT NULL DEFAULT '0',
+  `discuss_id` int(10) NOT NULL COMMENT '话题ID',
+  `openid` varchar(100)  NOT NULL COMMENT '讨论人openid',
+  `oauthid` varchar(100)  COMMENT '讨论人openid',
+  PRIMARY KEY  (`id`),
+  KEY `openid` (`openid`)
+    ) ENGINE=Innodb  DEFAULT CHARSET=utf8;
+    ]]>
+        </install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

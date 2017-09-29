@@ -1,0 +1,108 @@
+{template 'common/header'}
+<style>
+    .main .classBtn{
+        background-color: #428bca;
+        color: white;
+        margin-bottom: 10px;
+        float: right;
+    }
+    .main .classBtn:hover{
+        background-color: #3071a9;
+    }
+    .main .classBtn a:hover{
+        color:white;
+    }
+    .panel-info{
+        padding: 10px;
+    }
+    .fa-check{
+        color: green;
+    }
+    .fa-close{
+        color: red;
+    }
+</style>
+<div class="main">
+    <button class='classBtn btn'><a href="{php echo $this->createWebUrl('topic')}">返回话题列表</a></button>
+    <h3>{$topic['topicname']}</h3>
+    <div class="panel panel-info">
+        <p>{$topic['topicdesc']}</p>
+        <!--<div class="panel-heading">留言搜索</div>
+        <div class="panel-body">
+            <form action="{php echo $this->createWebUrl('discuss')}" class="form-horizontal form" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{$topic_id}" />
+                <div class="form-group">
+                    <label class="col-xs-1 col-sm-2 col-md-2 col-lg-1 control-label">留言</label>
+                    <div class="col-sm-6 col-lg-6 col-xs-3">
+                        <input class="form-control" name="discuss"  type="text" value="{$row['discuss']}" placeholder="留言">
+                    </div>
+                    <div class="form-group col-sm-1 col-lg-1 col-xs-1">
+                        <input type="submit" name="submit" value="查询" class="btn btn-primary" />
+                        <input type="hidden" name="token" value="{$_W['token']}" />
+                    </div>
+                </div>
+            </form>
+        </div>-->
+    </div>
+
+    <div class="main">
+        <div class="panel panel-default">
+            <div class="panel-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                        <tr>
+                            <th>留言</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {loop $list $item}
+                        <tr>
+                            <td>{$item['discuss']}</td>	
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>{if $item['checked'] == 1}
+                                <i class="fa fa-check"></i>
+                                {else}
+                                <i class="fa fa-close"></i>{/if}</td>
+                            <td style="text-align:left;">
+                                <a href="{php echo $this->createWebUrl('discussdelete', array('op' => 'delete', 'id' => $item['id'],'topic_id' => $topic['id']))}" onclick="return confirm('确认删除吗？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                        {/loop}
+                    </tbody>
+                </table>
+                {$pager}
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        require(['bootstrap'], function ($) {
+            $('.btn').hover(function () {
+                $(this).tooltip('show');
+            }, function () {
+                $(this).tooltip('hide');
+            });
+        });
+        $(".main table td>i").on("click",function(){
+            if($(this).hasClass("fa-check")){
+                $(this).removeClass("fa-check");
+                $(this).addClass("fa-close");
+            }else{
+                $(this).removeClass("fa-close");
+                $(this).addClass("fa-check");
+            }
+        });
+    </script>
+
+    {template 'common/footer'}
+

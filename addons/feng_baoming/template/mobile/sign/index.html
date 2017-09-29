@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{$set['activname']}</title>
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!-- apple devices fullscreen -->
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="{$_W['siteroot']}attachment/images/global/wechat.jpg">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/util.js"></script>
+    <script src="{$_W['siteroot']}app/resource/js/require.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/mui.min.js?v=20160906"></script>
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/common.js?v=20160906"></script>
+    <link href="{$_W['siteroot']}app/resource/css/bootstrap.min.css?v=20160906" rel="stylesheet">
+    <link href="{$_W['siteroot']}app/resource/css/common.min.css?v=20160906" rel="stylesheet">
+    <script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        if(navigator.appName == 'Microsoft Internet Explorer'){
+            if(navigator.userAgent.indexOf("MSIE 5.0")>0 || navigator.userAgent.indexOf("MSIE 6.0")>0 || navigator.userAgent.indexOf("MSIE 7.0")>0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        window.sysinfo = {
+        {if !empty($_W['uniacid'])}'uniacid': '{$_W['uniacid']}',{/if}
+        {if !empty($_W['acid'])}'acid': '{$_W['acid']}',{/if}{if !empty($_W['openid'])}'openid': '{$_W['openid']}',{/if}
+        {if !empty($_W['uid'])}'uid': '{$_W['uid']}',{/if}
+        'siteroot': '{$_W['siteroot']}',
+                'siteurl': '{$_W['siteurl']}',
+                'attachurl': '{$_W['attachurl']}',
+                'attachurl_local': '{$_W['attachurl_local']}',
+                'attachurl_remote': '{$_W['attachurl_remote']}',
+        {if defined('MODULE_URL')}'MODULE_URL': '{MODULE_URL}',{/if}
+        'cookie' : {'pre': '{$_W['config']['cookie']['pre']}'}
+        };
+        // jssdk config 对象
+        jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig']);} || {};
+              // 是否启用调试
+        jssdkconfig.debug = false;
+        jssdkconfig.jsApiList = [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard',
+            'openAddress'
+        ];
+    </script>
+</head>
+<body>
+<style>
+    .mui-content{background-color: inherit}
+    .btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open>.dropdown-toggle.btn-info{background-color:crimson}
+</style>
+<div class="mui-content">
+    {php echo htmlspecialchars_decode($set['content'])}
+    </div>
+<nav class="mui-bar mui-bar-tab">
+    <a data-toggle="modal" data-target="#exampleModal"  href="javascript:;" class="btn btn-block btn-info" style="height:50px;border-radius:0;line-height: 10px;padding:0;color:white;">
+        <img src="{MODULE_URL}resource/img/icon_03.png" style="width:30px;display: block;margin:0 auto;" />
+        <span class="fa fa-skyatlas"></span> 点击报名 <span class="fa fa-skyatlas"></span>
+    </a>
+</nav>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control name" placeholder="请输入姓名" name="xm" id="recipient-name">
+                </div>
+                <div class="form-group">
+                    <input type="tel" class="form-control mobile" placeholder="请输入手机号码"  name="mobile">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="send" class="btn btn-block btn-info" style="border-radius:0;height:50px;">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        wx.config(jssdkconfig);
+            var fxtitle = "{$set['fxtitle']}";
+            var fxdes = "{$set['fxdes']}";
+            var fxpic = "{php echo tomedia($set['fxpic'])}";
+            var link = "{$set['fxlink']}";
+            wx.ready(function () {
+            var shareData = {
+            title: fxtitle,
+            desc: fxdes,
+            link: link,
+            imgUrl: fxpic,
+        };
+            //分享朋友
+            wx.onMenuShareAppMessage({
+            title: shareData.title,
+            desc: shareData.desc,
+            link: shareData.link,
+            imgUrl: shareData.imgUrl,
+            trigger: function (res) {
+        },
+            success: function (res) {
+            //  window.location.href =adurl;
+
+            // $.alert("fenxiangchenggong");
+
+        },
+            cancel: function (res) {
+        },
+            fail: function (res) {
+            // $.alert(JSON.stringify(res));
+        }
+        });
+            //朋友圈
+            wx.onMenuShareTimeline({
+            title: shareData.title + "---" + shareData.desc,
+            link: shareData.link,
+            imgUrl: shareData.imgUrl,
+            trigger: function (res) {
+        },
+            success: function (res) {
+            // window.location.href =adurl;
+            // $.alert("fenxiangchenggong");
+        },
+            cancel: function (res) {
+        },
+            fail: function (res) {
+            //$.alert(JSON.stringify(res));
+        }
+        });
+            //QQ
+            wx.onMenuShareQQ({
+            title: shareData.title + "---" + shareData.desc,
+            link: shareData.link,
+            imgUrl: shareData.imgUrl,
+            trigger: function (res) {
+        },
+            success: function (res) {
+            // window.location.href =adurl;
+            // $.alert("fenxiangchenggong");
+        },
+            cancel: function (res) {
+        },
+            fail: function (res) {
+            //$.alert(JSON.stringify(res));
+        }
+        });
+            //QQ空间
+            wx.onMenuShareQZone({
+            title: shareData.title + "---" + shareData.desc,
+            link: shareData.link,
+            imgUrl: shareData.imgUrl,
+            trigger: function (res) {
+        },
+
+            success: function (res) {
+            // window.location.href =adurl;
+            //$.alert("fenxiangchenggong");
+        },
+            cancel: function (res) {
+        },
+            fail: function (res) {
+            //$.alert(JSON.stringify(res));
+        }
+        })
+        })
+
+        if($('.js-quickmenu')!=null && $('.js-quickmenu')!=''){
+            var h = $('.js-quickmenu .nav-home').height()+20+'px';
+            $('body').css("padding-bottom",h);
+            $('body .mui-content').css("bottom",h);
+        }else{
+            $('body').css("padding-bottom",0);
+            $('body .mui-content').css("bottom", "0");
+        }
+
+        if($('.nav-menu-app')!=null && $('.nav-menu-app')!=''){
+            var h = $('.nav-menu-app').height()+'px';
+            $('body').css("padding-bottom",h);
+            $('.mui-content').css('bottom',h);
+        }else{
+            $('body').css("padding-bottom", "0");
+            $('.mui-content').css('bottom', "0");
+        }
+    });
+</script>
+<script>
+$("document").ready(function(){
+$("#send").click(function(){
+    var xm = $.trim($("input[name='xm']").val());
+    var mobile = $.trim($("input[name='mobile']").val());
+    if(xm==''){
+        alert("请输入姓名");
+        return false;
+    }
+    if(mobile.length==0)
+    {
+        alert('请输入手机号码！');
+        return false;
+    }
+    if(mobile.length!=11)
+    {
+        alert('请输入有效的手机号码！');
+        return false;
+    }
+    var myreg = /^1[3|4|5|8|7][0-9]\d{4,8}$/;
+    if(!myreg.test(mobile))
+    {
+        alert('请输入有效的手机号！');
+        return false;
+    }
+    var Url = "{php echo $this->createMobileurl('sign')}";
+    var vdata = {xm:xm,mobile:mobile,action:"sign"};
+    $.post(Url,vdata,function(data){
+            if(data.error==1){
+                alert(data.message);
+                $('#exampleModal').modal('hide');
+            }else{
+                alert(data.message);
+            }
+    },'json');
+
+})
+})
+</script>
+</body></html>

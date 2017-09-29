@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+
+
+    <link rel="stylesheet" type="text/css" href="{MODULE_URL}template/mobile/css/m_userlogin.css">
+    <link rel="stylesheet" type="text/css" href="{MODULE_URL}template/mobile/css/m_userlogin_zh_cn.css">
+    <link rel="stylesheet" type="text/css" href="{MODULE_URL}template/mobile/css/m_global.css">
+
+
+    <title>信息填写</title>
+</head>
+<body>
+<div class="bg_color min_height">
+    <!--头部 -->
+    <!--头部 start-->
+    <div class="HeadCodeLogin">
+        <div class="indexHead">
+            <!--<p class="logo_box">-->
+                <!--<a id="logo_url" >-->
+                    <!--<img class="h_logo" src="{MODULE_URL}template/mobile/images/logo.png" />-->
+                <!--</a>-->
+            <!--</p>-->
+            <p class="f_title">社团活动扫码签到信息填写界面</p>
+        </div>
+    </div>
+    <!--头部 end-->  <!--内容 start-->
+    <div class="new_login">
+        <div class="pad_box">
+            <ul class="comment1_text">
+                <li>
+                    <i class="icon IconPwd"></i>
+                    <span class="s_input_box"><input placeholder="请输入姓名" class="input_pwd j-rp-pwd" name="xingming" type="text" id="xingming"></span>
+                </li>
+                <li>
+                    <i class="icon IconPhone"></i>
+                    <span class="s_input_box"><input placeholder="请输入手机号" class="input_phone j-rp-phone" name="input_phone" type="number" onlyMobile="1" id="mobile_input"></span>
+                </li>
+                <li>
+                    <i class="icon IconPwd"></i>
+                    <span class="s_input_box"><input placeholder="请输入微信号" class="input_pwd j-rp-pwd" name="answer" type="text" id="answer"></span>
+                </li>
+            </ul>
+            <!--<p class="note_agreet"><i class="ag_icon" id="xieyi"></i><span class="text">我已阅读并同意 <u><a class="blu" href="/protocol/registerprotocol">乐视用户协议</a></u></span></p>-->
+            <p class="btn l_top1 blue_btn"><span class="j-rp-rBtn">提&nbsp;&nbsp;交</span></p><!--不可点 grey_btn，可点击 blue_btn，触发 touch_btn-->
+        </div>
+
+
+        <div class="posi_bottom regi_posi_bottom">
+
+            <div class="language_area">
+                <span class="area">所有解释权归本团队所有</span>
+            </div>
+
+              </div>
+    </div>
+    <!--内容 end-->
+    <!--成功或错误提示 start-->
+    <div class="operate_alert" style="display:;">
+        <span class="txt" id="show_msg"></span>
+    </div>
+
+
+
+
+</div>
+
+
+<script type="text/javascript"  src="{MODULE_URL}template/mobile/js/jq.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //检查手机号码
+        function checkMobilePhone(mobilePhone) {
+            var mobile = /^1[3|4|5|6|7|8|9][0-9]{1}[0-9]{8}$/;
+            return mobile.test(mobilePhone);
+        }
+
+        $(".blue_btn").click(function(){
+            var mobilePhone = $("#mobile_input").val();
+            var xingming = $("#xingming").val();
+            var answer = $("#answer").val();
+            if (xingming.length == 0) {
+                $("#show_msg").html('请输入姓名');
+                $(".operate_alert").show();
+                setTimeout(function(){
+                    $(".operate_alert").hide();
+                },1500);
+                return false;
+            }
+            if (mobilePhone.length == 0) {
+                $("#show_msg").html('请输入手机号码');
+                $(".operate_alert").show();
+                setTimeout(function(){
+                    $(".operate_alert").hide();
+                },1500);
+                return false;
+            }
+            if(!checkMobilePhone(mobilePhone)){
+                $("#show_msg").html('请输入正确的手机号码');
+                $(".operate_alert").show();
+                setTimeout(function(){
+                    $(".operate_alert").hide();
+                },1500);
+                return false;
+            }
+            if (answer.length == 0) {
+                $("#show_msg").html('请输入微信号');
+                $(".operate_alert").show();
+                setTimeout(function(){
+                    $(".operate_alert").hide();
+                },1500);
+                return false;
+            }
+            $.ajax({
+                url: "<?php echo $this->createMobileUrl('UserMsgAjax');?>",
+                datatype: "json",  //这里一定要写JSON，这样回调的才是JSON格式，也就是数组格式
+                type: 'post',
+                data : {
+                    "mobile" : mobilePhone,
+                    "xingming" : xingming,
+                    "answer" : answer
+                },
+                success: function (msg) {
+                    if(msg == 1) {
+                        $("#show_msg").html('信息填写成功');
+                        $(".operate_alert").show();
+                        setTimeout(function(){
+                            $(".operate_alert").hide();
+                            var url = "<?php echo $this->createMobileUrl('Index');?>";
+                            document.location.href = url;
+                        },1500);
+                    }
+                },
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

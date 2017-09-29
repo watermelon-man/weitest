@@ -1,0 +1,130 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="editp2">
+        <div class="editp2_con">
+            <div class="editp2_con1pic" id="editp2_con1img">
+                    <img src="{MODULE_URL}template/mobile/poster/images/p2up1.jpg"/>
+            </div>
+            <div class="editp2_conbg">
+              <div class="editp2_con1"> 
+                  <div class="editp2_up1">
+                      <div class="editp2_up11">
+                          <div class="editp2_fileInput left">
+                                <input type="file" name="editp2_upfile" id="editp2_upfile" style="display:none" class="editp2_upfile" onchange="document.getElementById('editp2_upfileResult').innerHTML=this.value;"/>
+                                <input class="editp2_upFileBtn" id="editp2_upfileResult" type="button" value="上传图片" onclick="document.getElementById('editp2_upfile').click();" />
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="editp2_con2">
+                  <div class="editp2_con21">
+                    <p contenteditable="true">{$settings['team_title']}团队讲师：{$myset['name']}</p>
+                    <p contenteditable="true">课程主要培训内容</p>
+                  </div>
+                  <div class="editp2_con22">
+                    <p contenteditable="true">微海报的制作</p>
+                    <p contenteditable="true">用户的分组管理</p>
+                    <p contenteditable="true">微店推广策略</p>
+                    <p contenteditable="true">售后服务与客户的管理</p>
+                  </div>
+                  <div class="editp2_con23">
+                    <p contenteditable="true">{$settings['team_title']}课堂开讲了</p>
+                  </div>
+              </div>
+              <div class="editp2_con3">
+                  <div class="editp2_con3pic" id="editp2_con3img">
+                    <img src="{$settings['share_qr']}" width="168px" height="168px" />
+                  </div>
+                  <div class="editp2_up2">
+                          <div class="editp2_up21">
+                              <div class="editp2_fileInput2 left">
+                                    <input type="file" name="editp2_upfile2" id="editp2_upfile2" style="display:none" class="editp2_upfile2" onchange="document.getElementById('editp2_upfileResult2').innerHTML=this.value;"/>
+                                    <input class="editp2_upFileBtn2" id="editp2_upfileResult2" type="button" value="上传图片" onclick="document.getElementById('editp2_upfile2').click();" />
+                              </div>
+                          </div>
+                  </div>
+              </div>
+            </div>
+          
+        </div>
+        <div class="shengchengp2">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!-- 培训第二个页面结束 -->
+    <script type="text/javascript">
+        $("#editp2_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        console.log("objUrl = "+objUrl);
+        if (objUrl) {
+         $(".editp2_con1pic img").attr("src", objUrl);
+           // $(".editp1_con").css("background-image", "url("+objUrl+")");
+          }
+        });
+    $("#editp2_upfile2").change(function(){
+        var objUrl = getObjectURL(this.files[0]);  
+        if (objUrl) {
+          $(".editp2_con3pic img").attr("src", objUrl);
+        }
+      });    
+         //建立一个可存取到该file的url
+      function getObjectURL(file) {
+        var url = null; 
+        if (window.createObjectURL!=undefined) { // basic
+          url = window.createObjectURL(file);
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+          url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+          url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+      }
+      $(".shengchengp2").click(function(){
+                
+                $(".shengchengp2").hide();
+                $(".editp2_up1").hide();
+                $(".editp2_up2").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".editp2_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base64图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".editp2").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+  //培训第二个页面结束
+    </script>
+    {template 'poster'.DS.'html'.DS.'_footer'}

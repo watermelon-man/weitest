@@ -1,0 +1,477 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>摇一摇大屏幕</title>
+<script type="text/javascript" src="../addons/hpmd_shakewin/template/mobile/js/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="../addons/hpmd_shakewin/template/css/style.css">
+
+<style type="text/css">
+.tagBall{width:800px;height:800px;margin:5px auto;position:relative;}
+.tag{display:block;position:absolute;left:0px;top:0px;color:#000;text-decoration:none;font-size:15px;font-family:"微软雅黑";font-weight:bold;}
+.tag:hover{border:1px solid #666;}
+img {border:none;}
+body{background:url({$backgrdpic}) no-repeat center  0px ;}
+</style>
+    
+</head>
+<body>
+<article class="htmleaf-container">		
+	<div class="snow-container"></div>
+</article>
+<!-- <div class="tagBall" style="background:url('../addons/hpmd_shakewin/template/mobile/images/earth.png') no-repeat 0 0;"> -->
+
+<div class="tagBall">
+	<img id="centerphotodiv" src="" style="display: none;"/>
+	<a id="a0" class="tag"  href="" style="color: rgb(57, 111, 131); font-size: 11.215px; opacity: 0.71875; z-index: 74; left: 607.145px; top: 286.341px;"></a>
+	<a id="a1" class="tag"  href="#" style="color: rgb(90, 105, 226); font-size: 10.1958px; opacity: 0.607338; z-index: 67; left: 567.991px; top: 400.819px;"></a>
+	<a id="a2" class="tag"  href="#" style="color: rgb(99, 83, 188); font-size: 11.8829px; opacity: 0.7814; z-index: 79; left: 637.243px; top: 480.4px;"></a>
+	<a id="a3" class="tag"  href="#" style="color: rgb(236, 130, 136); font-size: 14.5321px; opacity: 0.973166; z-index: 96; left: 678.064px; top: 391.938px;"></a>
+	<a id="a4" class="tag"  href="#" style="color: rgb(16, 163, 64); font-size: 14.7923px; opacity: 0.988298; z-index: 98; left: 640.357px; top: 244.275px;"></a>
+	<a id="a5" class="tag"  href="#" style="color: rgb(218, 232, 231); font-size: 12.5296px; opacity: 0.835699; z-index: 83; left: 550.164px; top: 163.2px;"></a>
+	<a id="a6" class="tag"  href="#" style="color: rgb(23, 137, 39); font-size: 10.4413px; opacity: 0.63616; z-index: 69; left: 462.507px; top: 201.915px;"></a>
+	<a id="a7" class="tag"  href="#" style="color: rgb(68, 106, 193); font-size: 9.47801px; opacity: 0.514491; z-index: 63; left: 422.121px; top: 331.74px;"></a>
+	<a id="a8" class="tag"  href="#" style="color: rgb(167, 164, 150); font-size: 9.6317px; opacity: 0.535535; z-index: 64; left: 443.524px; top: 484.313px;"></a>
+	<a id="a9" class="tag"  href="#" style="color: rgb(27, 168, 165); font-size: 10.9293px; opacity: 0.689622; z-index: 72; left: 509.554px; top: 589.432px;"></a>
+	<a id="a10" class="tag"  href="#" style="color: rgb(11, 194, 121); font-size: 13.5724px; opacity: 0.912345; z-index: 90; left: 583.355px; top: 604.222px;"></a>
+	<a id="a11" class="tag"  href="#" style="color: rgb(167, 73, 139); font-size: 17.5051px; opacity: 1.11925; z-index: 116; left: 631.388px; top: 524.936px;"></a>
+	<a id="a12" class="tag"  href="#" style="color: rgb(147, 207, 235); font-size: 21.0428px; opacity: 1.23931; z-index: 140; left: 632.908px; top: 386.16px;"></a>
+	<a id="a13" class="tag"  href="#" style="color: rgb(254, 66, 232); font-size: 20.9617px; opacity: 1.23701; z-index: 139; left: 588.002px; top: 237.559px;"></a>
+	<a id="a14" class="tag"  href="#" style="color: rgb(84, 159, 250); font-size: 17.511px; opacity: 1.1195; z-index: 116; left: 508.985px; top: 129.095px;"></a>
+	<a id="a15" class="tag"  href="#" style="color: rgb(182, 168, 82); font-size: 13.8341px; opacity: 0.92977; z-index: 92; left: 414.754px; top: 95.5737px;"></a>
+	<a id="a16" class="tag"  href="#" style="color: rgb(52, 131, 200); font-size: 11.3348px; opacity: 0.73054; z-index: 75; left: 330.591px; top: 144.182px;"></a>
+	<a id="a17" class="tag"  href="#" style="color: rgb(61, 227, 209); font-size: 10.0096px; opacity: 0.584535; z-index: 66; left: 278.009px; top: 261.34px;"></a>
+	<a id="a18" class="tag"  href="#" style="color: rgb(48, 131, 211); font-size: 9.64141px; opacity: 0.536842; z-index: 64; left: 271.745px; top: 414.037px;"></a>
+	<a id="a19" class="tag"  href="#" style="color: rgb(55, 21, 55); font-size: 10.1639px; opacity: 0.60349; z-index: 67; left: 310.142px; top: 559.324px;"></a>
+	<a id="a20" class="tag"  href="#" style="color: rgb(217, 161, 177); font-size: 11.7387px; opacity: 0.768477; z-index: 78; left: 379.228px; top: 657.38px;"></a>
+	<a id="a21" class="tag"  href="#" style="color: rgb(19, 148, 166); font-size: 14.8089px; opacity: 0.989248; z-index: 98; left: 452.921px; top: 681.051px;"></a>
+	<a id="a22" class="tag"  href="#" style="color: rgb(68, 199, 11); font-size: 20.0125px; opacity: 1.20872; z-index: 133; left: 507.607px; top: 622.413px;"></a>
+	<a id="a23" class="tag"  href="#" style="color: rgb(110, 26, 32); font-size: 27.0157px; opacity: 1.37064; z-index: 180; left: 524.048px; top: 499.463px;"></a>
+	<a id="a24" class="tag"  href="#" style="color: rgb(41, 52, 234); font-size: 31.3317px; opacity: 1.43438; z-index: 208; left: 500.55px; top: 347.835px;"></a>
+	<a id="a25" class="tag"  href="#" style="color: rgb(196, 192, 140); font-size: 27.9254px; opacity: 1.38571; z-index: 186; left: 442.653px; top: 209.666px;"></a>
+	<a id="a26" class="tag"  href="#" style="color: rgb(126, 138, 116); font-size: 21.0973px; opacity: 1.24084; z-index: 140; left: 361.209px; top: 123.227px;"></a>
+	<a id="a27" class="tag"  href="#" style="color: rgb(121, 190, 174); font-size: 15.8081px; opacity: 1.0426; z-index: 105; left: 269.372px; top: 109.947px;"></a>
+	<a id="a28" class="tag"  href="#" style="color: rgb(177, 1, 71); font-size: 12.7057px; opacity: 0.849526; z-index: 84; left: 192.291px; top: 175.471px;"></a>
+	<a id="a29" class="tag"  href="#" style="color: rgb(55, 148, 28); font-size: 11.2296px; opacity: 0.720201; z-index: 74; left: 149.851px; top: 303.803px;"></a>
+	<a id="a30" class="tag"  href="#" style="color: rgb(203, 2, 169); font-size: 10.9962px; opacity: 0.69658; z-index: 73; left: 153.666px; top: 458.522px;"></a>
+	<a id="a31" class="tag"  href="#" style="color: rgb(166, 182, 251); font-size: 11.9889px; opacity: 0.790705; z-index: 79; left: 201.492px; top: 595.133px;"></a>
+	<a id="a32" class="tag"  href="#" style="color: rgb(181, 229, 128); font-size: 14.629px; opacity: 0.978867; z-index: 97; left: 271.837px; top: 670.611px;"></a>
+	<a id="a33" class="tag"  href="#" style="color: rgb(193, 201, 160); font-size: 19.9234px; opacity: 1.20593; z-index: 132; left: 338.258px; top: 657.906px;"></a>
+	<a id="a34" class="tag"  href="#" style="color: rgb(188, 109, 248); font-size: 28.8606px; opacity: 1.40022; z-index: 192; left: 370.238px; top: 559.91px;"></a>
+	<a id="a35" class="tag"  href="#" style="color: rgb(95, 144, 61); font-size: 37.0892px; opacity: 1.49631; z-index: 247; left: 354.359px; top: 410.532px;"></a>
+	<a id="a36" class="tag"  href="#" style="color: rgb(93, 86, 248); font-size: 33.4769px; opacity: 1.45994; z-index: 223; left: 302.932px; top: 271.293px;"></a>
+	<a id="a37" class="tag"  href="#" style="color: rgb(162, 241, 205); font-size: 23.7297px; opacity: 1.30657; z-index: 158; left: 222.174px; top: 195.38px;"></a>
+	<a id="a38" class="tag"  href="#" style="color: rgb(119, 58, 180); font-size: 17.1451px; opacity: 1.10426; z-index: 114; left: 138.363px; top: 215.221px;"></a>
+	<a id="a39" class="tag"  href="#" style="color: rgb(226, 118, 54); font-size: 14.2101px; opacity: 0.95368; z-index: 94; left: 86.9991px; top: 329.912px;"></a>
+	<a id="a40" class="tag"  href="#" style="color: rgb(24, 244, 143); font-size: 14.057px; opacity: 0.9441; z-index: 93; left: 96.255px; top: 483.491px;"></a>
+	<a id="a41" class="tag"  href="#" style="color: rgb(98, 187, 194); font-size: 16.9573px; opacity: 1.09619; z-index: 113; left: 157.413px; top: 585.756px;"></a>
+	<a id="a42" class="tag"  href="#" style="color: rgb(20, 13, 252); font-size: 24.3287px; opacity: 1.31954; z-index: 162; left: 217.078px; top: 561.593px;"></a>
+	<a id="a43" class="tag"  href="#" style="color: rgb(243, 45, 34); font-size: 31.2642px; opacity: 1.43352; z-index: 208; left: 212.1px; top: 422.186px;"></a>
+	<a id="a44" class="tag"  href="#" style="color: rgb(115, 53, 193); font-size: 24.0483px; opacity: 1.31355; z-index: 160; left: 138.52px; top: 326.924px;"></a>
+	<a id="a45" class="tag"  href="#" style="color: rgb(145, 236, 66); font-size: 19.2291px; opacity: 1.18328; z-index: 128; left: 96.5984px; top: 432.402px;"></a>
+</div>
+<!--
+<div class="peoplebox">
+	<div class="title-top">
+		<h3>摇一摇中奖人员名单公布(20:00)</h3>
+		<div class="jianglist">
+			<ul id="winlistdiv">
+			{if $winfans }
+				{loop $winfans $index $value}
+				{php $wintime = date('Y-m-d h:i',$value['timestamp'])}
+				<li onclick="AwardLists()">
+					<img id="img{$index}"  src="{$value['headimg']}"/><span>{$value['nickname']}</span><i>{$value['name']}</i><b>{$wintime}</b>
+				</li>
+				{/loop}
+			{/if}
+			</ul>
+		</div>
+	</div>
+</div> -->
+
+<div class="peopleboxrs">
+	<div class="title-top">
+		<h4>{$replywords}</h4>
+		<div class="renshu" id="renshuid" >{$winfannum}/{$giftnum}</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+var tagEle = "querySelectorAll" in document ? document.querySelectorAll(".tag") : getClass("tag"),
+	paper = "querySelectorAll" in document ? document.querySelector(".tagBall") : getClass("tagBall")[0];
+	RADIUS =300,
+	fallLength = 500,
+	tags=[],
+	angleX = Math.PI/500,
+	angleY = Math.PI/500,
+	ScreenWidth = paper.offsetWidth,
+	ScreenHeight = paper.offsetWidth,
+	CX = paper.offsetWidth/2,
+	CY = paper.offsetHeight/2,
+	EX = paper.offsetLeft + document.body.scrollLeft + document.documentElement.scrollLeft,
+	EY = paper.offsetTop + document.body.scrollTop + document.documentElement.scrollTop;
+
+
+function getClass(className){
+	var ele = document.getElementsByTagName("*");
+	var classEle = [];
+	for(var i=0;i<ele.length;i++){
+		var cn = ele[i].className;
+		if(cn === className){
+			classEle.push(ele[i]);
+		}
+	}
+	return classEle;
+}
+
+function innit(){
+	for(var i=0;i<tagEle.length;i++){
+		var a , b;
+		var k = (2*(i+1)-1)/tagEle.length - 1;
+		var a = Math.acos(k);
+		var b = a*Math.sqrt(tagEle.length*Math.PI);
+		// var a = Math.random()*2*Math.PI;
+		// var b = Math.random()*2*Math.PI;
+		var x = RADIUS * Math.sin(a) * Math.cos(b);
+		var y = RADIUS * Math.sin(a) * Math.sin(b); 
+		var z = RADIUS * Math.cos(a);
+		var t = new tag(tagEle[i] , x , y , z);
+		tagEle[i].style.color = "rgb("+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+")";
+		tags.push(t);
+		t.move();
+	}
+}
+
+Array.prototype.forEach = function(callback){
+	for(var i=0;i<this.length;i++){
+		callback.call(this[i]);
+	}
+}
+
+function animate(){
+	setInterval(function(){
+		rotateX();
+		rotateY();
+		tags.forEach(function(){
+			this.move();
+		})
+	} , 17)
+}
+
+/*
+if("addEventListener" in window){
+	paper.addEventListener("mousemove" , function(event){
+		var x = event.clientX - EX - CX;
+		var y = event.clientY - EY - CY;
+		// angleY = -x* (Math.sqrt(Math.pow(x , 2) + Math.pow(y , 2)) > RADIUS/4 ? 0.0002 : 0.0001);
+		// angleX = -y* (Math.sqrt(Math.pow(x , 2) + Math.pow(y , 2)) > RADIUS/4 ? 0.0002 : 0.0001);
+		angleY = x*0.0001;
+		angleX = y*0.0001;
+	});
+}
+else {
+	paper.attachEvent("onmousemove" , function(event){
+		var x = event.clientX - EX - CX;
+		var y = event.clientY - EY - CY;
+		angleY = x*0.0001;
+		angleX = y*0.0001;
+	});
+}
+*/
+
+function rotateX(){
+	var cos = Math.cos(angleX);
+	var sin = Math.sin(angleX);
+	tags.forEach(function(){
+		var y1 = this.y * cos - this.z * sin;
+		var z1 = this.z * cos + this.y * sin;
+		this.y = y1;
+		this.z = z1;
+	})
+	
+}
+
+function rotateY(){
+	var cos = Math.cos(angleY);
+	var sin = Math.sin(angleY);
+	tags.forEach(function(){
+		var x1 = this.x * cos - this.z * sin;
+		var z1 = this.z * cos + this.x * sin;
+		this.x = x1;
+		this.z = z1;
+	})
+}
+
+var tag = function(ele , x , y , z){
+	this.ele = ele;
+	this.x = x;
+	this.y = y;
+	this.z = z;
+}
+
+tag.prototype = {
+	move:function(){
+		var scale = fallLength/(fallLength-this.z);
+		var alpha = (this.z+RADIUS)/(2*RADIUS);
+		this.ele.style.fontSize = 15 * scale + "px";
+		this.ele.style.opacity = alpha+0.5;
+		this.ele.style.filter = "alpha(opacity = "+(alpha+0.5)*100+")";
+		this.ele.style.zIndex = parseInt(scale*100);
+		this.ele.style.left = this.x + CX - this.ele.offsetWidth/2 +"px";
+		this.ele.style.top = this.y + CY - this.ele.offsetHeight/2 +"px";
+	}
+}
+innit();
+animate();
+
+
+//var backgrdpic = '{$item['backgrdpic']}';
+//alert(backgrdpic);
+//if(backgrdpic == null || backgrdpic == '') {
+//	window.document.body.style.backgroundImage = "url(../images/112.jpg)";
+//}
+
+var ballspeed = '{$item['ballspeed']}';
+if(ballspeed == null || ballspeed == '') {
+	ballspeed = 0.2;
+}
+var autodirection = '{$item['autodirection']}';
+var directtime = '{$item['directtime']}';
+if(directtime == null || directtime == '') {
+	ballspeed = 2000;
+}
+var checkshaketime = '{$item['checkshaketime']}';
+if(checkshaketime == null || checkshaketime == '') {
+	checkshaketime = 500;
+}
+var checkwintime = '{$item['checkwintime']}';
+if(checkwintime == null || checkwintime == '') {
+	checkwintime = 500;
+}
+var headexitsecond = '{$item['headexitsecond']}';
+
+var Autotime; 
+var IsTimerRuning = 0;
+var TimeOutSec = directtime;
+var Speed = ballspeed;
+var ruleid = '{$ruleid}';
+function StartTimer(){
+	window.IsTimerRuning = 1;
+	if(autodirection == 1) {
+		var speedlen = Math.sqrt(Math.pow(ScreenWidth, 2) + Math.pow(ScreenHeight, 2)) * Speed;
+		var randx = Math.random()*speedlen; //ScreenWidth RADIUS
+
+		var x = randx ;
+		var y = speedlen - x;
+
+		angleY = x*0.0001;
+		angleX = y*0.0001;
+	} else {
+		var speedlen = Math.sqrt(Math.pow(ScreenWidth, 2) + Math.pow(ScreenHeight, 2)) * Speed;
+		var randx = Math.random()*speedlen; //ScreenWidth RADIUS
+
+		var seimi = CX/CY;
+
+		var y = Math.sqrt(Math.pow(randx, 2)/(1 + Math.pow(seimi, 2)));
+		var x = y*seimi;
+
+		angleY = x*0.0001;
+		angleX = y*0.0001;
+	}
+　　window.Autotime = window.setTimeout(BeginTimer,TimeOutSec);
+} 
+function BeginTimer(){
+	if(autodirection == 1) {
+		var speedlen = Math.sqrt(Math.pow(ScreenWidth, 2) + Math.pow(ScreenHeight, 2)) * Speed;
+		var randx = Math.random()*speedlen; //ScreenWidth RADIUS
+
+		var x = randx ;
+		var y = speedlen - x;
+
+		angleY = x*0.0001;
+		angleX = y*0.0001;
+	} else {
+		var speedlen = Math.sqrt(Math.pow(ScreenWidth, 2) + Math.pow(ScreenHeight, 2)) * Speed;
+		var randx = Math.random()*speedlen; //ScreenWidth RADIUS
+
+		var seimi = CX/CY;
+
+		var y = Math.sqrt(Math.pow(randx, 2)/(1 + Math.pow(seimi, 2)));
+		var x = y*seimi;
+
+		angleY = x*0.0001;
+		angleX = y*0.0001;
+	}
+	window.Autotime = window.setTimeout(BeginTimer,TimeOutSec);
+}
+StartTimer();
+
+var Shaketime; 
+var shakeindex = 0;
+var shakemaxindex = 45;
+function ShakingTimer(){
+	$.post("{php echo $this->createWebUrl('CheckShaking',null)}", {ruleid:ruleid, headexitsecond:headexitsecond},function(data){
+		if (data.errno ==0)
+		{
+			parsedData = $.parseJSON(data.msg);
+			//alert(data.msg);
+			
+			var i = 0;
+			shakeindex = 0;
+			if(parsedData != null) {
+				for (i = 0; i < parsedData.length; i++) {
+					if(shakeindex == shakemaxindex+1) {
+						shakeindex = 0;
+					}
+					var tagid = '#a' + shakeindex;
+					var contenhtml = '<img id="img'+shakeindex+'" src="'+parsedData[i]['headimg']+'" border="0" height="50" width="50" style="border-radius:60px;" />';
+					//var contenhtml = parsedData[i]['nickname'] + '_'+ i; //测试：模拟大量用户摇动手机场景
+					$(tagid).html(contenhtml);
+					shakeindex ++;
+				}
+			}
+
+			if(i <= shakemaxindex) {
+				for (var j = i; j <= shakemaxindex; j++) {
+					var tagid = '#a' + j;
+					var imgindex = j%8 + 1;
+					var contenhtml = '<img src="../addons/hpmd_shakewin/template/images/xing0'+imgindex+'.gif" border="0" height="50" width="50" style="border-radius:60px;" />';
+					
+					//测试抓取图片效果
+					/*if(imgindex >2 && imgindex <8) {
+						var contenhtml = '<img src="../addons/hpmd_shakewin/template/images/tx0'+imgindex+'.jpg" border="0" height="50" width="50" style="border-radius:60px;" />';
+					} else {
+						var contenhtml = '<img src="../addons/hpmd_shakewin/template/images/xing0'+imgindex+'.gif" border="0" height="50" width="50" style="border-radius:60px;" />';
+					}*/
+					$(tagid).html(contenhtml);
+				}
+			}
+		} else if(data.errno ==2) {
+			//活动结束了，跳获奖列表
+			//location.href = "{php echo $this->createWebUrl('Shakewinner',array('op'=>'list', 'ruleid'=>$ruleid))}";
+			location.href = "{php echo $this->createWebUrl('BigScreenAwarders',array('op'=>'list', 'ruleid'=>$ruleid))}";
+		} else {
+			alert(data.error);
+		}
+	},'json');
+	window.Shaketime = window.setTimeout(ShakingTimer,checkshaketime);
+}
+ShakingTimer();
+
+
+var Winningtime; 
+var winindex = '{$winfannum}';
+var newHtml = '';
+//var winmaxindex = 45;
+
+var timeout;
+var centerphotowidth = 150;
+var miniphotowidth = 50;
+var centerphotoheight = 150;
+var fixleftoffset = 450;
+var fixtopoffset = 300;
+var fadeInInterval = 1000; //毫秒
+var moveInterval = 1000; //毫秒
+var fadeOutInterval = 200; //毫秒
+var totalStep = 1;
+
+var beginAnimate = 0;
+var curStep = 0;
+var fadeStep = 1;
+var moveWidth = (window.screen.width - eval(centerphotowidth) - eval(fixleftoffset))/totalStep;
+var moveHeight =  (eval(fixtopoffset) + centerphotoheight)/totalStep;
+var moveFadeStep = 1/totalStep;
+
+var photodiv = document.getElementById('centerphotodiv');
+function scroll(){
+	curStep ++;
+	fadeStep = fadeStep - moveFadeStep;
+	$('#centerphotodiv').animate({ left: "+="+moveWidth+"px", top: "-="+moveHeight+"px", height: "-="+(centerphotowidth-miniphotowidth), width: "-=" +(centerphotowidth-miniphotowidth), opacity:fadeStep},moveInterval,function(){
+		//fadeStep = fadeStep - moveFadeStep;
+		//$("#centerphotodiv").fadeTo(moveInterval - 10, fadeStep);
+
+		//2017-01-10需求变更，去掉页面上获奖列表，紧显示新增获奖用户数
+		//$("#winlistdiv").html(newHtml);
+		$("#renshuid").html(winindex + '/' + '{$giftnum}');
+
+		beginAnimate = 0;
+	});
+	//清除定时器的值
+	clearTimeout(timeout);
+	//设置定时器的值
+	leftval = photodiv.style.left.substr(0, photodiv.style.left.length-2);
+	leftval = eval(leftval);
+
+	topval = photodiv.style.top.substr(0, photodiv.style.top.length-2);
+	topval = Math.abs(topval);
+
+	if(leftval < window.screen.width - centerphotowidth - eval(fixleftoffset) && topval < fixtopoffset && curStep < totalStep) {
+		timeout = setTimeout(scroll,moveInterval);
+	}
+	curStep ++;
+	  
+}
+function WinningTimer(){
+	$.post("{php echo $this->createWebUrl('CheckWinning',null)}", {ruleid:ruleid},function(data){
+		if (data.errno ==0)
+		{
+			parsedData = $.parseJSON(data.msg);
+
+			if(parsedData != null) {
+				var oldwinindex = winindex;
+				winindex = parsedData.length;
+
+				if (winindex > oldwinindex)
+				{
+					//正常增长，显示新增长获奖用户头像
+					newHtml = '';
+					//console.log('winindex: ' + winindex);
+					for (i = 0; i < winindex; i++) {
+						var unixTimestamp = new Date(parsedData[i]['timestamp'] * 1000) 
+                        var commonTime = unixTimestamp.toLocaleString()
+						//console.log('unixTimestamp:' + unixTimestamp);
+						//console.log('commonTime:' + commonTime);
+						newHtml += '<li onclick="AwardLists()"><img id="img'+i+'" src="' +parsedData[i]['headimg']+ '"/><span>' +parsedData[i]['nickname']+ '</span><i>' +parsedData[i]['name']+ '</i><b>' +commonTime+ '</b></li>';
+
+					}
+					oldwinindex = winindex;
+
+					if(beginAnimate == 0) {
+						console.log('win!');
+						//执行滚动函数
+						beginAnimate = 1;
+						photodiv.style.left = '0px';
+						photodiv.style.top = '0px';
+						$("#centerphotodiv").attr("src", parsedData[0]['headimg']); 
+						$("#centerphotodiv").attr("style", "position: fixed; top:370px; left:50%; margin-left:-75px; z-index:9955; width:150px; height:150px; border-radius: 150px; border: 5px solid  rgba(255,255,255,0.5); display: none;"); 
+						$("#centerphotodiv").fadeIn(fadeInInterval);
+						scroll();
+					} else {
+						$("#winlistdiv").html(newHtml);
+					}
+				}
+				else if (winindex <= oldwinindex && winindex > 0)
+				{
+					//增长数减少，仅仅刷新列表
+				}
+			}
+
+		} else if(data.errno ==2) {
+			//活动结束了，跳获奖列表
+			//location.href = "{php echo $this->createWebUrl('Shakewinner',array('op'=>'list', 'ruleid'=>$ruleid))}";
+			location.href = "{php echo $this->createWebUrl('BigScreenAwarders',array('op'=>'list', 'ruleid'=>$ruleid))}";
+		} else {
+			alert(data.error);
+		}
+	},'json');
+	window.Winningtime = window.setTimeout(WinningTimer,checkwintime);
+}
+WinningTimer();
+
+function AwardLists() {
+	window.open("{php echo $this->createWebUrl('Shakewinner',array('op'=>'list', 'ruleid'=>$ruleid))}", '_blank');
+}
+</script>
+
+<script src="../addons/hpmd_shakewin/style/three.js" type="text/javascript" charset="utf-8"></script>
+<script src="../addons/hpmd_shakewin/style/snow.js" type="text/javascript" charset="utf-8"></script>
+
+</body></html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$coupon['title']}</title>
+<link href="../addons/hc_monkey/style/css/theme.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="../addons/hc_monkey/style/css/list.css">
+</head>
+<body>
+<section>
+	<div class="m_card">
+		<div class="com"><table border="0" cellpadding="0" cellspacing="0"><tr><td><img src="{if empty($member['openid'])}{$_W['attachurl']}{$member['headimgurl']}{else}{$member['headimgurl']}{/if}" /></td><td><span>{php echo base64_decode($member['realname'])}</span></td></tr></table></div>
+		<div class="tit">{$coupon['title']}</div>
+		<div class="tim">有效期：{php echo date('Y-m-d', $coupon['starttime'])}-{php echo date('Y-m-d', $coupon['endtime'])}</div>
+	</div>
+	<div class="m_step"></div>
+	<ul class="m_list"><li><a href="{php echo $this->createMobileUrl('coupon', array('couponid'=>$coupon['id'], 'op'=>'detail'))}">卡券详情</a></li>
+		<li><a href="{$rule['gzurl']}">查看公众号</a></li>
+		<li>
+		<div class="phn"><a href="tel:{$rule['mobile']}"><span class="icon i_phone"></span></a></div>
+		<h3>联系客服</h3>
+		<p>tel：{$coupon['mobile']}</p>
+		</li>
+	</ul>
+	<div class="footer"><a class=" btn btn-block" {if $flag==0 || $flag==2 || $flag==3}style="background-color:gray;"{else}onclick="seach();"{/if}>{if $flag==0}优惠未开始{elseif $flag==2}优惠已结束{else if $flag==1}核销使用{else}已消费{/if}</a></div>
+</section>
+<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+	<div class="am-modal-dialog">
+		<div class="am-modal-hd"></div>
+		<div class="am-modal-bd">
+			请输入消费密码
+			<input type="text" class="am-modal-prompt-input">
+		</div>
+		<div class="am-modal-footer">
+			<span class="am-modal-btn" data-am-modal-cancel>取消</span>
+			<span class="am-modal-btn" data-am-modal-confirm>提交</span>
+		</div>
+	</div>
+</div>
+<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+	<div class="am-modal-dialog">
+		<div class="am-modal-hd"></div>
+		<div class="am-modal-bd">
+			密码错误
+		</div>
+		<div class="am-modal-footer">
+			<span class="am-modal-btn">确定</span>
+		</div>
+	</div>
+</div>
+</body>
+<link href="../addons/hc_monkey/style/css/amazeui.css" rel="stylesheet">
+<script src="../addons/hc_monkey/style/js/jquery.js" type="text/javascript"></script>
+<script src="../addons/hc_monkey/style/js/amazeui.js"></script>
+<script src="../addons/hc_monkey/style/js/app.js"></script>
+<script>
+function startcoupons(){
+	if({$flag}==0){
+		alert('优惠未开始！');
+		return;
+	}
+	if({$flag}==2){
+		alert('优惠已结束！');
+		return;
+	}
+}
+var seach = function(){
+	$('#my-prompt').modal({
+		relatedTarget: this,
+		onConfirm: function (e) {
+			password = e.data;
+			if(password==''){
+				alert('请输入密码');
+				return;
+			}
+			var couponid = {$coupon['id']};
+			$.ajax({
+				type: "POST",
+				url: "{php echo $this->createMobileurl('coupon', array('op'=>'cost'))}",
+				data: {password:password, couponid:couponid },
+				dataType: "text",
+				
+				success: function (d) {
+					if (d == "1") {
+						alert('消费成功');
+						setTimeout("location.reload()", 1000);
+					}
+					if (d == "0") {
+						alert('密码错误');
+					}
+				},
+				
+				error: function (xml, text, thrown) {
+					alert("出错啦!");
+				}
+			});
+			
+		},
+		onCancel: function (e) {
+			
+		}
+	});
+}
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+{php $signPackage=$_W['account']['jssdkconfig'];}	
+<script>
+wx.config({
+	debug: false,   
+	appId: '<?php echo $signPackage["appId"];?>',
+	timestamp: '<?php echo $signPackage["timestamp"];?>',
+	nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+	signature: '<?php echo $signPackage["signature"];?>',
+	jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo',]
+});
+
+wx.ready(function () {
+	var shareData = {
+		title: "{$coupon['title']}",
+		desc: "{$coupon['description']}",
+		link: "{php echo $_W['siteroot'].'app/'.$this->createMobileUrl('coupon', array('op'=>'join', 'id'=>$coupon['id']))}",
+		imgUrl: "{$_W['attachurl']}{$coupon['picture']}",
+		trigger: function (res) {},
+		complete: function (res) {},
+		success: function (res) {},
+		cancel: function (res) {},
+		fail: function (res) {}
+	};
+	wx.onMenuShareAppMessage(shareData);
+	wx.onMenuShareQQ(shareData);
+	wx.onMenuShareWeibo(shareData);
+	wx.onMenuShareTimeline(shareData);
+});
+</script>
+</html>

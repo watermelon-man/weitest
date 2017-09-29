@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>手写笔墨</title>
+		<link rel="stylesheet" href="{RES}/index/style.css?v=10" type="text/css">
+		<link rel="stylesheet" type="text/css" href="{RES}/FontAwesome/css/font-awesome.min.css">
+</head>
+			<!doctype html>
+			<meta charset='utf-8'>
+			<script type="text/javascript">
+			var username = "{$opname}";
+			var headimg = "{$opface}";
+			var openid = "{$openid}";
+			var follow = "iweite";
+		</script>
+	<body>
+	
+	
+		<div class="tipsCover" id="tipsCover">
+			<img class="tips" src="{RES}/images/sxbmTips.jpg" />
+		</div>
+		<div class="textCont" id="textCont">
+			<div class="textWord">
+				<span id="textstyle">写什么：</span>
+				<span id="textWord"></span>
+				<span id="exchange"><i class="icon-refresh"></i> 换</span>
+			</div>
+		</div>
+		<div id="editorPage">
+			<div id="paperCont">
+				<div class="canvasCont">
+					<div class="canvasList">
+						<div class="btnBox editBtn" id="btnBox">
+							<div class="btn_02 btn_black" id="usual_btn">怎么写</div>
+							<div class="btn_02 btn_black" id="undo_btn">
+								<i class="icon-reply"></i>
+							</div>
+							<div class="btn_02 btn_black" id="repeat_btn" style="display:none">返回</div>
+							<div class="btn_02 btn_black" id="clear_btn">清空</div>
+						</div>
+					</div>
+				</div>
+				<div style="padding:1rem 0 1rem;text-align:center;display:none;" id="pubBox">
+					<a class="btn_01" id="addWord" href="javascript:void(0)">
+						<span class="icon_2">加 字</span>
+					</a>
+				</div>
+				<div class="btnBox confirmBox">
+					<div class="btn_01 btn_blackgold importshow" id="completeBtn">加一个字</div>
+					<div class="btn_01 btn_black" id="confirm_btn">写完了</div>
+				</div>
+				<div class="btnBox">
+					<div class="btn_02"></div>
+					<div class="btn_02"></div>
+				</div>
+			</div>
+		</div>
+		<script>
+		var upload="{$upload}";
+		var show="{$show}";
+		</script>
+		{php echo register_jssdk(false);} <!-- 放到其他引入的 js 之前 -->
+	<script>
+	wx.ready(function () {
+		var shareData = {
+            title: '{$share_title}',
+            desc: '{$share_desc}',
+            link: '{$share_url}',
+            imgUrl: '{$share_image}'
+        };
+		
+	wx.hideAllNonBaseMenuItem();
+	})
+	</script>
+	
+		<script src="{RES}/editor.js?v=22"></script>
+	</body>
+</html>

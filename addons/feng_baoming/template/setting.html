@@ -1,0 +1,98 @@
+{template 'common/header'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1">
+        <div class="panel panel-default">
+            <div class="panel-heading">成功模板设置</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">模板消息ID</label>
+                    <div class="col-xs-12 col-sm-5">
+                        <input class="form-control"  name="succ_tplid" value="{$settings['succ_tplid']}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">细节配置</label>
+                    <div class="col-xs-12 col-sm-5">
+                        <textarea class="form-control" style="height: 200px;" name="succtpl">{$settings['succtpl']}</textarea>
+                    </div>
+                    <span class="help-block">示例:
+                       <p> first|</p>
+                    <p>keyword1|姓名[xm]</p>
+                    <p>keyword2|手机号[mobile]</p>
+                       <p> keyword3|时间[time]</p>
+                   <p> remark|谢谢</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                报名设置
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="activname" value="{$settings['activname']}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2  control-label">活动报名时间</label>
+                    <div class="col-lg-9 col-xs-12">
+                        {php echo tpl_form_field_daterange('bmdate',$settings['bmdate'], true);}
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动详情</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {php echo tpl_ueditor('content', $settings['content']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">管理员openid</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="glopenid" value="{$settings['glopenid']}" class="form-control">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                首页基本设置
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页分享标题</label>
+                    <div class="col-md-9 col-xs-12">
+                        <input type="text" name="fxtitle" class="form-control" value="{$settings['fxtitle']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页分享描述</label>
+                    <div class="col-md-9 col-xs-12">
+                        <input type="text" name="fxdes" class="form-control" value="{$settings['fxdes']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页分享图片</label>
+                    <div class="col-md-9 col-xs-12">
+                        {php echo tpl_form_field_image('fxpic', $settings['fxpic'])}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页分享链接</label>
+                    <div class="col-md-9 col-xs-12">
+                        <input type="text" name="fxlink" class="form-control" value="{$settings['fxlink']}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+    </form>
+</div>
+{template 'common/footer'}

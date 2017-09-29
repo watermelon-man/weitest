@@ -1,0 +1,140 @@
+{template 'member/menuhead'}
+<style>
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+color: #FFF;
+background-color: #428bca;
+border-color: #428bca;
+}
+.panel-default {
+border-color: #ddd;
+margin-top: 20px;
+}
+</style>
+<div class="col-xs-12 col-sm-9 col-lg-10">
+	<ul class="nav nav-tabs">
+	  <li class="active"><a>发布文章</a></li> 
+	</ul>
+	<div class="main">
+		<form action="" method="post" class="form-horizontal form" encarticle="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$article['id']}" />
+		<input type="hidden" name="opp" value="post" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				添加文章
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">标题</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="title" class="form-control" value="{$article['title']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">分类</label>
+					<div class="col-sm-9 col-xs-12">
+						<select class="form-control" name="typeid">
+						{loop $types $t}
+							<option value="{$t['id']}" {if $article['typeid']==$t['id']}selected{/if}>{$t['title']}</option>
+						{/loop}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">简介</label>
+					<div class="col-sm-9 col-xs-12">
+						<textarea type="text" name="description" class="form-control">{$article['description']}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">详情</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_ueditor1('content', $article['content'])}
+						
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">分享图片</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('sharethumb', $article['sharethumb'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">文章图片</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_multi_image1('thumbs', $piclist)}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">剩余次数</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" readonly class="form-control" placeholder="" value="{$member['articlenum']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">总金额</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="allmoney" id="allmoney" class="form-control" placeholder="请输入整数" value="{$article['allmoney']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">评论金额</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="eachmoney" class="form-control" placeholder="请输入整数" value="{$article['eachmoney']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">发布时间</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_daterange('datelimit', array('starttime'=>date('Y-m-d', empty($article['starttime'])?time():$article['starttime']),'endtime'=>date('Y-m-d', empty($article['endtime'])?time()+3600*24*7:$article['endtime'])))}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-1 control-label">是否显示</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class='radio-inline'>
+							<input type='radio' name='isopen' value='1' {if $article['isopen']==1}checked{/if} /> 是
+						</label>
+						<label class='radio-inline'>
+							<input type='radio' name='isopen' value='0' {if $article['isopen']==0}checked{/if} /> 否
+						</label>
+					</div>
+				</div>
+			</div>
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+	</div>
+</div>
+<style>
+.multi-item{height: 150px; max-width: 150px; position:relative; float: left; margin-right: 18px;}
+.multi-item img{max-width: 150px; max-height: 150px;}
+.multi-item em{position:absolute; top: 0; right: -14px;}
+</style>
+<script>
+var util = {};
+util.image = function(val, callback, base64options, options) {
+		var opts = {
+			type :'image',
+			direct : false,
+			multiple : false,
+			path : val,
+			dest_dir : '',
+			global : false,
+			thumb : false,
+			width : 0
+		};
+
+		opts = $.extend({}, opts, options);
+		opts.type = 'image';
+		require(['jquery', '../../../../web/resource/js/app/fileUploader'], function($, fileUploader){
+			fileUploader.show(function(images){
+				if(images){
+					if($.isFunction(callback)){
+						callback(images);
+					}
+				}
+			}, opts);
+		});
+	};
+</script>

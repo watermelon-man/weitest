@@ -1,0 +1,48 @@
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,figcaption,figure,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0}
+h1{font-size:18px;font-weight:normal}
+h2{font-size:14px;font-weight:normal}
+h3{font-size:14px;font-weight:normal}
+h4,h5,h6{font-size:100%;font-weight:normal}
+ul,ol,li{list-style:none;margin: 0;padding: 0;}
+a{text-decoration:none; cursor: pointer;}
+abbr[title],acronym[title]{border-bottom:1px dotted;cursor:help}
+q:before,q:after{content:''}
+legend{color:#000}
+fieldset,img{border:0}
+label,.choiceClassUl li,.phonelist li,.contact-div-right1 p,.contact-div-right1 ul li,.phoneflag p,.phoneflag ul li { cursor: pointer; }
+table{border-collapse:collapse;border-spacing:0}
+hr{border:0;height:1px}
+i,em { font-style: normal; }
+strong { font-weight: normal; }
+*{-ms-word-break:break-all;word-break:break-all;-ms-word-wrap:break-word;word-wrap:break-word;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+
+textarea { resize: none; }
+input,textarea { outline: none; }
+input:-webkit-autofill,textarea:-webkit-autofill {-webkit-box-shadow: 0 0 0px 1000px white inset;}
+button,input[type="button"], input[type="submit"], input[type="reset"] {-webkit-appearance: none; cursor: pointer;}
+select,option { cursor: pointer; background-color: transparent !important; }
+::-webkit-input-placeholder { /* WebKit browsers */ 
+	color: #bbb; 
+} 
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+	color: #bbb; 
+} 
+::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+	color: #bbb; 
+} 
+:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+	color: #bbb; 
+} 
+html { font-family: "Microsoft YaHei", Helvetica, STHeiTi, Arial, sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font-size: 62.5%; }
+body { margin: 0; font-size: 1.4rem; line-height: 1.5; color: #333333; background-color: white; height: 100%; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+
+.fr { float: right; }
+.fl { float: left;  }
+
+.criver { width: 100%; background-color: #eee; height:10px; }
+.head-fixed { position: fixed; z-index: 111; left:0px; top:0px; width: 100%; border-bottom: 1px solid #ddd; background-color: #fff; text-align: center; height:47px; line-height: 47px; }
+.head-fixed h2 { height:46px; line-height: 46px; font-size: 16px; background-color: #fff; }
+.head-fixed a.turnleft { background:#fff url(../images/turnleft.png) center center no-repeat; display: inline-block; width: 46px; height: 46px; position: fixed; left:0px; top:0px; -webkit-background-size: 10px 20px; background-size: 10px 20px; }
+.for-head-fixed { height:47px; width: 100%; }
+
+.inputSubmit { display: inline-block; text-align: center; margin: 30px 0px;font-size: 15px;color: #68501c;border: 1px solid #68501c;background-color: #f6cb1f;border-radius: 5px;-webkit-border-radius: 5px;width: 100%; box-sizing: border-box;-webkit-box-sizing: border-box;height: 44px;line-height: 44px; }

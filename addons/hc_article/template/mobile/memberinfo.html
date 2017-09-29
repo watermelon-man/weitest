@@ -1,0 +1,148 @@
+<html class="hairlines">
+<head>
+	<meta charset="utf-8">
+	<title>个人设置</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" type="text/css" href="../addons/hc_article/style/css/qscui.css?v=338">
+	<script type="text/javascript" src="../addons/hc_article/style/js/jquery-1.4.4.min.js"></script>
+</head>
+<body ontouchstart="" class="platform_mobile">
+	<div class="content top bottom mod-user-setting">
+		<div class="qsc-list-group">
+			<div class="webuploader-container">
+				<div class="webuploader-pick">
+					<div class="list-item list-item_avatar">
+						<strong>
+							头像
+						</strong>
+						<span class="uploader-list">
+							<img src="{$member['headurl']}" width="32" height="32">
+							<i class="list-arrow">
+							</i>
+						</span>
+					</div>
+				</div>
+			</div>
+			<a onclick="shownickname();" class="list-item" data-toggle="modal" data-target="#modal-nickname">
+				<strong>
+					账号昵称
+				</strong>
+				<span>
+					<span id="nicknamed">
+						{$member['nickname']}
+					</span>
+					<i class="list-arrow">
+					</i>
+				</span>
+			</a>
+			<a class="list-item" data-toggle="modal" data-target="#modal-nickname">
+				<strong>
+					剩余发表次数
+				</strong>
+				<span>
+					<span>
+						{$member['articlenum']}
+					</span>
+				</span>
+			</a>
+		</div>
+	</div>
+	<div class="qsc-modal dialog" id="modal-nickname" aria-hidden="true">
+		<form action="" method="POST" name="change-name" id="change-name-form">
+			<div class="modal-dialog middle">
+				<div class="modal-content">
+					<div class="modal-header">
+						修改账号昵称
+					</div>
+					<div class="modal-body">
+						<input type="text" id="nickname" class="control-input" placeholder="修改昵称" value="{$member['nickname']}">
+					</div>
+					<div class="modal-footer clearfix">
+						<a onclick="$('#modal-nickname').hide();" class="btn" data-dismiss="modal">
+							取消
+						</a>
+						<button type="button" onclick="submitnickname();" class="btn active">
+							提交
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="qsc-toast" id="toast-follow-project">
+		<div class="toast-backdrop">
+		</div>
+		<div class="toast-dialog">
+			<div class="toast-content">
+				<span id="gzword">
+					关注成功
+				</span>
+			</div>
+		</div>
+	</div>
+<footer class="qsc-bar bar-fixed">
+	<a href="{php echo $this->createMobileUrl('index')}" class="bar-item">
+		<i class="icon bar-home">
+		</i>
+		首页
+	</a>
+	<a href="{php echo $this->createMobileUrl('articleindex', array('op'=>'release'))}" class="bar-item ">
+		<i class="icon bar-publish">
+		</i>
+		发起
+	</a>
+	<a href="{php echo $this->createMobileUrl('home', array('op'=>'my' , 'opp'=>'myarticle'))}" class="bar-item">
+		<i class="icon bar-message">
+		</i>
+		文章
+	</a>
+	<a href="{php echo $this->createMobileUrl('home')}" class="bar-item active">
+		<i class="icon bar-user">
+		</i>
+		我
+	</a>
+</footer>
+<script>
+function shownickname(){
+	$('#modal-nickname').show();
+}
+
+function submitnickname(){
+	var nickname = $('#nickname').val();
+	messagealert(nickname);
+	if(nickname!=''){
+		$.ajax({
+			type: "POST",
+			url: "{php echo $this->createMobileurl('memberinfo', array('op'=>'submitnickname'))}",
+			data: {nickname:nickname},
+			dataType: "text",
+			success: function (d) {
+				$('#modal-nickname').hide();
+				if (d == "0") {
+					messagealert('昵称不能为空');
+				} else if (d == "1") {
+					$('#nicknamed').html($('#nickname').val());
+					messagealert('修改成功');
+				} else {
+					messagealert('奖励了');
+				}
+			},
+			
+			error: function (xml, text, thrown) {
+				messagealert('出错啦！');
+			}
+		});
+	}
+}
+
+function messagealert(word){
+	$('#gzword').text(word);
+	$('#toast-follow-project').show();
+	setTimeout("$('#toast-follow-project').hide()", 2000);
+}
+</script>
+</body>
+</html>

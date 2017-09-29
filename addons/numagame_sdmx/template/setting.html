@@ -1,0 +1,45 @@
+{template 'common/header'} 
+<ul class="nav nav-tabs">
+    		<li class="active"><a href="">游戏设置</a></li>
+</ul> 
+<div class="main">
+    <form action="" class="form-horizontal form ng-pristine ng-valid" method="post" enctype="multipart/form-data">
+    	<div class="panel-body">  
+								 <div class="form-group">
+					          			   <label class="col-xs-12 col-sm-3 col-md-2 control-label" for="">游戏标题</label>
+					          				 <div class="col-sm-6">
+															 <input type="text" name="sitename" class="form-control" value="{php echo $settings['sitename'];}" placeholder="填写站点名称"/>
+															<span class="help-block"></span>
+											  </div>
+								   </div> 
+									 <div class="form-group">
+									         <label class="col-xs-12 col-sm-3 col-md-2 control-label" for="">分享LOGO</label> 
+										     <div class="col-sm-6 col-xs-12">
+														 {php echo tpl_form_field_image('share_logo', $settings['share_logo'], '', array('extras' => array('text' => 'readonly')))}
+											 </div> 
+									 </div> 
+									  <div class="form-group">
+					          			   <label class="col-xs-12 col-sm-3 col-md-2 control-label" for="">分享标题</label>
+					          				 <div class="col-sm-6">
+															 <input type="text" name="share_title" class="form-control" value="{php echo $settings['share_title'];}" placeholder="填写分享标题"/>
+															<span class="help-block"></span>
+											  </div>
+								     </div>
+								     <div class="form-group">
+					          			   <label class="col-xs-12 col-sm-3 col-md-2 control-label" for="">分享内容</label>
+					          				 <div class="col-sm-6">
+															 <input type="text" name="share_desc" class="form-control" value="{php echo $settings['share_desc'];}" placeholder="填写分享内容"/>
+															<span class="help-block"></span>
+											  </div>
+								     </div>
+						            <div class="form-group">
+										     <label class="col-sm-4 col-md-2 control-label" for=""></label>
+								            <div class="col-sm-8">
+								                <input name="token" type="hidden" value="{$_W['token']}" /> 
+								                <input type="submit" class="btn btn-primary" name="submit" value="提交">
+								            </div>
+								   </div>
+				        </div> 
+   		 </form>
+</div>   
+{template 'common/footer'}

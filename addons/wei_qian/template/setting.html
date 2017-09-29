@@ -1,0 +1,326 @@
+{template 'common/header'}
+
+<form action="{php echo $this->createWebUrl(Peizi, $query = array());}" method="post" enctype="multipart/form-data" class="form-horizontal form">
+<div style="display:none" class="panel panel-default">
+   <div class="panel-heading">
+      兑换红包设置
+	  <strong class="text-danger">
+		<i class="fa fa-info-circle"></i> 需要发红包，服务号、订阅号都需填写，不用此功能，请保持默认！<br>
+	</strong>
+   </div>
+   <div class="panel-body">
+      <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信支付证书</label>
+            <div class="col-sm-9 col-xs-12">
+                 <div class="col-md-2" style="padding:5px;"><span class="label label-default">  <?php  $dir = IA_ROOT . '/addons/wei_vote'."/cert/".$_W['uniacid']."/apiclient_cert.pem"; if(file_exists($dir)) { echo "已上传"; } else { echo "未上传"; } ?></span><br></div>
+                <input type="file" class="custom-file-input" name="nbfwpaycert">
+                <div class="help-block">请上传您的微信支付证书，文件格式应为<code>zip</code><br>内部文件应包含apiclient_cert.pem，apiclient_key.pem，rootca.pem，apiclient_cert.p12等几个文件</div>
+            </div>
+      </div>
+
+    
+
+      <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppID(应用ID)</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <input type="text" name="appid" value="{$settings[0]['appid']}" class="form-control" placeholder="微信公众平台APPID">
+                        <span class="help-block">微信公众平台APPID</span>
+                    </div>
+       </div>
+       <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppSecret(应用密钥)</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" value="{$settings[0]['secret']}" class="form-control" name="secret">
+                 <div class="help-block">认证服务号secret</div>
+            </div>
+        </div>
+
+      <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">MCHID(商户号)</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <input type="text" name="mchid" value="{$settings[0]['mchid']}" class="form-control" placeholder="微信支付商户号(MchId)">
+                        <span class="help-block">输入微信MCHID参数</span>
+                    </div>
+       </div>
+
+       <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">PARTNERKEY</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <input type="text" name="apikey" value="{$settings[0]['apikey']}" class="form-control" placeholder="商户支付密钥(API密钥)">
+                        <span class="help-block">商户支付密钥(API密钥)</span>
+                    </div>
+       </div>
+
+    
+    
+
+   </div>
+</div>
+
+
+
+
+
+
+
+<div class="panel panel-default">
+	 <div class="panel-heading">
+     	签到参数设置
+     </div>
+     
+
+	
+		<div class="panel-body">
+		    
+			<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">1积分等于</label>
+				
+				<div class="col-sm-9">
+					<div class="input-group">
+					<input type="text" name="fen" class="form-control" value="{$settings[0]['fen']}"> 
+					<div class="input-group-addon">（人民币单位）分</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			
+			<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">每日签到次数</label>
+				
+				<div class="col-sm-9">
+				
+					<input type="text" name="chishu" class="form-control" value="{$settings[0]['chishu']}"> 
+					
+				</div>
+				
+			</div>
+			
+			<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">每次签到奖励</label>
+				
+				<div class="col-sm-9">
+					<div class="input-group">
+					<input type="text" name="credit" class="form-control" value="{$settings[0]['credit']}"> 
+					<div class="input-group-addon">积分</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">每次签到奖励</label>
+				
+				<div class="col-sm-9">
+					<div class="input-group">
+					<input type="text" name="jingbi" class="form-control" value="{$settings[0]['jingbi']}"> 
+					<div class="input-group-addon">余额（分）</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="form-group">
+
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">显示每日排行</label>
+
+				<div class="col-sm-9">
+					<div class="input-group">
+					<input type="text" name="paitiaoshu" class="form-control" value="{$settings[0]['paitiaoshu']}"> 
+					
+					<div class="input-group-addon">名</div>
+					</div>
+
+				</div>
+
+			</div>
+			
+			
+			<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否禁用分享朋友圈</label>
+					<div class="col-sm-8 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="jingyong" {if $settings[0]['jingyong'] == 1}checked{/if} value="1">
+							开启
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="jingyong" {if $settings[0]['jingyong'] == 0}checked{/if} value="0">
+							关闭
+						</label>
+					</div>
+			</div>
+			
+			
+			<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否需要关注</label>
+					<div class="col-sm-8 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="isfollow" {if $settings[0]['isfollow'] == 1}checked{/if} value="1">
+							开启
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="isfollow" {if $settings[0]['isfollow'] == 0}checked{/if} value="0">
+							关闭
+						</label>
+					</div>
+			</div>
+			
+			<div  style="display:none" class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启提现</label>
+					<div class="col-sm-8 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="carry" {if $settings[0]['carry'] == 1}checked{/if} value="1">
+							开启
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="carry" {if $settings[0]['carry'] == 0}checked{/if} value="0">
+							关闭
+						</label>
+					</div>
+			</div>
+			
+			
+		
+			
+		<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+				
+				<div class="col-sm-9">
+				
+					<input type="text" name="fenxiangtitle" class="form-control" value="{$settings[0]['fenxiangtitle']}"> 
+					
+				</div>
+				
+			</div>
+			
+			<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享说明</label>
+				
+				<div class="col-sm-9">
+				
+					<input type="text" name="fenxiangshuoming" class="form-control" value="{$settings[0]['fenxiangshuoming']}"> 
+					
+				</div>
+				
+			</div>
+			
+			
+			<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图片</label>
+				
+				<div class="col-sm-9">
+					
+					   {php echo tpl_form_field_image('fengxiangimg',$settings[0]['fengxiangimg']);}
+				
+				</div>
+				
+			</div>
+		    <div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">头部背景图片</label>
+				
+				<div class="col-sm-9">
+					
+					   {php echo tpl_form_field_image('biejingimg',$settings[0]['biejingimg']);}
+				
+				</div>
+				
+			</div>
+			
+			   <div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">背景音乐</label>
+				
+				<div class="col-sm-9">
+					
+					  {php echo tpl_form_field_audio('audio',$settings[0]['audio']);}
+				
+				</div>
+				
+			</div>
+			
+			
+			<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">积分商城字段定义</label>
+				
+				<div class="col-sm-9">
+				
+					<input type="text" name="scziduan" class="form-control" value="{$settings[0]['scziduan']}"> 
+					
+				</div>
+				
+			</div>
+			
+			<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">积分商城URL</label>
+				
+				<div class="col-sm-9">
+				
+					<input type="text" name="shangcheng" class="form-control" value="{$settings[0]['shangcheng']}"> 
+					
+				</div>
+				
+			</div>
+			
+			<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">颜色</label>
+				
+				<div class="col-sm-9">
+				
+					<input type="text" name="yanse" class="form-control" value="{$settings[0]['yanse']}"> 
+					
+				</div>
+				
+			</div>
+			
+			<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">签到时间</label>
+				<div class="col-sm-4">
+				
+				{php echo tpl_form_field_daterange('work2', array('start'=> $settings[0]['start_time'],'end' =>$settings[0]['end_time']), true);}
+				</div>	
+				
+			</div>
+			
+			<div class="form-group">
+			
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">签到说明</label>
+				<div class="col-sm-9" >
+				
+				{php echo tpl_ueditor('huodong_sm', $settings[0]['huodong_sm']);}
+				</div>	
+				
+			</div>
+			
+			
+			<div class="form-group">
+				
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+				
+				<div class="col-sm-9">
+					
+					<input name="submit" type="submit" value="提交" class="btn btn-primary span3" style="height:30px">
+					
+					<input type="hidden" name="token" value="f5388d01">
+				
+				</div>
+				
+			</div>
+			
+		</div>
+	
+</div>
+
+</form>
+{template 'common/footer'}

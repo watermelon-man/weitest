@@ -1,0 +1,130 @@
+{
+	"resources": [
+		{
+			"name": "startPic",
+			"type": "image",
+			"url": "images/startPic.png"
+		},
+		{
+			"name": "startBtn",
+			"type": "image",
+			"url": "images/startBtn.png"
+		},
+		{
+		  "name": "bg",
+		  "type": "image",
+		  "url": "images/bg.png"
+		},
+		{
+		  "name": "floor1",
+		  "type": "image",
+		  "url": "images/floor1.png"
+		},
+		{
+		  "name": "floor2",
+		  "type": "image",
+		  "url": "images/floor2.png"
+		},
+		{
+		  "name": "hero",
+		  "type": "image",
+		  "url": "images/hero.png"
+		},
+		{
+		  "name": "gold",
+		  "type": "image",
+		  "url": "images/gold.png"
+		},
+		{
+		  "name": "shu",
+		  "type": "image",
+		  "url": "images/shu.png"
+		},
+		{
+		  "name": "speed",
+		  "type": "image",
+		  "url": "images/speed.png"
+		},
+		{
+		  "name": "speed1",
+		  "type": "image",
+		  "url": "images/speed1.png"
+		},
+		{
+		  "name": "jiansu",
+		  "type": "image",
+		  "url": "images/jiansu.png"
+		},
+		{
+		  "name": "www",
+		  "type": "image",
+		  "url": "images/www.png"
+		},
+		{
+		  "name": "wwwFnt",
+		  "type": "font",
+		  "url": "images/www.fnt"
+		},
+		{
+		  "name": "langan",
+		  "type": "image",
+		  "url": "images/langan.png"
+		},
+		{
+			"name": "description",
+			"type": "json",
+			"url": "config/description.json"
+		},
+		{
+		  "name": "GameOver",
+		  "type": "image",
+		  "url": "images/GameOver.png"
+		},
+		{
+		  "name": "kuai",
+		  "type": "image",
+		  "url": "images/kuai.png"
+		},
+		{
+		  "name": "again",
+		  "type": "image",
+		  "url": "images/again.png"
+		},
+		{
+		  "name": "share",
+		  "type": "image",
+		  "url": "images/share.png"
+		},
+		{
+		  "name": "cha",
+		  "type": "image",
+		  "url": "images/cha.png"
+		},
+		{
+		  "name": "yindao",
+		  "type": "image",
+		  "url": "images/yindao.png"
+		},
+		{
+		  "name": "stone",
+		  "type": "image",
+		  "url": "images/stone.png"
+		},
+		{
+		  "name": "yun",
+		  "type": "image",
+		  "url": "images/yun.png"
+		},
+		{
+		  "name": "yun2",
+		  "type": "image",
+		  "url": "images/yun2.png"
+		}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "cha,yindao,www,wwwFnt,kuai,startPic,startBtn,GameOver,again,share,bg,floor1,floor2,gold,hero,jiansu,langan,speed,speed1,shu,stone,yun,yun2"
+		}
+	]
+}

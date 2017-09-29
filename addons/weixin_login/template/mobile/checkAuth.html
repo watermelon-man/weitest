@@ -1,0 +1,66 @@
+<title>检测授权</title>
+{template 'header'}
+<style>
+    html,body{ height: 100%; }
+    .user-body{height: 100%;
+    }
+    .user-info{
+
+    }
+    .user-body{
+        background: rgba(23, 199, 26, 0.58);
+    }
+    .footer{
+        display: none;
+    }
+    .user-info{
+        width: 70%;
+        height: 50%;
+        background: rgba(80, 80, 80, 0.35);
+        margin: 0 auto;
+        position: absolute;
+        top: 25%;
+        left: 15%;
+        border-radius: 5px;
+    }
+    .header-img{
+        width: 100px;
+        margin: 0 auto;
+    }
+    .header-img img{
+        width: 100px;
+        border-radius: 50%;
+        height: 100px;
+        margin-top: 50%;
+    }
+    .user-name{
+        text-align: center;
+        margin-top: 13%;
+        font-size: 25px;
+        color: white;
+    }
+    .config-succ{
+        text-align: center;
+        color: #FFFE00;
+    }
+</style>
+
+<div class="user-body">
+    <div class="main info-main">
+    </div>
+    <div class="main">
+        <div class="user-info">
+            <p class="header-img">
+                <img src="{if !empty($userInfo['headimgurl'])}{php echo $this->getImageUrl($userInfo['headimgurl'])}{else}../web/resource/images/noavatar_middle.gif{/if}" width="48">
+
+            </p>
+            <p class="user-name">
+             您好,{$userInfo['nickname']}!
+            </p>
+            <p class="config-succ">您的多平台授权已经配置成功</p>
+        </div>
+    </div>
+</div>
+
+
+{template 'common/footer'}

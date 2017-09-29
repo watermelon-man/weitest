@@ -1,0 +1,101 @@
+{template 'common/header'}
+<link rel="stylesheet" href="{MODULE_URL}template/main.css?t={php echo time()}">
+
+<div class="card">
+	{if $role == 'founder'}
+		{template 'admin'}
+	{/if}
+
+	{if $_W['uid'] > 0}
+		{template 'manage'}
+	{/if}
+	<div class="panel panel-info">
+		<div class="panel-heading">搜索</div>
+		<div class="panel-body">
+			<form class="form-inline" action="{php echo $this->createWebUrl('index')}" method="get">
+				<input type="hidden" name="c" value="{php echo $_GPC['c']}">
+				<input type="hidden" name="a" value="{php echo $_GPC['a']}">
+				<input type="hidden" name="eid" value="{php echo $_GPC['eid']}">
+			  <div class="form-group">
+			    <label for="exampleInputName2">昵称</label>
+			    <input type="text" name="nickname" value="{php echo $_GPC['nickname']}" class="form-control" id="exampleInputName2" placeholder="请输入昵称">
+			  </div>
+			  <div class="form-group">
+			    <label for="exampleInputEmail2">openid</label>
+			    <input type="text" name="openid" value="{php echo $_GPC['openid']}" class="form-control" id="exampleInputEmail2" placeholder="请输入openid">
+			  </div>
+			  <div class="checkbox">
+			    <label>
+			      <input name="isadmin" {if $_GPC['isadmin'] == 'on'}checked{/if} type="checkbox"> 站长
+			    </label>
+			  </div>
+			  <div class="checkbox">
+			    <label>
+			      <input name="ismanager" {if $_GPC['ismanager'] == 'on'}checked{/if} type="checkbox"> 管理
+			    </label>
+			  </div>
+			  <div class="checkbox">
+			    <label>
+			      <input name="isrunner" {if $_GPC['isrunner'] == 'on'}checked{/if} type="checkbox"> 跑腿
+			    </label>
+			  </div>
+			  <button type="submit" class="btn btn-default">搜索</button>
+			</form>
+			<a href="{$_W['siteroot']}addons/imeepos_runner/install/download.php?module=imeepos_runner" class="btn btn-danger fr">版本校验</a>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">粉丝会员</div>
+		<div class="panel-body">
+			<table class="table">
+		    	<thead>
+		    		<tr>
+		    			<th style="width: 5em;">头像</th>
+		    			<th style="width: 16em;">昵称</th>
+		    			<th style="width: 20em;">openid</th>
+		    			<th>操作</th>
+		    		</tr>
+		    	</thead>
+		    	<tbody>
+		    		{loop $list['list'] $li}
+		    		<tr>
+		    			<td>
+		    				<img class="avatar" src="{php echo $li['avatar']}" alt="">
+		    			</td>
+		    			<td>{$li['nickname']}</td>
+		    			<td>{$li['openid']}</td>
+		    			<td>
+		    				{if $role == 'founder'}
+		    				<a data-action="isadmin" data-openid="{php echo $li['openid']}" href="javascript:;" class="btn {if $li['isadmin'] == 1}btn-info{else}btn-default{/if}">{if $li['isadmin'] == 1}取消站长{else}设为站长{/if}</a>
+		    				{/if}
+		    				{if $_W['uid'] > 0}
+		    				<a data-action="ismanager" data-openid="{php echo $li['openid']}" href="javascript:;" class="btn {if $li['ismanager'] == 1}btn-success{else}btn-default{/if}">{if $li['ismanager'] == 1}取消管理员{else}设为管理员{/if}</a>
+		    				<a data-action="isrunner" data-openid="{php echo $li['openid']}" href="javascript:;" class="btn {if $li['isrunner'] == 1}btn-primary{else}btn-default{/if}">{if $li['isrunner'] == 1}取消跑腿{else}设为跑腿{/if}</a>
+		    				{/if}
+		    			</td>
+		    		</tr>
+		    		{/loop}
+		    	</tbody>
+		    </table>
+		</div>
+		<div class="panel-footer">
+			{php echo $list['pager']}
+		</div>
+	</div>
+</div>
+
+<script>
+	$('[data-openid]').click(function(){
+		var openid = $(this).data('openid');
+		var action = $(this).data('action');
+		$.post('',{action: action,openid: openid},function(res){
+			if(res.code == '1'){
+				location.reload();
+				location.go(0)
+			}else{
+				alert(res.msg)
+			}
+		},'json');
+	})
+</script>
+{template 'common/footer'}

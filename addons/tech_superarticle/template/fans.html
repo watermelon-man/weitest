@@ -1,0 +1,127 @@
+{template 'common/header'}
+<ul class="we7-page-tab">
+	<li class="active">
+		<a href="#" >请选择要群发的粉丝</a>
+	</li>
+</ul>
+<style type="text/css">
+.table-hover td {
+ vertical-align: middle!important;
+}
+</style>
+	<div class="panel panel-info">
+	    <div class="panel-heading">筛选</div>
+	    <div class="panel-body">
+			<form action="" method="post" class="form-inline" role="form">
+				<div class="form-group">
+					<div class="input-group" >
+	                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">粉丝昵称</label>
+	                    <div class="col-sm-8 col-lg-8 col-xs-12">
+	                        <input class="form-control" name="nickname" type="text" value="{$nickname}" placeholder="填写粉丝的昵称">
+	                    </div>
+	                    <div class="col-sm-2 col-lg-2"><button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button></div>
+						<input name="search_mod" type="text" value="2" style="display:none;" ng-model="searchMod">
+						<input name="follow" type="text" value="1" style="display:none;">
+					</div>
+				</div>
+				<input name="tag" value="{$tag}" type="hidden">
+			</form>
+	    </div>
+	</div>
+	<div class="category">
+		<form action="" method="post" onsubmit="return formcheck(this)">
+			
+			<div class="panel panel-default">
+				<div class="panel-body table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th style="width:40px;">群发</th>
+								<th style="width:80px;">昵称</th>
+								<th style="width:80px;">头像</th>
+								<th style="width:80px;">国家</th>
+								<th style="width:80px;">省份</th>
+								<th style="width:80px;">城市</th>
+								<th style="width:80px;">关注时间</th>
+							</tr>
+						</thead>
+						<tbody>
+						{loop $fans_list $v}
+						<tr>
+							<td><input style="margin-left: 8px;" type="checkbox" class="openids" name="openids[]" value="{$v['tag']['openid']}"></td>
+							<td><div class="type-parent">{$v['tag']['nickname']}</div></td>
+							<td><img src="{$v['tag']['headimgurl']}" style="width:50px;height:50px;border-radius:50%; overflow:hidden;border:1px solid silver;"></td>
+							<td><div class="type-parent">{$v['tag']['country']}</div></td>
+							<td><div class="type-parent">{$v['tag']['province']}</div></td>
+							<td><div class="type-parent">{$v['tag']['city']}</div></td>
+							<td>{php echo date("m-d H:i:s",$v['tag']['subscribe_time'])}</td>
+						</tr>
+						{/loop}				
+						<tr>
+							<td></td>
+							<td colspan="10" style="text-align: center;">
+								<div class="btn btn-primary kefuqunfa">开始群发</div>
+								<input type="hidden" name="token" value="{$_W['token']}" />
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>{$pager}
+		</form>
+	</div>
+<div id="message" class="modal fade" tabindex="9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">消息提醒</h4>   
+            </div>
+            <div class="modal-body">
+                正在进行群发，请稍后...
+            </div>
+            <div style="clear: both;height: 30px;"></div>
+        </div>
+    </div>
+</div>
+<script>
+	var op = "{$_GPC['type']}";
+    $(".kefuqunfa").click(function(){
+		var str=$(".openids");
+		var objarray=str.length;
+		var chestr="";
+		for (i=0;i<objarray;i++) {
+		  if(str[i].checked == true) {
+		  	if (chestr == "") {
+		  		chestr=str[i].value;
+		  	} else {
+		  		chestr+="|"+str[i].value;
+		  	}
+		  }
+		}
+		if(chestr == "") {
+		    alert("请至少选择一个粉丝");
+		} else {
+			$("#message").modal('show');
+		    $.ajax({
+					url:"{php echo $this->createWebUrl('mass')}&op="+op,
+					type : "post",
+					dataType:"json",  
+					data : {
+						openids:chestr,
+						art_lists:"{$_GPC['art_lists']}"
+					},
+					success : function(data){
+						alert("群发完成，成功发送"+data.data+"人！");
+						$("#message").modal("hide");
+						window.location.href = "{php echo $this->createWebUrl('mass')}";
+					},
+					error:function(){
+						alert("ajax请求出错，请联系相关技术人员解决");
+					}
+			});	
+		}
+    });
+</script>
+{template 'common/footer'}

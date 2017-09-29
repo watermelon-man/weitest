@@ -1,0 +1,186 @@
+<html class="hairlines">
+    <head>
+        <meta charset="utf-8">
+        <title>项目举报-轻松筹</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" type="text/css" href="../addons/hc_article/style/css/qscui.css">
+		<link rel="stylesheet" type="text/css" href="http://static.qschou.com/css/v5/icons.css?v=329">
+        <script type="text/javascript">
+			var baseURL = '';
+            var queryParam = '';
+            var logged = '';
+            var clientId = '';
+            var platform = 'mobile';
+        </script>
+        <style type="text/css">
+            .fancybox-margin{margin-right:0px;}
+        </style>
+    </head>
+    
+    <body ontouchstart="" class="platform_mobile notice modal-open">
+        <div class="global-notice">
+            <i class="icon">
+            </i>
+            <span>
+                <a href="/page/notice">
+                    轻松筹网站全新改版，点击查看新版介绍
+                </a>
+            </span>
+            <a href="javascript:void(0);" class="notice-close">
+            </a>
+        </div>
+        <div class="qsc-alert" style="display: none;">
+            <i class="info-base64">
+            </i>
+            <span>
+            </span>
+        </div>
+        <div class="modal qsc-modal qsc-modal-loading" id="qsc-modal-loading"
+        tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog middle">
+                <div class="modal-content">
+                    <i class="icon-white icon-loading-base64">
+                        <i class="icon-white icon-loading-box-base64 icon-spin">
+                        </i>
+                    </i>
+                    <span>
+                        加载中
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="modal qsc-modal qsc-modal-loading" id="qsc-modal-loading-new">
+            <div class="modal-dialog middle">
+                <div class="modal-content">
+                    <i class="icon-loading-base64">
+                        <i class="icon-loading-box-base64 icon-spin">
+                        </i>
+                    </i>
+                    <span>
+                        加载中
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="content top">
+            <form action="" method="post" id="project-report">
+                <div class="qsc-form-group">
+                    <div class="form-item input-cell">
+                        <input type="text" id="name" name="name" class="control-input text_validata"
+                        placeholder="填写您的真实姓名">
+                    </div>
+                    <div class="form-item input-cell">
+                        <input type="text" id="id" name="id" class="control-input id_validata"
+                        placeholder="填写您的身份证号码">
+                    </div>
+                    <div class="form-item input-cell">
+                        <textarea id="report_reason" name="report_reason" class="control-input text_validata" data-min="30" data-max="50" placeholder="填写您举报该项目的理由" rows="5"></textarea>
+                    </div>
+                    <div class="form-item input-cell">
+                        <div class="qsc-uploader" id="reportUploader">
+                            <div class="uploader-list">
+                            </div>
+                            <div class="webPicPicker webuploader-container" id="reportPicker">
+                                <div class="webuploader-pick">
+                                    <i class="icon icon-plus">
+                                    </i>
+                                    上传举报相关图片
+                                </div>
+                                <div id="rt_rt_1ae13lg1fbql1d9613e611qonmh1" style="position: absolute; top: 4px; left: 4px; width: 92px; height: 92px; overflow: hidden; bottom: auto; right: auto;">
+                                    <input type="file" name="file" class="webuploader-element-invisible" multiple="multiple"
+                                    accept="image/*">
+                                    <label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                        <div class="help-block">
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-btn">
+                    <input type="submit" class="btn btn-success btn-lg btn-block ajax-submit" data-form="project-report" value="确认举报">
+                    <p class="help-block text-center">
+                        <strong data-toggle="modal" data-target="#modal-report-legal">
+                            附:《中华人民共和国民法通则》《中华人民共和国刑法》
+                        </strong>
+                        <br>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="qsc-modal auto-jump-modal in" id="modal-report-tip" tabindex="-1" aria-hidden="true" style="display: block;">
+            <div class="modal-dialog middle middle-max">
+                <div class="modal-content clearfix">
+                    <div class="modal-header text-center">
+                        项目举报提示
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            近期我平台恶意举报事件频发，对许多受助人及其家庭造成了伤害，也为平台带来了不利影响。
+                        </p>
+                        <p>
+                            因此为减少此类事件的发生，我平台从即日起将对举报人进行实名认证。该实名认证仅用于追究恶意举报人民事及刑事责任使用。平台将保证实名认证信息的安全，不对任何第三方进行披露。
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0);" class="btn btn-primary btn-lg" data-dismiss="modal">
+                            知道了
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="qsc-modal" id="modal-report-legal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog middle middle-max">
+                <div class="modal-content clearfix">
+                    <div class="modal-header text-center">
+                        相关法律
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <strong>
+                                《中华人民共和国民法通则》
+                            </strong>
+                        </p>
+                        <p>
+                            第一百零一条:
+                            <br>
+                            公民、法人享有名誉权，公民的人格尊严受法律保护，禁止用侮辱、诽谤等方式损害公民、法人的名誉。
+                        </p>
+                        <p>
+                            第一百二十条第一款:
+                            <br>
+                            公民的姓名权、肖像权、名誉权、荣誉权受到侵害的，有权要求停止侵害，恢复名誉，消除影响，赔礼道歉，并可以要求赔偿损失。
+                        </p>
+                        <p>
+                            <strong>
+                                《中华人民共和国刑法》
+                            </strong>
+                        </p>
+                        <p>
+                            第二百二十一条:
+                            <br>
+                            捏造并散布虚伪事实，损害他人的商业信誉、商品声誉，给他人造成重大损失或者有其他严重情节的，处二年以下有期徒刑或者拘役，并处或者单处罚金。
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0);" class="btn btn-primary btn-lg" data-dismiss="modal">
+                            知道了
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="../addons/hc_article/style/js/review.min.js?v=329">
+        </script>
+
+    </body>
+
+</html>

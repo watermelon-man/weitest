@@ -1,0 +1,68 @@
+<html lang="zh-CN">
+	<head>
+		<title>常见问题</title>
+		<meta charset="utf-8">
+		<meta content="" name="description">
+		<meta content="" name="keywords">
+		<meta content="eric.wu" name="author">
+		<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+		<meta content="telephone=no, address=no" name="format-detection">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<link href="../addons/hc_article/style/css/reset.css?v=20150211" rel="stylesheet">
+		<link href="../addons/hc_article/style/css/faq.css?v=20150211" rel="stylesheet">
+	</head>
+	<body onselectstart="return true;" ondragstart="return false;">
+		<div data-role="container" class="container faq">
+			<div class="body">
+				<header data-role="header"></header>
+				<section data-role="body" class="body" style="min-height: 456px;">
+					<div>
+						<ul class="list_ul" ontouchstart="" onselectstart="return false;">
+							{loop $questions $q}
+							<li onclick="isopen({$q['id']});">
+								<dl>
+									<dt id="{$q['id']}" class="{if $q['id']==$qid}on{else}of{/if}">{$q['title']}</dt>
+									<dd>{$q['content']}</dd>
+								</dl>
+							</li>
+							{/loop}
+						</ul>
+					</div>
+				</section>
+			</div>
+		</div>
+	</body>
+<link rel="stylesheet" type="text/css" href="../addons/hc_article/style/css/qscui.css">
+<footer class="qsc-bar bar-fixed">
+	<a href="{php echo $this->createMobileUrl('index')}" class="bar-item active">
+		<i class="icon bar-home">
+		</i>
+		首页
+	</a>
+	<a href="{php echo $this->createMobileUrl('articleindex', array('op'=>'release'))}" class="bar-item ">
+		<i class="icon bar-publish">
+		</i>
+		发起
+	</a>
+	<a href="{php echo $this->createMobileUrl('home', array('op'=>'my' , 'opp'=>'myarticle'))}" class="bar-item">
+		<i class="icon bar-message">
+		</i>
+		文章
+	</a>
+	<a href="{php echo $this->createMobileUrl('home')}" class="bar-item ">
+		<i class="icon bar-user">
+		</i>
+		我
+	</a>
+</footer>
+<script>
+function isopen(qid){
+	var obj = document.getElementById(qid);
+	if(obj.className=='on'){
+		obj.className = 'off';
+	} else {
+		obj.className = 'on';
+	}
+}
+</script>
+</html>

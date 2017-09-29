@@ -1,0 +1,239 @@
+{template 'common/header'}
+{template 'common'}
+<ul class="nav nav-tabs">
+    <li><a href="{php echo $this->createWebUrl('manage');}">活动管理</a></li>
+    <li><a href="{php echo url('platform/reply/post',array('m'=>'uber_flower'));}">添加规则</a></li>
+    <li{if $operation == 'display'} class="active"{/if}><a href="{php echo $this->createWebUrl('fanslist', array('op' => 'display', 'rid' => $rid))}">参与用户管理</a></li>
+    <li{if $operation == 'post'} class="active"{/if}><a href="{php echo $this->createWebUrl('fanslist', array('id' => $item['id'], 'op' => 'post', 'rid' => $rid))}">添加用户</a></li>
+</ul>
+{if $operation == 'display'}
+<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+        	<input type="hidden" name="m" value="uber_flower" />
+        	<input type="hidden" name="do" value="fanslist" />
+        	<input type="hidden" name="rid" value="{$_GPC['rid']}" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">昵称</label>
+				<div class="col-xs-12 col-sm-8 col-lg-9">
+					<input class="form-control" name="nickname" id="" type="text" value="{$_GPC['nickname']}" placeholder="微信昵称"> 
+				</div>
+			</div>		
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">状态</label>
+				<div class="col-xs-12 col-sm-8 col-lg-9">
+					<select name="exchange" class="form-control" style="float:left">
+                    	<option value="-1">全部</option>
+                        <option value="1" {if $_GPC['exchange']=='1'}selected{/if}>已兑换</option>
+                        <option value="0" {if $_GPC['exchange']=='0'}selected{/if}>未兑换</option>
+
+                	</select>
+				</div>
+                <div class=" col-xs-12 col-sm-2 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="main">
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+
+            <div class="row-fluid">
+                <div class="span8 control-group">
+                    <a class="btn btn-default" data-toggle="tooltip" data-placement="top" href="{php echo url('platform/reply/post',array('m'=>'uber_flower','rid'=> $rid));}" title="编辑"><i class="fa fa-edit"> 编辑活动</i></a> <a class="btn btn-success" href="{php echo $this->createWebUrl('fanslist', array('rid'=>$rid, 'op' => 'display','out_put' => 'output'))}"><i class="fa fa-file"></i> 导出数据</a>
+                </div>
+            </div>
+        </div>
+        <div style="position:relative">
+            <div class="panel-body table-responsive">
+                <table class="table table-hover" style="position:relative">
+                    <thead class="navbar-inner">
+                    <tr align="center">
+                        <th style="width:6%;">排名</th>
+                        <th style="width: 10%;">昵称</th>
+                        <th style="width: 7%;">姓名</th>
+                        <th style="width: 10%;">电话</th>
+                        <th style="width: 10%;">最近距离</th>
+                        <th style="width: 15%;">参与时间</th>
+                        <th style="width: 6%;">登记</th>
+                        <th style="width: 15%;">兑换码</th>
+                        <th style="width: 6%;">兑换</th>
+                        <th style="width: 10%;">编辑/删除</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $list $key $row}
+                    {php $num = ($pindex -1)* $psize + $key + 1;}
+                    <tr>
+                        <td style="{if $num < 4}color:red;{/if}font-size:16px;">
+                            {php echo $num;}
+                        </td>
+                        <td style="white-space:normal;text-align:left;">
+                            <img src="{php echo tomedia($row['avatar']);}" width="50" onerror="this.src='resource/images/noavatar_middle.gif'" style="border-radius:50%;"/>
+                            <br>{php echo cutstr($row['nickname'],5,true);}
+                        </td>
+                        <td style="white-space:normal;">
+                            {if !empty($row['realname'])}{php echo cutstr($row['realname'],5,true);}{else}未登记{/if}
+                        </td>
+                        <td>
+                            {if !empty($row['mobile'])}{$row['mobile']}{else}未登记{/if}
+                        </td>
+                        <td>
+                            {php echo $row['credit']/100000}米
+                        </td>
+                        
+                        <td>{php echo date('Y/m/d H:i',$row['createtime']);}</td>
+                        <td>
+                        	<?php if($row['status']==1){$row['status']='<span class="label" style="background:#9932CC;">是</font>';}else{$row['status']='<span class="label" style="background:#999;">否</font>';}?>
+                            {$row['status']}
+                        </td>
+                        <td><span class="label" style="background:#DAA520;">{$row['redeemcode']}</span></td>
+                        <td>
+                        	<?php if($row['exchange']==1){$row['exchange']='<span class="label" style="background:#56af45;">是</font>';}else{$row['exchange']='<span class="label" style="background:#ccc;">否</font>';}?>
+                            {$row['exchange']}
+                        </td>
+                        <td>
+                            <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('fanslist', array('id' => $row['id'], 'op' => 'post', 'rid' => $rid))}" title="编辑"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
+                            <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('fanslist', array('id' => $row['id'], 'op' => 'delete', 'rid' => $rid))}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" title="删除"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {$pager}
+</div>
+{elseif $operation == 'post'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" autocomplete = "off">
+        <input type="hidden" name="parentid" value="{$parent['id']}" />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {$title}
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">openid</label>
+                    <div class="col-sm-9">
+                        {$item['openid']}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">昵称</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="nickname" name="nickname" class="form-control" value="{$item['nickname']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 头像</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {php echo tpl_form_field_image('avatar',$item['avatar']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">姓名</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="realname" name="realname" class="form-control" value="{$item['realname']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">手机</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="mobile" name="mobile" class="form-control" value="{$item['mobile']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">地址</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="address" name="address" class="form-control" value="{$item['address']}" />
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">QQ号</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="qq" name="qq" class="form-control" value="{$item['qq']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">最近距离</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="credit" name="credit" class="form-control" value="{$item['credit']}" placeholder="" />
+                    </div>
+                </div>
+                <div class="form-group" style="display:none;">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">累计成绩</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="totalcredit" name="totalcredit" class="form-control" value="{$item['totalcredit']}" placeholder="" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">总游戏次数</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="totalnum" name="totalnum" class="form-control" value="{$item['totalnum']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">每天游戏次数</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="todaynum" name="todaynum" class="form-control" value="{$item['todaynum']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否登记：</label>
+                  <div class="col-sm-9 isfollow">
+                    <label class="radio-inline">
+                      <input type="radio" name="status" value="0" {if $item['status'] == 0 } checked{/if} />
+                      否</label>
+                    <label class="radio-inline">
+                      <input type="radio" name="status" value="1" {if $item['status'] == 1} checked{/if} />
+                      是</label>
+                    
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否兑换：</label>
+                  <div class="col-sm-9 isfollow">
+                    <label class="radio-inline">
+                      <input type="radio" name="exchange" value="0" {if $item['exchange'] == 0 } checked{/if} />
+                      否</label>
+                    <label class="radio-inline">
+                      <input type="radio" name="exchange" value="1" {if $item['exchange'] == 1} checked{/if} />
+                      是</label>
+                    
+                  </div>
+                </div>
+                {if $this->module['config']['ismerchant']==1}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">所属舰队</label>
+                    <div class="col-sm-9">
+                        <select id="txt-merchant" name="mchid" class="form-control">
+                                {php $merchant = pdo_getall('uber_flower_merchant', array('uniacid' => $_W['uniacid']), array('id','byname'), 'id');}		<option value="0">请选择所属战舰队</option>
+                                    {loop $merchant $mch}
+                                    <option value="{$mch['id']}" {if $mch['id'] == $item['mchid']}selected{/if}>{$mch['byname']}</option>
+                                    {/loop}
+                       </select>
+                    </div>
+                </div>
+                {/if}
+                
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交">保存设置</button>
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+        </div>
+    </form>
+</div>
+{/if}
+{template 'common/footer'}

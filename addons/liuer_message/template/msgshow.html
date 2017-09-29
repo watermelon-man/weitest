@@ -1,0 +1,66 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li class="active"><a href="{php echo $this->createWebUrl('activity');}">留言详情</a></li>
+</ul>
+<div class="panel panel-default">
+    <div class="panel-heading">留言详情</div>
+    <div class="panel-body">
+        <form action="" class="form-horizontal">
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">微信昵称</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">{$data['nickname']}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">微信头像</label>
+                <div class="col-sm-10">
+                    {php echo tpl_form_field_image(avatar,$data['avatar']);}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">性别</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        {if $data['sex']}
+                        男
+                        {else}
+                        女
+                        {/if}
+                    </p>
+                </div>
+            </div>
+            {loop $fields $v}
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{$v['title']}</label>
+                <div class="col-sm-10">
+                    {if $v['field_type'] == 1}
+                    <input type="text" class="form-control" name="{$v['field']}" placeholder="" value="{$data[$v['field']]}">
+                    {elseif $v['field_type'] == 2}
+                    <textarea name="{$v['field']}" class="form-control">{$data[$v['field']]}</textarea>
+                    {/if}
+                </div>
+            </div>
+            {/loop}
+        </form>
+    </div>
+    <div class="panel-footer">
+        <form action="{php echo $this->createWebUrl('reply');}" class="form-horizontal" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" style="color:#ff3d01;">管理员回复</label>
+                <div class="col-sm-10">
+                    <textarea name="reply" class="form-control">{$data['reply']}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <input type="hidden" name="token" value="{$_W['token']}">
+                    <input type="hidden" name="id" value="{$data['id']}">
+                    <input type="hidden" name="submit" value="1">
+                    <button class="btn btn-success" type="submit">提交回复</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

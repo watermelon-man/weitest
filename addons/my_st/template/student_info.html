@@ -1,0 +1,43 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="javascript:;" title="">学生信息</a></li>
+</ul>
+
+
+<div class="panel panel-default">
+    <div class="panel-body table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="navbar-inner">
+            <tr>
+                <th>昵称</th>
+                <th>头像</th>
+                <th>姓名</th>
+                <th>手机</th>
+                <th>微信号</th>
+                <th>社团考核分</th>
+                <th>学分</th>
+                <th>登记时间</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {loop $edit_admin $item}
+            <tr>
+                <td>{$item['nicheng']}</td>
+                <td><img src="<?php echo tomedia($item['touxiang']);?>" style="width:100px; height:100px;"/></td>
+                <td>{$item['name']}</td>
+                <td>{$item['mobile']}</td>
+                <td>{$item['wx']}</td>
+                <td>{$item['jifen']}</td>
+                <td>{$item['xuefen']}</td>
+                <td>{php echo date('Y-m-d H:i', $item['createtime'])}</td>
+            </tr>
+            {/loop}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<div style="float:right;">{$pager}</div>
+{template 'common/footer'}

@@ -1,0 +1,21 @@
+<script>
+    wx.ready(function () {
+        sharedata = {
+            title: '{$sharetitle}',
+            desc: '{$sharedesc}',
+            link: '{$shareurl}',
+            imgUrl: '{$shareimg}',
+            success: function(){
+                $.toast("分享成功");
+            },
+            cancel: function(){
+                $.toast("分享失败", "cancel");
+            }
+        };
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+        wx.onMenuShareQQ(sharedata);
+        wx.onMenuShareWeibo(sharedata);
+    });
+
+</script>

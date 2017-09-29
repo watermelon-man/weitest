@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>{$_W['uniaccount']['name']}</title>
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+<link href="{TEMPLATE_PATH}css/common.css" rel="stylesheet">
+	<script type="text/javascript" src="{TEMPLATE_PATH}js/zepto.20140212.js"></script>
+
+	
+	
+			
+		<style>
+			html,
+			/* 全局样式 */
+			body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{
+			    margin:0;padding:0;border:0;
+			}
+			body{
+			    background:#fff;color:#333;font-size:12px; margin-top:5px;font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+			}
+			ul,ol{
+			    list-style-type:none;
+			}
+			select,input,img,select{
+			    vertical-align:middle;
+			}
+			a{text-decoration:none;}
+			a:link{color:#009;}
+			a:visited{color:#800080;}
+			a:hover,a:active,a:focus{color:#c00;text-decoration:underline;}
+			 li {list-style-type:none;}
+			.mui-bar .mui-pull-left .mui-icon {
+				padding-right: 5px;
+				font-size: 28px;
+			}
+			.mui-bar .mui-btn {
+				font-weight: normal;
+				font-size: 17px;
+			}
+			.mui-bar .mui-btn-link {
+				top: 1px;
+			}
+			
+			
+			
+			.mui-barmy {
+  
+				height: 50px;    background-color: #4292d0;
+				  
+			}
+			.mui-titlemy {
+			   
+			    line-height: 50px;    color: #fff;
+			   
+			}
+			
+			.mui-bar .mui-btn-linkmy {
+   
+			    line-height: 50px;color: #fff;
+			   
+			}
+			.mui-card-header ul{
+				
+				color:#acacac;
+			}
+			#zpul{
+				
+				margin:0px 10px;position:relative;
+			}
+			
+			#zpul .title{
+				
+				font-size: 16px;font-weight:bold;
+				margin-bottom: 8px;
+				font-weight: 400;
+				    font-size: 17px;
+				    width: auto;
+				    overflow: hidden;
+				    text-overflow: ellipsis;
+				    white-space: nowrap;
+				    word-wrap: normal;
+				    word-wrap: break-word;
+				    word-break: break-all
+				
+			}
+			#zpul .wages{
+				
+				margin-top:16px;font-size: 14px;
+				color: #ff9503;
+                font-size: 14px;
+			}
+			#zpul .company{
+				
+				color:#9f9e9e;   // margin-top: 10px;
+				
+				font-size: 14px;
+			    padding: 5px 0 5px;    color: #666;
+			    line-height: 1.2;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    display: -webkit-box;
+			    -webkit-box-orient: vertical;
+			    -webkit-line-clamp: 2;
+							
+			}
+			
+			#zpul .remarks{
+				
+				
+				font-size: 14px;
+			    padding-top: 5px;
+			    margin-right: 80px;
+				
+				
+			}
+			
+			#zpul .remarks span {
+			    display: inline-block;
+			    margin-right: 14px;
+			}
+						
+			#btxq .btmy1{
+				
+				background-color: #2d9fff;
+				color :#fff;
+				
+			}
+			#btxq{
+				
+				
+				position: absolute;
+			    top: 90px;
+			    right: 10px;
+			}
+			
+			
+			#commission .btmy2{
+				
+				background-color: #2d9fff;
+				color :#fff;
+				
+			}
+			#commission{
+				
+				
+				font-size: 12px;
+			    position: absolute;
+			    top: 40px;
+			    right: 15px;
+			    padding: 3px 8px;
+			    line-height: 1;
+			    border-radius: 10px;
+			    background-color: #fff;
+			    color: #2d9fff;
+			    border: 1px solid #2d9fff;
+			    text-align: center;
+			    -moz-box-sizing: border-box;
+			    -webkit-box-sizing: border-box;
+			    box-sizing: border-box;
+			}
+			.mui-btn-block {
+			
+				padding: 10px 0;margin-top:10px;background-color:#fac30e;color:#fff;    border: 1px solid #fac30e;
+			}
+			
+			.mui-barmy {
+    height: 50px;
+    background-color: #fac30e;
+}
+			
+		</style>
+	
+	
+	
+	
+	
+	
+	
+</head>
+<body>
+<?php 
+$fo = mc_fetch($_W['openid']) ;
+
+
+?>
+<!-- <div class="page_title"><p>您当前共有积分:<span id="nbf_current_user_hasnum_total" class="tipcolor">{$fo['credit1']}</span></p></div>
+
+<div class="weui_cells weui_cells_form">
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">兑换</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input type="number" placeholder="请输入兑换个数" id="exc_number" class="weui_input">
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <p>对应红包金额 <span id="nbf_count_exchange_money" class="tipcolor">0</span>元</p>
+        </div>
+        <div class="weui_cell_ft"></div>
+    </div>
+</div>
+
+<button class="weui_btn weui_btn_primary" id="nbf_click_toexchangemoney">点击兑换</button>
+
+
+<div class="weui_cells_title"><i class="weui_icon_info"></i> 1积分=<span class="tipcolor" id="nbfchangemoney"><?php echo $this->settings[0]['fen'];?></span>分,必须大于1元才可兑换哦</div>
+
+
+ -->
+
+
+
+
+<div style="margin-bottom: 60px;"></div>
+		<header id="header" class="mui-bar mui-bar-nav mui-barmy" style="margin-bottom:60px;">
+			
+			<h1 class="mui-title mui-titlemy">体现</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left mui-btn-linkmy">
+				<span class="mui-icon mui-icon-left-nav"></span>
+			</button>
+
+		
+		</header>
+		<input type="hidden" name="page" id="page" value="1" />
+		
+		
+		<form action="" method="post">
+			<div class="mui-card">
+					<div class="mui-card-content">
+						<div class="mui-card-content-inner">
+							 <P style="color:#646262;font-size:15px;margin-bottom:15px">转入微信钱包</P>
+							 <P style="color:#646262;">体现金额</P>
+							 
+							 <div class="mui-input-row">
+									<label></label>
+									<input type="text" style="width: 100%;" name="je" placeholder="请输入体现金额">
+							 </div>
+							 <P style="color:#c7c4c4;margin-top:10px;">余额：{$fs['credit2']}元</P>
+							 
+							 <button type="submit" class="mui-btn mui-btn-primary mui-btn-block">体现</button>
+							 
+							 <P style="color:#c7c4c4;margin-top:10px;text-align:center;">24小时到账</P>
+						</div>
+					</div>
+			</div>
+		</form>
+		
+		
+        <div style="margin-bottom: 40px;"></div>
+
+
+<script>
+
+
+
+$(function(){  
+  
+$('#exc_number').bind('input propertychange', function() {  
+    var fen = <?php echo $this->settings[0]['fen'];?>;
+	fen = parseInt(fen);
+     var num = parseInt($(this).val());  
+	 var fenji = num*fen/100;
+	 $("#nbf_count_exchange_money").text(fenji);
+}); 
+
+
+$("#nbf_click_toexchangemoney").click( function () { 
+var nums = parseInt($('#exc_number').val());
+var openid = '<?php echo  $info['openid'];?>';
+	$.post("{php echo $this->createMobileUrl('Tixianpost', array());}", { "num": nums,"openid":openid },
+			  function(data){
+			  alert(data.datas); // John
+			  console.log(data); //  2pm
+			  }, "json");
+
+
+
+ });
+
+
+ 
+  
+}) 
+
+</script>
+</body>
+</html>

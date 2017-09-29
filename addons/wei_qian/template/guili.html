@@ -1,0 +1,96 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+
+	<li class="active"><a href="#">管理签到记录</a></li>
+		<li class="active"><a href="{php echo $this->createWebUrl('Award', array('id' => $item['id']))}">添加签到规则</a></li>
+</ul>
+
+
+  
+  
+  
+  
+  
+  
+  	<div class="panel panel-default">
+				<div class="panel-body table-responsive">
+					<table class="table table-hover" style="width:100%;z-index:-10;" cellspacing="0" cellpadding="0">
+						<thead class="navbar-inner">
+							<tr>
+								 <th style="width:80px;">id</th>
+								  <th style="width:140px;">签到者</th>
+								  <th style="width:140px;">头像</th>
+								  <th style="width:140px;">分数</th>
+								  <th style="width:140px;">余额（分）</th>
+								  <th style="width:240px;">签到时间</th>
+								 <th style="width:240px;">地点</th>
+								  <th style="width:140px;">IP</th>
+								
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{loop $urs $i $item}
+		<tr>
+			  <td>{$item['id']}</td>
+				  <td>{$item['nickname']}</td>
+				 
+				  <td><img src="{$item['avatar']}" width="50px" height="50px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				  <td>{$item['fen']}</td>
+				   <td>{$item['jingbi']}</td>
+				  <td><?php echo date('Y-m-d H:i:s', $item['time']);?></td>
+				  <td>{$item['didian']}</td>
+				   <td>{$item['ip']}</td>
+				  <td class="norightborder">
+			
+				  <a  class="btn btn-success btn-sm sms" href="{php echo $this->createWebUrl('Guili', array('id' => $item['id'], 'op' => 'del'))}">删除</a>
+				  </td>
+				</tr>
+	
+			  {/loop}
+							
+							</tbody>
+					</table>
+					<table class="table table-hover">
+						<tbody><tr>
+							<td width="30">
+								<input type="checkbox" onclick="var ck = this.checked;$('.check-delete').each(function(){this.checked = ck});">
+							</td>
+							<td class="text-left">
+								<input name="token" type="hidden" value="747068bb">
+								<input type="submit" name="submit" class="btn btn-primary span2" value="删除"> &nbsp; 
+								<a class="btn btn-primary span2" href="#">提现记录</a> &nbsp;
+							
+								</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<span class="help-block">提现记录: 提现记录</span>
+					
+							</td>
+						</tr>
+					</tbody></table>
+				</div>
+	</div>
+	
+	
+	<div class="footactions" style="padding-left:10px">
+		<div class="pages" style="text-align:right;">{$pager}</div>
+    </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+{template 'common/footer'}

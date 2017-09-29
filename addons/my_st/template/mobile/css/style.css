@@ -1,0 +1,146 @@
+*{
+	margin: 0;
+	padding:0;
+}
+html,body,.container{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.28rem;
+}
+a{
+	text-decoration:none;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+.container{
+	background:#fafafa;
+	overflow-y: scroll;
+}
+.header{
+	width: 100%;
+	height: 2.24rem;
+	/*background:red;*/
+}
+.header h1{
+   height: 1.12rem;
+   font-size:0.46rem;
+   line-height: 1.12rem;
+   text-align: center;
+   font-weight: normal;
+   color: #666;
+}
+.header p{
+   height: 1.12rem;
+   font-size: 0.3rem;
+   line-height: 1.12rem;
+   text-align: center;
+   background:#33cbd8;
+   color: #fff;
+}
+.content .className{
+	width: 100%;
+	height: 3rem;
+	background:#33cbd8;
+	margin-top: 0.1rem;
+	display: -webkit-flex;
+	-webkit-justify-content:space-between;
+}
+.content .className .Left{
+	width: 35%;
+	padding: 0.5rem 0;
+}
+.content .className .Left p{
+	text-align: center;
+	line-height: 1.06rem;
+	font-size: 0.5rem;
+	color: #fff;
+}
+.content .className .Right{
+	width: 35%;
+	padding: 0.5rem 0;
+}
+.content .className .Right p{
+	text-align: center;
+	line-height: 1.06rem;
+	font-size: 0.5rem;
+	color: #fff;
+	width: 50%;
+	float: left;
+}
+
+.content .className .Center{
+	width: 30%;
+	height: 100%;
+}
+.content .className .Center p{
+     width: 2.72rem;
+     height: 2.72rem;
+     background:#fff;
+     border-radius: 50%;
+     text-align: center;
+     line-height: 2.72rem;
+     margin: 0 auto;
+     margin-top: 0.15rem;
+     font-size: 1.64rem;
+     color:#33cbd8;
+}
+
+
+
+.content ul{
+	margin-top: 0.2rem;
+	background:#fff;
+}
+.content ul li{
+	height: 1.38rem;
+	line-height: 1.38rem;
+	border-top: #e8e8e8 solid 1px;
+	position: relative;
+}
+.content ul li.last_li{
+	border-bottom: #e8e8e8 solid 1px;
+}
+.content ul li b{
+	padding-left: 0.9rem;
+	padding-right: 0.66rem;
+	font-size: 0.42rem;
+	color: #7e7e7e;
+}
+.content ul li span{
+	font-size: 0.3rem;
+	color: #b8b8b8;
+}
+.content ul li span small{
+	padding-left: 0.22rem;
+	padding-right: 0.4rem;
+}
+.content ul li em{
+	width: 0.18rem;
+	height: 0.8rem;
+	display: inline-block;
+	border-radius: 0 0.05rem 0.05rem 0;
+	background:#33cbd6;
+	position: absolute;
+	top: 50%;
+	margin-top: -0.4rem;
+}
+.content ul li em.pink{
+	background:#ff6f90;
+}
+
+
+.content .btn{
+	width: 6.76rem;
+	height: 0.85rem;
+	margin: 0 auto;
+	color: #fff;
+	background:#33cbd6;
+	text-align: center;
+	line-height: 0.85rem;
+	border:none;
+	display: block;
+	margin-top: 0.3rem;
+	margin-bottom: 0.3rem;
+	outline: none;
+}

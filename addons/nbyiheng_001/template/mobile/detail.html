@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+{template 'header'}
+	<head>
+		<meta charset="utf-8">
+		<title>在线签到</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="http://www.dcloud.io/hellomui/css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="http://www.dcloud.io/hellomui/css/app.css" />
+		
+		
+
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+	</head> 
+
+	<body>
+	
+
+	<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">签到详情</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card">
+				<div class="mui-card-content">
+			
+			
+					{$info['imgstr']}
+			
+				
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+					<p>{$info['title']}</p>
+					<p>{php echo date('Y-m-d H:i', $info['timesp'])}</p>
+					<p>{$info['addr']}</p>
+						<p style="color: #333;">{$info['remark']}</p>
+					</div>
+				</div>
+				<div class="mui-card-footer">
+					<a class="mui-card-link" href="{php echo $this->createMobileUrl('detail',array(id=>$info['id'],op=>'del'))}">删除</a>
+					
+				</div>
+		
+		</div>
+	</div>
+	</div>
+	
+	
+	
+		   
+	{template 'footer'}		
+
+	</body>
+
+</html>

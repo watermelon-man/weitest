@@ -1,0 +1,226 @@
+{template '_header'}
+<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/qietu.css?a=1"/>
+<div class="page bg-zmpag"> 
+	<div class="weui-btn_primary weui-header"> 
+		<div class="weui-header-left"><a class="zmui-icon zmui-icon-slider-left f-white" onclick='javascript:history.go(-1);'></a></div>
+		<h1 class="weui-header-title">我的资料</h1>
+		<div class="weui-header-right"><a class="zmui-icon zmui-icon-help f-white open-popup" data-target="#half"></a></div>
+	</div>
+	<div class="weui-cells__title">海报二维码预设</div>
+	<div class="weui-cells">
+		<div class="weui-cell" id="logok">
+			<div class="weui-cell__bd ">
+				<p>
+					<img id="qrimg" src="{php echo tomedia($user['qr']);}"  style="width:70px; height:70px;">
+				</p>
+			</div>
+			<div class="weui-cell__ft">1.请保存自己的微信二维码；<br>2.点击这里进行裁剪二维码；<br>(详细请点击右上角问号)</div>
+		</div>
+	</div>
+	<article class="htmleaf-container">
+		<div id="clipArea"></div>
+		<div class="foot-use">
+			<div class="uploader1 blue">
+				<input type="button" name="file" class="button" value="打开" onClick="$('#file').click()">
+				<input id="file" type="file" name="lofile" onchange="javascript:setImagePreview();" accept="image/*" multiple style="display:none;" />
+			</div>
+				<input type="button" id="clipBtn" class="button" value="截取">
+		</div>
+		<div id="view"></div>
+	</article>
+	<form id="editbasicinfo" action="" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="openid" value="{$user['openid']}" />
+		<input type="hidden" id="immg" name="immg" value="" />
+        <div class="weui-cells__title">基础资料预设</div>
+		<div class="weui-cells">
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">团队名称：</label></div>
+				<div class="weui-cell__bd "> 
+					<input type="text" class="weui-input"  name="user[team]" placeholder="请输入团队名称" value="{$user['team']}">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">姓名：</label></div>
+				<div class="weui-cell__bd "> 
+					<input type="text" class="weui-input"  name="user[name]" placeholder="请输入联系人姓名" value="{$user['name']}">
+				</div>
+			</div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">电话：</label></div>
+                <div class="weui-cell__bd ">
+                    <input class="weui-input" type="tel" name="user[phone]" pattern="[0-9]*" value="{$user['phone']}" id="sjhm" placeholder="请输入手机号码"/>
+                </div>
+            </div>
+			{if $settings['sys_issms']}
+			<div class="weui-cell weui-cell_vcode">
+				<div class="weui-cell__hd"><label class="weui-label">验证码：</label></div>
+				<div class="weui-cell__bd ">
+					<input class="weui-input" type="number" name="smsma"  placeholder="如更换手机，请先验证" >
+				</div>
+				<div class="weui-cell__ft">
+					<a href="javascript:get_mobile_code();" class="weui-vcode-btn" id="gcode">获取验证码</a>
+				</div>
+			</div>
+			{/if}
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">微信：</label></div>
+				<div class="weui-cell__bd "> 
+					<input type="text" class="weui-input"  name="user[wechat]" placeholder="请输入微信号码" value="{$user['wechat']}">
+				</div>
+			</div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">QQ：</label></div>
+                <div class="weui-cell__bd ">
+                    <input class="weui-input" type="number" name="user[qq]" pattern="[0-9]*" placeholder="请输入qq号" value="{$user['qq']}" />
+                </div>
+            </div>
+		</div>
+		<div class="weui-btn-area">
+			<input type="hidden" name="token" value="{$_W['token']}" />
+			<input name="submit" type="submit" class="weui-btn weui-btn_primary"   value="提 交 设 置" />
+		</div>
+	</form>
+</div>
+	<div id="half" class='weui-popup__container'>
+		<div class="weui-popup__modal">
+			<div class="toolbar">
+				<div class="toolbar-inner">
+					<a href="javascript:;" class="picker-button close-popup">关闭</a>
+					<h1 class="title">二维码设置</h1>
+				</div>
+			</div>
+			<div class="modal-content">
+			<div class="weui-weixin"><div class="weui-weixin-ui"><div class="weui-weixin-page">
+				<div class="weui-weixin-content">	
+<p>微商小伙伴们：</p>
+<p>为方便您成海报能快速设置个人资料，请大家及时上传自己的个人微信二维码！</p>
+<p>使用帮助：</p>
+<p>1、请按照如下图示在微信中保存自己的个人微信二维码</p>
+<p><img src="{MODULE_URL}template/mobile/img/tip.jpg" /></p>
+<p>2、在本页面上侧点击上传我的微信二维码，打开刚刚保存的个人微信二维码->调整和缩放到二维码的边缘->截取仅留下二维码本身，如下图所示：</p>
+<img src="{MODULE_URL}template/mobile/img/sample1.jpg" style="width:40%;"/><img src="{MODULE_URL}template/mobile/img/sample2.jpg" style="width:40%;"/>
+<p>建议使用以上两种样式以保证较高的识别率，样式可以在微信二维码页面->右上角菜单->换个样式进行切换。</p>
+<p>3、设置其它联系资料和您团队名称！</p>
+<p>4、设置好后点击“提交设置”以保存资料！</p>
+				</div>
+			</div></div></div>
+			</div>
+		</div>
+	</div>
+{template '_footer'}
+
+<script>window.jQuery || document.write('<script src="{MODULE_URL}template/mobile/js/jquery-2.1.1.min.js"><\/script>')</script>
+<script src="{MODULE_URL}template/mobile/js/iscroll-zoom.js"></script>
+<script src="{MODULE_URL}template/mobile/js/hammer.js"></script>
+<script src="{MODULE_URL}template/mobile/js/jquery.photoClip.js?a=12"></script>
+<script>
+var obUrl = ''
+//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+$("#clipArea").photoClip({
+	width: 256,
+	height: 256,
+	file: "#file",
+	view: "#view",
+	ok: "#clipBtn",
+	strictSize: true,
+	loadStart: function() {
+		console.log("照片读取中");
+	},
+	loadComplete: function() {
+		console.log("照片读取完成");
+	},
+	clipFinish: function(dataURL) {
+		console.log(dataURL);
+	}
+});
+</script>
+<script>
+$(function(){
+	$("#logok").click(function(){
+		$(".htmleaf-container").show();
+	})
+	$("#clipBtn").click(function(){
+		document.getElementById("immg").value=imgsource;
+		$("#qrimg").attr("src", imgsource);
+		$(".htmleaf-container").hide();
+	})
+})
+ document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+     WeixinJSBridge.call('hideToolbar');
+                     WeixinJSBridge.call('hideOptionMenu');
+      });
+
+
+</script>
+<script type="text/javascript">
+function setImagePreview() {
+	var preview, img_txt, localImag, file_head = document.getElementById("file_head"),
+			picture = file_head.value;
+	if (!picture.match(/.jpg|.gif|.png|.bmp/i)) return alert("您上传的图片格式不正确，请重新选择！"),
+			!1;
+	if (preview = document.getElementById("preview"), file_head.files && file_head.files[0]) preview.style.display = "block",
+			preview.style.width = "63px",
+			preview.style.height = "63px",
+			preview.src = window.navigator.useruser.indexOf("Chrome") >= 1 || window.navigator.useruser.indexOf("Safari") >= 1 ? window.webkitURL.createObjectURL(file_head.files[0]) : window.URL.createObjectURL(file_head.files[0]);
+	else {
+		file_head.select(),
+				file_head.blur(),
+				img_txt = document.selection.createRange().text,
+				localImag = document.getElementById("localImag"),
+				localImag.style.width = "63px",
+				localImag.style.height = "63px";
+		try {
+			localImag.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)",
+					localImag.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = img_txt
+		} catch(f) {
+			return alert("您上传的图片格式不正确，请重新选择！"),
+					!1
+		}
+		preview.style.display = "none",
+				document.selection.empty()
+	}
+	return document.getElementById("DivUp").style.display = "block",
+			!0
+}
+</script>
+
+<script>
+    var iTime = 59;
+    var Account;
+    var isget = false;
+    function get_mobile_code(){
+		if(isget){return false;}
+		var sj = $('#sjhm').val();
+        $.post("{php echo $this->createMobileUrl('netsms',array('z' => TIMESTAMP));}", {sj:sj}, function(msg) {
+            if(msg.message.zt==0){$.toast("操作成功", function(){console.log('close');});RemainTime();}else{$.alert(msg.message.ts, "操作失败");}
+        }, 'json');
+    };
+    function RemainTime(){
+        isget = true;
+        var iSecond,sSecond="",sTime="";
+        if (iTime >= 0){
+            iSecond = parseInt(iTime%60);
+            iMinute = parseInt(iTime/60)
+            if (iSecond >= 0){
+                if(iMinute>0){
+                    sSecond = iMinute + "分" + iSecond + "秒";
+                }else{
+                    sSecond = iSecond + "秒";
+                }
+            }
+            sTime=sSecond;
+            if(iTime==0){
+                clearTimeout(Account);
+                sTime='获取验证码';
+                iTime = 59;
+                isget = false;
+            }else{
+                Account = setTimeout("RemainTime()",1000);
+                iTime=iTime-1;
+            }
+        }else{
+            sTime='没有倒计时';
+        }
+		$('#gcode').html(sTime);
+    }    
+</script>

@@ -1,0 +1,102 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="edit89 edit_common" id="edit_common">
+        <div class="edit89_con">
+    			<div class="edit89_conbg11" id="editmove">
+    			     <img src="{MODULE_URL}template/mobile/poster/images/m89up1.jpg" alt="uppic"/>
+    			</div>
+    			<div class="edit89_conbg2"></div>
+          <div class="edit89_con1">
+              <p contenteditable="true">凡在元宵节其间，进店购物</p>
+      				<p contenteditable="true">另外赠<span>送精美礼品一份</span></p>
+         	</div>
+        	<div class="edit89_up1"> 
+              <div class="edit89_up11">
+                  <div class="edit89_fileInput left">
+                        <input type="file" name="edit89_upfile" id="edit89_upfile" style="display:none" class="edit89_upfile" onchange="document.getElementById('edit89_upfileResult').innerHTML=this.value;"/>
+                        <input class="edit89_upFileBtn" id="edit89_upfileResult" type="button" value="上传图片" onclick="document.getElementById('edit89_upfile').click();"/>
+                  </div>
+              </div>
+        	</div>
+         	
+        </div>
+        <div class="shengcheng89">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  		
+    </div>
+  </div>
+    <!-- 第八十九个页面结束 -->
+     <script type="text/javascript">
+        $("#edit89_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+           $(".edit89_conbg11 img").attr("src", objUrl);
+            }
+        });
+        $("#edit89_upfile2").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+           $(".edit89_con2 img").attr("src", objUrl);
+            }
+        });
+         //建立一个可存取到该file的url
+        function getObjectURL(file){
+	        var url = null; 
+	        if (window.createObjectURL!=undefined) { // basic
+	          url = window.createObjectURL(file);
+	        } else if (window.URL!=undefined) { // mozilla(firefox)
+	          url = window.URL.createObjectURL(file);
+	        } else if (window.webkitURL!=undefined) { // webkit or chrome
+	          url = window.webkitURL.createObjectURL(file);
+	        }
+	        return url;
+	    }
+        $(".shengcheng89").click(function(){
+                
+                $(".shengcheng89").hide();
+                $(".edit89_up1").hide();
+                $(".edit89_up2").hide();
+                $(".edit89_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".edit89_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base89图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".edit89").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //第八十九个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

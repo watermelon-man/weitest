@@ -1,0 +1,224 @@
+{template 'common_head'}
+
+<style>
+.calendar {
+    margin-top: 0.5rem;
+    height: auto;
+    overflow: hidden;
+}
+.calendar .title {
+    height: 2rem;
+    padding: 0 0.5rem;
+    line-height: 2rem;
+    font-size: 0.8rem;
+    background: #fff;
+    color: #24b2f4;
+    border-bottom: 1px solid #e9e9e9;
+}
+.calendar .title .date {
+    width: auto;
+    float: left;
+}
+
+.select-date {
+    border: 0;
+    background: none;
+    color: #24b2f4;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    font-size: 0.8rem;
+}
+.select-date option {
+    border: 0;
+    background: none;
+    color: #000;
+}
+.calendar .body {
+    height: auto;
+    background: #fff;
+    padding: 0.5rem;
+    width: 100%;
+    overflow: hidden;
+}
+.calendar .body .week {
+    border: 1px solid #e9e9e9;
+    min-height: 2.5rem;
+    overflow: hidden;
+    border-bottom: none;
+}
+.calendar .body .week .day:first-child {
+    border: none;
+}
+.calendar .body .week .day {
+    height: 2.5rem;
+    width: 14.28%;
+    float: left;
+    border-left: 1px solid #e9e9e9;
+    color: #777;
+    font-size: 0.8rem;
+    position: relative;
+    overflow: hidden;
+}
+.calendar .body .mon .day .num {
+    display: block;
+    text-align: center;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    padding-left: 0;
+}
+.calendar .body .week .day .num {
+    height: 1.7rem;
+    padding-left: 0.3rem;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    margin: 0;
+    padding: 0;
+}
+
+.calendar .title {
+    height: 2rem;
+    padding: 0 0.5rem;
+    line-height: 2rem;
+    font-size: 0.8rem;
+    background: #fff;
+    color: #24b2f4;
+    border-bottom: 1px solid #e9e9e9;
+}
+.calendar .title .date {
+    width: auto;
+    float: left;
+}
+.select-date {
+    border: 0;
+    background: none;
+    color: #24b2f4;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    font-size: 0.8rem;
+}
+
+.select-date option {
+    border: 0;
+    background: none;
+    color: #000;
+}
+
+.calendar .body .week .day .signed {
+    position: absolute;
+    top: 0.3rem;
+    right: 1.2rem;
+    height: 0.8rem;
+    width: 1rem;
+    line-height: 0.8rem;
+    color: #24b2f4;
+    font-size: 1.1rem;
+}
+
+.calendar .body .week .day .signed .u {
+    bottom: -1.3rem;
+    font-size: 0.5rem;
+    position: absolute;
+    right: -1rem;
+}
+.calendar .body .week .day .signed img {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+
+
+</style>
+
+
+		
+		<div class ="calendar">
+		
+		
+	<div class="title">
+            <span class="date">
+                <div style="float: left;"><img src="{TEMPLATE_PATH}images/tp.png" style="width: 20px;"></div>
+                <select id="date" class="select-date" name="cdate">
+                    <?php 
+                        $cval = $year."-".$month;
+                        $cstr = $year."年".$month."月";
+                    ?>
+                    <option value="<?php echo $cval;?>" selected><?php echo $cstr;?></option>
+                </select>
+            </span>
+        </div> 
+		
+		
+		
+			<div class="body" id="calendar">
+				<div class="week mon"> 
+					<nav class="day" data-day="" data-month="2" data-date="" data-signed=""><p class="num">周日</p></nav>
+					<nav class="day" data-day="" data-month="2" data-date="" data-signed=""><p class="num">周一</p></nav>
+					<nav class="day" data-day="" data-month="2" data-date="" data-signed=""><p class="num">周二</p></nav>
+					<nav class="day" data-day="" data-month="2" data-date="" data-signed=""><p class="num">周三</p></nav>
+					<nav class="day" data-day="" data-month="2" data-date="" data-signed=""><p class="num">周四</p></nav>
+					<nav class="day" data-day="" data-month="2" data-date="" data-signed=""><p class="num">周五</p></nav>
+					<nav class="day" data-day="" data-month="2" data-date="" data-signed=""><p class="num">周六</p></nav>
+				</div>
+				<?php 
+				$start_week_html = ''; 
+				$strhtml = '';
+				$weekcounts = 0;
+				foreach ($week as $key => $val  ) {  
+					echo  '<div class="week">';	
+					for($i1 = 0; $i1 < 7; $i1 ++) {
+						 $style = "day"; 
+						 if ($day== $val[$i1])
+						 {
+						   // echo "<script>alert($val[$i1]);</script>";
+							$style = "day today"; 
+						 }
+						
+						 
+						//$m = date("d",strtotime($qianday_list[$weekcounts]));						
+						//echo "<script>alert($m);</script>";
+						 
+						 $strhtml= '<nav class="'.$style.'" data-day="" data-month="'.$val[$i1].'" data-date="" data-signed=""><p class="num">'.$val[$i1].'</p>';
+						if (!empty($qianday_list[$weekcounts])&&intval(date("d",strtotime($qianday_list[$weekcounts])))== intval($val[$i1]))
+						{  
+                          // echo "<script>alert($val[$i1]);</script>";
+							$strhtml.= '<div class="signed"><img src="../addons/wei_qian/template/style/images/q.png"><div class="u">已签</div></div>';
+						}
+						if($qianday_list[$weekcounts]){
+						  
+						 
+						} 
+						  
+						$weekcounts++;                                   
+					    $strhtml.= '</nav>';
+						echo  $strhtml; 
+						
+					}  
+					echo '</div>';	 
+				}  
+				?>
+			</div>
+			
+			
+			<div class="title" style="margin-top: 0.5rem;">
+			<!-- <div style="float: left;"><img src="../addons/hy_qiandao_cur/template/mobile/images/n.png" style="width: 65%; margin-top: 0.5rem;"></div> -->
+			<!-- <marquee id="affiche" align="left" behavior="scroll" direction="left" hspace="50" vspace="20" loop="-1" scrollamount="5" scrolldelay="100" style="float: left; width: 90%; margin: 20px 50px;">公告</marquee> -->
+        </div>
+			
+			
+			
+			
+		</div>
+		
+		
+		
+		
+		
+</div>
+
+{template 'common_foot'}

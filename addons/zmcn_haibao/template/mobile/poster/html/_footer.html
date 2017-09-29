@@ -1,0 +1,126 @@
+<!-- 第一个页面结束 -->
+     <div class="baocun" style="display:none">
+         <div class="baocunimg">
+             <img src="">
+         </div>
+     </div>
+     <div class="tool" id="tool">
+    <div class="download">
+      <img class="icon" src="{MODULE_URL}template/mobile/poster/images/result-longtap.png"><span>按住图片保存</span>
+      <img id="pic-download-use2" class="pic-download-use" src="">
+    </div>
+    <img class="toolfooter" src="{$settings['result_footer']}">
+  </div>
+<br><br><br>
+	<div class="weui-tabbar tab-bottom">
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'list'))}"  class="weui-tabbar__item" >
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-tuku weui-tabbar__icon"></i><br>海报</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'list','cid'=>'-1'))}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-hot1 weui-tabbar__icon"></i><br>推荐</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index')}" class="weui-tabbar__item" >
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-home weui-tabbar__icon"></i><br>主页</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('index',array('pag'=> 'watermark'))}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-suoding weui-tabbar__icon"></i><br>水印</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('myedit')}" class="weui-tabbar__item">
+			<p class="weui-tabbar__label"><i class="zmui-icon zmui-icon-avatar2 weui-tabbar__icon"></i><br>我的</p>
+		</a>              
+	</div>
+    <script type="text/javascript">
+      var block = document.getElementById("editmove");
+      var oW,oH;
+      block.addEventListener("touchstart", function(e) {
+       console.log(e);
+       var touches = e.touches[0];
+       oW = touches.clientX - block.offsetLeft;
+       oH = touches.clientY - block.offsetTop;
+       document.addEventListener("touchmove",defaultEvent,false);
+      },false)
+     
+      block.addEventListener("touchmove", function(e) {
+       var touches = e.touches[0];
+       var oLeft = touches.clientX - oW;
+       var oTop = touches.clientY - oH;
+       block.style.left = oLeft + "px";
+       block.style.top = oTop + "px";
+      },false);
+      block.addEventListener("touchend",function() {
+       document.removeEventListener("touchmove",defaultEvent,false);
+      },false);
+      function defaultEvent(e) {
+       e.preventDefault();
+      }
+    </script>
+    <script type="text/javascript">
+            var target1 = document.getElementById("editmove");
+            touch.on('#editmove', 'touchstart', function(ev){
+                ev.preventDefault();
+            });
+
+            var initialScale = 1;
+            var currentScale;
+
+            touch.on('#editmove', 'pinchend', function(ev){
+                currentScale = ev.scale - 1;
+                console.log(currentScale);
+                currentScale = initialScale + currentScale;
+                this.style.webkitTransform = 'scale(' + currentScale + ')';
+                console.log("当前缩放比例为:" + currentScale + ".");
+            });
+            touch.on('#editmove', 'pinchend', function(ev){
+                initialScale = currentScale;
+            });
+    </script>
+     <script type="text/javascript">
+      var block2 = document.getElementById("editmovetwo");
+      var oW2,oH2;
+      block2.addEventListener("touchstart", function(e) {
+       console.log(e);
+       var touches = e.touches[0];
+       oW2 = touches.clientX - block2.offsetLeft;
+       oH2 = touches.clientY - block2.offsetTop;
+       document.addEventListener("touchmove",defaultEvent,false);
+      },false)
+     
+      block2.addEventListener("touchmove", function(e) {
+       var touches = e.touches[0];
+       var oLeft2 = touches.clientX - oW2;
+       var oTop2 = touches.clientY - oH2;
+       block2.style.left = oLeft2 + "px";
+       block2.style.top = oTop2 + "px";
+      },false);
+       
+      block2.addEventListener("touchend",function() {
+       document.removeEventListener("touchmove",defaultEvent,false);
+      },false);
+      function defaultEvent(e) {
+       e.preventDefault();
+      }
+    </script>
+    <script type="text/javascript">
+            var target2 = document.getElementById("editmovetwo");
+            touch.on('#editmovetwo', 'touchstart', function(ev){
+                ev.preventDefault();
+            });
+            var initialScale2 = 1;
+            var currentScale2;
+            touch.on('#editmovetwo', 'pinchend', function(ev){
+                currentScale2 = ev.scale - 1;
+                console.log(currentScale2);
+                currentScale2 = initialScale2 + currentScale2;
+                this.style.webkitTransform = 'scale(' + currentScale2 + ')';
+                console.log("当前缩放比例为:" + currentScale2 + ".");
+            });
+            touch.on('#editmovetwo', 'pinchend', function(ev){
+                initialScale2 = currentScale2;
+            });
+    </script>
+	<script>
+		function stop(){return false;}
+		document.oncontextmenu=stop;
+	</script>
+</body>
+</html>

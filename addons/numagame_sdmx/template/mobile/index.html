@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>山顶冒险</title> 
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=0, minimal-ui"/>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	
+	<link rel="stylesheet" type="text/css" href="{php echo $this->staticPath}/app/css/game.css">	
+	<script type="text/javascript">
+	 __STATICPATH__ ="{php echo $this->staticPath}/app/"; 
+     window.shareInfo={};
+     window.shareInfo.share_title = "{$share_title}";
+     window.shareInfo.share_desc = "{$share_desc}";
+     window.shareInfo.share_logo = "{$share_logo}";
+     window.shareInfo.share_url = "{$share_url}"; 
+	</script>
+	<script type="text/javascript" src="{php echo $this->staticPath}/app/js/game.js"></script> 
+<!-- AnalyticsCode -->	 
+<!-- APICode -->
+</head>
+<script type="text/javascript" src="{php echo $this->staticPath}/app/js/playgame_sdk.js"></script>   
+<script language="javascript" type="text/javascript" src="{php echo $this->staticPath}/app/js/playgame.js"></script>
+<style type="text/css">
+.about img{width:100%}
+</style>
+<body onload="setTimeout(window.scrollTo(0,1),1);">
+         {php echo register_jssdk($debug);}  
+<script type="text/javascript">
+	(function (){updateShare(0);})();  
+</script>
+	<div id="ajaxbar"> 
+		<div id="game"><canvas id="canvas"></canvas></div>
+	
+		<div id="orientate"><img src="{php echo $this->staticPath}/app/media/graphics/orientate/landscape.png" /></div>
+		<div id="play" class="play" onclick=""><img src="{php echo $this->staticPath}/app/media/graphics/splash/mobile/cover-start.png" /></div>	
+        <img id="scrollDown" width="220" height="277"></img> 
+	</div>
+    
+    <div id="tempdiv"><br><br><br></div> 
+    <script type="text/javascript"> 
+			    wx.ready(function(){
+						 wx.onMenuShareTimeline({
+						        title: window.shareInfo.share_title,
+						        link: window.shareInfo.share_url, 
+						        imgUrl: window.shareInfo.share_logo, 
+						        success: function () {  },
+						        cancel: function () {   }
+						 });
+						 wx.onMenuShareAppMessage({ 
+						        desc: window.shareInfo.share_desc,
+						        title: window.shareInfo.share_title,
+						        link: window.shareInfo.share_url, 
+						        imgUrl: window.shareInfo.share_logo, 
+						        type: 'link',
+						        dataUrl: '',
+						        success: function () {   },
+						        cancel: function () {   }
+						    });
+			});
+    </script>
+</body>
+</html>

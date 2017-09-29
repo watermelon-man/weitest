@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>{$_W['uniaccount']['name']}</title>
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	
+	<script type="text/javascript" src="{TEMPLATE_PATH}js/zepto.20140212.js"></script>
+    <style type="text/css">
+	*{
+	  padding:0px;
+	  margin:0px;
+	}
+body {
+    background-color: #FFFFFF;
+}
+body {
+    line-height: 1.6;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+	
+	
+	
+	
+	
+	
+	.page_title {
+		text-align: center;
+		font-size: 22px;
+		color: #3CC51F;
+		font-weight: 400;margin-top: 10px;
+	
+	}
+	
+	.tipcolor {
+    color: #DE7C23;
+    }
+	
+	
+	.weui_cells {
+    margin-top: .8em;
+    background-color: #FFF;
+    line-height: 1.45;
+    font-size: 16px;
+    overflow: hidden;
+    position: relative;
+}
+	
+	
+.weui_cells:before {
+    transform-origin: 0 0;
+    transform: scaleY(.5);
+}
+
+.weui_cells:after, .weui_cells:before {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    content: " ";
+}	
+.weui_cell {
+    padding: 10px 15px;
+    display: block;
+    position: relative;
+}	
+.weui_cells_form .weui_cell_hd {
+    padding-right: 1em;
+}
+.weui_cell_bd, .weui_cell_ft, .weui_cell_hd {
+    display: table-cell;
+    vertical-align: middle;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: nowrap;
+}	
+
+.weui_label {
+    display: block;
+    width: 3em;
+}
+
+.weui_cell_primary {
+    width: 2000px;
+    white-space: normal;
+}
+
+.weui_cell_bd, .weui_cell_ft, .weui_cell_hd {
+    display: table-cell;
+    vertical-align: middle;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: nowrap;
+}	
+	
+
+.weui_input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    font-size: inherit;
+    color: inherit;
+}
+
+	
+	
+	
+.weui_cell_primary {
+    width: 2000px;
+    white-space: normal;
+}
+.weui_cell_bd, .weui_cell_ft, .weui_cell_hd {
+    display: table-cell;
+    vertical-align: middle;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: nowrap;
+}
+Inherited from div.weui_cells.weui_cells_form
+.weui_cells {
+    margin-top: .8em;
+    background-color: #FFF;
+    line-height: 1.45;
+    font-size: 16px;
+    overflow: hidden;
+    position: relative;
+}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+button.weui_btn, input.weui_btn {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    -webkit-appearance: none;
+}
+.weui_btn_primary {
+    background-color: #04be02;
+}
+.weui_btn {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 14px;
+    padding-right: 14px;
+    box-sizing: border-box;
+    font-size: 18px;
+    text-align: center;
+    color: #FFF;
+    line-height: 2.33333333;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.weui_btn, .weui_dialog_ft a, .weui_dialog_ft a:active, .weui_dialog_ft a:hover {
+    text-decoration: none;
+}
+.weui_btn, .weui_cells_access .weui_cell:not(.no_access), .weui_check_label, .weui_dialog_ft a {
+    -webkit-tap-highlight-color: transparent;
+}	
+	
+.weui_btn:after {
+    width: 200%;
+    height: 200%;
+    top: 0;
+    left: 0;
+    border: 1px solid rgba(0,0,0,.2);
+    -webkit-transform: scale(.5);
+    -ms-transform: scale(.5);
+    transform: scale(.5);
+    -webkit-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    transform-origin: 0 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+.weui_btn:after, .weui_cell:before {
+    content: " ";
+    position: absolute;
+}	
+	
+	
+.weui_cells_title{
+
+     margin-top:10px;
+	 color: #0A030C;
+	 text-align:center;
+
+}	
+	
+	
+	</style>
+</head>
+<body>
+<?php 
+$fo = mc_fetch($_W['openid']) ;
+
+
+?>
+<div class="page_title"><p>提现</p></div>
+
+<div class="weui_cells weui_cells_form">
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">兑换</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input type="number" placeholder="请输入兑换积分数" id="exc_number" class="weui_input">
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <p>对应红包金额 <span id="nbf_count_exchange_money" class="tipcolor">0</span>元</p>
+        </div>
+        <div class="weui_cell_ft"></div>
+    </div>
+	
+	<div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <p>可用积分<span id="nbf_count_exchange_money" style="margin-left:5px;" class="tipcolor">{$fo['credit1']}</span></p>
+        </div>
+        <div class="weui_cell_ft"></div>
+    </div>
+</div>
+<div style="margin:0px 10px;">
+  <button class="weui_btn weui_btn_primary" id="nbf_click_toexchangemoney">点击兑换</button>
+</div>
+
+<div class="weui_cells_title"><i class="weui_icon_info"></i> 1积分=<span class="tipcolor" id="nbfchangemoney"><?php echo $this->settings[0]['fen'];?></span>分,必须大于1元才可兑换哦</div>
+
+<script>
+
+
+
+$(function(){  
+  
+$('#exc_number').bind('input propertychange', function() {  
+    var fen = <?php echo $this->settings[0]['fen'];?>;
+	fen = parseInt(fen);
+     var num = parseInt($(this).val());  
+	 var fenji = num*fen/100;
+	 $("#nbf_count_exchange_money").text(fenji);
+}); 
+
+
+$("#nbf_click_toexchangemoney").click( function () { 
+var nums = parseInt($('#exc_number').val());
+var openid = '<?php echo  $info['openid'];?>';
+	$.post("{php echo $this->createMobileUrl('Tixianpost', array());}", { "num": nums,"openid":openid },
+			  function(data){
+			  alert(data.datas); // John
+			  console.log(data); //  2pm
+			  }, "json");
+
+
+
+ });
+
+
+ 
+  
+}) 
+
+</script>
+</body>
+</html>

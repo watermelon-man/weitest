@@ -1,0 +1,73 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li class="active"><a class="btn-lg" href="{php echo $this->createWebUrl('mobile_code_setting',array('rid'=>$rid,'op'=>'post'));}">手机号管理</a></li>
+    <li><a class="btn-lg" href="{php echo $this->createWebUrl('mobile_code_setting',array('rid'=>$rid,'op'=>'import'));}">手机号导入</a></li>
+</ul>
+<div class="clearfix">
+    <form class="form-horizontal form" action="" method="post" >
+        <div class="panel panel-default">
+            <div class="panel-heading">添加手机号</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">手机号</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="tel" class="form-control" name="mobile_number" placeholder="请输入手机号">
+                    </div>
+                </div>
+
+                <!-- <div class="form-group margin-bottom"> -->
+            <div class="col-sm-12" style="text-align: center;margin-left: 15%;">
+                <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+                <input type="hidden" name="token" value="{$_W['token']}"/>
+                <input type="hidden" name="rid" value="{$rid}"/>
+                <input type="hidden" name="op" value="post"/>
+            </div>
+        <!-- </div>  -->
+
+
+            </div>
+        </div>
+        
+    </form>
+</div>
+
+<!--<a href="{php echo $this->createWebUrl('miss')}" onclick="return confirm('确认删除吗，删除后，不可恢复？');return false;" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i> 删除失效博饼码</a>-->
+<div class="main">
+	<div class="category">
+	<div class="panel panel-default">
+    <div class="panel-heading">
+    </div>
+                <div class="panel-body table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="100">批次</th>
+                            <th width="100">总数量</th>
+                            <th width="150">查看手机号码</th>
+                            <th width="150">删除</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {loop $list $row}
+                        <tr>
+                            <td>{$row['pici']}</td>
+                            <td>{$row['codenum']}</td>
+                            <td>
+                                <a href="{php echo $this->createWebUrl('mobile_code_setting', array('pici' => $row['pici'],'rid'=>$row['rid'],'op'=>codeshow))}" class="btn btn-success btn-sm"> 查看手机号码</a>
+								<!--<a href="{php echo $this->createWebUrl('UDownload', array('pici' => $row['pici']))}" class="btn btn-info btn-sm"> 口令导出</a>-->
+                            </td>
+                            <td>
+                                <a href="{php echo $this->createWebUrl('mobile_code_setting', array('pici' => $row['pici'],'rid'=>$row['rid'],'op'=>picidele))}" onclick="return confirm('确认删除吗，删除后，不可恢复？');return false;" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i> 删除</a>
+                            </td>
+                        </tr>
+                        {/loop}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+	</div>
+
+</div>
+{$pager}
+		
+{template 'common/footer'}

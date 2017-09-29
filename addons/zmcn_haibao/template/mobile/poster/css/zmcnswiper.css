@@ -1,0 +1,5986 @@
+*{margin:0px;padding: 0px;}
+.start{width: 100%;height: 100%;position: relative;}
+.astart{width: 100%;height: 30%;position: absolute;left: 0px;bottom: 0px;}
+.st{width: 80%;margin:-475px auto;text-align: center;}
+a{tap-highlight-color:transparent;tap-highlight-color:rgba(0,0,0,0);-webkit-tap-highlight-color:transparent;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+p:focus{outline: #FFFBE6 solid 2px;}
+#desnote{width: 100%;height: 35px;font-size: 25px;color: #000000;text-align: center; margin-top: 15px;}
+/*起始页结束*/
+a{text-decoration: none;}
+li{list-style: none;}
+/*header*/
+.weui-header {position: relative;padding: 3px 0;-webkit-box-sizing: border-box;top: 0em;}
+.weui-header .weui-header-title,.weui-header h1 {margin: 0 88px;margin-left: 100px;line-height: 3.5rem;text-align: center;height: 3.5rem;font-size: 1.6rem;font-weight: 400;width: auto;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;color: #fff}
+.weui-header .weui-header-title a,.weui-header .weui-header-title a:active,.weui-header h1 a,.weui-header h1 a:active {color: #fff}
+.weui-header .weui-header-left,.weui-header .weui-header-right {position: absolute;top: 1rem;display: block;font-size: 1.6rem;line-height: 2rem;color:#FFF;}
+.weui-header .weui-header-left a,.weui-header .weui-header-left button,.weui-header .weui-header-right a,.weui-header .weui-header-right button {float: left;margin-right: 8px;}
+.weui-header .weui-header-left a:active,.weui-header .weui-header-left button:active,.weui-header .weui-header-right a:active,.weui-header .weui-header-right button:active {opacity: .8}
+.weui-header .weui-header-left {left: 1.2rem}
+.weui-header .weui-header-right {right: 1rem}
+.weui-header .weui-header-right a,.weui-header .weui-header-right button {margin-left: 8px;margin-right: 0}
+.weui-btn_primary {background-color: #1AAD19;}
+.weui-footer {color: #999999;font-size: 1.1rem;text-align: center;}
+.weui-footer a {color: #586C94;}
+.weui-footer_fixed-bottom {position: fixed;bottom: .52em;left: 0;right: 0;}
+.weui-footer__links {font-size: 0;}
+.weui-footer__link {display: inline-block;vertical-align: top;margin: 0 .62em;position: relative;font-size: 1.1rem;}
+.weui-footer__link:before {content: " ";position: absolute;left: 0;top: 0;width: 1px;bottom: 0;border-left: 1px solid #C7C7C7;color: #C7C7C7;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(0.5);transform: scaleX(0.5);left: -0.65em;top: .36em;bottom: .36em;}
+.weui-footer__link:first-child:before {display: none;}
+.weui-footer__text {padding: 0 .34em;font-size: 1.1rem;}
+.weui-tabbar {display: -webkit-box;display: -webkit-flex;display: flex;position: absolute;z-index: 500;bottom: 0;width: 100%;background-color: #F7F7FA;}
+.weui-tabbar:before {content: " ";position: absolute;left: 0;top: 0;right: 0;height: 1px;border-top: 1px solid #C0BFC4;color: #C0BFC4;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+.weui-tabbar__item {display: block;-webkit-box-flex: 1;-webkit-flex: 1;flex: 1;padding: 5px 0 0;font-size: 0;color: #999999;text-align: center;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+.weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon,
+.weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon > i,
+.weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {color: #09BB07;}
+.weui-tabbar__icon {display: inline-block;width: 1.7rem;height: 1.7rem;}
+i.weui-tabbar__icon,
+.weui-tabbar__icon > i {font-size: 1.7rem;color: #999999;}
+.weui-tabbar__icon img {width: 100%;height: 100%;}
+.weui-tabbar__label {text-align: center;color: #999999;font-size: 0.8rem;line-height: 1.4;}
+.tab-bottom {bottom: 0;width: 100%;position: fixed;}
+/*首页结束*/
+.fileInput{ margin: 0px auto;width:6.2rem;height:6.2rem; background:url(../images/upload.png) no-repeat;background-size:6rem 6rem;overflow:hidden;position:relative;}
+.upfile{position:absolute;top:-10rem;}
+.upFileBtn{width:6rem;height:6rem;opacity:0;filter:alpha(opacity=0);cursor:pointer;}
+.fileInput2{ margin: 0px auto;width:4.2rem;height:4.2rem; background:url(../images/upload.png) no-repeat;background-size:4rem 4rem;overflow:hidden;position:relative;}
+.upfile2{position:absolute;top:-10rem;}
+.upFileBtn2{width:4rem;height:4rem;opacity:0;filter:alpha(opacity=0);cursor:pointer;}
+.fileInput3{ margin: 0px auto;width:8.2rem;height:8.2rem; background:url(../images/upload.png) no-repeat;background-size:8rem 8rem;overflow:hidden;position:relative;top: 10rem;}
+.upfile3{position:absolute;top:-10rem;}
+.upFileBtn3{width:8rem;height:8rem;opacity:0;filter:alpha(opacity=0);cursor:pointer;}
+.fileInput4{ margin: 0px auto;width:4.2rem;height:4.2rem; background:url(../images/upload.png) no-repeat;background-size:4rem 4rem;overflow:hidden;position:relative;top: -6rem}
+.upfile4{position:absolute;top:-10rem;}
+.upFileBtn4{width:4rem;height:4rem;opacity:0;filter:alpha(opacity=0);cursor:pointer;}
+.fileInput5{ margin: 0px auto;width:6.2rem;height:6.2rem; background:url(../images/upload.png) no-repeat;background-size:6rem 6rem;overflow:hidden;position:relative;top: 6.8rem}
+.upfile5{position:absolute;top:-10rem;}
+.upFileBtn5{width:6rem;height:6rem;opacity:0;filter:alpha(opacity=0);cursor:pointer;}
+.fileInput6{ margin: 0px auto;width:4.2rem;height:4.2rem; background:url(../images/upload.png) no-repeat;background-size:4rem 4rem;overflow:hidden;position:relative;top: -8.9rem;z-index: 6;}
+.upfile6{position:absolute;top:-10rem;}
+.upFileBtn6{width:4rem;height:4rem;opacity:0;filter:alpha(opacity=0);cursor:pointer;}
+/*上传部分结束*/
+.baocun{width: 80%; margin:0px auto;margin-bottom: 21rem;}
+.baocunimg{width: 100%;border: 1px solid #c7c7c7;margin: 0px auto;text-align: center;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;box-shadow: 0 2px 5px rgba(0,0,0,.2);padding-top: 8px;padding-bottom: 5px;}
+.baocunimg img{width: 95%;}
+.tool {position: fixed;z-index: 1;left: 0;bottom: 3rem;width: 100%;text-align: center;display: none;}
+.download {position: relative;height: 10rem;line-height: 10rem;font-size: 1.5rem;color: #fff;background: rgba(0, 0, 0, 0.5);}
+.download .icon {width: 5rem;}
+.download * {display: inline-block;vertical-align: middle;}
+.pic-download-use {position: absolute;width: 100%;height: 100%;opacity: 0;left: 0;top: 0;}
+.toolfooter {display: block;width: 100%;}
+/*生成显示页面结束*/
+#editmove{overflow:visible;}
+.shengcheng475 {width: 100%;height: 3rem;top: 1rem;position: relative;}
+.shengcheng475 div{width:60%;height: 3rem;margin:10px auto;line-height:3rem;text-align: center;background-color: #04be02;border-radius: 0.6rem;font-size: 1.4rem;color: #ffffff;position:relative;}
+.shengcheng475 p{height: 30px;margin: 0px auto;font-size:12px;color: #000000;background-color: #ffffff;}
+.shengcheng475 div h3{font-weight: initial;font-size: 1.2rem;}
+/*以上是通用部分结束*/
+
+.zmcn1{width: 80%;height: 47.5rem;margin: 0px auto;background-color: #ffffff;position: relative;top: 0px;}
+.zmcn1_con{width: 100%;height: 100%;position: relative;overflow: hidden;}
+.zmcn1_kong{width: 100%;height: 50px;}
+.zmcn1_conbg{width: 100%;height: 100%;background: url(../images/zmcn1bg.png) no-repeat;background-size: 100% 100%;position: relative;z-index: 1;text-align: center;top: 0;}
+.zmcn1_con0{width: 100%;height: 7rem;padding-top: 5rem;text-align: center;}
+.zmcn1_con0 p:nth-child(1){font-size: 3.2em;color: #ffffff;}
+.zmcn1_con0 p:nth-child(2){font-size: 1.1em;color: #ffe400;font-weight: bold;margin-top: 1.7rem;}
+.zmcn1_con1{width: 100%;height: 19rem;overflow: hidden;position: relative;z-index: 1;text-align: center;top: 0.8rem;}
+.zmcn1_con1pic{position: absolute;left: 4rem;text-align: center;z-index: 0;top: 13.1em;}
+.zmcn1_con1pic img{width: 17.3em;height: 17.2em;}
+.zmcn1_up1{position: absolute;top: 6.5rem;left: 10rem;margin: 0px auto;}
+.zmcn1_fileInput{margin: 0px auto;width:6.2rem;height:6.2rem;background:url(../images/upload.png) no-repeat;background-size:6rem 6rem;overflow:hidden; position:relative;}
+.zmcn1_upfile{position:absolute;top:-10rem;}
+.zmcn1_upFileBtn{width:6rem;height:6rem;opacity:0;filter:alpha(opacity=0);}
+.zmcn1_con20{width: 100%; height: 3.8rem;text-align: center;top: -1em;}
+.zmcn1_con20 p{font-size: 1.5em;color: #ffe400;font-weight: bold;text-align: center;}
+.zmcn1_con2{width: 50%;height: 11rem;padding-left: 12rem;text-align: left;top:5rem;}
+.zmcn1_con21 p{font-size: 1.2em;color: #ffffff;text-align: left;}
+.zmcn1_con3{width: 50%;position: relative;top: -11em;}
+.zmcn1_con3pic{width: 100%;text-align: center;}
+.zmcn1_con3pic img{width: 9em;height: 9em;}
+.zmcn1_up2{position: absolute;top: 2.5rem;right: 4rem;margin: 0px auto;}
+.zmcn1_fileInput2{margin: 0px auto;width:4.2rem;height:4.2rem;background:url(../images/upload.png) no-repeat;background-size:4rem 4rem;overflow:hidden;position:relative;}
+.zmcn1_upfile2{position:absolute;top:-10rem;}
+.zmcn1_upFileBtn2{width:4rem;height:4rem;opacity:0;filter:alpha(opacity=0);}
+/*www.zmcn.com第一页结束*/
+
+/*春天第一张海报开始*/
+.spring1_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring1bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring1_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.spring1_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第一张海报结束*/
+/*春天第二张海报开始*/
+.spring2_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring2bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring2_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.spring2_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第二张海报结束*/
+/*春天第三张海报开始*/
+.spring3_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring3bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring3_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.spring3_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第三张海报结束*/
+/*春天第四张海报开始*/
+.spring4_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring4bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring4_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.spring4_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第四张海报结束*/
+/*春天第五张海报开始*/
+.spring5_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring5bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring5_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.spring5_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第五张海报结束*/
+/*春天第六张海报开始*/
+.spring6_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring6bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring6_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.spring6_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第六张海报结束*/
+/*海报春天第一个页面开始*/
+.spring1{
+    width: 83%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring1_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring1_conbg11{
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    top: 0.4em;
+}
+.spring1_conbg11 img{
+    width: 100%;
+}
+.spring1_con1{
+    width: 100%;
+    height: 6rem;
+    position: absolute;
+    top: 38rem;
+    left:0rem;
+    z-index: 2;
+}
+.spring1_con1 p{
+    width:100%;
+    height: 2rem;
+    margin: 0px auto;
+    font-size: 0.7em;
+    color: #000000;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 2rem;
+    font-weight: bold;
+}
+.spring1_con1 p:nth-child(1){
+    height: 2.5rem;
+    line-height: 2.5rem;
+    color:#fd920e;
+    font-size: 2.4em;
+}
+
+.spring1_con1 p:nth-child(2){
+    color:#fd920e;
+    font-size: 1.7em;
+    border-radius: 10px;
+    font-weight: 600;
+    padding-top: 0.7em;
+    letter-spacing: 0.3em;
+    /* left: 1.3em; */
+    padding-left: 0.2em;
+}
+.spring1_con1 p:nth-child(3){
+    height: 3.2rem;
+    line-height:3.2rem;
+    font-size:1.3rem;
+}
+.spring1_up1{
+    position: absolute;
+    top: 13rem;
+    right: 10.5rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring1_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring1_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring1_up2{
+    position: absolute;
+    top: 37rem;
+    left: 11rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring1_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring1_upFileBtn2{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs1{
+    width: 100%;
+    height: 3rem;
+    /*top: 1rem;
+    position: relative;*/
+}
+.shengchengs1 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs1 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第一个页面结束*/
+/*海报春天第二个页面开始*/
+.spring2{
+    width: 83%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring2_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring2_conbg11{
+    width: 87.9%;
+    height: 37.3%;
+    position: absolute;
+    left: 2rem;
+    top: 4.4rem;
+    overflow: hidden;
+    text-align: center;
+    z-index: 2;
+    border-radius: 7px;
+}
+.spring2_conbg11 img{
+    width: 100%;
+}
+.spring2_con1{
+    width: 100%;
+    height: 6rem;
+    position: absolute;
+    top: 35rem;
+    left:0rem;
+    z-index: 2;
+}
+.spring2_con1 p{
+    width:100%;
+    height: 2rem;
+    margin: 0px auto;
+    font-size: 0.7em;
+    color: #ffffff;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 2rem;
+    font-weight: 900;
+}
+.spring2_con1 p:nth-child(1){
+    height: 2.5rem;
+    line-height: 2.5rem;
+    color:#53622d;
+    font-size: 2.4em;
+    letter-spacing: 0.2em;
+}
+.spring2_up1{
+    position: absolute;
+    top: 11rem;
+    right: 10.5rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring2_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring2_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring2_up2{
+    position: absolute;
+    top: 37rem;
+    left: 11rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring2_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring2_upFileBtn2{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs2{
+    width: 100%;
+    height: 3rem;
+    /*top: 1rem;
+    position: relative;*/
+}
+.shengchengs2 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs2 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第二个页面结束*/
+/*海报春天第三个页面开始*/
+.spring3{
+    width: 83%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring3_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring3_conbg11{
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    top: 21em;
+    width: 65%;
+    left: 4em;
+}
+.spring3_conbg11 img{
+    width: 100%;
+}
+.spring3_con1{
+    width: 100%;
+    height: 6rem;
+    position: absolute;
+    top: 11rem;
+    left:0rem;
+    z-index: 2;
+}
+.spring3_con1 p{
+    width:100%;
+    height: 2rem;
+    margin: 0px auto;
+    font-size: 0.7em;
+    color: #000000;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 2rem;
+}
+.spring3_con1 p:nth-child(1){
+    height: 2.5rem;
+    line-height: 2.5rem;
+    color: #e43f72;
+    font-size: 0.8em;
+}
+
+.spring3_con1 p:nth-child(2){
+    color:#e43f72;
+    font-size: 2.1em;
+    font-weight: 600;
+    padding-top: 0.2em;
+}
+.spring3_con1 p:nth-child(3){
+    color:#e43f72;
+    font-size: 2.3em;
+    font-weight: 600;
+    height: 3rem;
+    line-height: 3rem;
+}
+.spring3_con1 p:nth-child(4){
+    color:#ffffff;
+    background-color:#e43f72;
+    width: 28%;
+    font-size: 0.8em;
+    padding-top: -0.9em;
+    margin-top: 1em;
+    letter-spacing: 0.1em;
+    padding: 0 0.4em;
+}
+.spring3_up1{
+    position: absolute;
+    top: 29rem;
+    right: 11.5rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring3_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring3_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring3_up2{
+    position: absolute;
+    top: 37rem;
+    left: 11rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring3_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring3_upFileBtn2{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs3{
+    width: 100%;
+    height: 3rem;
+    /*top: 1rem;
+    position: relative;*/
+}
+.shengchengs3 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs3 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第三个页面结束*/
+/*海报春天第四个页面开始*/
+.spring4{
+    width: 83%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring4_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring4_conbg11{
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    top: 3.3em;
+    width: 35%;
+    left: 0.5em;
+}
+.spring4_conbg11 img{
+    width: 100%;
+}
+.spring4_conbg12{
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    top: 15em;
+    width: 97%;
+    left: 0.4em;
+}
+.spring4_conbg12 img{
+    width: 100%;
+}
+.spring4_con1{
+    width: 16rem;
+    height: 6rem;
+    position: absolute;
+    top: 2.3rem;
+    left: 9rem;
+    z-index: 2;
+}
+.spring4_con1 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 1.7em;
+    color: #06614b;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.spring4_con1 p{
+    color: #ef1586;
+    font-weight: normal;
+    height: 2rem;
+    line-height: 2rem;
+}
+.spring4_con1 p:nth-child(1){
+    height: 2.5rem;
+    line-height: 2.5rem;
+    font-size: 2em;
+    transform: rotate(-13deg);
+    -webkit-transform: rotate(-13deg);
+}
+
+.spring4_con1 p:nth-child(2){
+    font-size: 2.8em;
+    font-weight: 600;
+    left: 1.3em;
+    height: 3rem;
+    line-height: 3rem;
+    transform: rotate(-8deg);
+    -webkit-transform: rotate(-8deg);
+    padding-left: 0.6rem;
+    margin-top: 0.4rem;
+}
+.spring4_con1 p:nth-child(3){
+    height: 3.2rem;
+    line-height:3.2rem;
+    font-size: 1.8rem;
+    transform: rotate(-1deg);
+    -webkit-transform: rotate(-1deg);
+    padding-left: 1.5rem;
+    padding-top: 0.3rem;
+}
+.spring4_up1{
+    position: absolute;
+    top: 6rem;
+    right: 10.5rem;
+    margin: 0px auto;
+    z-index: 2;
+    left: -5em;;
+}
+.spring4_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring4_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring4_up2{
+    position: absolute;
+    top: 21rem;
+    left: 11rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring4_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring4_upFileBtn2{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs4{
+    width: 100%;
+    height: 3rem;
+    /*top: 1rem;
+    position: relative;*/
+}
+.shengchengs4 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs4 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第四个页面结束*/
+/*海报春天第五个页面开始*/
+.spring5{
+    width: 83%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring5_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring5_conbg11{
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    top: 9em;
+    width: 84%;
+    left: 2em;
+}
+.spring5_conbg11 img{
+    width: 100%;
+}
+.spring5_con1{
+    width: 100%;
+    height: 6rem;
+    position: absolute;
+    top: 36.6rem;
+    left:0rem;
+    z-index: 2;
+}
+.spring5_con1 p{
+    width:100%;
+    height: 2rem;
+    margin: 0px auto;
+    font-size: 0.7em;
+    color: #000000;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 2rem;
+}
+.spring5_con1 p:nth-child(1){
+    height: 2.5rem;
+    line-height: 2.5rem;
+    color: #e43f72;
+    font-size: 0.7em;
+}
+
+.spring5_con1 p:nth-child(2){
+    color: white;
+    font-size: 0.9em;
+    padding-left: 0.4rem;
+    margin-top: -0.2rem;
+}
+.spring5_con1 p:nth-child(3){
+    color:#e43f72;
+    font-size: 2.3em;
+    font-weight: 600;
+    height: 3rem;
+    line-height: 3rem;
+}
+.spring5_con1 p:nth-child(4){
+    color:#ffffff;
+    background-color:#e43f72;
+    width: 28%;
+    font-size: 0.8em;
+    padding-top: -0.9em;
+    margin-top: 1em;
+    letter-spacing: 0.1em;
+    padding: 0 0.4em;
+}
+.spring5_up1{
+    position: absolute;
+    top: 18rem;
+    right: 11.5rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring5_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring5_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring5_up2{
+    position: absolute;
+    top: 37rem;
+    left: 11rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring5_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring5_upFileBtn2{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs5{
+    width: 100%;
+    height: 3rem;
+    /*top: 1rem;
+    position: relative;*/
+}
+.shengchengs5 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs5 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第五个页面结束*/
+/*海报春天第六个页面开始*/
+.spring6{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring6_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring6_conbg11{
+    width: 24.5rem;
+    position: absolute;
+    left: 0.6rem;
+    top: 1rem;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+}
+.spring6_conbg11 img{
+    width: 100%;
+}
+.spring6_con1{
+    width: 12rem;
+    height: 8rem;
+    position: absolute;
+    top: 37rem;
+    left:2.5rem;
+    z-index: 2;
+}
+.spring6_con1 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 1.5em;
+    color:white;
+    text-align: left;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height:2.4rem;
+}
+.spring6_con1 p:nth-child(1){
+    font-size: 2em;
+    padding-left: 0.8rem;
+}
+.spring6_con1 p:nth-child(3){
+    text-align: right;
+    font-size: 1.9em;
+}
+.spring6_con2,.spring6_con3,.spring6_con4{
+    width: 10rem;
+    height: 2.6rem;
+    position: absolute;
+    top: 32.5rem;
+    left:2rem;
+    z-index: 2;
+}
+.spring6_con2 p,.spring6_con3 p,.spring6_con4 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 0.9em;
+    color: #fd4287;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.spring6_con3{
+    left:14rem;
+}
+.spring6_con4{
+    top:45rem;
+    left:14rem;
+}
+.spring6_con4 p{
+    color:white;
+}
+.spring6_con5{
+    width: 7.4rem;
+    height: 7.4rem;
+    position: absolute;
+    top: 37.2rem;
+    right: 2.9rem;
+    z-index: 1;
+}
+.spring6_con5 img{
+    width: 7.4rem;
+    height: 7.4rem;
+}
+.spring6_up1{
+    position: absolute;
+    top: 15rem;
+    right: 10rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring6_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring6_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring6_up2{
+    position: absolute;
+    top: 38.6rem;
+    right: 4.4rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring6_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring6_upFileBtn2{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs6{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs6 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs6 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第六个页面结束*/
+/*春天第七张海报开始*/
+.spring7_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring7bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring7_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.spring7_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第七张海报结束*/
+/*春天第八张海报开始*/
+.spring8_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring8bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring8_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.spring8_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第八张海报结束*/
+/*春天第九张海报开始*/
+.spring9_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring9bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring9_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第九张海报结束*/
+/*海报春天第七个页面开始*/
+.spring7{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring7_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring7_conbg11{
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    bottom: 0;
+    width: 100%;
+}
+.spring7_conbg11 img{
+    width: 100%;
+}
+.spring7_con1,.spring7_con2,.spring7_con3,.spring7_con4{
+    width: 100%;
+    height: 2.6rem;
+    line-height: 2.6rem;
+    position: absolute;
+    top: 32.5rem;
+    z-index: 2;
+}
+.spring7_con1 p,.spring7_con2 p,.spring7_con3 p,.spring7_con4 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 0.9em;
+    color: white;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.spring7_con1{
+    top: 3rem;
+    height: 5.2rem;
+    line-height: 5.2rem;
+}
+.spring7_con1 p{
+    width:100%;
+    font-size: 5em;
+    color:white;
+    font-weight: bold;
+}
+.spring7_con2{
+    width: 13.4rem;
+    height: 2.6rem;
+    top: 8rem;
+    left:6rem;
+}
+.spring7_con2 p{
+    width:100%;
+    font-size: 1.4em;
+    color:#000000;
+}
+.spring7_con3{
+    top:10.6rem;
+}
+.spring7_con3 p{
+    width:100%;
+    font-size: 2.4em;
+}
+.spring7_con3 p:nth-of-type(1){
+    text-indent: -8rem;
+}
+.spring7_con3 p:nth-of-type(2){
+    text-indent: 4rem;
+}
+.spring7_con4{
+    top: 18rem;
+    width: 15.7rem;
+    -webkit-transform: rotate(-8deg);
+    transform: rotate(-8deg);
+    left: 1rem;
+    letter-spacing: 0.2rem;
+}
+.spring7_con4 p{
+    color:#12d70d;
+    font-size:1.4rem;
+}
+.spring7_con5{
+    width: 7.4rem;
+    height: 7.4rem;
+    position: absolute;
+    top: 17.6rem;
+    right: -0.1rem;
+    z-index: 1;
+}
+.spring7_con5 img{
+    width: 6.4rem;
+    height: 6.4rem;
+}
+.spring7_up1{
+    position: absolute;
+    top: 33rem;
+    right: 10rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring7_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring7_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring7_up2{
+    position: absolute;
+    top: 18.9rem;
+    right: 1.8rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring7_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring7_upFileBtn2{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs7{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs7 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs7 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第七个页面结束*/
+/*海报春天第八个页面开始*/
+.spring8{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring8_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring8_conbg11{
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    top: 8rem;
+    width: 50%;
+    left: 7rem;
+}
+.spring8_conbg11 img{
+    width: 100%;
+}
+.spring8_con1,.spring8_con2{
+    height:16rem;
+    position: absolute;
+    left: 2rem;
+    top: 1.5rem;
+    z-index: 2;
+}
+.spring8_con1 p,.spring8_con2 p{
+    float: left;
+    font-size: 1em;
+    color: #000000;
+    font-family: "Microsoft Yahei";
+    text-align: center;
+    line-height: 1rem;
+}
+.spring8_con1{
+    width: 1rem;
+    top: 22rem;
+    left: 14.4rem;
+    font-weight: bold;
+}
+.spring8_con1 p{
+    width:100%;
+    font-size: 1.3rem;
+    line-height: 1.4rem;
+}
+.spring8_con2{
+    width: 3.6rem;
+    top: 21rem;
+    left:10rem;
+}
+.spring8_con2 p{
+    width: 1.2rem;
+    font-size: 0.8em;
+}
+
+.spring8_con5{
+    width: 7.4rem;
+    height: 7.4rem;
+    position: absolute;
+    top: 17.6rem;
+    right: -0.1rem;
+    z-index: 1;
+}
+.spring8_con5 img{
+    width: 6.4rem;
+    height: 6.4rem;
+}
+.spring8_up1{
+    position: absolute;
+    top: 13rem;
+    right: 10rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring8_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring8_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring8_up2{
+    position: absolute;
+    top: 18.9rem;
+    right: 1.8rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring8_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring8_upFileBtn2{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs8{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs8 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs8 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第八个页面结束*/
+/*海报春天第九个页面开始*/
+.spring9{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring9_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring9_con1,.spring9_con2{
+    width: 100%;
+    height: 2.6rem;
+    line-height: 2.6rem;
+    position: absolute;
+    top: 32.5rem;
+    z-index: 2;
+}
+.spring9_con1 p,.spring9_con2 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.spring9_con1{
+    top: 22rem;
+    font-weight: bold;
+}
+.spring9_con1 p{
+    width:100%;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+}
+.spring9_con1 p:nth-of-type(1){
+    font-size: 3.4rem;
+    height: 3.4rem;
+    line-height: 3.4rem;
+}
+.spring9_con1 p:nth-of-type(2) {
+    font-weight: normal;
+    margin-top: 0.6rem;
+}
+.spring9_con2{
+    top: 37.6rem;
+}
+.spring9_con2 p{
+    font-size: 0.9em;
+    color: #000000;
+}
+
+.spring9_conbg11{
+    width: 9.3rem;
+    height: 9.3rem;
+    position: absolute;
+    top: 28.4rem;
+    right: 7.9rem;
+    z-index: 1;
+}
+.spring9_conbg11 img{
+    width: 9.3rem;
+    height:9.3rem;
+}
+.spring9_up1{
+    position: absolute;
+    top: 30.9rem;
+    right: 10.4rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring9_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring9_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs9{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs9 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs9 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第九个页面结束*/
+.edithead9_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/head9bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 2;
+}
+.edithead9_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead10_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/head10bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 2;
+}
+.edithead10_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead11_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/head11bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 2;
+}
+.edithead11_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead12_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/head12bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 2;
+}
+.edithead12_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead13_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/head13bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 2;
+}
+.edithead13_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*头像图第九个页开始*/
+.edithead9{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    position: relative;
+    top: 0px;
+}
+.edithead9_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.edithead9_conbg1{
+    width: 70%;
+    position: absolute;
+    top: 3rem;
+    overflow: hidden;
+    text-align: center;
+    left: 4rem;
+}
+.edithead9_conbg1 img{
+    width: 100%;
+}
+.edithead9_up1{
+    position: absolute;
+    top: 10rem;
+    left: 11.5rem;
+    margin: 0px auto;
+    z-index: 3;
+}
+.edithead9_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead9_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.edithead9_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchenghead9{
+    width: 100%;
+    height: 3rem;
+}
+.shengchenghead9 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchenghead9 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*头像图第九个页结束*/
+/*头像图第十个页开始*/
+.edithead10{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    position: relative;
+    top: 0px;
+}
+.edithead10_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.edithead10_conbg1{
+    width: 65%;
+    position: absolute;
+    top: 5rem;
+    overflow: hidden;
+    text-align: center;
+    left: 5rem;
+}
+.edithead10_conbg1 img{
+    width: 100%;
+}
+.edithead10_up1{
+    position: absolute;
+    top: 10rem;
+    left: 11.5rem;
+    margin: 0px auto;
+    z-index: 3;
+}
+.edithead10_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead10_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.edithead10_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchenghead10{
+    width: 100%;
+    height: 3rem;
+}
+.shengchenghead10 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchenghead10 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*头像图第十个页结束*/
+/*头像图第十一个页开始*/
+.edithead11{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    position: relative;
+    top: 0px;
+}
+.edithead11_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.edithead11_conbg1{
+    width: 70%;
+    position: absolute;
+    top: 4rem;
+    overflow: hidden;
+    text-align: center;
+    left: 4rem;
+}
+.edithead11_conbg1 img{
+    width: 100%;
+}
+.edithead11_con1{
+    width: 100%;
+    position: absolute;
+    top: 18.6rem;
+    left: 0rem;
+    z-index: 2;
+    height:3rem;
+    line-height:3rem;
+}
+.edithead11_con1 p{
+    width: 35%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: #ffffff;
+    text-align: left;
+    letter-spacing: 5px;
+    font-family:'Microsoft Yahei';
+    overflow: hidden;
+    text-overflow:clip;
+    white-space: nowrap;
+    background-color: #e4007f;
+    text-align: center;
+    border-radius: 0.6rem;
+}
+.edithead11_up1{
+    position: absolute;
+    top: 11rem;
+    left: 11rem;
+    margin: 0px auto;
+    z-index: 3;
+}
+.edithead11_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead11_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.edithead11_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchenghead11{
+    width: 100%;
+    height: 3rem;
+}
+.shengchenghead11 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchenghead11 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*头像图第十一个页结束*/
+/*头像图第十二个页开始*/
+.edithead12{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    position: relative;
+    top: 0px;
+}
+.edithead12_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.edithead12_conbg1{
+    width: 70%;
+    position: absolute;
+    top: 4rem;
+    overflow: hidden;
+    text-align: center;
+    left: 3rem;
+}
+.edithead12_conbg1 img{
+    width: 100%;
+}
+.edithead12_up1{
+    position: absolute;
+    top: 11rem;
+    left: 10.5rem;
+    margin: 0px auto;
+    z-index: 3;
+}
+.edithead12_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead12_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.edithead12_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchenghead12{
+    width: 100%;
+    height: 3rem;
+}
+.shengchenghead12 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchenghead12 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*头像图第十二个页结束*/
+/*头像图第十三个页开始*/
+.edithead13{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    position: relative;
+    top: 0px;
+}
+.edithead13_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.edithead13_conbg1{
+    width: 100%;
+    position: absolute;
+    top: 0rem;
+    overflow: hidden;
+    text-align: center;
+    left: 0rem;
+}
+.edithead13_conbg1 img{
+    width: 100%;
+}
+.edithead13_con1{
+    width: 100%;
+    position: absolute;
+    top: 18rem;
+    left: 1rem;
+    z-index: 3;
+}
+.edithead13_con1 p{
+    width: 90%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: #fb247f;
+    text-align: left;
+    letter-spacing: 5px;
+    font-family:'Microsoft Yahei';
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow:clip;
+    white-space: nowrap;
+}
+.edithead13_con1 p:nth-child(2){
+    text-indent: 6rem;
+}
+.edithead13_up1{
+    position: absolute;
+    top: 12rem;
+    left: 11.5rem;
+    margin: 0px auto;
+    z-index: 3;
+}
+.edithead13_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead13_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.edithead13_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchenghead13{
+    width: 100%;
+    height: 3rem;
+}
+.shengchenghead13 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchenghead13 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*头像图第十三个页结束*/
+/*春天第十张海报开始*/
+.spring10_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring10bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring10_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第十张海报结束*/
+/*春天第十一张海报开始*/
+.spring11_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring11bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring11_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第十一张海报结束*/
+/*春天第十二张海报开始*/
+.spring12_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/spring12bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.spring12_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*春天第十二张海报结束*/
+/*海报春天第十个页面开始*/
+.spring10{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring10_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring10_con1,.spring10_con2{
+    width: 100%;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    position: absolute;
+    top: 32.5rem;
+    z-index: 2;
+}
+.spring10_con1 p,.spring10_con2 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.spring10_con1{
+    top: 5.5rem;
+}
+.spring10_con1 p{
+    width:100%;
+    font-size: 1.1rem;
+}
+.spring10_con1 p:nth-of-type(1){
+    color: #158c0a;
+    font-size: 4rem;
+    height: 4.4rem;
+    line-height: 4.4rem;
+    text-stroke:4px white;
+    -webkit-text-stroke: 4px white;
+    -moz-text-stroke:4px white;
+    font-weight: bold;
+}
+.spring10_con1 p:nth-of-type(2) {
+    margin-top: 0.4rem;
+    color: #158c0a;
+}
+.spring10_con1 p:nth-of-type(3) {
+    font-size:1.4rem;
+}
+.spring10_con2{
+    top: 22.6rem;
+}
+.spring10_con2 p{
+    font-size: 1.2em;
+    color: white;
+}
+.spring10_con2 p:nth-of-type(3) {
+    font-size:1.4rem;
+    color: #158c0a;
+}
+.spring10_conbg11{
+    width: 10rem;
+    height: 10rem;
+    position: absolute;
+    top: 12.8rem;
+    right: 8rem;
+    z-index: 1;
+}
+.spring10_conbg11 img{
+    width: 100%;
+}
+.spring10_up1{
+    position: absolute;
+    top: 16.6rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring10_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring10_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs10{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs10 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs10 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第十个页面结束*/
+/*海报春天第十一个页面开始*/
+.spring11{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring11_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring11_con1,.spring11_con2{
+    width: 100%;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    position: absolute;
+    top: 32.5rem;
+    z-index: 2;
+}
+.spring11_con1 p,.spring11_con2 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.spring11_con1{
+    top: 1.5rem;
+}
+.spring11_con1 p{
+    width:100%;
+    font-size: 1.1rem;
+}
+.spring11_con1 p:nth-of-type(1){
+    font-size: 1.6rem;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    font-weight: bold;
+}
+.spring11_con2{
+    top: 31rem;
+    left: 5.4rem;
+    width: 70%;
+}
+.spring11_con2 p{
+    text-align: left;
+    font-size: 1.2em;
+    color: white;
+}
+.spring11_con2 p:nth-of-type(1) {
+    font-size:1.8rem;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    font-weight: bold;
+}
+.spring11_conbg11{
+    position: absolute;
+    top: 14.8rem;
+    z-index: 1;
+    left: -3rem;
+}
+/*.spring11_conbg11 img{*/
+/*}*/
+.spring11_up1{
+    position: absolute;
+    top: 20.6rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring11_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring11_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs11{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs11 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs11 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第十一个页面结束*/
+/*海报春天第十二个页面开始*/
+.spring12{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring12_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring12_con1{
+    width: 12.8rem;
+    height: 2.1rem;
+    line-height: 2.1rem;
+    position: absolute;
+    top: 13.7rem;
+    z-index: 2;
+    left: 5.2rem;
+}
+.spring12_con1 p{
+    font-weight: bold;
+    font-size: 1.4em;
+    color: white;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.spring12_conbg11{
+    width: 100%;
+    position: absolute;
+    top: 17.6rem;
+    z-index: 1;
+}
+.spring12_conbg11 img{
+    width: 100%;
+}
+.spring12_up1{
+    position: absolute;
+    top: 24.6rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring12_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring12_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs12{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs12 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs12 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第十二个页面结束*/
+/*海报春天第十三个页面开始*/
+.spring13{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring13_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring13_con1,.spring13_con2,.spring13_con3{
+    width: 12.8rem;
+    height: 2.1rem;
+    line-height: 2.1rem;
+    position: absolute;
+    top: 26.7rem;
+    z-index: 2;
+    left: 6.2rem;
+}
+.spring13_con1 p,.spring13_con2 p,.spring13_con3 p{
+    font-size: 1.3em;
+    color: block;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.spring13_con2{
+    top: 28.7rem;
+
+}
+.spring13_con3{
+    top: 30.7rem;
+    left: 8.2rem;
+    height: 1.7rem;
+    line-height: 1.7rem;
+}
+.spring13_con1 p{
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+.spring13_con2 p{
+    font-weight: bold;
+}
+.spring13_con3 p{
+    font-size: 1em;
+    text-align: left;
+}
+.spring13_conbg11{
+    width: 69%;
+    position: absolute;
+    top: 9.8rem;
+    left: 3.4rem;
+    z-index: 1;
+}
+.spring13_conbg11 img{
+    width: 100%;
+}
+.spring13_up1{
+    position: absolute;
+    top: 16.6rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring13_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring13_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs13{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs13 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs13 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第十三个页面结束*/
+/*海报春天第十四个页面开始*/
+.spring14{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring14_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring14_con1{
+    width: 12.8rem;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    position: absolute;
+    top: 39rem;
+    z-index: 2;
+    left: 8.8rem;
+}
+.spring14_con1 p{
+    font-size: 1.2em;
+    color: black;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+}
+.spring14_con2{
+    width: 9.4rem;
+    height: 9.4rem;
+    position: absolute;
+    top: 29.4rem;
+    right: 8.2rem;
+    z-index: 2;
+}
+.spring14_con2 img{
+    width: 100%;
+    height: 100%;
+}
+.spring14_conbg11{
+    width: 50%;
+    position: absolute;
+    top: 17.6rem;
+    left:6rem;
+    z-index: 1;
+}
+.spring14_conbg11 img{
+    width: 100%;
+}
+.spring14_up1{
+    position: absolute;
+    top: 22.6rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring14_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring14_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring14_up2{
+    position: absolute;
+    top: 32.2rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring14_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring14_upFileBtn2 {
+    width: 4rem;
+    height: 4rem;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.shengchengs14{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs14 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs14 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第十四个页面结束*/
+/*海报春天第十五个页面开始*/
+.spring15{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring15_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring15_con1{
+    width: 15rem;
+    height: 1.7rem;
+    line-height: 1.7rem;
+    position: absolute;
+    top: 44rem;
+    z-index: 2;
+    left: 5.2rem;
+    background-color: rgba(255,255,255,0.5);
+}
+.spring15_con1 p{
+    font-size: 1.2em;
+    color: black;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    font-weight: bold;
+}
+.spring15_con2{
+    width: 6.4rem;
+    height: 6.7rem;
+    position: absolute;
+    top: 36.8rem;
+    right: 9.6rem;
+    z-index: 1;
+}
+.spring15_con2 img{
+    width: 100%;
+    height: 100%;
+}
+.spring15_conbg11{
+    width: 100%;
+    position: absolute;
+    top: 5.6rem;
+    z-index: 1;
+}
+.spring15_conbg11 img{
+    width: 100%;
+}
+.spring15_up1{
+    position: absolute;
+    top: 15.4rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring15_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring15_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring15_up2{
+    position: absolute;
+    top: 38.2rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring15_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring15_upFileBtn2 {
+    width: 4rem;
+    height: 4rem;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.shengchengs15{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs15 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs15 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第十五个页面结束*/
+/*海报春天第十六个页面开始*/
+.spring16{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring16_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring16_con1{
+    width: 15rem;
+    height: 1.7rem;
+    line-height: 1.7rem;
+    position: absolute;
+    top: 44rem;
+    z-index: 2;
+    left: 5.2rem;
+    background-color: rgba(255,255,255,0.5);
+}
+.spring16_con1 p{
+    font-size: 1.2em;
+    color: black;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    font-weight: bold;
+}
+.spring16_con2{
+    width: 6.4rem;
+    height: 6.7rem;
+    position: absolute;
+    top: 36.8rem;
+    right: 9.6rem;
+    z-index: 1;
+}
+.spring16_con2 img{
+    width: 100%;
+    height: 100%;
+}
+.spring16_conbg11{
+    width: 80%;
+    position: absolute;
+    top: 24.6rem;
+    z-index: 1;
+    left: 3rem;
+}
+.spring16_conbg11 img{
+    width: 100%;
+}
+.spring16_up1{
+    position: absolute;
+    top: 32.4rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring16_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring16_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengs16{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+    position: relative;*/
+}
+.shengchengs16 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs16 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第十六个页面结束*/
+/*海报春天第十七个页面开始*/
+.spring17{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring17_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring17_con1{
+    width: 100%;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    position: absolute;
+    top: 30rem;
+    z-index: 2;
+    text-align: center;
+}
+.spring17_con1 p{
+    display: inline-block;
+    font-size: 2em;
+    color: #e1436b;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    /*font-weight: bold;*/
+}
+.spring17_con1 p:nth-of-type(2){
+    font-size: 2.5em;
+}
+.spring17_con2{
+    width: 20.2rem;
+    height: 2rem;
+    line-height: 2rem;
+    position: absolute;
+    top: 32.7rem;
+    z-index: 2;
+    left: 2.6rem;
+    background-color:#e1436b;
+}
+.spring17_con2 p{
+    font-size: 1.3em;
+    color: white;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+}
+.spring17_conbg11{
+    width: 90%;
+    position: absolute;
+    top: 2.6rem;
+    z-index: 1;
+    left: 1.5rem;
+}
+.spring17_conbg11 img{
+    width: 100%;
+}
+.spring17_up1{
+    position: absolute;
+    top: 10.4rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring17_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring17_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring17_up2{
+    position: absolute;
+    top: 38.2rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring17_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring17_upFileBtn2 {
+    width: 4rem;
+    height: 4rem;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.shengchengs17{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs17 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs17 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第十七个页面结束*/
+/*海报春天第十八个页面开始*/
+.spring18{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring18_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring18_con1{
+    width: 16rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    position: absolute;
+    top: 10rem;
+    z-index: 2;
+    text-align: center;
+    left: 5.4rem;
+}
+.spring18_con1 p{
+    font-size: 1.2em;
+    color: #ef9242;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    /*font-weight: bold;*/
+}
+.spring18_con2{
+    width: 13.2rem;
+    height: 2rem;
+    line-height: 2rem;
+    position: absolute;
+    top: 12.2rem;
+    z-index: 2;
+    left: 6.6rem;
+}
+.spring18_con2 p{
+    font-size: 1.3em;
+    color: black;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+}
+.spring18_conbg11{
+    width: 20rem;
+    position: absolute;
+    top: 14.6rem;
+    z-index: 1;
+    right: 0;
+}
+.spring18_conbg11 img{
+    width: 100%;
+}
+.spring18_up1{
+    position: absolute;
+    top: 23.4rem;
+    right: 5.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring18_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring18_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring18_up2{
+    position: absolute;
+    top: 38.2rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring18_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring18_upFileBtn2 {
+    width: 4rem;
+    height: 4rem;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.shengchengs18{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs18 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs18 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第十八个页面结束*/
+/*海报春天第十九个页面开始*/
+.spring19{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring19_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring19_con1,.spring19_con2,.spring19_con3,.spring19_con4{
+    width: 15rem;
+    height: 1.6rem;
+    position: absolute;
+    left: 3rem;
+    top: 12.6rem;
+    z-index: 2;
+}
+.spring19_con1 p,.spring19_con2 p,.spring19_con3 p,.spring19_con4 p{
+    font-size: 1.5em;
+    color: #000000;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+}
+.spring19_con1 p:nth-of-type(1){
+    font-size: 1.2em;
+}
+.spring19_con2{
+    left: 1rem;
+    top: 17.4rem;
+    width: 6rem;
+    height: 3.6rem;
+    line-height: 3.6rem;
+}
+.spring19_con2 p{
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+}
+.spring19_con3{
+    top: 21.5rem;
+    width: 6rem;
+    left: 1.6rem;
+}
+.spring19_con3 p{
+    font-size: 1.5em;
+}
+.spring19_con4{
+    width:10.3rem;
+    height: 13rem;
+    left: 1.6rem;
+    top: 29rem;
+}
+.spring19_con4 p{
+    font-size: 0.9em;
+}
+.spring19_conbg11{
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    left: 1.5rem;
+}
+.spring19_conbg11 img{
+    width: 100%;
+    height: 100%;
+}
+.spring19_up1{
+    position: absolute;
+    top: 21.4rem;
+    right: 4.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring19_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring19_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring19_up2{
+    position: absolute;
+    top: 38.2rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring19_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring19_upFileBtn2 {
+    width: 4rem;
+    height: 4rem;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.shengchengs19{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs19 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs19 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第十九个页面结束*/
+/*海报春天第二十个页面开始*/
+.spring20{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring20_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring20_con1,.spring20_con2{
+    width: 16rem;
+    height: 1.6rem;
+    position: absolute;
+    left: 5.1rem;
+    top: 13rem;
+    z-index: 2;
+}
+.spring20_con1 p,.spring20_con2 p{
+    font-size: 1.1em;
+    color: #000000;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+}
+.spring20_con2{
+    left: 5rem;
+    top: 14.7rem;
+    width: 15.4rem;
+}
+.spring20_con2 p{
+    font-size:1.35em;
+    font-weight: bold;
+    text-align: center;
+}
+.spring20_conbg11{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+}
+.spring20_conbg11 img{
+    width: 100%;
+}
+.spring20_up1{
+    position: absolute;
+    top: 28.4rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring20_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring20_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring20_up2{
+    position: absolute;
+    top: 38.2rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring20_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring20_upFileBtn2 {
+    width: 4rem;
+    height: 4rem;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.shengchengs20{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs20 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs20 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第二十个页面结束*/
+/*海报春天第二十一个页面开始*/
+.spring21{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.spring21_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.spring21_con1,.spring21_con2,.spring21_con3{
+    width: 13rem;
+    height: 1.6rem;
+    position: absolute;
+    left: 6.4rem;
+    top: 11.5rem;
+    z-index: 2;
+}
+.spring21_con1 p,.spring21_con2 p,.spring21_con3 p{
+    font-size: 1.1em;
+    color: #000000;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+}
+.spring21_con1{
+    height: 2.4rem;
+    line-height:  2.4rem;
+    width: 12.8rem;
+}
+.spring21_con1 p{
+    font-size:1.8em;
+    font-weight: bold;
+    text-align: center;
+}
+.spring21_con2{
+    height: 1.3rem;
+    line-height: 1.3rem;
+    left: 5rem;
+    top: 13.9rem;
+    width: 15.4rem;
+}
+.spring21_con2 p{
+    font-size:1.1em;
+    text-align: center;
+}
+.spring21_con3{
+    left: 5rem;
+    top: 33rem;
+    width: 15.4rem;
+}
+.spring21_con3 p{
+    color: white;
+    font-size:1.8em;
+    font-weight: bold;
+    text-align: center;
+    text-shadow:3px 3px 3px #000000;
+    height: 2.4rem;
+    line-height: 2.4rem;
+}
+.spring21_con3 p:nth-of-type(3),.spring21_con3 p:nth-of-type(6){
+    font-size:1.2em;
+    height: 1.5rem;
+    line-height:1.5rem;
+}
+.spring21_conbg11{
+    position: absolute;
+    bottom: 14rem;
+    z-index: 1;
+    left: 4rem;
+    width: 16rem;
+}
+.spring21_conbg11 img{
+    width: 100%;
+}
+.spring21_up1{
+    position: absolute;
+    top: 24rem;
+    right: 11.4rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring21_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.spring21_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.spring21_up2{
+    position: absolute;
+    top: 38.2rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.spring21_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.spring21_upFileBtn2 {
+    width: 4rem;
+    height: 4rem;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.shengchengs21{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengs21 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengs21 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*海报春天第二十一个页面结束*/
+
+
+
+
+
+.edithead14_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/head14bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 2;
+}
+.edithead14_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead15_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/head15bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 2;
+}
+.edithead15_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead16_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/head16bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 2;
+}
+.edithead16_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead17_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/head17bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 2;
+}
+.edithead17_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead18_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/head18bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 2;
+}
+.edithead18_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*头像图第十四个页开始*/
+.edithead14{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    position: relative;
+    top: 0px;
+}
+.edithead14_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.edithead14_conbg1{
+    width: 74%;
+    position: absolute;
+    top: 4rem;
+    overflow: hidden;
+    text-align: center;
+    left: 4rem;
+}
+.edithead14_conbg1 img{
+    width: 100%;
+}
+.edithead14_con1{
+    width: 100%;
+    position: absolute;
+    top: 18rem;
+    left: 1rem;
+    z-index: 3;
+}
+.edithead14_con1 p{
+    width: 90%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: #fb247f;
+    text-align: left;
+    letter-spacing: 5px;
+    font-family:'Microsoft Yahei';
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow:clip;
+    white-space: nowrap;
+}
+.edithead14_con1 p:nth-child(2){
+    text-indent: 6rem;
+}
+.edithead14_up1{
+    position: absolute;
+    top: 12rem;
+    left: 11.5rem;
+    margin: 0px auto;
+    z-index: 3;
+}
+.edithead14_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead14_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.edithead14_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchenghead14{
+    width: 100%;
+    height: 3rem;
+}
+.shengchenghead14 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchenghead14 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*头像图第十四个页结束*/
+/*头像图第十五个页开始*/
+.edithead15{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    position: relative;
+    top: 0px;
+}
+.edithead15_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.edithead15_conbg1{
+    width: 74%;
+    position: absolute;
+    top: 3rem;
+    overflow: hidden;
+    text-align: center;
+    left: 3.6rem;
+}
+.edithead15_conbg1 img{
+    width: 100%;
+}
+.edithead15_con1{
+    width: 100%;
+    position: absolute;
+    top: 18rem;
+    left: 1rem;
+    z-index: 3;
+}
+.edithead15_con1 p{
+    width: 90%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: #fb247f;
+    text-align: left;
+    letter-spacing: 5px;
+    font-family:'Microsoft Yahei';
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow:clip;
+    white-space: nowrap;
+}
+.edithead15_con1 p:nth-child(2){
+    text-indent: 6rem;
+}
+.edithead15_up1{
+    position: absolute;
+    top: 9rem;
+    left: 11.5rem;
+    margin: 0px auto;
+    z-index: 3;
+}
+.edithead15_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead15_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.edithead15_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchenghead15{
+    width: 100%;
+    height: 3rem;
+}
+.shengchenghead15 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchenghead15 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*头像图第十五个页结束*/
+/*头像图第十六个页开始*/
+.edithead16{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    position: relative;
+    top: 0px;
+}
+.edithead16_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.edithead16_conbg1{
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+}
+.edithead16_conbg1 img{
+    width: 100%;
+}
+.edithead16_con1{
+    width: 100%;
+    position: absolute;
+    top: 18rem;
+    left: 1rem;
+    z-index: 3;
+}
+.edithead16_con1 p{
+    width: 90%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: #fb247f;
+    text-align: left;
+    letter-spacing: 5px;
+    font-family:'Microsoft Yahei';
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow:clip;
+    white-space: nowrap;
+}
+.edithead16_con1 p:nth-child(2){
+    text-indent: 6rem;
+}
+.edithead16_up1{
+    position: absolute;
+    top: 12rem;
+    left: 11.5rem;
+    margin: 0px auto;
+    z-index: 3;
+}
+.edithead16_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead16_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.edithead16_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchenghead16{
+    width: 100%;
+    height: 3rem;
+}
+.shengchenghead16 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchenghead16 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*头像图第十六个页结束*/
+/*头像图第十七个页开始*/
+.edithead17{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    position: relative;
+    top: 0px;
+}
+.edithead17_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.edithead17_conbg1{
+    width: 90%;
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    left: 2rem;
+    top: 2rem;
+}
+.edithead17_conbg1 img{
+    width: 100%;
+}
+.edithead17_con1{
+    width: 100%;
+    position: absolute;
+    top: 18rem;
+    left: 1rem;
+    z-index: 3;
+}
+.edithead17_con1 p{
+    width: 90%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: #fb247f;
+    text-align: left;
+    letter-spacing: 5px;
+    font-family:'Microsoft Yahei';
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow:clip;
+    white-space: nowrap;
+}
+.edithead17_con1 p:nth-child(2){
+    text-indent: 6rem;
+}
+.edithead17_up1{
+    position: absolute;
+    top: 12rem;
+    left: 11.5rem;
+    margin: 0px auto;
+    z-index: 3;
+}
+.edithead17_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead17_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.edithead17_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchenghead17{
+    width: 100%;
+    height: 3rem;
+}
+.shengchenghead17 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchenghead17 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*头像图第十七个页结束*/
+/*头像图第十八个页开始*/
+.edithead18{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    position: relative;
+    top: 0px;
+}
+.edithead18_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.edithead18_conbg1{
+    width: 72%;
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    left: 4rem;
+    top: 4rem;
+}
+.edithead18_conbg1 img{
+    width: 100%;
+}
+.edithead18_con1{
+    width: 100%;
+    position: absolute;
+    top: 18rem;
+    left: 1rem;
+    z-index: 3;
+}
+.edithead18_con1 p{
+    width: 90%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: #fb247f;
+    text-align: left;
+    letter-spacing: 5px;
+    font-family:'Microsoft Yahei';
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow:clip;
+    white-space: nowrap;
+}
+.edithead18_con1 p:nth-child(2){
+    text-indent: 6rem;
+}
+.edithead18_up1{
+    position: absolute;
+    top: 10rem;
+    left: 11.5rem;
+    margin: 0px auto;
+    z-index: 3;
+}
+.edithead18_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.edithead18_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.edithead18_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchenghead18{
+    width: 100%;
+    height: 3rem;
+}
+.shengchenghead18 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchenghead18 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*头像图第十八个页结束*/
+
+.editf36_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/ft36bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 1;
+}
+.editf36_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editf36_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editf36_fileInput3{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editf37_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/ft37bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 1;
+}
+.editf37_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editf37_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editf37_fileInput3{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editf38_conbg2{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url(../images/ft38bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    pointer-events:none;
+    z-index: 1;
+}
+.editf38_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editf38_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editf38_fileInput3{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editf36{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    /*background-color: #eff8e3;*/
+    position: relative;
+    top: 0px;
+}
+.editf36_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.editf36_conbg11{
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+}
+.editf36_conbg11 img{
+    width: 100%;
+    height: 100%;
+}
+.editf36_con1{
+    width: 40%;
+    height: 3rem;
+    position: absolute;
+    left: 1rem;
+    top: 7rem;
+    z-index: 2;
+}
+.editf36_con1 p{
+    font-size: 0.7em;
+    color:#FFFFFF;
+    font-family: "Microsoft Yahei";
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editf36_up1{
+    position: absolute;
+    top: 1.2rem;
+    right: 4.5rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editf36_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.editf36_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.editf36_con2{
+    width: 40%;
+    height:2rem;
+    position: absolute;
+    top: 5rem;
+    left: 1rem;
+    z-index: 2;
+}
+.editf36_con2 p{
+    font-size: 1.5em;
+    color: #ffffff;
+    line-height: 2rem;
+    height: 2rem;
+    font-family: "Microsoft Yahei";
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editf36_con3pic{
+    width: 4.6rem;
+    height: 4.6rem;
+    position: absolute;
+    top: 20rem;
+    left:2.1rem;
+    z-index: 2;
+}
+.editf36_con3pic img{
+    width: 4.6rem;
+    height: 4.6rem;
+}
+.editf36_up2{
+    position: absolute;
+    top: 20.3rem;
+    left: 2.4rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editf36_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.editf36_upFileBtn2{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.editf36_up3{
+    position: absolute;
+    top: 10rem;
+    left: 10.5rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editf36_upfile3{
+    position:absolute;
+    top:-10rem;
+}
+.editf36_upFileBtn3{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengf36{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengf36 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengf36 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*方图第三十六页结束*/
+.editf37{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    /*background-color: #eff8e3;*/
+    position: relative;
+    top: 0px;
+}
+.editf37_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.editf37_conbg1{
+    width: 4.5rem;
+    height: 4.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 4.4rem;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+.editf37_conbg1 img{
+    width: 100%;
+    height: 100%;
+}
+.editf37_conbg11{
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+}
+.editf37_conbg11 img{
+    width: 100%;
+    height: 100%;
+}
+
+.editf37_up1{
+    position: absolute;
+    top: 1.2rem;
+    right: 4.5rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editf37_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.editf37_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.editf37_con1,.editf37_con2,.editf37_con3,.editf37_con4,.editf37_con5,.editf37_con6{
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+ }
+.editf37_con1 p,.editf37_con2 p,.editf37_con3 p,.editf37_con4 p,.editf37_con5 p,.editf37_con6 p{
+    font-family: "Microsoft Yahei";
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1em;
+    color:#e64059;
+}
+.editf37_con1{
+    width: 37%;
+    font-size: 2.3rem;
+    font-weight: bold;
+    left: 1rem;
+    top: 1rem;
+}
+.editf37_con2{
+    width: 30%;
+    left: 1.6rem;
+    top: 4.6rem;
+    font-size: 0.9rem;
+}
+.editf37_con3{
+    width: 30%;
+    height:2rem;
+    top: 7rem;
+    left: 1.6rem;
+}
+.editf37_con3 p{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.editf37_con4{
+    width: 30%;
+    height: 3rem;
+    left: 1.6rem;
+    top: 9.2rem;
+}
+.editf37_con4 p{
+    font-size: 0.7em;
+}
+.editf37_con4 p:nth-of-type(1){
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.editf37_con5{
+    top: 14.6rem;
+    padding-left: 0.4rem;
+    background-color:#e64059;
+    width: 8.4rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+}
+.editf37_con5 p{
+    color: white;
+}
+.editf37_con6{
+    top: 23.5rem;
+    left: 8.7rem;
+    width: 8.6rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+}
+.editf37_con6 p{
+    color: white;
+    font-size: 0.6rem;
+}
+.editf37_con3pic{
+    width: 4.6rem;
+    height: 4.6rem;
+    position: absolute;
+    top: 18rem;
+    left:2.1rem;
+    z-index: 2;
+}
+.editf37_con3pic img{
+    width: 4.6rem;
+    height: 4.6rem;
+}
+.editf37_up2{
+    position: absolute;
+    top: 18.3rem;
+    left: 2.4rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editf37_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.editf37_upFileBtn2{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.editf37_up3{
+    position: absolute;
+    top: 10rem;
+    left: 10.5rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editf37_upfile3{
+    position:absolute;
+    top:-10rem;
+}
+.editf37_upFileBtn3{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengf37{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengf37 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengf37 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*方图第三十七页结束*/
+.editf38{
+    width: 80%;
+    height: 25.6rem;
+    margin: 0px auto;
+    /*background-color: #eff8e3;*/
+    position: relative;
+    top: 0px;
+}
+.editf38_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.editf38_conbg1{
+    width: 4.5rem;
+    height: 4.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 4.4rem;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+.editf38_conbg1 img{
+    width: 100%;
+    height: 100%;
+}
+.editf38_conbg11{
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    z-index: 0;
+    width: 100%;
+    height: 72%;
+}
+.editf38_conbg11 img{
+    width: 100%;
+    height: 100%;
+}
+
+.editf38_up1{
+    position: absolute;
+    top: 1.2rem;
+    right: 4.5rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editf38_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.editf38_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.editf38_con1,.editf38_con2,.editf38_con3,.editf38_con4,.editf38_con5,.editf38_con6{
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+}
+.editf38_con1 p,.editf38_con2 p,.editf38_con3 p,.editf38_con4 p,.editf38_con5 p,.editf38_con6 p{
+    font-family: "Microsoft Yahei";
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1em;
+    color:white;
+}
+.editf38_con1{
+    width: 21%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    left: 1.7rem;
+    top: 10.6rem;
+    text-align: center;
+    background-color: white;
+    height: 1.5rem;
+    line-height: 1.5rem;
+}
+.editf38_con1 p{
+    color: #a11842;
+}
+.editf38_con2{
+    width: 20%;
+    left: 2.4rem;
+    top: 12.6rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.editf38_con3{
+    width: 20%;
+    height:2rem;
+    top: 15rem;
+    left: 2.4rem;
+}
+.editf38_con3 p{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.editf38_con4{
+    width: 71%;
+    height: 2rem;
+    left: 7.6rem;
+    top: 20.6rem;
+    text-align: center;
+}
+.editf38_con4 p{
+    font-size: 0.7em;
+     color: black;
+}
+.editf38_con4 p:nth-of-type(1){
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.editf38_con5{
+    top: 14.6rem;
+    padding-left: 0.4rem;
+    background-color:#e64059;
+    width: 8.4rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+}
+.editf38_con5 p{
+    color: white;
+}
+.editf38_con6{
+    top: 23.5rem;
+    left: 8.7rem;
+    width: 8.6rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+}
+.editf38_con6 p{
+    color: white;
+    font-size: 0.6rem;
+}
+.editf38_con3pic{
+    width: 5.65rem;
+    height: 5.65rem;
+    position: absolute;
+    top: 19rem;
+    left:1.6rem;
+    z-index: 2;
+}
+.editf38_con3pic img{
+    width: 5.65rem;
+    height: 5.65rem;
+}
+.editf38_up2{
+    position: absolute;
+    top: 19.7rem;
+    left: 2.4rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editf38_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.editf38_upFileBtn2{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.editf38_up3{
+    position: absolute;
+    top: 9rem;
+    left: 12.5rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editf38_upfile3{
+    position:absolute;
+    top:-10rem;
+}
+.editf38_upFileBtn3{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengf38{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengf38 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengf38 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+
+/*方图第三十八页结束*/
+.editp40_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/px40bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.editp40_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editp41_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/px41bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.editp41_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+/*培训第四十个页面开始*/
+.editp40{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.editp40_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.editp40_con1,.editp40_con2,.editp40_con3{
+    width: 100%;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    position: absolute;
+    top: 32.5rem;
+    z-index: 2;
+}
+.editp40_con1 p,.editp40_con2 p,.editp40_con3 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editp40_con1{
+    top: 0.8rem;
+}
+.editp40_con1 p{
+    width:100%;
+    font-size: 1.1rem;
+}
+.editp40_con1 p:nth-of-type(1){
+    color: #95d429;
+    font-family:'KaiTi';
+    font-size: 5rem;
+    height: 5rem;
+    line-height: 5rem;
+    font-weight: bold;
+}
+.editp40_con2{
+    top: 6.2rem;
+    width: 18rem;
+    height: 2rem;
+    left: 3rem;
+}
+.editp40_con2 p{
+    font-size: 1.2em;
+    color: white;
+}
+.editp40_con3{
+    width: 80%;
+    top: 26.2rem;
+    height: 2rem;
+    line-height: 2rem;
+    left: 3.3rem;
+}
+.editp40_con3 p:nth-of-type(1){
+    font-size: 2.6em;
+    height: 3.6rem;
+    line-height:3.6rem;
+    font-weight: bold;
+}
+.editp40_con3 p:nth-of-type(2){
+    color: white;
+    font-size: 1.2rem;
+}
+.editp40_conbg11{
+    position: absolute;
+    top: 8.4rem;
+    left: 4rem;
+    z-index: 1;
+    width:70%;
+}
+.editp40_conbg11 img{
+    width: 100%;
+}
+.editp40_up1{
+    position: absolute;
+    top: 16.6rem;
+    right: 11.2rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editp40_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.editp40_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengp40{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengp40 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengp40 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*培训第四十个页面结束*/
+/*培训第四十一个页面开始*/
+.editp41{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.editp41_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.editp41_con1,.editp41_con2{
+    width: 100%;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    position: absolute;
+    top: 32.5rem;
+    z-index: 2;
+}
+.editp41_con1 p,.editp41_con2 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editp41_con1{
+    top: 14.8rem;
+}
+.editp41_con1 p{
+    width:100%;
+    font-size: 1.2rem;
+    color:#de1f26;
+}
+.editp41_con2{
+    top: 16.4rem;
+}
+.editp41_con2 p{
+    font-size: 0.9em;
+    color: white;
+}
+.editp41_conbg11{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 90%;
+    bottom: 0;
+}
+.editp41_conbg11 img {
+    width: 100%;
+    height: 100%;
+}
+.editp41_up1{
+    position: absolute;
+    top: 26.6rem;
+    right: 11.2rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editp41_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.editp41_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengp41{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengp41 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengp41 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*培训第四十一个页面结束*/
+/*培训第四十一个页面结束*/
+.editp42{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.editp42_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.editp42_con1,.editp42_con3{
+    width: 12.8rem;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    position: absolute;
+    top: 40rem;
+    z-index: 2;
+    left: 5rem;
+}
+.editp42_con1 p,.editp42_con3 p{
+    font-size: 1.2em;
+    color: white;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    /*white-space: nowrap;*/
+    text-align: left;
+}
+.editp42_con1 {
+    width: 1.3rem;
+    height: 15rem;
+    top: 14rem;
+    left: 17.8rem;
+}
+.editp42_con1 p {
+    width: 100%;
+    height: 100%;
+    float: left;
+    line-height: 1.2rem;
+}
+.editp42_con3 p {
+    white-space: nowrap;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.editp42_con2{
+    width: 6rem;
+    height: 6rem;
+    position: absolute;
+    top: 33.2rem;
+    right: 10.9rem;
+    z-index: 1;
+}
+.editp42_con2 img{
+    width: 100%;
+    height: 100%;
+}
+.editp42_conbg11{
+    width: 70%;
+    position: absolute;
+    top: 13.6rem;
+    left: 3rem;
+    z-index: 1;
+}
+.editp42_conbg11 img{
+    width: 100%;
+}
+.editp42_up1{
+    position: absolute;
+    top: 20.6rem;
+    right: 11.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editp42_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.editp42_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.editp42_up2{
+    position: absolute;
+    top: 34.2rem;
+    right: 11.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editp42_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.editp42_upFileBtn2 {
+    width: 4rem;
+    height: 4rem;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.shengchengp42{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengp42 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengp42 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*培训第42个页面结束*/
+.editp43{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.editp43_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+
+.editp43_con1,.editp43_con2,.editp43_con3,.editp43_con4{
+    width: 14.6rem;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    position: absolute;
+    top: 32.5rem;
+    z-index: 2;
+    right: 0;
+}
+.editp43_con1 p,.editp43_con2 p,.editp43_con3 p,.editp43_con4 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editp43_con1{
+    top: 18.5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+}
+.editp43_con1 p{
+    width:100%;
+    color:white;
+    text-align: left;
+}
+.editp43_con1 p:nth-of-type(1) {
+    font-size: 1rem;
+}
+.editp43_con1 p:nth-of-type(2) {
+    font-size: 1.8rem;
+    color:#f54476;
+    height: 2rem;
+    line-height: 2rem;
+}
+.editp43_con1 p:nth-of-type(3) {
+    font-size: 1.2rem;
+}
+.editp43_con2{
+    width: 12.4rem;
+    top: 24.8rem;
+    height: 2rem;
+    line-height: 2rem;
+}
+.editp43_con2 p{
+    width:100%;
+    font-size:  1.2em;
+    color: white;
+}
+.editp43_con2 p:nth-of-type(1) {
+    font-size:  1.3em;
+}
+.editp43_con3{
+    width: 6.2rem;
+    top: 30.4rem;
+    right: 2rem;
+    height: 2.6rem;
+    line-height: 2.6rem;
+}
+.editp43_con3 p{
+    width:100%;
+    font-size: 1.7em;
+    font-weight: bold;
+    color: #f63169;
+}
+.editp43_con4{
+    width: 6.6rem;
+    top: 33.1rem;
+    height: 1.9rem;
+    line-height: 1.9rem;
+}
+.editp43_con4 p{
+    width:100%;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #f63169;
+}
+.editp43_conbg11{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+}
+.editp43_conbg11 img{
+    width: 100%;
+    height: 100%;
+}
+.editp43_conbg12{
+    width: 15.5rem;
+    height: 15.3rem;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    bottom: 0rem;
+}
+.editp43_conbg12 img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.editp43_up1{
+    position: absolute;
+    top: 9.6rem;
+    right: 11.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editp43_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.editp43_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.editp43_up2{
+    position: absolute;
+    top: 37.2rem;
+    right: 5.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editp43_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.editp43_upFileBtn2 {
+    width: 4rem;
+    height: 4rem;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.shengchengp43{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengp43 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengp43 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*培训第四十一个页面结束*/
+.editz51_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/zs51bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.editz51_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editz51_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editz52_conbg2{
+    width: 100%;
+    height: 47.5rem;
+    overflow: hidden;
+    background: url(../images/zs52bg.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    z-index: 2;
+    pointer-events:none;
+}
+.editz52_fileInput{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editz52_fileInput2{
+    margin: 0px auto;
+    width:4.2rem;
+    height:4.2rem;
+    background:url(../images/upload.png) no-repeat;
+    background-size:4rem 4rem;
+    overflow:hidden;
+    position:relative;
+}
+.editz51{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.editz51_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.editz51_con1,.editz51_con2,.editz51_con3{
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    position: absolute;
+    top: 32.5rem;
+    z-index: 2;
+}
+.editz51_con1 p,.editz51_con2 p,.editz51_con3 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 1.4rem;
+    color: black;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editz51_con1{
+    width: 26%;
+    top: 30.8rem;
+    left: 5.5rem;
+}
+.editz51_con1 p{
+    width:100%;
+}
+.editz51_con1 p:nth-of-type(1){
+    color: #e89d0d;
+    font-size: 1.4rem;
+}
+.editz51_con2{
+    width: 40%;
+    top: 31rem;
+    left: 12rem;
+}
+.editz51_con2 p{
+    font-size: 1.2em;
+}
+.editz51_con3{
+    width: 100%;
+    top: 41.6rem;
+    height: 2rem;
+    line-height: 2rem;
+    left:-0.4rem;
+}
+.editz51_con3 p{
+    font-size:1rem;
+}
+.editz51_conbg11{
+    width:100%;
+    height: 8rem;
+    position: absolute;
+    top: 33.8rem;
+    left: 8rem;
+    z-index: 1;
+}
+.editz51_conbg11 img{
+    width: 8.4rem;
+    height: 8rem;
+}
+.editz51_up1{
+    position: absolute;
+    top: 35.8rem;
+    left: 10.4rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editz51_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.editz51_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.editz51_up2{
+    position: absolute;
+    top: 35.8rem;
+    left: 10.2rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editz51_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.editz51_upFileBtn2{
+    width:4rem;
+    height:4remu;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengz51{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengz51 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengz51 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*招商第五十一页结束*/
+.editz52{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.editz52_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.editz52_con1,.editz52_con2,.editz52_con3,.editz52_con4{
+    width: 100%;
+    position: absolute;
+    top: 32.5rem;
+    z-index: 2;
+}
+.editz52_con1 p,.editz52_con2 p,.editz52_con3 p,.editz52_con4 p{
+    width:100%;
+    margin: 0px auto;
+    font-size: 1.4rem;
+    color: white;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editz52_con1{
+    width: 8.4rem;
+    top: 33.8rem;
+    left: 4.2rem;
+}
+.editz52_con1 p{
+    font-size: 4rem;
+    font-weight: bold;
+}
+.editz52_con2{
+    width: 8.4rem;
+    top: 32rem;
+    left: 12rem;
+}
+.editz52_con2 p{
+    font-size: 4em;
+}
+.editz52_con3{
+    width: 40%;
+    top: 36.6rem;
+    height: 2rem;
+    line-height: 2rem;
+    left: 12.4rem;
+    font-weight: bold;
+}
+.editz52_con4{
+    top:38.5rem;
+}
+.editz52_conbg11{
+    width:100%;
+    height: 60%;
+    position: absolute;
+    top: 0rem;
+    z-index: 1;
+}
+.editz52_conbg11 img{
+    width: 100%;
+    height: 100%;
+}
+.editz52_up1{
+    position: absolute;
+    top: 12.8rem;
+    left: 10.2rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editz52_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.editz52_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.editz52_upfile2{
+    position:absolute;
+    top:-10rem;
+}
+.editz52_upFileBtn2{
+    width:4rem;
+    height:4remu;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengz52{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengz52 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengz52 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*招商第五十二页结束*/
+.editz53{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.editz53_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.editz53_con1,.editz53_con2,.editz53_con3,.editz53_con4{
+    width: 15.8rem;
+    height: 2.1rem;
+    line-height: 2.1rem;
+    position: absolute;
+    top: 30.9rem;
+    z-index: 2;
+    left: 5.2rem;
+}
+.editz53_con1 p,.editz53_con2 p,.editz53_con3 p,.editz53_con4 p{
+    font-size: 1.3em;
+    color: #ee7575;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editz53_con1{
+    height: 4.4rem;
+    line-height: 4.4rem;
+}
+.editz53_con1 p{
+    font-size: 3.6em;
+    font-weight: bold;
+}
+.editz53_con2{
+    top: 35.2rem;
+}
+.editz53_con3{
+    height: 4.4rem;
+    line-height: 4.4rem;
+    top: 37.2rem;
+}
+.editz53_con3 p{
+    color: black;
+    font-size: 3.6em;
+}
+.editz53_con4{
+    top: 41.7rem;
+    height: 1.7rem;
+    line-height: 1.7rem;
+}
+.editz53_con4 p{
+    color: black;
+}
+.editz53_conbg11{
+    width: 100%;
+    position: absolute;
+    top: 3.8rem;
+    z-index: 1;
+}
+.editz53_conbg11 img{
+    width: 100%;
+}
+.editz53_up1{
+    position: absolute;
+    top: 16.6rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editz53_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.editz53_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengz53{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengz53 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengz53 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+
+/*招商第五十三页结束*/
+.editz54{
+    width: 80%;
+    height: 47.5rem;
+    margin: 0px auto;
+    background-color: #eff1e3;
+    position: relative;
+    top: 0px;
+}
+.editz54_con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.editz54_con1,.editz54_con2,.editz54_con3,.editz54_con4,.editz54_con5{
+    width: 15rem;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    position: absolute;
+    z-index: 2;
+    left: 5rem;
+}
+.editz54_con1 p,.editz54_con2 p,.editz54_con3 p,.editz54_con4 p,.editz54_con5 p{
+    font-size: 1.3em;
+    color: black;
+    text-align: center;
+    font-family:'Microsoft Yahei';
+    text-overflow:clip;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.editz54_con1{
+    width:9.8rem;
+    top: 19.5rem;
+    height: 4.4rem;
+    line-height: 4.4rem;
+    left: 4rem;
+}
+.editz54_con1 p{
+    font-size: 3.6em;
+    font-weight:100;
+}
+.editz54_con2{
+    top: 24.5rem;
+    left: 9.6rem;
+    width: 12rem;
+}
+.editz54_con2 p{
+    font-size: 2em;
+    font-weight: bold;
+}
+.editz54_con3{
+    height: 1.8rem;
+    line-height: 1.8rem;
+    top: 27.2rem;
+    left: 6.2rem;
+}
+.editz54_con3 p{
+    text-align: left;
+}
+.editz54_con4{
+    top: 31rem;
+    width: 16rem;
+    height: 2.7rem;
+    line-height: 2.7rem;
+}
+.editz54_con4 p{
+    font-size: 2.6em;
+}
+.editz54_con5{
+    top: 34rem;
+    width: 16rem;
+    height: 1.7rem;
+    line-height: 1.7rem;
+}
+.editz54_con5 p{
+}
+.editz54_conbg11{
+    width: 100%;
+    height:100%;
+    position: absolute;
+    z-index: 1;
+}
+.editz54_conbg11 img{
+    width: 100%;
+    height:100%;
+}
+.editz54_up1{
+    position: absolute;
+    top: 9.6rem;
+    right: 10.6rem;
+    margin: 0px auto;
+    z-index: 2;
+}
+.editz54_upfile{
+    position:absolute;
+    top:-10rem;
+}
+.editz54_upFileBtn{
+    width:4rem;
+    height:4rem;
+    opacity:0;
+    filter:alpha(opacity=0);
+    /* cursor:pointer;*/
+}
+.shengchengz54{
+    width: 100%;
+    height: 3rem;
+    /* top: 1rem;
+     position: relative;*/
+}
+.shengchengz54 div{
+    width:60%;
+    height: 3rem;
+    margin:10px auto;
+    line-height:3rem;
+    text-align: center;
+    background-color: #04be02;
+    border-radius: 0.6rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    position:relative;
+}
+.shengchengz54 div h3{
+    font-weight: initial;
+    font-size: 1.2rem;
+}
+/*招商第五十四页结束*/

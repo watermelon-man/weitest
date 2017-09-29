@@ -1,0 +1,104 @@
+{template 'common/header'}
+<div class="main">
+    <form class="form-horizontal form" id="setting-form" action=""
+          method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">配置中心</div>
+            <div class="panel-body">
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">系统设置</label>
+                    <div class="col-sm-8">
+						<div class='input-group form-group'>
+							<span class="input-group-addon">用户权限</span>
+							<select class="form-control input-medium" name="data[set_isgz]">
+								<option value="0" {if (int)$settings['set_isgz']=='0'}selected{/if}>所有用户都可用</option>
+								<option value="1" {if $settings['set_isgz']=='1'}selected{/if}>只有关注公众号才能用</option>
+								<option value="2" {if $settings['set_isgz']=='2'}selected{/if}>只有认证代理商才能用</option>
+							</select>
+							<span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="注册时要求验证手机验证码，以确保手机号码的真实性，只有购买短信服务才能用">手机验证码</span>
+							<select class="form-control input-medium" name="data[sys_issms]">
+								<option value="0" {if (int)$settings['sys_issms']=='0'}selected{/if}>关闭</option>
+								<option value="1" {if $settings['sys_issms']=='1'}selected{/if}>启用</option>
+							</select>
+						</div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">系统标题</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="data[life_title]" value="{$settings['life_title']}" />
+                        <span class="help-block">顶部蓝色区域标题</span>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">生成海报减积分</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="data[set_scjf]" value="{$settings['set_scjf']}" />
+                        <span class="help-block">0为不扣积分</span>
+                    </div>
+                </div>
+				
+				
+				
+				    <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">团队名称</label>
+                    <div class="col-sm-8">
+						<div class="input-group">
+							<span class="input-group-addon">中文</span>
+							<input type="text" class="form-control" name="data[team_title]" value="{$settings['team_title']}" />
+							<span class="input-group-addon">英文</span>
+							<input type="text" class="form-control" name="data[team_title_en]" value="{$settings['team_title_en']}" />
+						</div>
+                        <span class="help-block">用在素材里面</span>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">海报二维码</label>
+                    <div class="col-sm-8">
+                        {php echo tpl_form_field_image('data[share_qr]', $settings['share_qr'])}
+                        <span class="help-block">用在素材里面</span>
+                    </div>
+                </div>
+				    <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">分享标题</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="data[share_title]" value="{$settings['share_title']}" />
+                        <span class="help-block">分享标题</span>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">分享显示内容</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="data[share_des]" value="{$settings['share_des']}" />
+                        <span class="help-block">分享显示内容</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图片</label>
+                    <div class="col-sm-8">
+                        {php echo tpl_form_field_image('data[share_pic]', $settings['share_pic'])}
+                        <span class="help-block">分享图片</span>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">引导关注二维码</label>
+                    <div class="col-sm-8">
+                        {php echo tpl_form_field_image('data[result_footer]', $settings['result_footer'])}
+                        <span class="help-block">750*259用在海报生成后出现</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <input name="token" type="hidden" value="{$_W['token']}" /> <input
+                type="submit" class="btn btn-primary col-lg-1" name="submit"
+                value="提交" />
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+ 	require(['bootstrap'],function($){
+		$('[data-toggle="popover"]').popover()
+	});
+</script>
+{template 'common/footer'}

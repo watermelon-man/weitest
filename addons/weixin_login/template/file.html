@@ -1,0 +1,73 @@
+{template 'common/header'}
+
+<!-- 引入sweetalert -->
+<link rel="stylesheet" href="{php echo MODULE_PATH}/Public/plugins/sweetalert/sweetalert.css">
+<script src="{php echo MODULE_PATH}/Public/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- 引入公共js文件 -->
+<script src="{php echo MODULE_PATH}/Public/js/public.js"></script>
+
+<ul class="nav nav-tabs">
+	<li><a href="{php echo $this->createWebUrl('Index', array('op' => 'index'))}">管理授权</a></li>
+	<li class="active"><a href="#">授权文件</a></li>
+</ul>
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+<div class="main">
+	<form action="" method="post" class="form-horizontal form add_nav" enctype="multipart/form-data" id="form1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				授权文件
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>文件名：</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="name" class="form-control" required value="{$resContent['name']}" />
+						<p class="help-block">请填写授权文件的完整文件名(带后缀)，例:Weixin****.txt </p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>内容：</label>
+					<div class="col-sm-9 col-xs-12">
+						<textarea class="form-control" required name="content" rows="3" placeholder="填写授权域名时微信提供的文件">{$resContent['content']}</textarea>
+						<p class="help-block">请输入完整授权文件内容 </p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+<script>
+	$('.add_nav').submit(function(){
+		var post_data = $(this).serialize();
+		var url = $(this).attr('action');
+		$.ajax({
+			type:'post',
+			url: url,
+			data: post_data,
+			dataType:'json',
+			success:function(res){
+				swal({title:CheckCode(res.Code),text: res.Message,type: CheckCode(res.Code,2)},function(){
+					if( CheckCode(res.Code,2) == 'success')
+						window.location.href = '{php echo $this->createWebUrl('File', array('op' => 'index'))}';
+				});
+			},
+			error:function(){ swal("Error", "请检查您的网络", "error"); }
+		});
+		return false;
+	});
+
+</script>
+{template 'common/footer'}

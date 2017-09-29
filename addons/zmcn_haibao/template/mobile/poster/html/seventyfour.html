@@ -1,0 +1,116 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="edit74">
+        <div class="edit74_con">
+          <div class="edit74_conbg11" id="editmove">
+            <img src="{MODULE_URL}template/mobile/poster/images/m74up1.jpg" alt="uppic">
+          </div>
+          <div class="edit74_conbg2"></div>
+          <div class="edit74_con1">
+             <p contenteditable="true"><span>{$settings['team_title']}</span>团队</p>
+          </div>
+          <div class="edit74_con2">
+             <p contenteditable="true">从0到100万</p>
+             <p contenteditable="true">我的微商之路</p>
+          </div>
+          <div class="edit74_con3">
+             <p contenteditable="true">最具影响力是大微商人</p>
+             <p contenteditable="true">微商趋势已无法阻挡</p>
+          </div>
+          <div class="edit74_con4">
+             <p contenteditable="true">TOP10</p>
+             <p contenteditable="true">红爆朋友圈的秘密</p>
+          </div>
+          <div class="edit74_con5">
+             <p contenteditable="true">这是最好的年代，</p>
+             <p contenteditable="true">也是最需要奋斗的年代</p>
+          </div>
+          <div class="edit74_con6">
+             <p contenteditable="true">携手</p>
+             <p contenteditable="true">“{$settings['team_title']}”</p>
+             <p contenteditable="true">给梦想一个</p>
+             <p contenteditable="true">大舞台</p>
+          </div>
+          <div class="edit74_up1"> 
+                <div class="edit74_up11">
+                    <div class="edit74_fileInput left">
+                          <input type="file" name="edit74_upfile" id="edit74_upfile" style="display:none" class="edit74_upfile" onchange="document.getElementById('edit74_upfileResult').innerHTML=this.value;"/>
+                          <input class="edit74_upFileBtn" id="edit74_upfileResult" type="button" value="上传图片" onclick="document.getElementById('edit74_upfile').click();"/>
+                    </div>
+                </div>
+          </div>
+        </div>
+        <div class="shengcheng74">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!-- 第七十四个页面结束 -->
+     <script type="text/javascript">
+        $("#edit74_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+           $(".edit74_conbg11 img").attr("src", objUrl);
+            }
+        });
+         //建立一个可存取到该file的url
+        function getObjectURL(file){
+	        var url = null; 
+	        if (window.createObjectURL!=undefined) { // basic
+	          url = window.createObjectURL(file);
+	        } else if (window.URL!=undefined) { // mozilla(firefox)
+	          url = window.URL.createObjectURL(file);
+	        } else if (window.webkitURL!=undefined) { // webkit or chrome
+	          url = window.webkitURL.createObjectURL(file);
+	        }
+	        return url;
+	    }
+        $(".shengcheng74").click(function(){
+                
+                $(".shengcheng74").hide();
+                $(".edit74_up1").hide();
+                $(".edit74_up2").hide();
+                $(".edit74_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".edit74_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base74图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".edit74").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //第七十四个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

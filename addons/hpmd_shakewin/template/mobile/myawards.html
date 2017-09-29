@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no" />
+	<title>我的奖品</title>
+	<script type="text/javascript" src="../addons/hpmd_shakewin/template/mobile/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="../addons/hpmd_shakewin/template/mobile/js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="../addons/hpmd_shakewin/template/mobile/css/style.css"/>
+	<script type="text/javascript">
+		var appid = '{$_W['account']['jssdkconfig']['appId']}';
+		var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+		var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+		var signature = '{$_W['account']['jssdkconfig']['signature']}';
+		var enableshare = '{$rule['enableshare']}';
+
+		wx.config({
+			debug: false,
+			appId: appid,
+			timestamp: timestamp,
+			nonceStr: nonceStr,
+			signature: signature,
+			jsApiList: [
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage'
+			]
+		});
+
+		if(1 == enableshare) {
+			wx.ready(function () {
+				wx.onMenuShareAppMessage({
+					title: '{$rule['sharetitle']}',  
+					desc: '{$rule['sharedesc']}',  
+					link: '{$rule['sharelink']}',  
+					imgUrl: '{$_W['attachurl_local']}'+'{$rule['sharepic']}',  
+					type: '',  
+					dataUrl: '',  
+					success: function () { 
+					},
+					cancel: function () { 
+					}
+				});
+				wx.onMenuShareTimeline({
+					title: '{$rule['sharetitle']}',  
+					link: '{$rule['sharelink']}',  
+					imgUrl: '{$_W['attachurl_local']}'+'{$rule['sharepic']}',   
+					success: function () { 
+					},
+					cancel: function () { 
+					}
+				});
+				wx.error(function(res){
+					//alert('errorMSG: '+JSON.stringify(res));
+				});
+			});
+		}
+		
+	</script>
+</head>
+<body>
+	<div class="wrapboxb">
+		<div class="jiangtop">
+			
+			<div class="btbox">
+				<img src="../addons/hpmd_shakewin/template/mobile/images/liwu2.png"/>
+				<span>我的礼物</span>
+			</div>
+			<div class="tshibox">领奖时间：{$exchangestarttime} 至 {$exchangeendtime}</div>
+			<div class="clear"></div>
+		
+		</div>
+		<div class="neirong">
+			<img src="../addons/hpmd_shakewin/template/mobile/images/pic04.png"/>
+			{if $list}
+				<h3>亲爱的用户`{$nickname}`~</br>恭喜您获得了奖品~</h3>
+			{else}
+				<h3>亲爱的用户`{$nickname}`~</br>您暂时没有赢得过任何奖品哦~</h3>
+			{/if}	
+		</div>
+		<div class="mingdan">
+			
+			<img src="../addons/hpmd_shakewin/template/mobile/images/img01.jpg"/>
+		
+		</div>
+		{if $list}
+		<div class="gongbubox">
+			
+			<ul>
+
+				{loop $list $index $item}
+				{php $wintime = date('Y-m-d h:i',$item['createtime'])}
+				<li>
+					<div class="kuai1">
+						
+						<img src="{$item['headimg']}"/>
+					
+					</div>
+					<div class="kuai2">
+						
+						<h2>{$item['nickname']}</h2>				
+					</div>
+					<div class="kuai3">
+						
+						{$wintime}					
+					</div>
+					<div class="kuai4">
+						
+						{$item['name']}	
+					
+					</div>
+					<div class="clear"></div>
+				</li>
+				{/loop}
+			</ul>
+		
+		</div>
+	
+		{/if}
+	</div>
+	<div style="width:100%; height:70px;"></div>
+	<div class="bottombox">
+		
+		<a href="{php echo $this->createMobileUrl('Index', array('replywords' => $replywords))}">返回摇一摇</a>
+	
+	</div>
+
+</body>
+</html>

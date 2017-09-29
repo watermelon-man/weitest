@@ -1,0 +1,102 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="editz33">
+        <div class="editz33_con"> 
+          <div class="editz33_up1"> 
+                  <div class="editz33_up11">
+                      <div class="editz33_fileInput left">
+                            <input type="file" name="editz33_upfile" id="editz33_upfile" style="display:none" class="editz33_upfile" onchange="document.getElementById('editz33_upfileResult').innerHTML=this.value;"/>
+                            <input class="editz33_upFileBtn" id="editz33_upfileResult" type="button" value="上传图片" onclick="document.getElementById('editz33_upfile').click();" />
+                      </div>
+                  </div>
+          </div>   
+          <div class="editz33_con1">
+              <p contenteditable="true">想做微商</p> 
+              <p contenteditable="true">你还在犹豫什么？</p> 
+              <p contenteditable="true">赶快加入{$settings['team_title']}天团</p> 
+              <p contenteditable="true">1、无库存、无压力、无风险</p>
+              <p contenteditable="true">2、全方位提供图片素材</p>
+              <p contenteditable="true">3、强大的培训及售后服务体系</p>
+          </div>
+        </div>
+        <div class="shengchengz33">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!-- 招商第三十三个页面结束 -->
+    <script type="text/javascript">    
+      $("#editz33_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        console.log("objUrl = "+objUrl);
+        if (objUrl) {
+         // $(".editz33_con1pic img").attr("src", objUrl);
+           $(".editz33_con").css("background-image", "url("+objUrl+")");
+          }
+        });
+     $("#editz33_upfile2").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+          $(".editz33_con81pic img").attr("src", objUrl);
+        }
+      });    
+         //建立一个可存取到该file的url
+      function getObjectURL(file) {
+        var url = null; 
+        if (window.createObjectURL!=undefined) { // basic
+          url = window.createObjectURL(file);
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+          url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+          url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+      }
+      $(".shengchengz33").click(function(){
+                
+                $(".shengchengz33").hide();
+                $(".editz33_up1").hide();
+                $(".editz33_up2").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".editz33_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base64图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                             $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".editz33").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //招商第三十三个页面结束
+    </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

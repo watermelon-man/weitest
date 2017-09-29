@@ -1,0 +1,77 @@
+    {template 'header'}
+    {php load()->func('tpl');}
+    <style>
+        body{
+            background-color: #f1f2f6;
+        }
+        .touxiang{
+            width:100%;
+            padding: 10px;
+            text-align: center;
+        }
+        .touxiang img{
+            border-radius: 50%;
+            width: 100px;
+        }
+        form{
+            width: 90%;
+            margin: 0 auto;
+        }
+        form label{
+            width: 20%;
+            /*color: #738cb3;*/
+        }
+        form select{
+            width: 50%;
+        }
+        form input{
+            width: 80%;
+        }
+        form div{
+            margin: 10px 0;
+        }
+    </style>
+    <div class="touxiang" >
+        <img src="{$pic}" class="am-img-thumbnail am-circle">
+    </div>
+<!--   {$uniacid} <br />
+   {$openid}-->
+   <form action="{php echo $this->createMobileurl('saveinfo')}" method="post" class="form-horizontal" role="form" id="form1" >
+       <div>
+            <label>班级:</label>
+            <select class='' name="classid">
+                {loop $classlist $item}
+                    <option value="{$item['id']}">{$item['classname']}</option>
+                {/loop}
+            </select>
+       </div>
+       <div>
+        <label>男生:</label>
+        <div class="mui-numbox">
+            <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+            <input class="mui-numbox-input" type="number" value='50' name="male"/>
+            <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+        </div>
+       </div>
+       <div>
+           <label>女生:</label>
+            <div class="mui-numbox">
+                <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+                <input class="mui-numbox-input" type="number" value='50' name="female"/>
+                <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+            </div>
+       </div>
+       <div>
+           <label>时间:</label>
+            <div>
+                {php echo tpl_form_field_date('createday',$date, false);}
+                <span class="help-block"></span>
+            </div>
+       </div>
+       <div>
+           <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+       </div>
+   </form>
+  </body>
+
+</html>

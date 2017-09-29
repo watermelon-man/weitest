@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>课程预约</title>
+<link href="../addons/zk_kcyy/template/mobile/yyx_css/mobile.css" type="text/css" rel="stylesheet">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable" content="yes"> 
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+* { margin: 0; padding: 0;}
+.posters{ margin:0 0 0 0;}
+.t-box{ display: block;   width:80%; margin:20px 10% 0 10%; text-align:center;  font-family:Arial, Helvetica, sans-serif; font-size:1.4em;}
+.txt_name4{ width:30%; float:left; text-align:right;}
+.txt_des4{ height:25px; width:60%;}
+.txt_des3{ height:25px; width:60%;}
+
+
+</style>
+
+<body>
+<div class="alldiv">
+
+
+     
+
+  <form action="" method="post" name="form1" enctype="multipart/form-data" data-ajax="false" class="clearfix" >  
+     <div class="posters"><img src="{php echo tomedia($rowimg['img']);}" width="100%"  /></div>
+     <div class="t-box">
+          <label class="txt_name4">姓名：</label>
+          <input class="txt_des4" type="text" id="name" name="name"  placeholder="  请填写您的姓名" value="">
+     </div>
+     <div class="t-box">
+          <label class="txt_name4">手机号码：</label>
+          <input class="txt_des4" type="text" id="tel" name="tel"  placeholder="  请填写您的手机号码" value="">
+     </div>
+    <div class="t-box">
+          <label class="txt_name4">课程：</label> 
+          <select class="txt_des3" name="selectkc" id="selectkc">  
+		
+		  	{loop $listkc $kc}
+			  <option value="{$kc['id']}">{$kc['title']}</option> 
+			{/loop}
+     
+                 
+          </select> 
+     </div>
+     <div class="t-box">
+          <label class="txt_name4">年龄：</label> 
+          <select class="txt_des3" name="selectage" id="selectage">   
+            {loop $listage $age}
+			  <option value="{$age['id']}">{$age['agetitle']}</option> 
+			{/loop}
+          </select> 
+     </div>
+     <div class="t-box">
+         <input name="submit" type="submit" class="btn btn-primary" value="提交">
+		 <input type="hidden" name="token" value="{$_W['token']}" />
+     </div>
+   <br>
+   <br>
+   <br>
+   </form>  
+ 
+</div>
+</body>
+</html>

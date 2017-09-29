@@ -1,0 +1,8 @@
+*{ padding:0; margin:0; font-size:12px}
+ul,li{ list-style:none;}
+.box{ height:35px; background:#000; overflow:hidden;}
+.t_news{ height:19px;  color:#fff; padding-left:10px; margin:8px 0; overflow:hidden; position:relative;}
+.t_news b{ line-height:19px; font-weight:bold; display:inline-block;}
+.news_li,.swap{ line-height:19px; display:inline-block; position:absolute; top:0; left:72px;}
+.news_li a,.swap a{ color:#fff;}
+.swap{top:19px;}

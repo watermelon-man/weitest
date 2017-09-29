@@ -1,0 +1,131 @@
+{template 'common/header'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" id="setting-form">
+		<div class="panel panel-default">
+			<div class="panel-heading">会员签到设置</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">签到积分模式：</label>
+					<div class="col-sm-4">
+						<label class="radio-inline"><input type="radio" value="0" class="random" name="data[random]" {if $settings['random'] == 0}checked="checked"{/if}>固定积分</label>
+						<label class="radio-inline"><input type="radio" value="1" class="random" name="data[random]" {if $settings['random'] == 1}checked="checked"{/if}>随机积分</label>
+					</div>
+				</div>
+				<div class="form-group" id="score">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">固定签到积分：</label>
+					<div class="col-xs-4 col-sm-4">
+						<input type="text" name="data[score]" class="form-control" value="{$settings['score']}" />
+					</div>
+				</div>
+				<div class="form-group" id="score1">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">随机积分范围：</label>
+					<div class="col-xs-2 col-sm-2">
+						<input type="text" name="data[score1]" class="form-control" value="{$settings['score1']}" />
+					</div>
+					<div class="col-xs-2 col-sm-2">
+						<input type="text" name="data[score2]" class="form-control" value="{$settings['score2']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">签到开始时间：</label>
+					<div class="col-xs-4 col-sm-4">
+						{php echo tpl_form_field_clock('data[sign_start_time]', $settings['sign_start_time']);}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">连续签到天数：</label>
+					<div class="col-sm-4 col-sm-4">
+						<input type="text" name="data[continue_day]" class="form-control" value="{$settings['continue_day']}" placeholder="连续签到多少天有奖励积分，为空则不奖励"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">连续签到奖励积分：</label>
+					<div class="col-sm-4 col-sm-4">
+						<input type="text" name="data[continue_score]" class="form-control" value="{$settings['continue_score']}" placeholder="连续签到奖励积分，为空则不奖励"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">分享一次奖励积分：</label>
+					<div class="col-sm-4 col-sm-4">
+						<input type="text" name="data[share_score]" class="form-control" value="{$settings['share_score']}" placeholder="分享一次奖励的积分，为空则不奖励"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">每天最多可分享次数：</label>
+					<div class="col-sm-4 col-sm-4">
+						<input type="text" name="data[share_limit]" class="form-control" value="{$settings['share_limit']}" placeholder="不填代表不做限制"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">未开始签到回复模板：</label>
+					<div class="col-sm-4 col-sm-4">
+						<textarea style="height:100px;" name="data[notstart]" class="form-control description" cols="60">{if !$settings['notstart']}亲，你起得太早了,签到从[开始时间]开始,现在才[当前时间]！{else}{$settings['notstart']}{/if}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">已签到回复模板：</label>
+					<div class="col-sm-4 col-sm-4">
+						<textarea style="height:100px;" name="data[done]" class="form-control description" cols="60">{if !$setting['done']}亲，今天已经签到过了{else}{$settings['done']}{/if}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">签到攻略：</label>
+					<div class="col-sm-4 col-sm-4">
+						{php echo tpl_ueditor('data[description]', $settings['description']);}
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 col-sm-offset-3 col-md-offset-2 col-lg-offset-2">
+						<input name="submit" type="submit" value="提交" class="btn btn-primary" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+$(function(){
+	function chang_random(){
+		var random = $('input[name="data[random]"]:checked').val();
+		if(random == 0){
+			$('#score').show();
+			$('#score1').hide();
+		}else{
+			$('#score').hide();
+			$('#score1').show();
+		}
+	}
+	
+	$('.random').click(function(){
+		chang_random();
+	});
+
+	chang_random();
+
+});
+require(['jquery', 'util'], function($, util){
+	$(function(){
+		$('#setting-form').submit(function(){
+			var result = true;
+			if($('input[name="data[random]"]:checked').val() == 0){
+				if($('input[name="data[score]"]').val() == ''){
+					result = false;
+					util.message('请输入固定签到积分');
+				}
+			}
+			if($('input[name="data[random]"]:checked').val() == 1){
+				if($('input[name="data[score1]"]').val() == '' || $('input[name="data[score2]"]').val() == ''){
+					result = false;
+					util.message('请输入随机积分范围');
+				}
+			}
+			return result;
+		});
+	});
+});
+</script>
+
+{template 'common/footer'}

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>领取卡券</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <script type="text/javascript" charset="utf-8" src="../addons/haoman_base/base/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet"  type="text/css" href="http://cdn.bootcss.com/weui/0.4.2/style/weui.min.css">
+
+
+</head>
+<body>
+<div class="msg">
+    <div class="weui_msg">
+        <div class="weui_icon_area "><i class="weui_icon_success weui_icon_msg"></i></div>
+        <div class="weui_text_area">
+            <h2 class="weui_msg_title weui_btn weui_btn_default" onclick="sendCard2()">立即领卡</h2>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload=function () {
+        sendCard2()
+    }
+    $(".isok").click(function () {
+        sendCard2()
+    })
+</script>
+
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript">
+    wx.config({
+        debug:false,
+        appId: '{$package["appId"]}',
+        timestamp: '{$package["timestamp"]}',
+        nonceStr: '{$package["nonceStr"]}',
+        signature: '{$package["signature"]}',
+        jsApiList: [
+            'getLocation','onMenuShareTimeline','onMenuShareQQ','onMenuShareQZone','onMenuShareAppMessage','onMenuShareWeibo'
+    ]
+    });
+    var sharedata = {
+        "imgUrl" : "{$shareimg}",
+        "link" : "{$sharelink}",
+        "desc" : "{$sharedesc}",
+        "title" : "{$sharetitle}"
+    };
+
+    wx.ready(function () {
+        wx.hideOptionMenu();
+
+    });
+
+
+    function sendCard2(){
+        var temp = '{$cardArry['cardId']}';
+        if(temp == null || temp == '' || temp == undefined){
+            return;
+        }
+        wx.addCard({
+            cardList: [{
+                cardId: '{$cardArry['cardId']}',
+                cardExt: '{"code": "", "openid": "{$cardArry['openid']}", "timestamp": "{$cardArry['timestamp']}","nonce_str":"{$cardArry['nonceStr']}", "signature":"{$cardArry['signature']}"}'
+            }], // 需要添加的卡券列表
+            success: function (res) {
+                var cardList = res.cardList; // 添加的卡券列表信息
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

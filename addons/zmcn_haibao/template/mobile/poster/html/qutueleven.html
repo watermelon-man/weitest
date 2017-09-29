@@ -1,0 +1,71 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="editqt11">
+        <div class="editqt11_con">
+              <div class="editqt11_con1"> 
+                  <p contenteditable="true">{$myset['name']}</p>
+              </div>
+              <div class="editqt11_con2"> 
+                  <p contenteditable="true"><span></span><span></span><span></span></p>
+              </div>
+        </div>
+        <div class="shengchengqt11">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“文字”生成趣图</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!-- 趣图第十一个页面结束 -->
+    
+     <script type="text/javascript">
+           $(".shengchengqt11").click(function(){
+                
+                $(".shengchengqt11").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                var now= new Date();
+                var year=now.getFullYear();
+                var month=now.getMonth()+1;
+                var date=now.getDate();
+                console.log(year+","+month+","+date);
+                $(".editqt11_con2 p span:eq(0)").text(year);
+                $(".editqt11_con2 p span:eq(1)").text(month);
+                $(".editqt11_con2 p span:eq(2)").text(date);
+                html2canvas($(".editqt11_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".editqt11").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //趣图第十一个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

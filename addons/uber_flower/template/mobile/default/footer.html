@@ -1,0 +1,90 @@
+<script type="text/javascript">
+wx.error(function (res) {
+    for(var i in res){
+            if (typeof console !== 'undefined' && typeof console.log == 'function') {
+                console.log(i+':'+res[i]);
+            }
+    }
+});
+wx.ready(function () {
+        // 在这里调用 API
+        wx.onMenuShareAppMessage({
+            title: "{$share_title}",  // 分享标题
+            desc: "{$share_desc}",  // 分享描述
+            link: "{$share_url}",  // 分享链接
+            imgUrl: "{$share_image}",  // 分享图标
+            success: function (res) {
+                // 用户确认分享后执行的回调函数
+                var url = "{php echo $this->createMobileUrl('share',array('rid'=>$rid));}";
+                    $.ajax
+                    ({
+                        url: url,
+                        type:'POST',
+                        data: {},
+                        dataType:'json',
+                        error: function () {
+                            alert('网络通讯异常，请稍后再试！');
+                        },
+                        success: function (result) {
+							if(result.success==1){
+                            	alert(result.msg);
+								if(wacomconf.isSelf){
+									window.location.href="{php echo $this->createMobileUrl('gift',array('rid'=>$rid));}";
+								}else{
+								setTimeout("gotoindex();",3000);
+								}
+							}
+                        }
+                    });
+            },
+            cancel: function (res) {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        wx.onMenuShareTimeline({
+            title: "{$share_title}", // 分享标题
+            desc: "{$share_desc}", // 分享描述
+            link: "{$share_url}", // 分享链接
+            imgUrl: "{$share_image}", // 分享图标
+            success: function (res) {
+                // 用户确认分享后执行的回调函数
+                    var url = "{php echo $this->createMobileUrl('share',array('rid'=>$rid));}";
+                    $.ajax
+                    ({
+                        url: url,
+                        type:'POST',
+                        data: {},
+                        dataType:'json',
+                        error: function () {
+                            alert('网络通讯异常，请稍后再试！');
+                        },
+                        success: function (result) {
+							if(result.success==1){
+                            	alert(result.msg);
+								setTimeout("gotoindex();",3000);
+							}
+                        }
+                    });
+            },
+            cancel: function (res) {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    });
+function wxretweet(rid){
+	if(rid>0){
+		$.ajax({
+              type: "POST",
+              url : "{php echo $this->createMobileUrl('share',array('rid'=>$rid));}",
+              data:{},
+              success: function(databack){
+				  if(databack.success==1){
+					 alert(databack.msg);
+					 $('#share').hide();
+				  }
+              }
+            }); 
+	}
+}	
+function gotoindex(){window.location.href="{php echo $this->createMobileUrl('index',array('rid'=>$rid));}";}
+</script>

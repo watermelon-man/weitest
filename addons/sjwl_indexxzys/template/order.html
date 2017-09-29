@@ -1,0 +1,90 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+   
+    <li class="active"><a href="{php echo $this->createWebUrl('order', array('op' => 'edit'))}">添加KEY</a></li>
+</ul>
+
+{if $op == 'edit'}
+<div class="panel panel-default">
+  
+   <div class="panel-body">
+   <form action="" method="post" class="form-horizontal form" >
+		<div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">填写appkey</label>
+            <div class="col-sm-10">
+              <input type="text"  name="idkey" class="form-control" value="{$list['idkey']}" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">申请地址</label>
+            <div class="col-sm-10">
+              打开此地址  https://www.jisuapi.com/api/astro/ 点击申请此API 即可免费使用1000次，就算1000次用完了充值5元就能使用10000次;     申请后进会员中心复制顶部的appkey   填写在上面就行了
+            </div>
+        </div>
+        
+      
+		<div class="form-group col-sm-12">
+                <input name="token" type="hidden" value="{$_W['token']}" />
+                <input name="id" type="hidden" value="{$list['id']}" />
+                <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+        </div>
+   
+   </form>
+   </div>
+</div>
+{else}
+    
+    
+    
+       
+    
+    
+    
+	    <div class="panel panel-default">
+        <div class="table-responsive panel-body">
+            <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:15%;">ID</th>
+                        <th style="width:15%;">key</th>
+                   
+                     
+                       
+                        <th style="width:10%;text-align: right;" >操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+               
+                    
+                    <tr>
+                        
+                        <td>
+							{$list['id']}
+                        </td>
+                        <td>
+							{$list['idkey']}
+                        </td>
+                    
+                        
+                    
+                        
+                     
+                    
+                       
+                        <td style="text-align: right;">
+                         
+					
+						<a href="{php echo $this->createWebUrl('order', array('op' => 'delete','id' => $list['id']))}" onclick="return confirm('确认删除此信息吗？');return false;" title="删除" class="btn btn-default btn-sm"><i class="icon-remove"></i>
+						删除</a>
+                        </td>
+                    </tr>
+               
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+{/if}
+{template 'common/footer'}

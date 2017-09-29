@@ -1,0 +1,24 @@
+{template 'header'}
+<body>
+<section class="det">
+    <img class="bg" src="{php echo $this->module['config']['bgcover'] ? $_W['attachurl'].$this->module['config']['bgcover'] : '/addons/deyi_business/images/bg.jpg'}"/>
+    <div class="businame">
+        {if $item['lat'] && $item['lng']}<a
+            href="http://api.map.baidu.com/marker?location={$item['lat']},{$item['lng']}&title={php echo urlencode('所在位置');}&content={php echo urlencode($item[title]);}&output=html">地图导航</a>{/if}
+        <h6>商家：{$item['title']}</h6>
+    </div>
+    <div class="det-sprite">
+        <p>{$item['industry1']}</p>
+        {if $item['phone']}<a class="phone" href="tel:{$item['phone']}">{$item['phone']}</a>{/if}
+        {if $item['qq']}<a class="qq" href="http://wpa.qq.com/msgrd?v=3&uin={$item['qq']}&site=qq&menu=yes">{$item['qq']}</a>{/if}
+        {if $item['lat'] && $item['lng']}<a class="address"
+            href="http://api.map.baidu.com/marker?location={$item['lat']},{$item['lng']}&title={php echo urlencode('所在位置');}&content={php echo urlencode($item[title]);}&output=html">{$item[address]}</a>{/if}
+    </div>
+    <div class="det-intro">
+        <h6>商家简介</h6>
+        <div>
+            {php echo htmlspecialchars_decode($item['content'])}
+        </div>
+    </div>
+</section>
+{template 'foot'}

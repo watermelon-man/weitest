@@ -1,0 +1,138 @@
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+{php load()->func('tpl');}
+<div class="panel panel-default">
+	<div class="panel-heading">
+      设置
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+           <label class="col-xs-12 col-sm-3 col-md-2 control-label">查看排行榜</label>
+           <div class="col-sm-9 col-xs-12" style="margin-top:7px;">
+               <a href="{php echo $this->createWebUrl('list', array('id' => $reply['rid']))}" target="_blank">本次活动参与数据查看</a>
+           </div>
+     	</div>
+        <div class="form-group">
+        	<label class="col-xs-12 col-sm-3 col-md-2 control-label">单图文标题</label>
+        	<div class="col-sm-9 col-xs-12">
+         		<input type="text" value="{$reply['hd_title']}" class="form-control" name="hd_title" >
+				<span class="help-block">用于图文标题</span>
+        	</div>
+    </div>
+ 	<div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">单图文图片</label>
+        <div class="col-sm-9 col-xs-12">
+         	{php echo tpl_form_field_image('hd_img',$reply['hd_img']);}
+			<span class="help-block">用于单图文回复的显示 700*300</span>
+        </div>
+    </div>
+      <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">单图文描述</label>
+        <div class="col-sm-9 col-xs-12">
+ 			<textarea style="height:150px;" name="hd_desc" class="form-control" cols="60">{$reply['hd_desc']}</textarea>
+			<div class="help-block">用于图文显示的描述</div>
+        </div>
+    </div>
+     <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 活动时间</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_daterange('htime', array('starttime'=>date('Y-m-d H:i',$reply['start_time']),'endtime'=>date('Y-m-d H:i',$reply['end_time'])),1)}
+            </div>
+        </div>
+       <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动介绍</label>
+        <div class="col-sm-9 col-xs-12">
+ 			<textarea style="height:150px;" name="desc" id='desc' class="form-control" cols="60">{$reply['desc']}</textarea>
+			<div class="help-block">介绍本次活动规则,奖励等</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">总次数限制</label>
+        <div class="col-sm-9 col-xs-12">
+  		
+  			<input type="text" value="{$reply['max_num']}" class="form-control" name="max_num" id='max_num'>
+			<div class="help-block">最多能玩次数最小为1,默认100</div>
+        </div>
+    </div>      
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">每天限制规则</label>
+        <div class="col-sm-9 col-xs-12">
+  		
+  			<input type="text" value="{$reply['day_num']}" class="form-control" name="day_num" id='day_num'>
+			<div class="help-block">每天最多玩不能超过总次数,最小为1次</div>
+        </div>
+    </div>  
+        <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">游戏时间</label>
+        <div class="col-sm-9 col-xs-12">
+  		
+  			<input type="text" value="{$reply['game_time']}" class="form-control" name="game_time" id='game_time' readonly='true'>
+			<div class="help-block">时间必须大于0,单位秒</div>
+        </div>
+    </div> 
+    
+ 	<div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">自定义宣传图</label>
+        <div class="col-sm-9 col-xs-12">
+         	{php echo tpl_form_field_image('ad_img',$reply['ad_img']);}
+			<span class="help-block">用于游戏宣传图640X300最佳</span>
+        </div>
+    </div> 
+ 	<div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享小图标</label>
+        <div class="col-sm-9 col-xs-12">
+         	{php echo tpl_form_field_image('share_img',$reply['share_img']);}
+			<span class="help-block">分享时候小图标最佳120-200的正方形图片</span>
+        </div>
+    </div> 
+       <div class="form-group">
+        	<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+        	<div class="col-sm-9 col-xs-12">
+         		<input type="text" value="{$reply['share_title']}" class="form-control" name="share_title" >
+				<span class="help-block">分享标题</span>
+        	</div>
+    </div>    
+         <div class="form-group">
+        	<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享描述</label>
+        	<div class="col-sm-9 col-xs-12">
+         		<input type="text" value="{$reply['share_desc']}" class="form-control" name="share_desc" >
+				<span class="help-block">分享描述</span>
+        	</div>
+    </div> 
+         <div class="form-group">
+        	<label class="col-xs-12 col-sm-3 col-md-2 control-label">引导关注/强制关注</label>
+        	<div class="col-sm-9 col-xs-12">
+         		<input type="text" value="{$reply['share_url']}" class="form-control" name="share_url" >
+				<span class="help-block">设置引导关注地址不设置则表示不强制关注</span>
+        	</div>
+    </div>  
+         <div class="form-group">
+        	<label class="col-xs-12 col-sm-3 col-md-2 control-label">版权信息</label>
+        	<div class="col-sm-9 col-xs-12">
+         		<input type="text" value="{$reply['copyright']}" class="form-control" name="copyright" >
+				<span class="help-block">设置本游戏版权</span>
+        	</div>
+    </div>     
+         <div class="form-group">
+        	<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+        	<div class="col-sm-9 col-xs-12">
+        <p class="bg-info">游戏个性化资源配置</p>
+        	</div>
+    </div>  
+         <div class="form-group">
+        	<label class="col-xs-12 col-sm-3 col-md-2 control-label">背景音乐</label>
+        	<div class="col-sm-9 col-xs-12">
+         {php echo tpl_form_field_audio('mp3',$reply['data']['mp3']);}
+         <span class="help-block">留空则不显示音乐加快显示速度</span>
+        	</div>
+    </div>       
+    
+    
+    
+         
+</div>
+</div>
+<script type="text/javascript">
+    require(['util'],function(util){
+        util.editor($("#desc")[0]);
+    });
+</script>

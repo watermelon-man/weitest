@@ -1,0 +1,56 @@
+{template 'member/menuhead'}
+<style>
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+color: #FFF;
+background-color: #428bca;
+border-color: #428bca;
+}
+.panel-default {
+border-color: #ddd;
+margin-top: 20px;
+}
+</style>
+<div class="col-xs-12 col-sm-9 col-lg-10">
+ <ul class="nav nav-tabs"> 
+  <li class="active"><a href="{php echo $this->createMobileUrl('category');}">文章列表</a></li> 
+ </ul> 
+ <div class="main"> 
+  <div class="category"> 
+	<div class="panel panel-default"> 
+	 <div class="panel-body table-responsive"> 
+	  <table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width:240px;">标题</th>
+					<th style="width:240px;">分类</th>
+					<th style="width:240px;">是否显示</th>
+					<th style="width:240px;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			{loop $list $l}
+			<tr>
+				<td>{$l['title']}</td>
+				<td>{$type[$l['typeid']]}</td>
+				<td>
+					{if $l['isopen']==1}
+					<span class='label label-success'>显示</span>
+					{else}
+					<span class='label label-danger'>隐藏</span>
+					{/if}
+				</td>
+				<td>
+					<a href="{php echo $this->createMobileUrl('release_post', array('op' => 'display', 'id' => $l['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="修改"><i class="fa fa-edit"></i></a>
+					<a href="{php echo $this->createMobileUrl('release_list', array('op' => 'delete', 'id' => $l['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除" onclick="return confirm('确认是否删除？');"><i class="fa fa-times"></i></a>
+				</td>
+			</tr>
+			{/loop}
+			</tbody>
+		</table>
+	 </div> 
+	</div> 
+{$pager}
+  </div> 
+ </div> 
+</div>
+{template 'member/menufoot'}

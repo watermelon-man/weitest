@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    </head>
+    <body>
+    <script type="text/javascript">
+    wx.config({
+        debug:true,
+        appId: '{$rs["appId"]}',
+        timestamp: '{$rs["timestamp"]}',
+        nonceStr: '{$rs["nonceStr"]}',
+        signature: '{$rs["signature"]}',
+        jsApiList: [
+            'getLocation'
+    ]
+    });
+    wx.ready(function (){
+        wx.getLocation({
+         type: 'wgs84',
+         success: function (res) {
+             var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+             var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+             var speed = res.speed; // 速度，以米/每秒计
+             var accuracy = res.accuracy; // 位置精度
+             var submitData = {
+                 lat: latitude,
+                 lon: longitude
+            };
+            $.post('{php echo $this->createMobileUrl("getlbs")}', submitData, function(idata){
+
+                  if (idata.success == 1) {
+//                        alert("123");
+                  } else {
+//                      alert(idata.msg);
+//                      location.href = "{php echo $this->createMobileUrl('getlbs')}";
+                  }
+              },"json");
+        }
+    })
+});
+</script>
+        <div>TODO write content123</div>
+    </body>
+</html>

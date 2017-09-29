@@ -1,0 +1,112 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<style type="text/css"> 
+            .edithead2_conbg2{
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background: url({MODULE_URL}template/mobile/poster/images/head2bg.png) no-repeat;
+                background-size: 100% 100%;
+                position: relative;
+                pointer-events:none;
+                z-index: 2;
+            }
+            .edithead2_fileInput{
+                margin: 0px auto;
+                width:4.2rem;
+                height:4.2rem; 
+                background:url({MODULE_URL}template/mobile/poster/images/upload.png) no-repeat;
+                background-size:4rem 4rem;
+                overflow:hidden;
+                position:relative;
+            }
+            </style>
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="edithead2 edit_common" id="edit_common">
+        <div class="edithead2_con"> 
+          <div class="edithead2_conbg1" id="editmove">
+               <img src="{MODULE_URL}template/mobile/poster/images/head2up1.jpg" alt="uppic"/>
+          </div>
+          <div class="edithead2_conbg2"></div>
+          <div class="edithead2_up1">
+              <div class="edithead2_up11">
+                  <div class="edithead2_fileInput">
+                        <input type="file" name="edithead2_upfile" id="edithead2_upfile" style="display:none" class="edithead2_upfile" onchange="document.getElementById('edithead2_upfileResult').innerHTML=this.value;"/>
+                        <input class="edithead2_upFileBtn" id="edithead2_upfileResult" type="button" value="上传图片" onclick="document.getElementById('edithead2_upfile').click();" />
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="shengchenghead2">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!--头像图第二个页面结束 -->
+     <script type="text/javascript">
+        $("#edithead2_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+         $(".edithead2_conbg1 img").attr("src", objUrl);
+          }
+        });
+         //建立一个可存取到该file的url
+      function getObjectURL(file) {
+        var url = null; 
+        if (window.createObjectURL!=undefined) { // basic
+          url = window.createObjectURL(file);
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+          url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+          url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+      }
+      $(".shengchenghead2").click(function(){
+                
+                $(".shengchenghead2").hide();
+                $(".edithead2_up1").hide();
+                $(".edithead2_up2").hide();
+                $(".edithead2_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".edithead2_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base64图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".edithead2").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //头像图第二个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

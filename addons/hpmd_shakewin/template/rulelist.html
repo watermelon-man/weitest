@@ -1,0 +1,201 @@
+{template 'common/header'}
+{template 'common'}
+<div class="main">
+    <ul class="nav nav-tabs">		
+        <li class="active"><a href="{php echo $this->createWebUrl('Shakerule',array('op'=>'list'));}">摇一摇活动</a></li>    
+        <li><a href="{php echo $this->createWebUrl('Shakerule',array('op'=>'edit'));}">添加活动</a></li>	
+    </ul>
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="hpmd_shakewin" />
+                <input type="hidden" name="do" value="Shakerule" />
+              	<input type="hidden" name="paperid" value="{$paperid}" />
+            	<input type="hidden" name="add_paper" value="{$add_paper}" />
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+                    <div class="col-xs-12 col-sm-8 col-lg-9">
+                     	<input class="form-control" name="replywords" placeholder="请输入回复关键字"  type="text" value="{$_GPC['replywords']}">
+                    </div>
+                    <div class=" col-xs-12 col-sm-2 col-lg-2">
+                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+		<div class="panel-body table-responsive">
+        <table class="table table-hover">
+            <thead class="navbar-inner">
+                <tr>
+					<th class='with-checkbox' style="width:40px;">
+                    	<input type="checkbox" class="check_all" />
+					</th>
+                    <th style="width:130px;">活动标题</th>
+                    <th style="width:80px;">回复关键字</th>
+                    <th style="width:100px;">开始时间</th>
+                    <th style="width:100px;">结束时间</th>
+                    <th style="width:60px;">是否启用</th>
+                    {if $add_paper == 0}
+                    <th style="width:90px;">活动操作</th>
+                    <th style="width:90px;">活动奖品</th>
+                    <th style="width:54px;">获奖名单</th>
+                    {/if}
+                </tr>
+            </thead>
+            <tbody>
+                {loop $list $index $item}
+				{php $starttime = date('Y-m-d h:i',$item['starttime'])}
+				{php $endtime = date('Y-m-d h:i',$item['endtime'])}
+                <tr>  <td class="with-checkbox">
+                <input type="checkbox" name="check" value="{$item['id']}"></td>	
+                    <td>
+						{$item['title']}
+					</td>
+                    <td>
+						{$item['replywords']}
+					</td>
+                    <td>
+						{php echo $starttime}
+					</td>
+                    <td>
+						{php echo $endtime}
+					</td>
+                    <td>
+                    {if $item['online'] == 1}
+						启用
+					{else}
+					    禁用
+                    {/if}
+					</td>
+                    <td>
+                        {if $add_paper == 0}
+                        <a class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" href="{php echo $this->createWebUrl('Shakerule',array('op'=>'detail', 'id'=>$item['id']))}" title="查看活动">查看活动</a>
+                        <a class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" href="{php echo $this->createWebUrl('Shakerule',array('op'=>'edit','id'=>$item['id']))}" title="编辑活动"><i class="fa fa-edit"></i></a>
+                        {/if}
+                    </td>
+                    <td>
+                        {if $add_paper == 0}
+                        <a class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" href="{php echo $this->createWebUrl('Shakeawards',array('op'=>'list', 'ruleid'=>$item['id']))}" title="奖品列表">奖品列表</a>
+                        <a class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" href="{php echo $this->createWebUrl('Shakeawards',array('op'=>'edit','ruleid'=>$item['id']))}" title="添加奖品"><i class="fa fa-edit"></i></a>
+                        {/if}
+                    </td>
+                    <td>
+                        {if $add_paper == 0}
+                        <a class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" href="{php echo $this->createWebUrl('Shakewinner',array('op'=>'list', 'ruleid'=>$item['id']))}" title="获奖名单">获奖名单</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/loop}
+                <tr>
+					<td colspan="4">
+                	{if $add_paper == 1}
+                		<input type="button" class="btn btn-primary" name="addquestionall" value="自动填充试题" />
+                		<a class="btn btn-default" rel="tooltip" href="{$url}" title="返回活动列表">返回活动列表</a>
+                	{else}
+                	<input type="button" class="btn btn-primary" name="deleteall" value="删除选择的" />
+                	<input type="button" class="btn btn-primary" name="copyall" value="复制活动" />
+                	<input type="button" class="btn btn-primary" name="copyactaward" value="复制活动及奖品" />
+                	{/if}
+					</td>
+				</tr>
+            </tbody>
+            <input name="token" type="hidden" value="{$_W['token']}" />
+        </table>
+		</div>
+    </div>
+	{$pager}
+</div>
+<script>
+    $(".check_all").click(function(){
+       var checked = $(this).get(0).checked;
+		$(':checkbox').each(function(){this.checked = checked});
+    });
+
+	require(['bootstrap'],function($){
+		$('.btn').tooltip();
+	});
+
+	function drop_confirm(msg, url){
+		if(confirm(msg)){
+			window.location = url;
+		}
+	}
+	
+	$("input[name=copyactaward]").click(function(){
+
+		var check = $("input:checked");
+		if(check.length<1){
+			message('请选择要复制的记录!','','error');
+			return false;
+		}
+        if( confirm("确认要复制选择的活动及奖品吗?")){
+			var id = new Array();
+
+			check.each(function(i){
+				id[i] = $(this).val();
+			});
+			$.post("{php echo $this->createWebUrl('Shakerule',array('op'=>'copyactaward'))}", {idArr:id},function(data){
+				if (data.errno ==0)
+				{
+					location.reload();
+				} else {
+					alert(data.error);
+				}
+			},'json');
+		}
+	});
+
+	$("input[name=copyall]").click(function(){
+
+		var check = $("input:checked");
+		if(check.length<1){
+			message('请选择要复制的记录!','','error');
+			return false;
+		}
+        if( confirm("确认要复制选择的记录吗?")){
+			var id = new Array();
+
+			check.each(function(i){
+				id[i] = $(this).val();
+			});
+			$.post("{php echo $this->createWebUrl('Shakerule',array('op'=>'copyall'))}", {idArr:id},function(data){
+				if (data.errno ==0)
+				{
+					location.reload();
+				} else {
+					alert(data.error);
+				}
+			},'json');
+		}
+	});
+
+	$("input[name=deleteall]").click(function(){
+
+		var check = $("input:checked");
+		if(check.length<1){
+			message('请选择要删除的记录!','','error');
+			return false;
+		}
+        if( confirm("确认要删除选择的记录吗，同时会删除所属奖品和粉丝中奖信息?")){
+			var id = new Array();
+
+			check.each(function(i){
+				id[i] = $(this).val();
+			});
+			$.post("{php echo $this->createWebUrl('Shakerule',array('op'=>'deleteall'))}", {idArr:id},function(data){
+				if (data.errno ==0)
+				{
+					location.reload();
+				} else {
+					alert(data.error);
+				}
+			},'json');
+		}
+	});
+</script>
+{template 'common/footer'}

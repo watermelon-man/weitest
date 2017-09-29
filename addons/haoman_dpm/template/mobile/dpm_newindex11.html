@@ -1,0 +1,306 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{$reply['title']}</title>
+    <!-- <script src="../addons/haoman_dpm/img11/jquery-2.0.3.min.js" type="text/javascript" charset="utf-8"></script> -->
+    <script src="../addons/haoman_base/base/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <!-- <script type="text/javascript" src="../addons/haoman_dpm/img/jquery.cookie.js"></script> -->
+    <script type="text/javascript" src="../addons/haoman_base/base/jquery.cookie.js"></script>
+    <link href="../addons/haoman_dpm/static/img11/big_screen.min.css" rel="stylesheet" type="text/css">
+    <style>
+    html,body { width: 100%; height: 100%;margin:0; }
+    body{
+        background: url({$bg}) center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+    }
+    .boxDom {
+        position: absolute;
+        top: 35px;
+        bottom: 100px;
+        left: 0;
+        right: 0;
+        z-index: 8;
+    }
+
+    .string {
+        width: 500px;
+        height: 60px;
+        position: absolute;
+        color: #000;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .d_show,
+    .d_show li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .d_show li {
+        font-size: 30px;
+        font-weight: 500;
+        color: #fff;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .tmtx {
+        width: 55px;
+        height: 55px;
+        background-color: #FFF;
+        border-radius: 100%;
+        overflow: hidden;
+        border: 3px solid #fff;
+        box-shadow: 0 0 0px 3px rgba(0, 0, 0, 0.15);
+        float: left;
+        margin-right: 10px;
+    }
+
+    .tmtx img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .tmwz {
+        overflow: hidden;
+    }
+
+    .tmwz p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .tmnc {
+        font-size: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        color: #FFF
+    }
+
+    .tmnr {
+        margin: 0;
+        padding: 0;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        color: #FFF
+    }
+    .container1 .top .center span.title{
+    color: {if empty($xysreply['xys_backcolor'])}#fff604;{else}{$xysreply['xys_backcolor']};{/if};
+    }
+    </style>
+    
+    <link rel="stylesheet" href="../addons/haoman_dpm/static/img11/style.css?v=24323233" type="text/css">
+
+</head>
+<body {if !empty($video['vodio_bg3'])}data-vide-bg="{php echo tomedia($video['vodio_bg3'])}"{/if}>
+	<div class="chrometips chromeTip" style="display:none;">
+        <a href="javascript:void(0);" class="btntips-close" id="chromeTipCloseBtn">×</a>
+        <div class="inner-chrometips">
+            <p class="chrm-word1">由于你正在使用非Chrome浏览器，大屏幕的体验处于不佳状态，建议您立刻更换浏览器，以获得更好的大屏幕产品用户体验</p>
+        </div>
+    </div>
+    <script>
+    $(function() {
+
+        var isChrome = navigator.userAgent.indexOf('Chrome') != -1;
+        if (!isChrome) {
+            $('.chromeTip').show();
+        }
+        $('#chromeTipCloseBtn').click(function() {
+            $('.chromeTip').hide();
+        });
+        //10s后自动关闭
+        setTimeout(function() {
+            $('.chromeTip').hide();
+        }, 30000);
+    });
+    </script>
+    <div class="container demo-2">
+        <div class="content">
+            <div id="large-header" class="large-header" style="height: 732px;">
+                <canvas id="demo-canvas" width="1440" height="732"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="../addons/haoman_dpm/img6/demo-2.js"></script>
+    <div class="main">
+	<div class="container1" style="padding-top: 15px;">
+		<div class="top">
+			
+			<div class="center">
+				<span class="title" style="font-size: 32px;">{$reply['title']}</span>
+			</div>
+			<div class="right">
+				<span class="tipword messageword " style="margin-top: 20px;">
+					<span id="messageNum" class="num">{$totaldata}</span><br>
+					<span class="plus">条消息</span>				
+				</span>
+				{if $reply['up_qrcode']}
+				<img class="qrcode qrcodeAll" src="{php echo tomedia($reply['up_qrcode'])}">
+                {/if}
+			</div>
+		</div>
+	</div>
+
+    </div>
+    <div class="Panel MsgList" style="display: none;">
+        <div class="boxDom" id="boxDom">
+        </div>
+    </div>
+
+    <input type="hidden" id="panel_status" value="1">
+
+   <div class="g-bullet">
+    <div class="mbullet-box-con">
+        <div class="bullet-box-m">
+            <div class="reward-rocket">
+                <div class="rocket-head">
+                    <img class="rewarded-img" src="../addons/haoman_dpm/images/item8.jpg">
+                </div>
+                <div class="rocket-flame"></div>
+            </div>
+            <div class="reward-word">
+                <div class="reward-head">
+                    <div class="reward-word-max"></div>
+                    <div class="span1 money-txt"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bullet-box" style="visibility: visible;">
+        <div class="bullet-head-box"><img src="../addons/haoman_dpm/images/item8.jpg" class="img-circle"></div>
+        <div class="bullet-body-box">
+            <div class="bullet-name"></div>
+            <div class="bullet-msg"></div>
+        </div>
+    </div>
+
+       <!--火箭头-->
+    <div class="bullet-box-m" style="left: 1920px; top: 510px; transform: translate(-2370px, 0px); transition: transform 10000ms linear;">
+
+        <div class="reward-rocket">
+            <div class="rocket-head">
+                <img class="rewarded-img imgs" src="../addons/haoman_dpm/images/item8.jpg">
+            </div>
+            <div class="rocket-flame"></div>
+        </div>
+
+        <div class="reward-word">
+            <div class="reward-head">
+                <div class="reward-word-max"></div>
+                <div class="span1 money-txt"></div>
+            </div>
+        </div>
+        <div class="wordimg" style="width: 320px;position: relative;top: -50px;left: 30px;background-image: url('../addons/haoman_dpm/static/img11/tmbg.png');background-size: 100% 100%;padding:5px;display: none"><img src="../addons/haoman_dpm/images/my.jpg" style="width: 100%;"></div>
+    </div>
+</div>
+
+
+    <audio src="{$music}" preload="auto" id="media" autoplay="autoplay" loop="loop"></audio>
+    <script >
+    $(document).ready(function() {
+        if($('#music_img',window.parent.document).attr("src") == '../addons/haoman_dpm/common/footer/no_music.png'){
+            document.getElementById('media').pause();
+        }
+    });
+        var dpm_dm_getmessages="{php echo $this->createMobileUrl('dpm_dm_getmessages',array('rid'=>$rid))}";
+        (function(a, b) { 
+            a.WBActivity = { 
+                showLoading: function() { b(".loader").fadeIn() }, 
+                hideLoading: function() { b(".loader").fadeOut() } 
+            };
+            b(function() { 
+               a.WBActivity.start();
+            });
+            b(a).on("resize", function() { 
+                a.WBActivity.resize() 
+            })
+        })(window, jQuery);
+
+    </script>
+    <script src="../addons/haoman_dpm/static/img11/dm.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../addons/haoman_dpm/static/img11/Utility.min.js"></script>
+<script type="text/javascript" src="../addons/haoman_dpm/img/jquery.transit.min.js"></script>
+
+
+<script type="text/javascript">
+    /*弹幕JS*/
+    var f = 0;
+    $(document).ready(function() {
+        setInterval(function() {
+                _bulletCls = new BulletCls($(".g-bullet"), $(".bullet-box"), $(".bullet-box-m"));
+
+                $.post("{php echo $this->createMobileUrl('dpm_dm_getmessages', array('rid' => $rid))}", {
+                    last_id:f
+                }, function(data) {
+
+                    var obj = data.data;
+                    var dt = [];
+
+                    if( obj.length>0){
+
+                        f= obj[0].id;
+
+                        for (i = 0; i < obj.length; i++) {
+
+                            if(obj[i].is_bp==1){
+                                var ob = {
+                                    action: 1, //0普通，1霸屏，2打赏，3红包，4视频，5为人霸屏，6表白,7礼物
+                                    status: 1,
+                                    style: 1,
+                                    txt: obj[i].word,
+                                    head_img: obj[i].avatar,
+                                    nickname: obj[i].nickname,
+                                    time: obj[i].bptime,
+                                    b_type: obj[i].wordimg,
+                                };
+                                _bulletCls.refreshBullet(ob);
+                            }
+
+
+
+//                            dt.push(ob);
+
+                        }
+                    }
+                }, "json");
+        },3000)
+    });
+
+
+
+</script>
+
+
+<script type="text/javascript">
+    setInterval(function(){
+        $.ajax({
+            url:"{php echo $this->createMobileUrl('haishen', array('rid' => $rid,'gets'=>'message','isckmessage'=>$isckmessage))}",
+            dataType:'json',
+            success:function(data){
+
+                var code = data['code'];
+                var shenyu = data['shenyu'];
+                $('#messageNum').html(shenyu);
+                // console.log(shenyu);
+            }
+        })
+    },4000);
+
+    function spaceStart(){
+    //预留空格开始的方法，不要删除
+    }
+
+    </script>
+
+</body>
+<script type="text/javascript" src="../addons/haoman_dpm/static/img11/BulletCls.min.js"></script>
+{template 'dpm_Keyborad'}
+</html>

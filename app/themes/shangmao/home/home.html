@@ -1,0 +1,205 @@
+{template 'common/header'}
+<style type="text/css">
+*,html,body{
+	margin: 0;
+	padding: 0;
+}
+li{
+    list-style: none;
+}
+header img{
+	width: 100%;
+}
+a:link,a:visited{
+	color:black;
+}
+a:hover{
+    text-decoration: none;
+}
+.nav{
+	background-image: url("{$_W['siteroot']}app/themes/shangmao/images/navBack.png");
+	width: 100%;
+	height: 3.8rem;
+	line-height: 3.8rem;
+}
+.nav span:nth-of-type(1){
+	float: left;
+	font-size: 1.6rem;
+	margin-left: 2rem;
+	color: white;
+}
+.nav span:nth-of-type(2){
+	float: right;
+}
+.nav span:nth-of-type(2) img{
+	height: 1.6rem;
+	/*margin-top: 0.5rem;*/
+	margin-right: 2rem;
+}
+.swiper{
+    height:7rem;
+}
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    background-size: 100% 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.menu>a>div{
+	float: left;
+	width: 40%;
+	margin-left: 5%;
+	line-height: 4.4rem;
+	height: 4rem;
+	margin-top: 1rem;
+}
+.menu>a:nth-child(even)>div{
+	margin-left: 10%;
+}
+.menu>a>div img{
+	height: 100%;
+	float: left;
+	margin-right: 0.5rem;
+}
+.menu>a>div span{
+	font-size: 1rem;
+}
+.connect{
+    margin: 1.5rem 0 3.5rem;
+    padding: 2rem 8%;
+    background-color:#686767;
+}
+.connect p{
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    font-family: "微软雅黑";
+    color:white;
+}
+footer li{
+    width: 16%;
+    line-height: 0.8rem;
+    float: left;
+    margin-left: 8%;
+    text-align: center;
+    font-family: "宋体";
+}
+footer li p{
+    color: white;
+    font-size: 1.4rem;
+}
+footer li p img{
+    width: 2.4rem;
+}
+.nav-menu-app{
+    background-image: url('{$_W['siteroot']}app/themes/shangmao/images/footerBack.png');
+    padding:0.2rem 0;
+}
+footer .nav-menu-app.has-nav-4 .nav-group .nav-group-item{
+    width:16%;
+}
+</style>
+<header>
+    <img src="{$_W['siteroot']}app/themes/shangmao/images/logo.png" alt="">
+</header>
+
+<div class="nav">
+        <span>
+                首页
+        </span>
+        <span>
+                <img src="{$_W['siteroot']}app/themes/shangmao/images/classify.png" alt="">
+        </span>
+</div>
+
+{template 'common/slide'}
+
+<style type="text/css">
+body{
+	font:{$_W['styles']['fontsize']} {$_W['styles']['fontfamily']};
+	color:{if empty($_W['styles']['fontcolor'])}#555{else}{$_W['styles']['fontcolor']}{/if};
+	padding:0;
+	margin:0;
+	background-size:cover;
+	background-color:{if empty($_W['styles']['indexbgcolor'])}#fbf5df{else}{$_W['styles']['indexbgcolor']}{/if};
+	{$_W['styles']['indexbgextra']}
+}
+a{color:{$_W['styles']['linkcolor']}; text-decoration:none;}
+{$_W['styles']['css']}
+/*.home-container{width:58%;overflow:hidden;margin:.6em .3em;}*/
+.home-container{width:100%;}
+/*.home-container .box-item{float:left;display:block;text-decoration:none;outline:none;width:24%;height:6em;margin:.1em;background:rgba(0, 0, 0, 0.3);text-align:center;color:#ccc;}*/
+/*.home-container i{display:block;height:45px; margin: 5px auto; font-size:35px; padding-top:10px; width:45px;}*/
+/*.home-container span{color:{$_W['styles']['fontnavcolor']};display:block; width:90%; margin:0 5%;  overflow:hidden; height:20px; line-height:20px;}*/
+.home-container .box-item{float: left;width: 43%;margin-left: 5%;line-height: 4.4rem;height: 5rem;margin-top: 1rem;background-color: #e5e5e5;padding:0.5rem 0;}
+.home-container i{width:25%;height: 100%;float: left;margin: 0 0.5rem;}
+.home-container span{color:{$_W['styles']['fontnavcolor']}; width:90%; margin:0 5%;  overflow:hidden; height:20px; line-height:20px;}
+.footer{color:#dddddd;}
+.home-container ul li{background-color:rgba(0, 0, 0, 0.3);padding:0 10px;margin:1%;display: inline-block;height:45px;width:100%;}
+.home-container ul li a{text-decoration: none;}
+.home-container .title{color:#ccc;}
+.home-container .createtime{color:#999;font-size:12px}
+</style>
+<div class="menu home-container clearfix">
+	{data func="site_navs" item="row"}
+		{$row['html']}
+	{/data}
+        
+        <div style="clear: both;"></div>
+    	<div class="connect">
+	        <p>招生值班老师：王老师、赵老师、李老师</p>
+	        <p>招生值班电话：0371-66357460 63228103</p>
+	        <p>QQ咨询：1172751962</p>
+	        <p>学校网址：http://www.zzsmgl.com</p>
+	        <p>学校地址：郑州市紫荆山路71号（紫荆山路与东大街交叉口北50米路东）</p>
+	        <p>邮编：450003</p>
+	        <p>邮箱：zhaoshengban43@126.com</p>
+	    </div>
+</div>
+<footer>
+<!--        <a href="tel://0371-66357460">
+        	<li>
+	        	<p><img src="{$_W['siteroot']}app/themes/shangmao/images/i1.png" alt=""></p>
+	        	<p>一键拨号</p>
+    		</li>
+        </a>
+        <a href="tel://0371-63228103">
+        	<li>
+	        	<p><img src="{$_W['siteroot']}app/themes/shangmao/images/i2.png" alt=""></p>
+	        	<p>联系我们</p>
+        	</li>
+        </a>
+        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1172751962&site=qq&menu=yes">
+	        <li>
+		        <p><img src="{$_W['siteroot']}app/themes/shangmao/images/i3.png" alt=""></p>
+		        <p>在线咨询</p>
+	        </li>
+        </a>
+        <a href="http://ditu.amap.com/place/B017307NKX">
+	        <li>
+	        	<p><img src="{$_W['siteroot']}app/themes/shangmao/images/i4.png" alt=""></p>
+	        	<p>一键导航</p>
+	        </li>
+        </a>--> 
+   {data func="site_quickmenu"}{/data}
+</footer>
+</body>
+</html>
+
+
+		

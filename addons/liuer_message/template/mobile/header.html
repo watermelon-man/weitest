@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{$title}</title>
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+
+    <!--添加weui-->
+    <link rel="stylesheet" href="{MODULE_URL}static/css/weui.min.css">
+    <link rel="stylesheet" href="{MODULE_URL}static/libs/jquery-weui/jquery-weui.min.css">
+    <link rel="stylesheet" href="{MODULE_URL}static/css/layout.css">
+    <link rel="stylesheet" href="{$_W['siteroot']}web/resource/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{MODULE_URL}static/font/iconfont.css">
+    <!--添加weui js-->
+    {php echo register_jssdk(0);}
+    <script type="text/javascript">
+        var modulename = "{MODULE_NAME}";
+    </script>
+
+</head>
+<body>

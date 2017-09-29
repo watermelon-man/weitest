@@ -1,0 +1,140 @@
+{template 'common/header'}
+
+{if $op == 'display'}
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{php echo $this->createWebUrl('Shetuan');}">社团分类列表</a></li>
+        <li><a href="{php echo $this->createWebUrl('Shetuan', array('op' => 'edit'));}">新增社团</a></li>
+    </ul>
+    <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th>社团图片</th>
+                    <th>社团名称</th>
+                    <th>排序</th>
+                    <th style="float:right;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $edit_admin $row}
+                <tr>
+                    <td><img src="<?php echo tomedia($row['pic']);?>" style="width:100px; height:100px;"/></td>
+                    <td>{$row['name']}</td>
+                    <td>{$row['sort']}</td>
+                    <td style="text-align:right;">
+                        <a class="btn btn-default" data-toggle="tooltip" data-placement="top" href="{php echo $this->createWebUrl('Students', array('shetuan_id' => $row['id']))}" title="点击查看入团申请"><i class="glyphicon glyphicon-user"></i></a>
+                        <a class="btn btn-default" data-toggle="tooltip" data-placement="top" href="{php echo $this->createWebUrl('Activity', array('shetuan_id' => $row['id']))}" title="点击添加该社团下具体活动"><i class="glyphicon glyphicon-flag"></i></a>
+                        <a class="btn btn-default" data-toggle="tooltip" data-placement="top" href="{php echo $this->createWebUrl('Shetuan', array('id' => $row['id'], 'op' => 'edit'))}" title="编辑"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-default" data-toggle="tooltip" data-placement="top" href="#" onclick="drop_confirm('您确定要删除吗?', '{php echo $this->createWebUrl('ShetuanDelete', array('id' => $row['id']))}');" title="删除"><i class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+        </div>
+        <div style="float:right;">{$pager}</div>
+        <div style="clear:both;"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function drop_confirm(msg, url){
+        if(confirm(msg)){
+            window.location = url;
+        }
+    }
+</script>
+
+
+
+
+
+
+{elseif $op == 'edit'}
+
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li><a href="{php echo $this->createWebUrl('Shetuan');}">社团分类列表</a></li>
+        <li class="active"><a href="{php echo $this->createWebUrl('Shetuan', array('op' => 'edit'));}">新增社团</a></li>
+    </ul>
+
+    <style>
+        .table td span{display:inline-block;margin-top:4px;}
+        .table td input{margin-bottom:0;}
+    </style>
+
+
+    <div class="clearfix">
+        <form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+            <div class="panel panel-default">
+                <div class="panel-heading">社团编辑界面</div>
+                <div class="panel-body">
+
+                    <input type="hidden" name="id" value="{$info['id']}">
+                    <input type="hidden" name="op" value="edit">
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style="color:red;">*</span>管理员账号：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" placeholder="管理员账号" name="admin" value="{$info['admin']}" required="required" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style="color:red;">*</span>社团名称：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" placeholder="请填写社团名称" name="name" value="{$info['name']}" required="required" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style="color:red;">*</span>社团简介：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" placeholder="请填写社团简介" name="jianjie" value="{$info['jianjie']}" required="required" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">社团展示顶图</label>
+                        <div class="col-sm-8 col-xs-12">
+                            {php echo tpl_form_field_image('pic', $info['pic'], '')}
+                        </div>
+                    </div>
+
+                    <!--微擎富文本-->
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">规则详情</label>
+                        <div class="col-sm-8 col-xs-12">
+                            {php echo tpl_ueditor('info', $info['info']);}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">排序：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" placeholder="不写默认为0" name="sort" value="{$info['sort']}" >
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+                    <input type="hidden" name="token" value="{$_W['token']}" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{/if}
+
+<div class="uid" id="<?php echo $uniacid;?>"></div>
+
+
+
+{template 'common/footer'}
+

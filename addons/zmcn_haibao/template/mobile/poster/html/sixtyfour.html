@@ -1,0 +1,106 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="edit64">
+        <div class="edit64_con">
+          <div class="edit64_conbg11" id="editmove">
+            <img src="{MODULE_URL}template/mobile/poster/images/m64up1.jpg" alt="uppic">
+          </div>
+          <div class="edit64_conbg2"></div>
+          <div class="edit64_con1">
+                <p contenteditable="true">{$settings['team_title']}甜品小店</p>
+                <p contenteditable="true">舌尖上的美味</p>
+          </div>
+          <div class="edit64_con2">
+                <p contenteditable="true">精选上好的材料，</p>
+                <p contenteditable="true">自家手工制作奶油蛋</p>
+                <p contenteditable="true">糕，甜而不腻松软绵</p>
+                <p contenteditable="true">密的口感，是真正舌</p>
+                <p contenteditable="true">尖上的美味</p>
+          </div>
+          <div class="edit64_con3">
+                 <p contenteditable="true">微信：{$myset['wechat']} QQ：{$myset['qq']} 电话：{$myset['phone']}</p>
+          </div>
+          <div class="edit64_up1"> 
+                <div class="edit64_up11">
+                    <div class="edit64_fileInput left">
+                          <input type="file" name="edit64_upfile" id="edit64_upfile" style="display:none" class="edit64_upfile" onchange="document.getElementById('edit64_upfileResult').innerHTML=this.value;"/>
+                          <input class="edit64_upFileBtn" id="edit64_upfileResult" type="button" value="上传图片" onclick="document.getElementById('edit64_upfile').click();" />
+                    </div>
+                </div>
+          </div>
+          
+        </div>
+        <div class="shengcheng64">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!-- 第六十三个页面结束 -->
+     <script type="text/javascript">
+        $("#edit64_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+           $(".edit64_conbg11 img").attr("src", objUrl);
+            }
+        });
+         //建立一个可存取到该file的url
+      function getObjectURL(file){
+        var url = null; 
+        if (window.createObjectURL!=undefined) { // basic
+          url = window.createObjectURL(file);
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+          url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+          url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+      }
+      $(".shengcheng64").click(function(){
+                
+                $(".shengcheng64").hide();
+                $(".edit64_up1").hide();
+                $(".edit64_up2").hide();
+                $(".edit64_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".edit64_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base64图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                             $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".edit64").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //第六十三个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

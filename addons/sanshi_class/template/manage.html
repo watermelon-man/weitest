@@ -1,0 +1,93 @@
+{template 'common/header'}
+{php load()->func('tpl');}
+ <ul class="nav nav-tabs">
+  <li{if $_GPC['do'] == 'manage' || $_GPC['do'] == '' } class="active"{/if}><a href="{php echo $this->createWebUrl('manage');}">班级人数预览</a></li>	
+  <li{if $_GPC['do'] == 'class'} class="active"{/if}><a href="{php echo $this->createWebUrl('class');}">班级信息管理</a></li>
+  <li{if $_GPC['do'] == 'major'} class="active"{/if}><a href="{php echo $this->createWebUrl('major');}">专业管理</a></li>
+ </ul> 
+
+    
+<style>
+    .xdsoft_datetimepicker .xdsoft_datepicker{width: 300px;}
+    .xdsoft_datetimepicker .xdsoft_calendar td, .xdsoft_datetimepicker .xdsoft_calendar th{height: 36px;font-size: 16px;background: none;}
+    .xdsoft_datetimepicker .xdsoft_today_button{height:36px;width:24px;}
+    .xdsoft_datetimepicker .xdsoft_year{width:58px;}
+    .xdsoft_datetimepicker .xdsoft_label{font-size:16px;}
+</style>
+<div class="main">
+	<div class="panel panel-info">
+		<div class="panel-heading">班级人数预览</div>
+		<div class="panel-body">
+			<form action="{php echo $this->createWebUrl('manage');}" method="post" class="form-horizontal" role="form" id="form1">
+				<div class="form-group">
+					<!--<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">时间</label>-->
+<!--					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<input class="form-control" name="name" id="datetimepicker" type="text" value="{$_GPC['name']}" placeholder="时间">
+                                                
+					</div>-->
+                                    <!--<div class="form-group">-->
+                                        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">日期</label>
+                                        <div class="col-sm-2 col-lg-2 col-xs-4">
+                                            {php echo tpl_form_field_date('createday',$date, false);}
+                                            <span class="help-block"></span>
+                                        </div>
+                                    <!--</div>-->
+				<!--</div>-->
+				
+			    <!--<div class="form-group">-->
+				
+					<div class="col-sm-2 col-lg-3 col-xs-4">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>		
+					</div>
+				</div>
+				<div class="form-group">
+				</div>
+			</form>
+		</div>
+	</div>
+
+<div class="main">
+   <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                    <tr>
+                        <th>班级</th>
+                        <th>专业</th>	
+                        <th>班主任</th>						
+                        <th>男生</th>
+                        <th>女生</th>
+                        <th>合计</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {loop $list $item}
+                    <tr>
+                        <td>{$item['classname']}</td>
+                        <td>{$item['majorname']}</td>
+                        <td>{$item['owner']}</td>	
+                        <td>{$item['male']}</td>
+			<td>{$item['female']}</td>			
+                        <td><?php echo $item['male']+$item['female'];?></td>
+                    </tr>
+                    {/loop}
+                </tbody>
+            </table>
+            {$pager}
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+
+{template 'common/footer'}

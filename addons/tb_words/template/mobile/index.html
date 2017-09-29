@@ -1,0 +1,96 @@
+﻿<!doctype html>
+<html>
+<head>
+      {php echo register_jssdk(true);}
+<script>
+jssdkconfig.debug = false;
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,  minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>提笔忘字</title>
+<link rel="stylesheet" type="text/css" href="../addons/tb_words/template/common/css/style.css">
+<script src="../addons/tb_words/template/common/js/jquery.min.js"></script>
+<script src="../addons/tb_words/template/common/js/jweixin-1.0.0.js"></script>
+</head>
+<style type="text/css">
+.next{ display:none; width:70%; height:40px; cursor:pointer; font-weight:bold; line-height:40px; text-align:center; margin:4% auto 0 auto; font-size:16px; color:#FFF; background:url('../addons/tb_words/template/common/images/anniu.png') no-repeat; background-size:100% 100%;}
+.fenshu{ display:none; width:70%; height:40px; cursor:pointer; font-weight:bold; line-height:40px; text-align:center; margin:10% auto 0 auto; font-size:18px; color:#ab3425; background:url('../addons/tb_words/template/common/images/anniu.png') no-repeat; background-size:100% 100%;}
+.fenx{  width:60%; height:30px; cursor:pointer; font-weight:bold; line-height:30px; text-align:center; margin:15% auto 0 auto; font-size:16px; color:#ab3425; background:url('../addons/tb_words/template/common/images/anniu.png') no-repeat; background-size:100% 100%;}
+.gzwm{  width:60%; height:30px; cursor:pointer; font-weight:bold; line-height:30px; text-align:center; margin:8% auto 0 auto; font-size:16px; color:#ab3425; background:url('../addons/tb_words/template/common/images/anniu.png') no-repeat; background-size:100% 100%;}
+</style>
+<script>
+  wx.ready(function () {
+    sharedata = {
+      title: "你是不是经常提笔忘字？来这里看你能得多少分~~~~",
+      desc: "四字成语填空，你行你上~~~",
+      link: "{php echo $this->createMobileUrl('index');}",
+      imgUrl: "http://www.shuhuaw.cn/attachment/forum/day_100728/100728091224411927f595b166.jpg",
+      success: function(){
+        alert('分享成功');
+      },
+      cancel: function(){
+        alert('您取消了分享');
+      }
+    };
+    wx.onMenuShareAppMessage(sharedata);
+    wx.onMenuShareTimeline(sharedata);
+    wx.onMenuShareQZone(sharedata);
+    wx.onMenuShareWeibo(sharedata);
+  });
+  </script>
+<body>
+<div id="audiocontainer"></div>
+<div id="audiocontainer1"></div>
+<div id="audiocontainer2"></div>
+
+<div class="bg">
+  <div class="biaoti"><img width="100%" src="../addons/tb_words/template/common/images/title.png"></div>
+  <div class="tishu">1/20共20题</div>
+  <div class="kk">
+    	<div class="cy1">一</div>
+    	<div class="cy2">　</div>
+    	<div class="cy3">莫</div>
+    	<div class="cy4">展</div>
+    </div>
+  <div class="kk2">
+     <div class="zi1">仇</div>
+     <div class="zi2">愁</div>
+     <div class="zi3">筹</div>
+     <div class="zi4">矁</div>
+    </div>
+  <div class="kk3">
+     <div class="dui">
+      <div class="tu"><img width="80%" src="../addons/tb_words/template/common/images/dui.gif"></div>
+      <div class="zb">你真棒</div>
+     </div>
+  </div>
+  <div class="kk4">
+     <div class="cuo">
+      <div class="tu"><img width="80%" src="../addons/tb_words/template/common/images/cuo.gif"></div>
+      <div class="zb">做错了</div>
+     </div>
+    </div>
+  <div class="next">下一题</div>
+  <div class="fenshu">查看分数</div>
+  <div class="jiafen"></div>
+  <div style="padding:25px 0;"></div>
+</div>
+<div class="bg2">
+	<div class="biaoti"><img width="100%" src="../addons/tb_words/template/common/images/title.png"></div>
+    <div class="test">测试结果</div>.
+    <div class="tongji">
+    	<div class="defen"></div>
+    	<div class="cuowu"></div>
+    </div>
+  <div class="fenx">让朋友来战</div>
+    <a href="{$item['url']}"><div class="gzwm">{$item['name']}</div></a>
+    <div class="fxbg"></div>
+    <div class="fxtp"><img src="../addons/tb_words/template/common/images/fxts.png"></div>
+</div>
+
+<script src="../addons/tb_words/template/common/js/js.js"></script>
+
+</body>
+
+</html>
+

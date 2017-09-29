@@ -1,0 +1,382 @@
+<script>
+var jsPath = "{UBER_RES}/default/tp/js";
+var imgPath = "{UBER_RES}/default/tp/images";
+var path = "";
+var tpPath = "/tp";
+var basePath = "{$_W['siteroot']}";
+var tpBasePath = "{UBER_RES}/default/tp";
+var resUrl = "{$_W['attachroot']}";
+</script>
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<link rel="stylesheet" href="{UBER_RES}/default/tp/css/flower/flower.css">
+<script type="text/javascript" src="{UBER_RES}/default/tp/js/jquery-2.1.0.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<title>{$reply['title']}</title>
+</head>
+<style type="text/css">
+    body:after{
+        content:"";
+        position:fixed;bottom:0;left:0;z-index:-1;
+        width:100%;height:100%;
+        background:url("{php echo tomedia($reply['bgurl']);}") no-repeat center 0;background-size:100% 100%;
+    }
+</style>
+<body>
+  
+        <audio id="bgMusic" src="{php echo tomedia($reply['bgmusic'])}" preload="auto" loop=""></audio>
+    
+    <div class="clear space_15"></div>
+    <h2 class="rank_title"><img alt="奖品" src="{UBER_RES}/default/tp/images/flower/gift_title.png"></h2>
+	<div class="gifts">
+        <img onClick="prevGift();" class="prev" src="{UBER_RES}/default/tp/images/flower/prev.png" />
+        <div class="gift_list" id="gift_list">
+            <ul>
+        {php $prizes_this = iunserializer($reply['prize']);}
+        {loop $prizes_this $item}
+        <li>
+               <h3>{$item['level']}</h3>
+                {if $reply['shownum']==1}<p><span>{$item['num']}</span>个</p>{/if}
+
+                <a><img src="{php echo tomedia($item['img'])}"></a>
+                                 <p>{php echo cutstr($item['name'],10,true);}</p>
+        </li>
+        {/loop}
+            
+            </ul>
+		</div>
+		<img onClick="nextGift();" class="next" src="{UBER_RES}/default/tp/images/flower/next.png">
+	</div>
+	<h2 class="rank_title"><img alt="排行榜" src="{UBER_RES}/default/tp/images/flower/rank_title.png"></h2>
+	<div class="ranks">
+        <dl>
+            <dt><strong>名次</strong><span>姓名</span><em>最近距离</em>
+            </dt>
+            <dd class="rank_list"></dd>
+        </dl>
+        <div class="get_more">下滑加载更多</div>
+        
+        <div style="width:100%;height:30px;text-align:center;font:16px/30px '黑体';color:#fff;">
+	        <p style="display:inline-block;box-shadow:0 1px 2px rgba(0,0,0,1) inset;border-bottom:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.3);padding:0 10px;border-radius:3px;margin:0px;font:16px/30px '黑体';color:#fff;">{$reply['copyright']}</p>
+	    </div>
+        
+    </div>
+	<div class="space_30"></div>
+	<div class="space_20"></div>
+    <div class="float_menu">
+    <img src="{UBER_RES}/default/tp/images/flower/footbg.png">
+    <p>
+        <span>名次：{php echo intval($myrank['No'])}</span>
+        <a style="display:inline-block;color:#fff;background:#fa0;border-radius:3px;padding:0 10px;" href="{php echo $this->createMobileUrl('index',array('rid'=>$rid),true);}">返回</a>
+        <span>最近距离：{php echo floatval($myrank['Point'])/100000}</span> 
+    </p>
+</div>
+
+    <div class="popup" id="inputMsg" style="display:none;">
+    	<div class="cont">
+    		<p>恭喜你获得了 <em class="prizetype"></em></p>
+    		<h3 class="prizename"></h3>
+    		<p>请填写以下资料：</p>
+    		
+            <div class="btns">
+                <a onClick="saveuserinfo();">提 交</a>
+            </div>
+            <div class="space_5"></div>
+    	</div>
+    </div>
+    <div class="popup" id="changeGift">
+    	<div class="cont">
+    		<p>恭喜你获得了 <em class="prizetype"></em></p>
+    		<h3 class="prizename"></h3>
+    		<a onClick="changeGift(this);$('#doneGift').show();" class="change_btn">点击兑换</a>
+            <div class="btns">
+                <a onClick="hidePrompt(this);">确 定</a>
+            </div>
+            <div class="space_5"></div>
+    	</div>
+    </div>
+    <div class="popup" id="noprize">
+    	<div class="cont">
+    		<p>活动结束！你未能名列前茅</p>
+    		<p>下次继续加油哦！</p>
+            <div class="btns">
+                <a onClick="hidePrompt(this);">确 定</a>
+            </div>
+            <div class="space_5"></div>
+    	</div>
+    </div>
+    <div class="popup" id="doneGift">
+    	<div class="cont">
+    		<p>请确认是否领取到奖品</p>
+    		<p>该凭证更改后不可恢复</p>
+            
+            <div class="btns">
+                <a onClick="changeExchange();">确 定</a>
+            </div>
+            <div class="space_5"></div>
+    	</div>
+    </div>
+    <input type="hidden" id="rid" value="{$rid}"/>
+    <input type="hidden" id="openid" value="{$openid}"/>
+    <script type="text/javascript" src="{UBER_RES}/default/tp/js/flower/alert.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+	function hidePrompt(obj){
+	    $(obj).parents('.popup').hide();
+	}
+
+	var changeState;
+	function changeGift(obj){
+		changeState = $(obj);
+		$('#changeGift').hide();
+	}
+	function doneGift(obj){
+		$('#changeGift').show();
+		changeState.attr("class","changed_btn");
+		changeState.text("已兑换");
+		changeState.removeAttr("onclick");
+		hidePrompt(obj);
+	}
+
+    //多个礼物切换 开始----------------------------------->
+    function prevGift(){
+        $('.gift_list ul').attr("style","margin-left:-33.33%;");
+        $('.gift_list ul li:last-child').prependTo($('.gift_list ul'));
+        $('.gift_list ul').animate({
+            marginLeft:"0"
+        },500);
+    }
+    function nextGift(){
+        $('.gift_list ul').animate({
+            marginLeft:"-33.33%"
+        },500,function(){
+            $('.gift_list ul li:first-child').appendTo($('.gift_list ul'));
+            $('.gift_list ul').attr("style","margin-left:0;");
+        });
+    }
+    $(function(){
+        if($('.gift_list ul li').length < 4){
+            $('.prev,.next').hide();
+            if($('.gift_list ul li').length == 1){
+                $('.gift_list ul li').css("width","50%");
+            }
+            if($('.gift_list ul li').length == 2){
+                $('.gift_list ul li').css("width","25%");
+            }
+        }
+    });
+    var gift_list = document.getElementById("gift_list");
+    gift_list.addEventListener('touchstart',eventDown,false);
+    gift_list.addEventListener('touchend',eventUp,false);
+    gift_list.addEventListener('touchmove',eventMove,false);
+    var state = false,moveX1 = 0,moveX2 = 0;
+    function eventDown(event){
+        event.preventDefault();
+        state = true;
+        moveX1 = event.targetTouches[0].clientX;
+    }
+    function eventMove(event){
+        event.preventDefault();
+        if(state){
+            moveX2 = event.targetTouches[0].clientX;
+        }
+    }
+    function eventUp(event){
+        event.preventDefault();
+        state = false;
+        if($('.gift_list ul li').length > 3){
+            if(moveX1 < moveX2){
+                prevGift();
+            }else{
+                nextGift();
+            }
+        }
+    }
+
+    $(function(){
+        if($('#bgMusic').length){$('#bgMusic')[0].play();}
+    });
+    //多个礼物切换 结束-----------------------------------<
+
+     function saveuserinfo(){
+     	var mail = $('#inputMsg').find('input[name="user_mail"]').val();
+		var qq = $('#inputMsg').find('input[name="user_qq"]').val();
+		var wechat = $('#inputMsg').find('input[name="user_weixin"]').val();
+		var other = $('#inputMsg').find('input[name="user_other"]').val();
+		var data = {
+			activityId:$('#activityId').val(),
+			wechatid:$('#wechatid').val()
+		};
+		if(mail != null && mail.length == 0){alert("请输入邮寄地址");return;}
+		if(qq != null && qq.length == 0){alert("请输入qq号");return;}
+		if(wechat != null && wechat.length == 0){alert("请输入微信号");return;}
+		if(other != null && other.length == 0){alert("请输入"+$(this).parent().find('input[name="user_other"]').attr("placeholder"));return;}
+
+		if(mail != null && mail.length != 0){data['user_mail']=mail;}
+		if(qq != null && qq.length != 0){data['user_qq']=qq;}
+		if(wechat != null && wechat.length != 0){data['user_weixin']=wechat;}
+		if(other != null && other.length != 0){data['user_other']=other;}
+
+		$.ajax({
+			  type: "POST",
+			  url : "{php echo $this->createMobileUrl('saveUserInfo',array('rid'=>$rid));}",
+			  data:data,
+			  dataType: "json",
+			  success: function(data){
+			  	if(data.status == "0"){
+			  		$('#inputMsg').hide();
+			  	}else{
+			  		alert("保存失败");
+			  	}
+			  }
+		}); 					
+
+     }
+    function changeExchange(){
+       var isinput = $('#password').attr("data-id");
+       var password = $('#password').val();
+       if(isinput == '1'){
+         if(password != null && password.length == 0){alert("请输入兑换密码");return;}
+       }
+    	$.ajax({
+    		  type: "POST",
+    		  url : tpPath+"/flower/changeExchange",
+    		  data:{id:act_over.id,isinput:isinput,password:password,activityId:$('#activityId').val()},
+    		  dataType: "json",
+    		  success: function(data){
+    		  	if(data.status == "0"){
+    		  		$('#doneGift').hide();
+    		  	}else if(data.status == "2"){
+                    alert("密码错误");
+                }else{
+    		  		alert("兑换失败");
+    		  	}
+    		  }
+    		}); 
+    }
+
+    var act_over = {
+		'id'        : '',
+		'exchangeState':'',
+		'is_expire' : 'false',
+		'ranking'   : '等奖',
+		'gift_img'  : '/giftbox.png',
+		'gift_name' : '',
+		'gift_time' : '',
+		'myphone'   : '',
+		'isPrize'   : '',
+		'isExchange': '',
+		
+		'address'   : '',
+		'qq'		: '',
+		'wechat'    : '',
+		'other'	    : '',
+		'storeExchangeState':''
+	};
+
+	if(act_over.is_expire == 'true'){
+		if(act_over.isPrize == 'true' || act_over.isExchange == 'true'){
+			$('.prizetype').text(act_over.ranking);
+			$('.prizename').text(act_over.gift_name);
+			if(act_over.isExchange == 'true'){
+				if(act_over.exchangeState == "0"){
+	                if(act_over.storeExchangeState == '1'){
+	                   $('.change_btn').text("已兑换");
+	                   $('.change_btn').attr("onclick","");
+	                }
+	            }else{
+	            	$('.change_btn').hide();
+	            }
+				$('#changeGift').show();
+			}else{
+				$('#inputMsg').show();
+			}
+		}else{
+			$('#noprize').show();
+		}
+	}
+
+	var startpage=1,
+    count=0,
+    ajaxload=false,
+    winHeight=$(window).height(),
+    maxpage=false;
+    $(window).scroll(function(){
+        var wst=$(window).scrollTop();
+        var bodyHeight=$(document).height();
+        if(!ajaxload){
+            if(wst+winHeight>bodyHeight-10){
+                getScoreList();
+            }
+        }
+    });
+
+    function getScoreList(){
+        ajaxload=true;
+        ajaxtip("努力加载中...");
+        $.ajax({
+          url: "{php echo $this->createMobileUrl('rank',array('rid'=>$rid,'op'=>'scorelist'));}",
+          dataType: 'json',
+          type:'POST',
+          data:{currentPage:startpage,t:Math.random()},
+          success: function(data){
+            var bookshtml="";
+            startpage = startpage+1;
+            var list = data.list;
+            for(var key in list){
+                count++;
+                bookshtml+='<section>\
+                                <strong>'+count+'</strong>\
+                                <span><img src="'+list[key].Avatar+'" style="vertical-align:middle;border-radius:50%;" width="32" height="32" /> '+list[key].NickName+'</span>\
+                                <em>'+list[key].Point/100000+'</em>\
+                            </section>';
+            }
+            $(".rank_list").append(bookshtml);
+            ajaxtip("加载完毕");
+            ajaxload=false;
+          },
+          error: function(xhr, type){
+            ajaxload=false;
+            ajaxtip("加载失败，请稍候重试！");
+          }
+        })
+    }
+    getScoreList();
+	function ajaxtip(txt){
+		$(".get_more").html(txt);
+	}
+	{php $wxconfig=getWxConfig();extract($wxconfig);}
+     wx.config({
+        appId: "{$appId}",
+        timestamp: "{$timestamp}",
+        nonceStr: "{$nonceStr}",
+        signature: "{$signature}",
+        jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'hideMenuItems'
+        ]
+     });
+    wx.ready(function () {
+          var shareData = {
+            title: "{$share_title}",
+			desc: "{$share_desc}",
+			link: "{$share_url}",
+			imgUrl: "{$share_image}"
+          };
+        wx.onMenuShareTimeline(shareData);
+        wx.onMenuShareAppMessage(shareData);
+        wx.hideMenuItems({
+          menuList: [
+            'menuItem:copyUrl' // 复制链接
+          ]
+        });
+    });
+    wx.error(function (res) {
+      alert(res.errMsg);
+    });
+</script>

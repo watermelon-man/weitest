@@ -1,0 +1,85 @@
+{template 'common/header'}
+ <ul class="nav nav-tabs">
+  <li{if $_GPC['do'] == 'manage' || $_GPC['do'] == '' } class="active"{/if}><a href="{php echo $this->createWebUrl('manage');}">班级人数预览</a></li>	
+  <li{if $_GPC['do'] == 'class'} class="active"{/if}><a href="{php echo $this->createWebUrl('class');}">班级信息管理</a></li>
+  <li{if $_GPC['do'] == 'major'} class="active"{/if}><a href="{php echo $this->createWebUrl('major');}">专业管理</a></li>
+ </ul> 
+ 
+    
+
+<style>
+    .classBtn{
+        color: #fff;
+        background-color: #428bca;
+        border-color: #357ebd;
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        margin-bottom: 35px;
+    }
+    .classBtn a:hover{
+        color:white;
+    }
+</style>
+<div class="main">
+<div class="main">
+   <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+            <button class='classBtn'><a href="{php echo $this->createWebUrl('class')}">返回班级列表</a></button>
+            <form action="{php echo $this->createWebUrl('addclass')}" method="post" class="form-horizontal" role="form" id="form1">
+                <input type="hidden" name="op" value="post" />
+                <input type="hidden" name="id" value="{$_GPC['id']}" />
+                            <div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">班主任openid</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<input class="form-control" name="openid" id="" type="text" value="{$row['openid']}" placeholder="班主任openid">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">班主任姓名</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<input class="form-control" name="owner" id="" type="text" value="{$row['owner']}" placeholder="班主任姓名">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">班级</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<input class="form-control" name="classname" id="" type="text" value="{$row['classname']}" placeholder="班级">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">专业</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+					     <select name="majorid" class="form-control">
+							{loop $major_list $kc}
+							<option {if $row['majorid'] == $kc['id']} selected="selected" {/if} value="{$kc['id']}" >{$kc['majorname']}</option>
+							{/loop}
+						</select>
+						
+					</div>
+				</div>
+				
+			    <div class="form-group">
+					<div class="col-xs-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+                        <input type="hidden" name="token" value="{$_W['token']}" />	
+					</div>
+				</div>
+				<div class="form-group">
+				</div>
+			</form>
+          
+        </div>
+    </div>
+</div>
+{template 'common/footer'}

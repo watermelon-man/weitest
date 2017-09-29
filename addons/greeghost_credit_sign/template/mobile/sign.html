@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="wap-font-scale" content="no">
+	<title>积分签到</title>
+	<link rel="stylesheet" href="{MODULE_URL}/template/style/css/common.css">
+	<link rel="stylesheet" href="{MODULE_URL}/template/style/css/reset.css">
+	<link rel="stylesheet" href="{MODULE_URL}/template/style/css/qiandao.css">
+	{php echo register_jssdk(false);}
+</head>
+<body>
+<!-- 签到处 -->
+<div class="sign">
+	<!-- 签到北京 -->
+	<img src="{MODULE_URL}/template/style/images/qiandao-bg.jpg">
+	<!-- 积分的白色北京 -->
+	<div class="jf-bg"></div>
+	<div class="sign-fx"></div>
+	<!-- 签到次数 -->
+	<p class="sign-bottom-jf"><span>积分数量</span>{$_W['member']['credit1']}</p>
+	<div class="sign-border"></div>
+	<!-- 签到按钮 -->
+	<button class="sign-button">签到</button>
+	<!-- 签到弹出文字 -->
+	<div class="sign-day" style="display:none;"></div>
+	<!-- 连续签到的文字 -->
+	<div class="sign-span">连续签到{$settings['continue_day']}天，奖励{$settings['continue_score']}积分</div>
+	<!-- 签到进度条上下边框 -->
+	<div class="sign-xian"></div>
+	<!-- 改变宽度可改变进度条 -->
+	<div class="sign-xian-bg" style="width:{$sign_bg_width}%"></div>
+	<!-- 签到多少送积分 -->
+	<div class="sign-qiqiu">{$settings['continue_score']}</div>
+	<!-- 牌子 -->
+	<div class="sign-day-qiu">{$settings['continue_day']}</div>
+	<div class="sign-day-today" style="left:{$sign_bg_width}%">{$sign_count['continue_count']}</div>
+</div>
+<p class="criver"></p>
+<div class="qd-cs">
+	签到次数：<span>{$sign_count['total_count']}</span>
+</div>
+<ul class="signlist">
+	<li class="signlist-li1"><span></span>签到记录</li>
+	<li class="signlist-li2"><span></span>签到攻略</li>
+	<li class="signlist-li3"><span></span>我的奖品</li>
+</ul>
+
+<div class="signdouble">
+	<div class="signdouble-div1">
+		<p class="signdouble-div-p1"><img src="{MODULE_URL}/template/style/images/jiangpin.png" alt="抽奖"></p>
+		<p class="signdouble-div-p2"><a href="javascript:void(0);">去抽奖</a></p>
+	</div>
+	<div class="signdouble-div2">
+		<p class="signdouble-div-p1"><img src="{MODULE_URL}/template/style/images/duihuan.png" alt="兑换"></p>
+		<p class="signdouble-div-p2"><a href="javscript:void(0);">去兑换</a></p>
+	</div>
+</div>
+
+<!-- 分享 -->
+<div class="signfx">
+	<div class="signfx-bg"></div>
+	<div class="signfx-div">
+		<img src="{MODULE_URL}/template/style/images/yd-qh-pc.png" alt="分享指针">
+		<p></p>
+	</div>
+</div>
+
+<!-- 签到记录 -->
+<div class="record" style="display:none;">
+	<div class="head-fixed">
+		<a class="turnleft" onclick="hideParent(this)"></a>
+		<h2>签到记录</h2>
+	</div>
+	<div class="for-head-fixed"></div>
+	<ul class="record-list"></ul>
+</div>
+
+<!-- 签到攻略 -->
+<div class="raiders" style="display:none;">
+	<div class="head-fixed">
+		<a class="turnleft" onclick="hideParent(this)"></a>
+		<h2>签到攻略</h2>
+	</div>
+	<div class="for-head-fixed"></div>
+	<ul class="raiders-list">
+		{$settings['description']}
+	</ul>
+</div>
+
+<script type="text/javascript" src="{MODULE_URL}/template/style/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}/template/style/js/common.js"></script>
+<script type="text/javascript">
+$(function (){
+	// 分享
+	wx.ready(function () {
+        sharedata = {
+            title: "{$share_config['title']}",
+            desc: "{$share_config['desc']}",
+            link: "{$share_config['link']}",
+            imgUrl: "{php echo tomedia($share_config['imgUrl'])}",
+            success: share_success,
+            cancel: share_cancel
+        };
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+        wx.onMenuShareQQ(sharedata);
+        wx.onMenuShareWeibo(sharedata);
+        wx.onMenuShareQZone(sharedata);
+    });
+
+    function share_success(){
+    	var share_url = "{php echo $this->createMobileUrl('Sign', array('op' => 'share'))}";
+    	loading(true);
+		$.ajax({
+		   type: "POST",
+		   dataType: "json",
+		   url: share_url,
+		   timeout: 30000,
+		   success: success,
+		   error: error
+		});
+		return false;
+		function success(data){
+			if(data.status != 'success'){
+				loading(false);
+				dialog('dialogAlert', data.message);
+			}else{
+				loading(false);
+				if(typeof data.share_score != 'undefined'){
+					$(".sign-bottom-jf").html("<span>积分数量</span>"+data.share_score.toFixed(2));
+				}
+				
+				dialog('dialogSuccess', data.message);
+			}
+			$(".signfx").hide();
+		}
+
+		function error(){
+			loading(false);
+			dialog('dialogError', '网络超时请重试！');
+			$(".signfx").hide();
+		}
+
+    }
+
+    function share_cancel(){
+    	dialog('dialogAlert', '分享已取消！');
+    }
+
+	$(".sign-fx").bind("click", function(){
+		$(".signfx").show();
+	});
+
+	$(".signfx-bg").bind("click", function(){
+		$(".signfx").hide();
+	});
+
+	// 签到记录
+	$(".signlist-li1").bind("click", function(){
+		var record_url = "{php echo $this->createMobileUrl('Sign', array('op' => 'display'))}";
+		loading(true);
+		$.ajax({
+		   type: "POST",
+		   dataType: "json",
+		   url: record_url,
+		   timeout: 30000,
+		   success: success,
+		   error: error
+		});
+		return false;
+		function success(data){
+			if(data.status != 'success'){
+				loading(false);
+				dialog('dialogAlert', data.message);
+			}else{
+				if(typeof data.records == 'object'){
+					var record_list = '';
+					for(var i = 0; i < data.records.length; i++){
+						record_list += '<li><p>'+data.records[i].sign_time+'</p><p>签到成功，积分+'+data.records[i].sign_score+'</p></li>';
+					}
+					$(".record-list").html(record_list);
+					$(".record").show();
+					loading(false);
+				}else{
+					loading(false);
+					dialog('dialogAlert', '暂无签到记录');
+				}
+			}
+
+		}
+
+		function error(){
+			loading(false);
+			dialog('dialogError', '网络超时请重试！');
+		}
+	});
+	// 签到攻略
+	$(".signlist-li2").bind("click", function(){
+		$(".raiders").show();
+	});
+
+	// 签到按钮
+	$(".sign-button").bind("click", function(){
+		{if $today_sign}
+		showAlert("{$settings['done']}");
+		return false;
+		{/if}
+		var self = $(this);
+		self.attr('disabled', true);
+		var sign_url = "{php echo $this->createMobileUrl('Sign', array('op' => 'sign'))}";
+		loading(true);
+		$.ajax({
+		   type: "POST",
+		   dataType: "json",
+		   url: sign_url,
+		   timeout: 30000,
+		   success: success,
+		   error: error
+		});
+		return false;
+		function success(data){
+			if(data.status != 'success'){
+				loading(false);
+				showAlert(data.message);
+				self.attr('disabled', false);
+			}else{
+				$(".sign-day").html('签到积分+'+data.score);
+				$(".sign-day").show();
+				$(".sign-xian-bg").css('width', data.sign_bg_width+'%');
+				$(".sign-day-today").css('left', data.sign_bg_width+'%');
+				$(".sign-day-today").html(data.continue_count);
+				$(".qd-cs span").html(data.total_count);
+				$(".sign-bottom-jf").html("<span>积分数量</span>"+data.total_score.toFixed(2));
+				loading(false);
+				setTimeout(function(){
+					$(".sign-day").hide();
+				}, 3000);
+			}
+
+		}
+
+		function error(){
+			loading(false);
+			dialog('dialogError', '网络超时请重试！');
+			self.attr('disabled', false);
+		}
+	});
+
+	// 积分兑换
+	$(".signdouble-div2 .signdouble-div-p2").bind("click", function(){
+		showAlert("积分兑活动近期将会开放，请继续关注！");
+	});
+
+	//积分抽奖
+	$(".signdouble-div1 .signdouble-div-p2").bind("click", function(){
+		showAlert("积分抽奖近期将会开放，请继续关注！");
+	});
+	//我的奖品
+	$(".signlist-li3").bind("click", function(){
+		showAlert("我的奖品近期将会开放，请继续关注！");
+	});
+})
+</script>
+</body>
+</html

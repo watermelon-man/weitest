@@ -1,0 +1,674 @@
+<script>
+var jsPath = "{UBER_RES}/default/tp/js";
+var imgPath = "{UBER_RES}/default/tp/images";
+var path = "";
+var tpPath = "/tp";
+var basePath = "{$_W['siteroot']}";
+var tpBasePath = "{UBER_RES}/default/tp";
+var resUrl = "{$_W['attachroot']}";
+</script>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$reply['title']}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" href="{UBER_RES}/default/tp/css/flower/flower.css">
+<script type="text/javascript" src="{UBER_RES}/default/tp/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="{UBER_RES}/default/tp/js/flower/imgpreload.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+</head>
+<script type="text/javascript">
+	var UI = {
+		browserWidth : function(){
+			var winWidth;
+			if (window.innerWidth)
+				winWidth = window.innerWidth;
+			else if ((document.body) && (document.body.clientWidth))
+				winWidth = document.body.clientWidth;
+			return winWidth;
+		},
+		browserHeight : function(){
+			var winHeight;
+			if (window.innerHeight)
+				winHeight = window.innerHeight;
+			else if ((document.body) && (document.body.clientHeight))
+				winHeight = document.body.clientHeight;
+			return winHeight;
+		}
+	};
+	var browserW = UI.browserWidth(),browserH = UI.browserHeight();
+	//图片预加载
+	var imgNumb = 0;
+	var imgList = [
+			'{UBER_RES}/default/tp/images/flower/loading.png',
+			'{UBER_RES}/default/tp/images/flower/rankbtn.png',
+			'{UBER_RES}/default/tp/images/flower/rulebtn.png',
+			'{UBER_RES}/default/tp/images/flower/musicbtn.png',
+			'{UBER_RES}/default/tp/images/flower/share.png',
+			'{UBER_RES}/default/tp/images/flower/close.png',
+			'{UBER_RES}/default/tp/images/flower/head.png',
+			'{UBER_RES}/default/tp/images/flower/l.png',
+			'{UBER_RES}/default/tp/images/flower/m.png',
+			'{UBER_RES}/default/tp/images/flower/r.png',
+			'{media $reply[gamesuccess]}',
+			'{media $reply[gamefail]}',
+			//以下是需要自定义的
+			'{media $reply[coverurl]}',
+			'{media $reply[bgurl]}',
+			'{media $reply[loopbgurl]}',
+			'{media $reply[selfurl]}',
+			'{media $reply[targetbgurl]}',
+			'{media $reply[targeturl]}'
+		];
+	function preLoadImg(){
+		$.imgpreload(imgList,{
+			each : function(){
+				var status = $(this).data('loaded') ? 'success' : 'error';
+				if (status == "success"){
+					var v = (parseFloat(++imgNumb)/imgList.length).toFixed(2);
+					$('.loading span').text(Math.round(v*100)+"%");
+				}
+			},
+			all : function(){
+				$('.loading span').text("100%");
+				setTimeout(function(){
+					$('.loading').fadeOut("slow");
+				},500);
+			}
+		});
+	}
+	preLoadImg();
+</script>
+<style type="text/css">
+	
+	html,body,.loading{
+		width:100%;height:100%;
+		background:#38425d;
+	}
+	.main{
+		background:url("{php echo tomedia($reply['bgurl']);}") no-repeat 0 0;background-size:100% 100%;
+	}
+	.main .loop{
+		background:url('{media $reply[loopbgurl]}') repeat-x 0 bottom;background-size:auto 100%;
+	}
+	.main .self em{
+		background:url('{media $reply[selfurl]}') no-repeat 0 0;background-size:1000% 100%;
+	}
+
+</style>
+<body>
+	<!-- 加载 -->
+	<div class="loading">
+		<img class="revolve" src="{UBER_RES}/default/tp/images/flower/loading.png">
+		<span>0</span>
+	</div>
+
+	<!-- 广告 -->
+{if !empty($reply['adurl'])}<a class="ad" href="{$reply['adurl']}"><img src="{php echo tomedia($reply['adimgurl'])}" /></a>{/if}
+         
+         
+        
+    
+	<img onclick="$('#rule').show();" class="rulebtn" src="{UBER_RES}/default/tp/images/flower/rulebtn.png">
+	<img onclick="goRank();" class="rankbtn" src="{UBER_RES}/default/tp/images/flower/rankbtn.png">
+	 
+		<img id="bgMusicBtn" onclick="musicOn();" class="musicbtn" src="{UBER_RES}/default/tp/images/flower/musicbtn.png">
+	    <audio id="bgMusic" src="{php echo tomedia($reply['bgmusic'])}" preload="auto" loop=""></audio>
+    
+    <audio id="loseMusic" src="{UBER_RES}/default/tp/images/flower/lose.mp3" preload="auto" ></audio>
+    <audio id="hitMusic" src="{UBER_RES}/default/tp/images/flower/hit.mp3" preload="auto" ></audio>
+    <audio id="winMusic" src="{UBER_RES}/default/tp/images/flower/win.mp3" preload="auto" ></audio>
+
+
+    <img  onclick="start(this);" class="cover" src='{media $reply[coverurl]}'>
+	<!-- 游戏主体 -->
+	<div id="main" class="main">
+		<div id="self" class="self"><em></em></div>
+		<div id="loop" class="loop">
+			<img class="targetbg" src='{media $reply[targetbgurl]}'>
+			<img id="target" class="target" src='{media $reply[targeturl]}'>
+			<div class="distance">
+				<img id="distanceR" class="r" src="{UBER_RES}/default/tp/images/flower/r.png">
+				<div id="distanceM" class="m">
+					<span><em id="meter"></em>M</span>
+					<img class="m" src="{UBER_RES}/default/tp/images/flower/m.png">
+				</div>
+				<img id="distanceL" class="l" src="{UBER_RES}/default/tp/images/flower/l.png">
+			</div>
+		</div>
+	</div>
+
+
+    <!-- 游戏结束 -->
+    <article id="goodEnd" class="gameover">
+        <div class="cont">
+            <img src="{media $reply[gamesuccess]}">
+            <h3>本局距离：<span id="score"></span>米</h3>
+            <h3>历史最近：<span class="total"></span>米</h3>
+            <div class="btns">
+                <a href="{php echo $this->createMobileUrl('index',array('rid'=>$rid),true);}&t={php echo time();}">再玩一次</a>
+                <a onclick="goRank();">查看排行</a>
+            </div>
+        </div>
+    </article>
+    <article id="badEnd" class="gameover">
+        <div class="cont">
+            <img src="{media $reply[gamefail]}">
+            <h3 id="badText"></h3>
+            <h3>历史最近：<span class="total"></span>米</h3>
+            <div class="btns">
+                <a href="{php echo $this->createMobileUrl('index',array('rid'=>$rid),true);}&t={php echo time();}">再玩一次</a>
+                <a onclick="goRank();">查看排行</a>
+            </div>
+        </div>
+    </article>
+
+    <!-- 活动规则 -->
+    <article id="rule" class="rule_box">
+        <img onclick="$('#rule').hide();" class="close" src="{UBER_RES}/default/tp/images/flower/close.png">
+        <h2 class="title">活动规则</h2>
+        <div class="space_20"></div>
+        <h3 class="f18">1、奖品设置</h3>
+        <div class="space_10"></div>
+         {php $prizes_this = iunserializer($reply['prize']);}
+        {loop $prizes_this $item}
+        <p class="f14">{$item['level']}：&nbsp;{$item['name']}&nbsp;{if $reply['shownum']}（{$item['num']}名）{/if}</p>
+        {/loop}
+        <div class="space_20"></div>
+        <h3 class="f18">2、活动细则</h3>
+        <div class="space_10"></div>
+         <pre>{php echo htmlspecialchars_decode($reply['ruletext']);}
+<p>{php echo htmlspecialchars_decode($reply['awardtext']);}</p></pre>
+        <div class="space_20"></div>
+        <div class="copy_right"><p>{$reply['copyright']}</p></div>
+    </article>
+
+
+    <!-- 活动未开始 -->
+    <article class="popup" id="early">
+        <div class="cont">
+            <a onclick="$('#early').hide();" class="close">关闭</a>
+            <p class="f18">你来早啦！活动还未开始</p>
+            <div class="space_10"></div>
+            <p>活动时间：2016/03/01 00:00 到 2019/03/01 23:59</p>
+            <div class="space_30"></div>
+        </div>
+    </article>
+
+
+    <!-- 活动已结束 -->
+    <article class="popup" id="later">
+        <div class="cont">
+            <a onclick="$('#later').hide();" class="close">关闭</a>
+            <p class="f18">你来晚啦！活动已经结束</p>
+            <div class="space_10"></div>
+            <p>活动时间：2016/03/01 00:00 到 2019/03/01 23:59</p>
+            <div class="space_30"></div>
+        </div>
+    </article>
+
+
+{if $reply['isfollow']==2}
+<div class="popup limitcode" id="limit">
+                <div class="cont">
+                    <a onclick="$('.popup.limitcode').hide();" class="close">关闭</a>
+                    <div class="limitcode"><img  src="{php echo tomedia($reply['qrcode']);}"></div>
+                    <div class="space_30"></div>
+                </div>
+</div>{/if}
+
+
+    <!-- 机会用完 -->
+    <article class="popup" id="nochance">
+        <div class="cont">
+            <a onclick="$('#nochance').hide();" class="close">关闭</a>
+            <p class="f18">您今日游戏机会已经用完</p>
+            <p class="f18">明日再来看看吧</p>
+            <div class="space_5"></div>
+            <div class="btns">
+            	{if !empty($followurl)}
+                <a href="{$followurl}">我知道啦</a>
+                {else}
+                <a onclick="$('#nochance').hide();" >我知道啦</a>
+                {/if}
+            </div>
+            <div class="space_5"></div>
+        </div>
+    </article>
+
+    <div id="share" class="share_box" onclick="$('#share').hide();">
+        <img src="{UBER_RES}/default/tp/images/flower/share.png">
+        <div class="clear"></div>
+        <div class="space_10"></div>
+    </div>
+ <!-- 中奖填信息 -->{if $reply['isprofile']==1}
+    {if !empty($reply['profile'])}
+    {php $profile = iunserializer($reply['profile']);}
+    {/if}
+    <div class="popup" id="inputMsg">
+        <div class="cont">
+            <a onclick="$('#inputMsg').hide();" class="close" style="display:none;">关闭</a>
+            <p>请填写以下资料：登记有积分排名</p>
+             <input type="text" id="realname" name="realname" value="{$fans['realname']}" placeholder="请填写姓名">
+            <input type="text" id="mobile" name="mobile" value="{$fans['mobile']}" placeholder="请填写手机号码" maxlength="11">
+            {if $profile['uaddress']==1}<input type="text" id="address" name="address" value="{$fans['address']}" placeholder="请填写邮寄地址" maxlength="200">{/if}
+            {if $profile['uqq']==1}<input type="text" id="qq" name="qq" value="{$fans['qq']}" placeholder="请填写QQ号" maxlength="15">{/if}
+            <div class="btns">
+                <a onclick="saveuserinfo();">提 交</a>
+            </div>
+            <div class="space_5"></div>
+        </div>
+    </div>{/if}
+     <input type="hidden" id="rid" value="{$rid}"/>
+    <input type="hidden" id="openid" value="{$openid}"/>
+</body>
+{php $url_type=2;}
+{if $follow==0}{if $reply['isfollow']==1&& empty($followurl)}{php $url_type=1;}{else if $reply['isfollow']==2}{php $url_type=3;}{else}{php $url_type=2;}{/if}{else}{php $url_type=2;}{/if}
+<script type="text/javascript">
+
+
+	(function ($) {
+		$.fn.rotationDegrees = function () {
+			var matrix = this.css("-webkit-transform") || this.css("-moz-transform") || this.css("-ms-transform") || this.css("-o-transform") || this.css("transform");
+			if(typeof matrix === 'string' && matrix !== 'none') {
+				var values = matrix.split('(')[1].split(')')[0].split(',');
+				var a = values[0];
+				var b = values[1];
+				var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+			} else { var angle = 0; }
+	 		return angle;
+		};
+	}(jQuery));
+// var rotation = $('img').rotationDegrees();
+	var is_ajax = false;
+    var is_save = false;
+
+	var flowerconf = {
+        isappinstalled:'1',
+		follow:"{$follow}",
+		isfollow:"{$reply['isfollow']}",
+        url_type:"{$url_type}",
+
+        act_url:"{php echo $this->createMobileUrl('index',array('rid'=>$rid));}",
+        rank_url:"{php echo $this->createMobileUrl('rank',array('rid'=>$rid));}",
+        follow_url:'{$followurl}',
+		
+		everydaytimes:"{$reply['everydaytimes']}",
+		shareawardnum:"{$fans['shareawardnum']}",
+        left_times:"{php echo intval($reply['everydaytimes']-$fans['todaynum'])}",
+        total_times:"{$reply['playtimes']}",
+        isshare:false,
+
+        code:'',
+        _t:"{$gametime}",
+        best_score:"{$fans['credit']}"
+	}
+
+    function showprompt(str){
+        switch (str) {
+            case "early":
+                $('#early').css('display','block');
+                return 0;
+                break;
+            case "late":
+                $('#later').css('display','block');
+                return 0;
+                break;
+            default:
+                return 1;
+        }
+    }
+    function goStart(){
+        {if $_W['account']['level']<4&&flowerconf.follow==0&&flowerconf.isfollow>0&&empty($_SESSION['openid'])}
+			$('#limit').show();
+            return false;
+		{/if}
+        if(flowerconf.isappinstalled.length != 0 && flowerconf.isappinstalled != 'null' && flowerconf.url_type == '1'){
+            $('#limit').show();
+            return false;
+        } else if(flowerconf.url_type == '3'){
+			$('#limit').show();
+            return false;
+		}
+        if(showprompt('') == 0)return false;
+        var times = flowerconf.left_times + 1;
+        if(!flowerconf.isshare && times == flowerconf.total_times){
+            $('#share').show();
+            return false;
+        }else if(flowerconf.left_times == 0){
+            $('#nochance').show();
+            return false;
+        }
+
+        return true;
+    }
+    function goRank(){
+        if(flowerconf.url_type == '1'){
+            window.location.href=flowerconf.follow_url;
+        }else{
+            window.location.href=flowerconf.rank_url;
+        }
+    }
+    function saveuserinfo() {
+        var mobile = $("#inputMsg").find('input[name="mobile"]').val();
+        var realname = $("#inputMsg").find('input[name="realname"]').val();
+		var address = $("#inputMsg").find('input[name="address"]').val();
+		var qq = $("#inputMsg").find('input[name="qq"]').val();
+        var data = {
+            rid: $("#rid").val(),
+            openid: $("#openid").val()
+        };
+        if (realname != null && realname.length == 0) {
+            alert("请输入姓名");
+            return
+        }
+        if (mobile != null && mobile.length == 0) {
+            alert("请输入手机号");
+            return
+        }
+        if (mobile != null && mobile.length != 11) {
+            alert("请输入11位手机号");
+            return
+        }
+		if(address != null && address.length == 0){alert("请输入邮寄地址");return;}
+        if(qq != null && qq.length == 0){alert("请输入qq号");return;}
+		
+        if (mobile != null && mobile.length != 0) {
+            data["mobile"] = mobile;
+        }
+        if (realname != null && realname.length != 0) {
+            data["realname"] = realname;
+        }
+		if (address != null && address.length != 0) {
+            data["address"] = address;
+        }
+        if (qq != null && qq.length != 0) {
+            data["qq"] = qq;
+        }
+		data["mchid"] = 1;
+        $.ajax({
+            type: "POST",
+            url: "{php echo $this->createMobileUrl('saveUserinfo',array('rid'=>$rid));}",
+            data: data,
+            dataType: "json",
+            success: function(res) {
+				if (res.success > 0) {
+                    $("#inputMsg").attr("style", "display:none;");
+                    if(flowerconf.best_score>0)saveScore(flowerconf.best_score/100000);
+                } else {
+					console.log(res.msg);
+                }
+            }
+        })
+    }
+
+	function startgame() {
+	    if (is_ajax) {
+	        return
+	    }
+	    is_ajax = true;
+	    $.ajax({
+	        type: "POST",
+	        url: "{php echo $this->createMobileUrl('startGame',array('rid'=>$rid));}",
+	        data: {
+	            rid: $("#rid").val(),
+	            openid: $("#openid").val()
+	        },
+	        dataType: "json",
+	        success: function(a) {
+	            if (a.status == "-1") {
+	                $("#nochance").hide()
+	            } else {
+	                if (a.status != "0") {
+	                    flowerconf.code = a.code;
+	                    flowerconf._t = a._t;
+	                    flowerconf.left_times--;
+						if(flowerconf.everydaytimes>0)flowerconf.left_times--;
+						if(flowerconf.everydaytimes>0)flowerconf.shareawardnum--;
+	                } else {
+	                    console.log(a.msg);
+	                }
+	            }
+	            is_ajax = false;
+	        },
+	        timeout: 15000,
+	        error: function(b, a) {
+	             console.log("网络异常，请刷新重试。")
+	        }
+	    })
+	}
+
+	function saveScore(a) {
+	    if (a == 0) {
+	        return;
+	    }
+	    if (is_save) {
+	        return;
+	    }
+	    is_save = true;
+	    $.ajax({
+	        type: "POST",
+	        url: "{php echo $this->createMobileUrl('saveScore',array('rid'=>$rid));}",
+	        data: {
+	            rid: $("#rid").val(),
+	            openid: $("#openid").val(),
+	            point: parseInt(a*100000),
+	            code: flowerconf.code,
+	            _t: flowerconf._t
+	        },
+	        dataType: "json",
+	        success: function(b) {
+	            if (b.data.status == -2) {
+                    $("#inputMsg").show();
+                } else {
+                    if (b.data.status == -3) {
+                        $("#later").css("display", "block")
+                    } else {
+                        if (b.data.status == -4) {
+                            $("#early").css("display", "block")
+                        } else {
+                            if (b.data.status ==1) {
+                                
+                            } else {
+								console.log(b.msg);
+                            }
+                        }
+                    }
+                }
+	            is_save = false
+	        },
+	        error: function(c, b) {
+	            console.log("网络异常，请刷新重试。");
+	            is_save = true
+	        }
+	    })
+	}
+
+	var bgMusicOn = false;
+	function musicOn(){
+		if(bgMusicOn){
+			$('#bgMusic')[0].pause();
+			bgMusicOn = false;
+			var rotation = $('#bgMusicBtn').rotationDegrees();
+			$('#bgMusicBtn').removeClass("revolve");
+			$('#bgMusicBtn').attr("style","-webkit-transform:rotate("+rotation+"deg);-moz-transform:rotate("+rotation+"deg);-ms-transform:rotate("+rotation+"deg);-o-transform:rotate("+rotation+"deg);transform:rotate("+rotation+"deg);");
+		}else{
+			$('#bgMusic')[0].play();
+			bgMusicOn = true;
+			$('#bgMusicBtn').addClass("revolve");
+		}
+	}
+
+
+	function start(obj){
+		if(!goStart())return;
+		startgame();
+		$(obj).hide();
+		musicOn();
+		$('#loop').addClass('forward');
+		run(0);
+		setTimeout(function(){
+			if(!stop){
+				$('#self').addClass("offside");
+			}
+		},5000);
+		//测试用
+		// setTimeout(function(){
+		// 	$(obj).mousedown();
+		// },5499);
+		setTimeout(function(){
+			brakeState = true;
+			if(!stop){
+				stop = true;
+				n = 0;
+				$('#main').addClass("jitter");
+				$('#target').addClass("fly");
+				$('#hitMusic')[0].play();
+				setTimeout(function(){
+					$('#loseMusic')[0].play();
+					$('#badText').text("用力过猛啦！");
+					$('#badEnd').fadeIn();
+
+					if(flowerconf.best_score > 0){
+						$(".total").text((flowerconf.best_score/100000).toFixed(5));
+						window.shareData.title = window.shareData.tTitle.replace("n", (flowerconf.best_score/100000).toFixed(5));
+					}else{
+						$(".total").text("无限");
+						window.shareData.title = window.shareData.tTitle.replace("n", "无限");
+					}
+
+					wx.onMenuShareTimeline(window.shareData);
+        			wx.onMenuShareAppMessage(window.shareData);
+				},500);
+			}
+		},5500);
+	}
+
+
+	var n = 0,s = 200,stop = false;
+	function run(m){
+		$('#self em').attr("style","background-position:-"+m+"px 0;");
+		n = m + browserW*0.15625;
+		if(n >= browserW*1.25){
+			n = 0;
+		}
+		s = s - 5;
+		if(s <= 30){
+			s = 30;
+		}
+		if(!stop){
+			setTimeout(function(){
+				run(n);
+			},s);
+		}
+	}
+
+	//刹车
+    var runMain = document.getElementById("main");
+    runMain.addEventListener('touchstart',brake,false);
+    var brakeState = false;
+	function brake(event){
+        event.preventDefault();
+		if(!brakeState){
+			brakeState = true;
+			stop = true;
+			n = 0;
+			var loopX = $('#loop').css('transform');
+			$('#loop').removeClass("forward").attr("style","-webkit-transform:"+loopX+";-moz-transform:"+loopX+";-ms-transform:"+loopX+";-o-transform:"+loopX+";transform:"+loopX+";");
+				var selfX = $('#self').css('transform');
+				$('#self').removeClass("offside").attr("style","-webkit-transform:"+selfX+";-moz-transform:"+selfX+";-ms-transform:"+selfX+";-o-transform:"+selfX+";transform:"+selfX+";");
+			if($('#self').offset().left*1 > 10){
+				$('.distance').show();
+				var distance = $('#distanceR').offset().left*1 - $('#self').offset().left*1 - $('#self').width()*0.5 - $('#distanceL').width()*0.5;
+				$('#distanceM').width(distance);
+				if(distance*1 <= 0){ distance = 1; }
+				var M = (distance*0.02).toFixed(5);
+				$('#meter').text(M);
+				$('#winMusic')[0].play();
+				setTimeout(function(){
+
+					if(flowerconf.best_score == 0){
+						flowerconf.best_score = M*100000;
+	                    saveScore(M);
+					}else if (M*100000 < flowerconf.best_score) {
+	                    flowerconf.best_score = M*100000;
+	                    saveScore(M);
+	                }
+	                $(".total").text((flowerconf.best_score/100000).toFixed(5));
+	                
+					$('#score').text(M);
+					$('#goodEnd').fadeIn();
+
+					window.shareData.title = window.shareData.tTitle.replace("n", M);
+
+					wx.onMenuShareTimeline(window.shareData);
+        			wx.onMenuShareAppMessage(window.shareData);
+				},500);
+			}else{
+				$('#loseMusic')[0].play();
+				setTimeout(function(){
+					$('#badText').text("距离目标太远啦！");
+					$('#badEnd').fadeIn();
+
+					if(flowerconf.best_score > 0){
+						$(".total").text((flowerconf.best_score/100000).toFixed(5));
+						window.shareData.title = window.shareData.tTitle.replace("n", (flowerconf.best_score/100000).toFixed(5));
+					}else{
+						$(".total").text("无限");
+						window.shareData.title = window.shareData.tTitle.replace("n", "无限");
+					}
+					wx.onMenuShareTimeline(window.shareData);
+        			wx.onMenuShareAppMessage(window.shareData);
+				},500);
+			}
+		}
+	}
+
+	window.shareData = {
+		tTitle: "{$share_title}",
+        title: "{$share_title}",
+        desc: "{$share_desc}",
+        link: "{$share_url}",
+        imgUrl: "{$share_image}",
+         success: function () {
+           $.ajax({
+              type: "POST",
+              url : "{php echo $this->createMobileUrl('share',array('rid'=>$rid));}",
+              data:{rid:"{$rid}", openid:'{$openid}'},
+              success: function(data){
+                 flowerconf.isshare = true;
+                 $('#share').hide();
+              }
+            });   
+        }
+      };
+	{php $wxconfig=getWxConfig();extract($wxconfig);}
+	 wx.config({
+        appId: "{$appId}",
+        timestamp: "{$timestamp}",
+        nonceStr: "{$nonceStr}",
+        signature: "{$signature}",
+        jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'hideMenuItems'
+        ]
+     });
+    wx.ready(function () {
+         
+        wx.onMenuShareTimeline(window.shareData);
+        wx.onMenuShareAppMessage(window.shareData);
+        wx.hideMenuItems({
+          menuList: [
+            'menuItem:copyUrl' // 复制链接
+          ]
+        });
+    });
+    wx.error(function (res) {
+      console.log(res.errMsg);
+    });
+</script>
+<script type="text/javascript" src="{UBER_RES}/default/tp/js/flower/alert.js"></script>
+</html>

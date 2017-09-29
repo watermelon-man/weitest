@@ -1,0 +1,206 @@
+
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <title>{$shetuan['activity_name']}</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <link rel="icon" type="image/png" href="../addons/wuhao_wactivity/template/mobile/assets/i/favicon.png">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="../addons/wuhao_wactivity/template/mobile/assets/i/app-icon72x72@2x.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="apple-touch-icon-precomposed" href="../addons/wuhao_wactivity/template/mobile/assets/i/app-icon72x72@2x.png">
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="../addons/wuhao_wactivity/template/mobile/assets/i/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <script src="{MODULE_URL}template/mobile/js/jquery.min.js"></script>
+    <script src="{MODULE_URL}template/mobile/js/amazeui.min.js"></script>
+
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/css/amazeui.min.css">
+
+    <style>
+
+
+        .am-list-item-bar {
+            margin-top: .5rem;
+            text-align: right;
+            color: #b2b2b2;
+            font-size:1.25rem;
+        }
+        .am-list-item-time {
+            float: left;
+            font-size:1.25rem;
+        }
+
+        .am-list-icon {
+            display: inline-block;
+            margin-right: 1rem;
+            font-size:1.25rem;
+        }
+
+        .bmbtn{
+            text-align:center;
+            padding-top:5px;
+        }
+    </style>
+
+    <!--那个网友修改后天界的东西-->
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/css/bootstrap.css">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/css/main.css">
+
+</head>
+
+<body>
+<div class="header">
+
+    <!--那个网友修改后天界的东西-->
+    <!--<div class="container">-->
+        <!--&lt;!&ndash;E==标题导航栏&ndash;&gt;-->
+        <!--<div class="row ">-->
+            <!--<a href="{$user_school['link']}" class="btn col-xs-4 col-md-4 col-lg-4 lineH-40">{$user_school['title']}</a>-->
+            <!--<a href="{$user_school['link']}" class="btn col-xs-4 col-md-4 col-lg-4"><img src="<?php echo tomedia($user_school['logo']);?>" class="icon"></a>-->
+            <!--<a href="#" class="btn col-xs-4 col-md-4 col-lg-4 lineH-40">{$msg_shetuan['name']}</a>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;S==标题导航栏&ndash;&gt;-->
+        <!--<div id="carousel-ad" class="carousel slide" data-ride="carousel" data-interval="2000">-->
+            <!--&lt;!&ndash; 轮播（Carousel）指标 &ndash;&gt;-->
+            <!--<ol class="carousel-indicators">-->
+                <!--{loop $school_lunbo $k $row}-->
+                <!--<li data-target="#myCarousel" data-slide-to="<?php echo $k;?>" class="<?php echo $k==0?'active':'';?>"></li>-->
+                <!--{/loop}-->
+            <!--</ol>-->
+            <!--&lt;!&ndash; 轮播（Carousel）项目 &ndash;&gt;-->
+            <!--<div class="carousel-inner">-->
+                <!--{loop $school_lunbo $k $row}-->
+                <!--<div class="item <?php echo $k==0?'active':'';?>">-->
+                    <!--<img src="<?php echo tomedia($row['pic']);?>" alt="Second slide" class="swiperimg">-->
+                <!--</div>-->
+                <!--{/loop}-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;E==轮播图&ndash;&gt;-->
+    <!--</div>-->
+
+</div>
+<div class="main-page">
+    <div data-am-widget="tabs" class="am-tabs am-tabs-d2">
+        <ul class="am-tabs-nav am-cf">
+            <li class="am-active" ><a href="[data-tab-panel-0]" id="all">活动介绍</a></li>
+            <li class="" ><a href="[data-tab-panel-1]" id="my">报名记录</a></li>
+        </ul>
+
+
+
+        <div class="am-tabs-bd">
+            <div data-tab-panel-0 class="am-tab-panel am-active">
+                <?php echo htmlspecialchars_decode($shetuan['info']);?>
+
+                <div class="listen" style="display:<?php echo $students_apply?'none':'block';?>;  height:50px;text-align: center;background-color:darkgreen;  border-radius: 12px;margin-top:10%;">
+                    <a href="javascript:;" title="" style="font-size:30px;color: white;">点击报名</a>
+                </div>
+
+                <div style="margin-top:10%;display:<?php echo $wx['wx_link']?'block':'none';?>;" id="wx_pic">
+                    <h4 style="text-align:center;font-weight: bold;">已生成签到二维码</h4>
+                    <p style="text-align:center;">↓↓↓</p>
+                    <div style="text-align: center;padding:auto auto;">
+                        <img src="{MODULE_URL}template/mobile/pic/{$wx['wx_link']}" style="width:90%; height:90%;" id="pic_show">
+                    </div>
+                    <p style="font-size:12px;color:black;margin-top:3px;">使用规则：到达现场后请将此二维码出示于管理员扫描，扫描后即视为本次活动签到成功。签到成功后您将获得本次活动所<span style="color:red;">设定数额</span>的"社团考核分"<span style="color:red;">或者</span>"学分"(<span style="color:red;font-weight: bold;">本次活动奖励类型与奖励数额均已由后台预先设置好</span>)</p>
+                </div>
+
+            </div>
+
+
+        <!--报名记录-->
+        <div data-tab-panel-1 class="am-tab-panel ">
+            <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                <div class="am-list-news-bd">
+                    <ul class="am-list" id="hdjx_huodong">
+                        {loop $my_shetuan $k $row}
+                        <!--缩略图在标题右边-->
+                        <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right">
+                            <div class=" am-u-sm-8 am-list-main">
+                                <h3 class="am-list-item-hd"><a href="javascript:;" class="">{$row['name']}</a></h3>
+                                <div class="am-list-item-text" id="huodong0" data-index="0">昵称：{$row['nicheng']}</div>
+                                <div class="am-list-item-bar">
+                                    <span class="am-list-item-time">电话：{$row['mobile']}</span>
+                                    <span class="am-list-icon"><?php echo $row['status']==1?'已签到':'已报名';?></span>
+                                </div>
+                                <div class="am-list-item-bar">
+                                    <span class="am-list-item-time">报名时间：<?php echo date('Y-m-d',$row['createtime']);?></span>
+                                </div>
+                            </div>
+                            <div class="am-u-sm-4 am-list-thumb">
+                                <a href="javascript:;" class="">
+                                    <img src="{$row['touxiang']}" alt="">
+                                </a>
+                            </div>
+                        </li>
+                        {/loop}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+
+
+<div class="src_demo" id="{MODULE_URL}template/mobile/pic/"></div>
+<div class="activity_id" id="{$shetuan['id']}"></div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //点击传参到后台控制器
+        $(".listen").click(function(){
+            var activity_id = $(".activity_id").attr('id');
+            $.ajax({
+                url: "<?php echo $this->createMobileUrl('Qiandao');?>",
+                datatype: "json",  //这里一定要写JSON，这样回调的才是JSON格式，也就是数组格式
+                type: 'post',
+                data : {
+                    "activity_id" : activity_id,  //可以放变量也可以放常量
+                },
+                success: function (e) {   //成功后回调
+                    var strs= new Array(); //定义一数组
+                    strs=e.split("###"); //字符分割
+                    alert(strs[0]);
+                    if(strs[1]!='OK') {
+                        var lianjie = $(".src_demo").attr('id')+strs[1];
+                        $("#wx_pic").show();
+                        $("#pic_show").attr('src',lianjie);
+                    }
+                },
+            });
+        });
+    });
+</script>
+
+
+<!--那个网友修改后天界的东西-->
+<script src="{MODULE_URL}template/mobile/js/bootstrap.js"></script>
+
+</body>
+
+
+</html>

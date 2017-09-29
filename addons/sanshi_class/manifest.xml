@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="">
+	<application setting="false">
+		<name><![CDATA[班级信息管理]]></name>
+		<identifie><![CDATA[sanshi_class]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[班级信息管理]]></ability>
+		<description><![CDATA[班级信息管理]]></description>
+		<author><![CDATA[tyzy313481929]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+                <subscribes>
+		</subscribes>
+		<handles>
+                    <message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<menu>
+		   <entry title="班级信息管理" do="manage" />
+		</menu>
+                <cover>
+			<entry title="班级信息管理" do="index" state="" direct="false" />
+		</cover>
+                <home call="getHomeTiles"></home>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[
+    CREATE TABLE IF NOT EXISTS `ims_sanshi_major` (
+        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+        `weid` int(10) unsigned NOT NULL DEFAULT '0',
+        `majorname` int(10) unsigned NOT NULL,
+        PRIMARY KEY (`id`)
+    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+   CREATE TABLE IF NOT EXISTS `ims_sanshi_class` (
+  `id` int(10) NOT NULL auto_increment,
+  `weid` int(10) unsigned NOT NULL DEFAULT '0',
+  `majorid` int(10) NOT NULL COMMENT '专业ID',
+  `openid` varchar(100) character set utf8 NOT NULL COMMENT '班主任openid',
+  `classname` varchar(30) NOT NULL COMMENT '班级名称',
+  PRIMARY KEY  (`id`),
+  KEY `openid` (`openid`)
+    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+ CREATE TABLE IF NOT EXISTS `ims_sanshi_class_number` (
+  `id` int(10) NOT NULL auto_increment,
+  `weid` int(10) unsigned NOT NULL DEFAULT '0',
+  `classid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '班级ID',
+  `male` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '男生人数',
+  `female` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '女生人数',
+  `openid` varchar(100) character set utf8 NOT NULL COMMENT '班主任openid',
+  `createday` date NOT NULL COMMENT '记录时间',
+  PRIMARY KEY  (`id`),
+  KEY `openid` (`openid`)
+    ) ENGINE=Innodb  DEFAULT CHARSET=utf8;
+    ]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

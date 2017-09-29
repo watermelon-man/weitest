@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <title>星座运势</title>
+    <meta charset="UTF-8">
+    <meta content="initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta name="applicable-device" content="mobile">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="{php echo $this->_style}/css/style.css">
+
+  </head>
+  
+  <body>
+    <header class="public_header public_header_xzys">
+      <a  class="public_h_logo">
+        
+      <a  class="public_h_txt">{$result['astroname']}-星座运势</a>
+    
+    </header>
+    <div class="public_route">
+      <a  class="public_r_home"></a>
+      <div class="public_r_right">
+     
+        <a >{$result['astroname']}-星座运势</a></div>
+    </div>
+    <div class="public_yunshi_day">
+      <div class="public_yd_name">{$result['astroname']}今日运势</div>
+      <img class="public_yd_img" src="{php echo $this->_style}/picture/{$op}.png" alt="">
+      <p class="public_yd_effective">有效日期：{$today['date']}当天</p>
+      <div class="public_yd_class" style="border-bottom:1px solid #E8E8E8;">
+        <a  class="active">今日</a>
+		</div>
+      <div class="public_yd_canvas">
+        <p class="text">{$today['presummary']}</p>
+        <canvas id="canvas" height="300" width="300"></canvas>
+        <div class="public_yd_circular">
+          <div>{$today['color']}  
+            <p>幸运色</p>
+          </div>
+          <div>{$today['number']}  
+            <p>幸运数字</p>
+          </div>
+          <div>{$today['star']}
+            <p>速配星座</p>
+          </div>
+        </div>
+      </div>
+      <script src="{php echo $this->_style}/js/chart.js"></script>
+      <script>var radarChartData = {
+          labels: ["爱情{$today['love']}0", "财运{$today['money']}0", "健康{$today['health']}0", "工作{$today['career']}0", "综合{$today['summary']}0"],
+          datasets: [{
+            label: "My First dataset",
+            fillColor: "rgba(137,175,237,0.2)",
+            strokeColor: "rgba(137,175,237,1)",
+            pointColor: "rgba(137,175,237,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(137,175,237,1)",
+            data: [{$today['love']}0, {$today['money']}0, {$today['health']}0, {$today['career']}0, {$today['summary']}0]
+          }]
+        };
+        var canvas = document.getElementById("canvas");
+        if (typeof window.G_vmlCanvasManager != "undefined") {
+          canvas = window.G_vmlCanvasManager.initElement(canvas);
+          var ctx = canvas.getContext("2d");
+        } else {
+          var ctx = canvas.getContext("2d");
+        }
+        ctx.fillRect(10, 10, 20, 20);
+        window.myRadar = new Chart(ctx).Radar(radarChartData, {
+          showTooltips: false
+        });</script>
+   
+   
+   
+   
+    <div class="public_yd_class" style="border-bottom:1px solid #E8E8E8;">
+        <a  class="active">明日</a>
+		</div>
+      <div class="public_yd_canvas">
+        <p class="text">{$tomorrow['presummary']}</p>
+        <canvas id="canvass" height="300" width="300"></canvas>
+         <div class="public_yd_circular">
+          <div>{$tomorrow['color']}  
+            <p>幸运色</p>
+          </div>
+          <div>{$tomorrow['number']}  
+            <p>幸运数字</p>
+          </div>
+          <div>{$tomorrow['star']}
+            <p>速配星座</p>
+          </div>
+        </div>
+      </div>
+    
+      <script>var radarChartData = {
+          labels: ["爱情{$tomorrow['love']}0", "财运{$tomorrow['money']}0", "健康{$tomorrow['health']}0", "工作{$tomorrow['career']}0", "综合{$tomorrow['summary']}0"],
+          datasets: [{
+            label: "My First dataset",
+            fillColor: "rgba(137,175,237,0.2)",
+            strokeColor: "rgba(137,175,237,1)",
+            pointColor: "rgba(137,175,237,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(137,175,237,1)",
+            data: [{$tomorrow['love']}0, {$tomorrow['money']}0, {$tomorrow['health']}0, {$tomorrow['career']}0, {$tomorrow['summary']}0]
+          }]
+        };
+        var canvass = document.getElementById("canvass");
+        if (typeof window.G_vmlCanvasManager != "undefined") {
+          canvass = window.G_vmlCanvasManager.initElement(canvas);
+          var ctx = canvass.getContext("2d");
+        } else {
+          var ctx = canvass.getContext("2d");
+        }
+        ctx.fillRect(10, 10, 20, 20);
+        window.myRadar = new Chart(ctx).Radar(radarChartData, {
+          showTooltips: false
+        });</script>
+   
+    <div class="public_yd_class" style="border-bottom:1px solid #E8E8E8;">
+        <a class="active">本周运势 </a>
+		</div>
+	    <div class="public_yd_mod">
+        <div class="public_yd_box">
+          <div class="zhinan">时间</div>
+          <p>{$week['date']}日</p>
+        </div>
+        <div class="public_yd_box">
+          <div class="aiqing">爱情</div>
+          <p>{$week['love']}。</p>
+        </div>
+        <div class="public_yd_box">
+          <div class="gongzuo">工作</div>
+          <p>{$week['career']}</p>
+        </div>
+        <div class="public_yd_box">
+          <div class="qiuzhi">求职</div>
+          <p>{$week['job']}</p>
+        </div>
+        <div class="public_yd_box">
+          <div class="caiyun">财运</div>
+          <p>{$week['money']}</p>
+        </div>
+        <div class="public_yd_box">
+          <div class="jiankang">健康</div>
+          <p>{$week['health']}</p>
+        </div>
+       
+      </div>
+   
+   
+	<div class="public_yd_class" style="border-bottom:1px solid #E8E8E8;">
+        <a class="active">本月运势</a>
+		</div>
+	    <div class="public_yd_mod">
+       <div class="public_yd_box">
+          <div class="zhinan">时间</div>
+          <p>{$month['date']}月</p>
+        </div>
+        <div class="public_yd_box">
+          <div class="aiqing">爱情</div>
+          <p>{$month['love']}。</p>
+        </div>
+        <div class="public_yd_box">
+          <div class="gongzuo">工作</div>
+          <p>{$month['career']}</p>
+        </div>
+      
+        <div class="public_yd_box">
+          <div class="caiyun">财运</div>
+          <p>{$month['money']}</p>
+        </div>
+        <div class="public_yd_box">
+          <div class="jiankang">健康</div>
+          <p>{$month['health']}</p>
+        </div>
+         <div class="public_yd_box">
+          <div class="gongzuo">综合</div>
+          <p>{$month['summary']}</p>
+        </div>
+       
+      </div>
+	  
+	  
+	  
+	  <div class="public_yd_class" style="border-bottom:1px solid #E8E8E8;margin-bottom:20px;">
+        <a class="active">本年运势</a>
+		</div>
+	    <div class="public_yd_mod">
+       <div class="public_yd_box">
+          <div class="zhinan">时间</div>
+          <p>{$year['date']}年</p>
+        </div>
+        <div class="public_yd_box">
+          <div class="aiqing">爱情</div>
+          <p>{$year['love']}。</p>
+        </div>
+        <div class="public_yd_box">
+          <div class="gongzuo">工作</div>
+          <p>{$year['career']}</p>
+        </div>
+      
+        <div class="public_yd_box">
+          <div class="caiyun">财运</div>
+          <p>{$year['money']}</p>
+        </div>
+     
+         <div class="public_yd_box">
+          <div class="gongzuo">综合</div>
+          <p>{$year['summary']}</p>
+        </div>
+       
+      </div>
+   
+   
+   
+    
+  </body>
+
+</html>

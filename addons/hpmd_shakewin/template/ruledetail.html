@@ -1,0 +1,335 @@
+{template 'common/header'}
+{template 'common'}
+<div class="main">
+    <ul class="nav nav-tabs">	 	
+      <li {if $op=='list' || empty($op)}class="active"{/if}><a href="{php echo $this->createWebUrl('Shakerule',array('op'=>'list'));}">活动管理</a></li>    
+      <li {if $op=='edit' && empty($item['id'])}class="active"{/if}><a href="{php echo $this->createWebUrl('Shakerule',array('op'=>'edit'));}">添加活动</a></li>	
+       {if $op=='edit' && !empty($item['id'])}<li class="active"><a href="{php echo $this->createWebUrl('Shakerule', array('op'=>'edit','id'=>$id));}">编辑活动</a></li>{/if}
+    </ul>
+    <form action="" class="form-horizontal form" method="post" enctype="multipart/form-data" onsubmit="return formcheck()">
+        <input type="hidden" name="id" value="{$item['id']}">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                活动详情
+            </div>
+            <div class="panel-body"> 
+				 <div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>是否启用</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="online" value="1" {if $item['online'] == null || $item['online'] == '1'} checked="checked"{/if} disabled="disabled"/>是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="online" value="0" {if $item['online'] == '0'} checked="checked"{/if} disabled="disabled"/>否
+						</label>
+					</div>
+				</div>  
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">回复关键字</label>
+                    <div class="col-sm-9 col-xs-12">  
+                     	<input type='text' id='replywords' name='replywords' value="{$item['replywords']}"  class="form-control" disabled="disabled"/>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动标题</label>
+                    <div class="col-sm-9 col-xs-12">  
+                     	<input type='text' id='title' name='title' value="{$item['title']}"  class="form-control" disabled="disabled"/>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动描述</label>
+                    <div class="col-sm-9 col-xs-12">  
+                     	<input type='text' id='description' name='description' value="{$item['description']}"  class="form-control" disabled="disabled"/>
+                    </div>
+                </div>
+				<div class="form-group" disabled="disabled">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 活动时间</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_daterange('datelimitsc', array('starttime'=>date('Y-m-d',$item['starttime']),'endtime'=>date('Y-m-d',$item['endtime'])), true)}
+					</div>
+				</div>
+				<div class="form-group" disabled="disabled">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 领奖时间</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_daterange('datelimitex', array('starttime'=>date('Y-m-d',$item['exchangestarttime']),'endtime'=>date('Y-m-d',$item['exchangeendtime'])), true)}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">摇动几次可抽奖</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="shaketimeswin" name="shaketimeswin" value="{$item['shaketimeswin']}" disabled="disabled"/>
+							<span class="input-group-addon">次</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">每人每天获奖次数</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="awardtimesday" name="awardtimesday" value="{$item['awardtimesday']}" disabled="disabled"/>
+							<span class="input-group-addon">次</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">每人获奖总次数</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="awardtimestotal" name="awardtimestotal" value="{$item['awardtimestotal']}" disabled="disabled"/>
+							<span class="input-group-addon">次</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">本期活动可获取奖品总数</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="awardtotal" name="awardtotal" value="{$item['awardtotal']}" disabled="disabled"/>
+							<span class="input-group-addon">个</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>不同活动再次获奖</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="awarddiffact" value="1" {if $item['awarddiffact'] == '1'} checked="checked"{/if} disabled="disabled"/>是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="awarddiffact" value="0" {if $item['awarddiffact'] == null || $item['awarddiffact'] == '0'} checked="checked"{/if} disabled="disabled"/>否
+						</label>
+						<div class="help-block">否：每人获奖总次数 = 每人获奖总次数 - 往期活动获奖数 !</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">最小中奖间隔时间</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="minawardinterval" name="minawardinterval" value="{$item['minawardinterval']}" disabled="disabled" />
+							<span class="input-group-addon">秒</span>
+						</div>
+						<div class="help-block">两个获奖用户间的间隔时间，必须比这个时间大，若为0则不限制。</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">大屏幕背景图</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('backgrdpic',$item['backgrdpic']);}
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">大屏幕活动海报</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('showpic',$item['showpic']);}
+					</div>
+				</div>
+			</div>
+        </div>
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                微信页面设置
+            </div>
+            <div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>开启坐标限制</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="xyrestrict" value="1" {if $item['xyrestrict'] == '1'} checked="checked"{/if} disabled="disabled"/>是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="xyrestrict" value="0" {if $item['xyrestrict'] == null || $item['xyrestrict'] == '0'} checked="checked"{/if} disabled="disabled"/>否
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">经度longitude</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="longitude" name="longitude" value="{$item['longitude']}" disabled="disabled"/>
+							<span class="input-group-addon"></span>
+						</div>
+						<div class="help-block">火星坐标系，可使用高德地图（开放平台-开发-坐标拾取器）获取！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">纬度latitude</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="latitude" name="latitude" value="{$item['latitude']}" disabled="disabled"/>
+							<span class="input-group-addon"></span>
+						</div>
+						<div class="help-block">火星坐标系，可使用高德地图（开放平台-开发-坐标拾取器）获取！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">半径</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="xyradius" name="xyradius" value="{$item['xyradius']}" disabled="disabled"/>
+							<span class="input-group-addon">米</span>
+						</div>
+						<div class="help-block">以坐标为圆点，该半径范围内粉丝可以参加活动！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">坐标位置描述</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="xydescript" name="xydescript" value="{$item['xydescript']}" disabled="disabled"/>
+							<span class="input-group-addon"></span>
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                大屏幕设置
+            </div>
+            <div class="panel-body"> 
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">大屏幕开始结束作为活动起始</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="screentime" value="1" {if $item['screentime'] == '1'} checked="checked"{/if} disabled="disabled"/>是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="screentime" value="0" {if $item['screentime'] == null || $item['screentime'] == '0'} checked="checked"{/if} disabled="disabled"/>否
+						</label>
+						<div class="help-block">开启后，活动开始结束时间是大屏幕开始结束按钮按下时间！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">球旋转速度</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="ballspeed" name="ballspeed" value="{$item['ballspeed']}" disabled="disabled"/>
+						</div>
+						<div class="help-block">0-1之间数，数值越大旋转越快！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">球自动改变方向</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="autodirection" value="1" {if $item['autodirection'] == '1'} checked="checked"{/if} disabled="disabled"/>是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="autodirection" value="0" {if $item['autodirection'] == null || $item['autodirection'] == '0'} checked="checked"{/if} disabled="disabled"/>否
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">自动改变方向时间间隔</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="directtime" name="directtime" value="{$item['directtime']}" disabled="disabled"/>
+							<span class="input-group-addon">毫秒</span>
+						</div>
+						<div class="help-block">球旋转时，自动改变方向的时间间隔！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">检测摇动用户时间间隔</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="checkshaketime" name="checkshaketime" value="{$item['checkshaketime']}" disabled="disabled"/>
+							<span class="input-group-addon">毫秒</span>
+						</div>
+						<div class="help-block">球旋转时，自动检测摇动用户的时间间隔！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">检测获奖用户时间间隔</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="checkwintime" name="checkwintime" value="{$item['checkwintime']}" disabled="disabled"/>
+							<span class="input-group-addon">毫秒</span>
+						</div>
+						<div class="help-block">球旋转时，自动检测获奖用户的时间间隔！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">未摇动头像退出间隔</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="headexitsecond" name="headexitsecond" value="{$item['headexitsecond']}" disabled="disabled"/>
+							<span class="input-group-addon">秒</span>
+						</div>
+						<div class="help-block">球旋转时，检测到用户摇动后，间隔多久未摇动则头像退出大屏幕！</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                	分享链接设置
+            </div>
+            <div class="panel-body"> 
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>开启自定义分享</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="enableshare" value="1" {if $item['enableshare'] == '1'} checked="checked"{/if} onclick="EnableShare(1)" disabled="disabled"/>是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="enableshare" value="0" {if $item['enableshare'] == null || $item['enableshare'] == '0'} checked="checked"{/if} onclick="EnableShare(0)" disabled="disabled"/>否
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="sharetitle" name="sharetitle" value="{$item['sharetitle']}" disabled="disabled"/>
+							<span class="input-group-addon"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享描述</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="sharedesc" name="sharedesc" value="{$item['sharedesc']}" disabled="disabled"/>
+							<span class="input-group-addon"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享链接</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="sharelink" name="sharelink" value="{$item['sharelink']}" disabled="disabled"/>
+							<span class="input-group-addon"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图片</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('sharepic',$item['sharepic']);}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                缓存设置
+            </div>
+            <div class="panel-body"> 
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">缓存过期时间</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="cachesecond" name="cachesecond" value="{$item['cachesecond']}" disabled="disabled"/>
+							<span class="input-group-addon">秒</span>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </form>
+</div>

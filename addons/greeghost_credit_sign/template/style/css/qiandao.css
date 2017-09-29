@@ -1,0 +1,75 @@
+/*签到*/
+.sign { height: 320px; width: 100%; position: relative; }
+.sign .sign-border,.sign .sign-button { display: inline-block;position: absolute; top:50%; left:50%; text-align: center; border-radius: 50%; -webkit-border-radius:50%;  }
+.sign .sign-border { z-index:3; margin-top:-90px; margin-left: -50px; width: 100px; height: 100px; background-color:#000; opacity: 0.15; }
+.sign .sign-button { z-index:4; border:none; cursor: pointer; margin-top:-83px; margin-left: -43px; width: 86px; height: 86px; line-height: 86px;color:#00c2ff; font-weight: bold; font-size: 28px; background-color: #fff; }
+
+.sign img { position: absolute; z-index: 1; width: 100%; height:68%;  }
+.jf-bg { position: absolute; z-index: 2; background-color: #fff; opacity: 0.6; width: 90%; height:55px; left:5%; top:10px; border-radius: 10px; -webkit-border-radius:10px; }
+.sign-fx { position: absolute; z-index: 3; display: inline-block; background: url(../images/skip.png) 5px center no-repeat; -webkit-background-size:20px 20px ;-webkit-background-size:20px 20px ; width: 15px; height:40px; line-height: 40px; text-align: right; font-size: 16px; right:5%; top:12px; padding:5px 12px; }
+.sign-bottom-jf,.sign-bottom-qd { color:#ff9601; font-size: 16px; -webkit-box-sizing: border-box; box-sizing: border-box; position: absolute; z-index: 3; width: 30%; height:50px; left:5%; top:12px;  padding:5px 12px; }
+.sign-bottom-qd { text-align:right; line-height: 42px; font-size: 14px;  }
+.sign-bottom-jf span { display: block; color:#555; font-size: 13px; }
+.sign-bottom-qd span { color:#ff9601; font-size: 16px; }
+.sign-span { position: absolute; z-index: 3; width: 100%; text-align: center; height:25px; top:180px; color:#666; }
+.sign-day { position: absolute; z-index: 4; width: 90px; left:50%; margin-left: -45px; background-color: #ff9601; border-radius: 6px; -webkit-border-radius:6px; text-align: center; height:30px; line-height: 30px; top:145px; color:#fff; }
+.sign-xian { position: absolute; z-index: 4; width: 100%; bottom: 55px; height:10px; border-top:1px solid #04bcfe; border-bottom:1px solid #04bcfe; border-image: -webkit-linear-gradient(to left, #04bcfe , #e762a4) 30 30;border-image: linear-gradient(to left, #04bcfe , #e762a4) 30 30; }
+.sign-qiqiu { position: absolute; z-index: 4; width: 46px; margin-right:-23px; height:62px; text-align: center; font-size: 12px; left:80%; color: #fff; padding-top: 5px; background: url(../images/qiqiu.jpg) center 0px no-repeat; -webkit-background-size: 35px 46px;background-size: 35px 46px; bottom: 48px; }
+.sign-day-qiu { position: absolute; z-index: 4; width: 46px; margin-right:-23px; height:42px; text-align: center; font-size: 12px; left:80%; color: #04bcfe; padding-top: 3px; background: url(../images/day.png) center top no-repeat; -webkit-background-size: 20px 21px;background-size: 20px 31px; bottom: 5px; }
+.sign-day-today { position: absolute; z-index: 4; width: 20px; height:42px; margin-left:-10px; text-align: center; font-size: 12px; left:10%; color: #e762a4; padding-top: 3px; background: url(../images/day.png) center top no-repeat; -webkit-background-size: 20px 21px;background-size: 20px 31px; bottom: 5px; }
+.sign-xian-bg { position: absolute; z-index: 4; width: 47%; bottom: 56px; height:10px; 
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#e762a4), color-stop(100%,#04bcfe)); 
+	background: -webkit-linear-gradient(left, #e762a4 0%,#04bcfe 100%);
+	background: linear-gradient(to right, #e762a4 0%,#04bcfe 100%);
+	left:0px; border-radius:0px 4px 4px 0px; -webkit-border-radius:0px 4px 4px 0px;}
+
+.qd-cs {-webkit-box-sizing: border-box; box-sizing: border-box; width: 100%; padding-left: 50px; height:54px; line-height: 54px; background: url(../images/jifen.jpg) 20px center no-repeat; -webkit-background-size:23px 20px ;-webkit-background-size:23px 20px ;}
+.qd-cs span { color:#ff9601; font-size: 16px; }
+
+.signlist { padding: 0px 15px; border-bottom:1px solid #eee; border-top:1px solid #eee; }
+.signlist li { -webkit-box-sizing: border-box; box-sizing: border-box; font-size: 15px; padding:0px 12px 0px 37px; height:54px; line-height: 54px; width: 100%; border-bottom:1px solid #eee;  }
+.signlist li span { width: 30px; height:54px; line-height: 54px; float: right; background: url(../images/right.png) right center no-repeat; -webkit-background-size:11px 19px ;-webkit-background-size:11px 19px ; }
+.signlist li.signlist-li1 { background: url(../images/survey.png) 5px center no-repeat; -webkit-background-size:24px 24px ;-webkit-background-size:24px 24px ; }
+.signlist li.signlist-li2 { background: url(../images/atm-away.png) 5px center no-repeat; -webkit-background-size:24px 24px ;-webkit-background-size:24px 24px ; }
+.signlist li.signlist-li3 { background: url(../images/bags.png) 5px center no-repeat; -webkit-background-size:24px 24px ;-webkit-background-size:24px 24px ; border:none; }
+/*底部两个蓝色图*/
+.signdouble { display: -webkit-flex; display: flex;  }
+.signdouble div { flex:1; -webkit-flex:1; text-align: center; padding:20px 0px; }
+.signdouble div .signdouble-div-p1 { width: 100%; text-align: center; margin-bottom: 10px; border-right: 1px solid #eee; }
+.signdouble div .signdouble-div-p1 img { width: 40%; height:auto; }
+.signdouble div .signdouble-div-p2 a { display: inline-block; border:1px solid #ff9601; color:#ff9601; padding:2% 4%; text-align: center; border-radius: 5px; -webkit-border-radius:5px; }
+
+/*分享*/
+.signfx { display: none; position: fixed; z-index: 999; }
+.signfx-bg { position: fixed; z-index: 9; left: 0px; top:0px; width: 100%; height:100%; opacity: 0.6; background-color: #000; }
+.signfx-div { position: fixed; z-index: 99; text-align: right; right: 0px; top:10px; color: #fff;  }
+.signfx-div p { margin-right: 20px; font-size: 18px; }
+
+
+/*签到记录*/
+.record,.raiders,.exchange { position: fixed; z-index: 999; left:0px; top:0px; background-color: #f0f0f0; width: 100%; height: 100%; overflow-x:hidden; overflow-y:auto; }
+.record-list,.raiders-list,.exchange-list { margin:10px 10px 40px; }
+.record-list li { -webkit-box-sizing: border-box; box-sizing: border-box; margin-bottom: 10px; width: 100%; background-color: #fff; padding:10px; border-radius: 7px; -webkit-border-radius:7px; }
+/*签到攻略*/
+.raiders-list p{font-size: 15px;}
+.raiders { background-color: #fffbfb; }
+.raiders-list-p1 { color:#fff; padding:3px 12px; font-size: 15px; border:2px solid #d9abaf; display: inline-block; margin: 10px 0px; border-radius: 12px; -webkit-border-radius:12px;
+	background: -moz-linear-gradient(top, #f49fb9 0%, #d31560 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f49fb9), color-stop(100%,#d31560));
+    background: -webkit-linear-gradient(top, #f49fb9 0%,#d31560 100%);
+    background: -o-linear-gradient(top, #f49fb9 0%,#d31560 100%);
+    background: -ms-linear-gradient(top, #f49fb9 0%,#d31560 100%);
+    background: linear-gradient(to bottom, #f49fb9 0%,#d31560 100%);
+}
+.raiders-list-p2 { margin-bottom: 15px; color: #fb0009; font-size: 15px; }
+
+/*积分兑换*/
+.exchange { background-color: #c9edfd; }
+.exchange-head { text-align: center; }
+.exchange-head p { position: relative; display: inline-block; padding: 5px 38px; color: #ddfbfd; font-size: 18px; margin: 20px 0px; background-color: #35c0fe; }
+.exchange-head .exchange-head-left { position: absolute; top:0px; left:0px;width:0; height:0px; border:18px solid; border-color:#35c0fe #35c0fe #35c0fe #c9edfd ;}
+.exchange-head .exchange-head-right { position: absolute; top:0px; right:0px;width:0; height:0px; border:18px solid; border-color:#35c0fe #c9edfd #35c0fe #35c0fe;}
+
+.exchange-list li { padding:15px 0px 10px; text-align: center; margin:0px 1% 2%; float: left; width: 48%; -webkit-box-sizing: border-box; box-sizing: border-box; background-color: #fff; }
+
+.exchange-list .exchange-list-p2 { color: #8ac3d8; display: inline-block; padding-left: 16px; background: url(../images/jifen.png) left center no-repeat;-webkit-background-size:14px 16px ;-webkit-background-size:14px 16px ; }

@@ -1,0 +1,246 @@
+<html class="hairlines">
+<head>
+	<meta charset="utf-8">
+	<title>文章首页</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" type="text/css" href="../addons/hc_article/style/css/qscui.css">
+	<script type="text/javascript">
+		var baseURL = '';
+		var logged = '';
+		var clientId = '';
+		var projectUrl = '';
+		var platform = 'mobile';
+		var geo = '';
+	</script>
+</head>
+<body class="platform_mobile /notice">
+	<div class="global-notice">
+		<i class="icon">
+		</i>
+		<span>
+			<a href="/page/notice">
+				火池网络全新改版，点击查看新版介绍
+			</a>
+		</span>
+		<a href="javascript:void(0);" class="notice-close">
+		</a>
+	</div>
+	<div class="qsc-alert" style="display: none;">
+		<i class="info-base64">
+		</i>
+		<span>
+		</span>
+	</div>
+	<div class="swiper-container qsc-tab tab-fixed home-navbar swiper-container-horizontal swiper-container-free-mode">
+		<ul class="swiper-wrapper tab-item">
+			<li class="swiper-slide {if $style==1}active{/if} swiper-slide-active" style="width: 125px;">
+				<a href="{php echo $this->createMobileUrl('articleindex', array('style'=>1, 'typeid'=>$types[0]['id']))}">
+					{$types[0]['title']}
+				</a>
+			</li>
+			<li class="swiper-slide {if $style==2}active{/if} swiper-slide-next" style="width: 125px;">
+				<a href="{php echo $this->createMobileUrl('articleindex', array('style'=>2, 'typeid'=>$types[1]['id']))}">
+					{$types[1]['title']}
+				</a>
+			</li>
+			<li class="swiper-slide {if $style==3}active{/if}" style="width: 125px;">
+				<a href="{php echo $this->createMobileUrl('articleindex', array('style'=>3, 'typeid'=>$types[2]['id']))}">
+					{$types[2]['title']}
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="content-fixed top mod-home bottom">
+		<div class="tab-content">
+			<div class="swiper-container home-banner swiper-container-horizontal">
+				<div class="swiper-wrapper" style="transform: translate3d(-1500px, 0px, 0px); transition-duration: 0ms;">
+					{loop $advs $key $a}
+					<div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="{$key}">
+						<a href="{$a['link']}" title="查看项目">
+							<img src="{$_W['attachurl']}{$a['thumb']}" alt="查看项目" width="100%">
+						</a>
+					</div>
+					<div class="swiper-slide" data-swiper-slide-index="{$key}">
+						<a href="{$a['link']}" title="查看项目">
+							<img src="{$_W['attachurl']}{$a['thumb']}" alt="查看项目" width="100%">
+						</a>
+					</div>
+					<div class="swiper-slide swiper-slide-duplicate swiper-slide-active" data-swiper-slide-index="{$key}">
+						<a href="{$a['link']}" title="查看项目">
+							<img src="{$_W['attachurl']}{$a['thumb']}" alt="查看项目" width="100%">
+						</a>
+					</div>
+					{/loop}
+				</div>
+				<div class="swiper-pagination swiper-pagination-clickable">
+					<span class="swiper-pagination-bullet swiper-pagination-bullet-active">
+					</span>
+					<span class="swiper-pagination-bullet">
+					</span>
+				</div>
+			</div>
+			<div class="tab-pane fade in active ajax-loading data-number=10 J_tpl">
+				<div id="articles">
+				{loop $articles $key $a}
+				<div class="mod-project-card card-type-1 item">
+					<a href="{php echo $this->createMobileUrl('detail', array('id'=>$a['id']))}">
+						<div class="mod-project-card_header clearfix">
+							<div class="mod-project-card_header__avatar">
+								<img class="lazy-load" src="../addons/hc_article/style/images/grey.png" data-original="{if !empty($a['mid'])}{$member['headurl'][$a['mid']]}{else}{$a['author']}{/if}" width="24" height="24" alt="{if !empty($a['mid'])}{$member['nickname'][$a['mid']]}{else}{$a['author']}{/if}">
+							</div>
+							<div class="mod-project-card_header__user">
+								<span>
+									{if !empty($a['mid'])}{$member['nickname'][$a['mid']]}{else}{$a['author']}{/if}
+								</span>
+								<em class="mod-project-card_header__time">
+									{php echo date('Y-m-d', $a['starttime'])}
+								</em>
+							</div>
+						</div>
+						<div class="mod-project-card_content">
+							<header class="mod-project-card_content__header">
+								<h2>
+									{$a['title']}
+								</h2>
+							</header>
+							<div class="mod-project-card_content__detail">
+								<p class="description">
+									{$a['description']}
+								</p>
+								<div class="mod-project-card_content__img clearfix">
+									{loop $piclist[$key] $row}
+									<img class="lazy-load" src="../addons/hc_article/style/images/grey.png" data-original="{php echo tomedia($row)}" width="25%" alt="{$a['title']}">
+									{/loop}
+								</div>
+							</div>
+							<div class="mod-project-card_content__supporter clearfix">
+								<strong>
+									{loop $gzs $key $g}
+										{if $g['aid']==$a['id']}
+											<span>
+												<img class="lazy-load" src="../addons/hc_article/style/images/grey.png" data-original="{$member['headurl'][$gz[$g['id']]]}" width="24">
+											</span>
+											{php unset($gzs[$key])}
+										{/if}
+									{/loop}
+								</strong>
+								<span>
+									评论奖励：
+									<strong>
+										{$a['eachmoney']}
+									</strong>
+									元
+								</span>
+							</div>
+							<div class="mod-project-card_content__status clearfix">
+								<span>
+									<i class="icon icon-aims">
+									</i>
+									浏览量
+									<strong>
+										{php echo $a['visitnum']+$visitnum[$a['id']]}
+									</strong>
+									人
+								</span>
+								<span>
+									<i class="icon icon-already">
+									</i>
+									奖励
+									<strong>
+										{$a['allmoney']}
+									</strong>
+									元
+								</span>
+								<span>
+									<i class="icon icon-supporter">
+									</i>
+									{php echo haha($a['endtime'])}
+								</span>
+							</div>
+						</div>
+					</a>
+				</div>
+				{/loop}
+				</div>
+				<input type="hidden" id="psize" value="0" />
+				<input type="hidden" id="flag" value="0" />
+				<div class="loading" id="loadings" style="display:none;">
+					<a href="{php echo $this->createMobileUrl('index')}" data-remote="true" onclick="return false;">
+						<i>
+						</i>
+						正在加载更多
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="qsc-bar bar-fixed">
+		<a href="{php echo $this->createMobileUrl('index')}" class="bar-item">
+			<i class="icon bar-home">
+			</i>
+			首页
+		</a>
+		<a href="{php echo $this->createMobileUrl('detail', array('op'=>'release'))}" class="bar-item ">
+			<i class="icon bar-publish">
+			</i>
+			发起
+		</a>
+		<a href="{php echo $this->createMobileUrl('home', array('op'=>'my', 'opp'=>'myarticle'))}" class="bar-item active">
+			<i class="icon bar-message">
+			</i>
+			文章
+		</a>
+		<a href="{php echo $this->createMobileUrl('home')}" class="bar-item">
+			<i class="icon bar-user">
+			</i>
+			我
+		</a>
+	</footer>
+<link rel="stylesheet" type="text/css" href="../addons/hc_article/style/css/icons.css">
+<script type="text/javascript" src="../addons/hc_article/style/js/index.min.js" />
+<script>
+$(window).scroll(function(){
+	var flag = $('#flag').val();
+	var psize = $('#psize').val();
+	if(flag == psize){
+		var scrollTop = $(this).scrollTop();
+	　　var scrollHeight = $(document).height();
+	　　var windowHeight = $(this).height();
+	　　if(scrollTop + windowHeight >= scrollHeight-40){
+			$('#flag').val(-1);
+			loadMore($('#articles'));
+		}
+　　}
+});
+window.onload = function(){
+	$('#psize').val(0);
+	$('#flag').val(0);
+}
+function loadMore(articles){
+	var psize = parseInt($('#psize').val());
+	var psize1 = parseInt({$psize});
+	if(psize1+psize >= {$total}){
+		return;
+	}
+	$('#loadings').show();
+	$.post("{php echo $this->createMobileUrl('articleindex', array('op'=>'loadmore'))}",{psize:psize},function(d){
+		if(d.articles!=0){
+			var html = '';
+			for(i in d.articles){
+				html = html + '<div class="mod-project-card card-type-1 item"><a href="'+d.articles[i]['url']+'"><div class="mod-project-card_header clearfix"><div class="mod-project-card_header__avatar"><img class="lazy-load" src="'+d.articles[i]['headurl']+'" data-original="'+d.articles[i]['headurl']+'" width="24" height="24" alt="'+d.articles[i]['nickname']+'"></div><div class="mod-project-card_header__user"><span>'+d.articles[i]['nickname']+'</span><em class="mod-project-card_header__time">'+d.articles[i]['starttime']+'</em></div></div><div class="mod-project-card_content"><header class="mod-project-card_content__header"><h2>'+d.articles[i]['title']+'</h2></header><div class="mod-project-card_content__detail"><p class="description">'+d.articles[i]['description']+'</p><div class="mod-project-card_content__img clearfix">'+d.articles[i]['thumbs']+'</div></div><div class="mod-project-card_content__supporter clearfix"><strong>'+d.articles[i]['gzs']+'</strong><span>评论奖励：<strong>'+d.articles[i]['eachmoney']+'</strong>元</span></div><div class="mod-project-card_content__status clearfix"><span><i class="icon icon-aims"></i>浏览量<strong>'+d.articles[i]['visitnum']+'</strong>人</span><span><i class="icon icon-already"></i>奖励<strong>'+d.articles[i]['allmoney']+'</strong>元</span><span><i class="icon icon-supporter"></i>'+d.articles[i]['endtime']+'</span></div></div></a></div>';
+			}
+			if(psize1+d.psize < {$total}){
+				$('#psize').val(d.psize);
+				$('#flag').val(d.psize);
+			}
+			$('#loadings').hide();
+			articles.append(html);
+		}
+	},"json");
+}
+</script>
+</body>
+</html>

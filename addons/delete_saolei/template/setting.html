@@ -1,0 +1,26 @@
+{template 'common/header'}
+<div class="panel panel-default">
+  <div class="panel-heading">分享设置</div>
+  <div class="panel-body">
+  <form action="" method="post">
+  <div class="form-group">
+    <label for="exampleInputEmail1">分享标题</label>
+    <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="" value="{$settings['title']}">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">分享图片</label>
+    {php echo tpl_form_field_image('pic',$settings['pic']);}
+  </div> 
+  <div class="form-group">
+    <label for="exampleInputPassword1">分享描述</label>
+    <textarea name="desc" class="form-control" rows="3">{$settings['desc']}</textarea>
+  </div>
+  
+  <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+
+  <input type="hidden" name="token" value="{$_W['token']}" />
+</form>
+  </div>
+</div>
+
+{template 'common/footer'}

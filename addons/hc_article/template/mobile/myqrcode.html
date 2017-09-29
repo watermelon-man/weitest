@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>{if $_GPC['op']=='shareqrcode'}{$profile['realname']}{else}我{/if}的海报</title>
+</head>
+
+<body>
+    <!--bottom end-->
+<div>
+	{if $isexist==1}
+	<img style="width:100%;" src="../addons/hc_article/style/poster/memberposter/{$uniacid}share{$id}.jpg" />
+	{else}
+	<img style="width:100%;" src="../addons/hc_article/style/images/amaopicture.jpg" />
+	{/if}
+</div>
+</body>
+</html>

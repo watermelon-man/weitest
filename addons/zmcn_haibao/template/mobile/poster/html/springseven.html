@@ -1,0 +1,122 @@
+﻿{template 'poster'.DS.'html'.DS.'zmcn_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+      <div class="spring7 edit_common" id="edit_common">
+          <div class="spring7_con">
+              <div class="spring7_conbg11" id="editmove">
+                  <img src="{MODULE_URL}template/mobile/poster/images/spring7up1.jpg" alt="uppic">
+              </div>
+              <div class="spring7_conbg2"></div>
+              <div class="spring7_con1">
+                  <p contenteditable="true">享受美食</p>
+              </div>
+              <div class="spring7_con2">
+                  <p contenteditable="true">满足你的味觉需求</p>
+              </div>
+              <div class="spring7_con3">
+                  <p contenteditable="true">春天来了</p>
+                  <p contenteditable="true">我们约吧</p>
+              </div>
+              <div class="spring7_con4">
+                  <p contenteditable="true">今天进店有优惠哦！</p>
+              </div>
+              <div class="spring7_con5">
+                  <img src="{$settings['share_qr']}" alt="qrcode"/>
+              </div>
+              <div class="spring7_up1">
+                  <div class="spring7_up11">
+                      <div class="spring7_fileInput left">
+                          <input type="file" name="spring7_upfile" id="spring7_upfile" style="display:none" class="spring7_upfile" onchange="document.getElementById('spring7_upfileResult').innerHTML=this.value;"/>
+                          <input class="spring7_upFileBtn" id="spring7_upfileResult" type="button" value="上传图片" onclick="document.getElementById('spring7_upfile').click();"/>
+                      </div>
+                  </div>
+              </div>
+              <div class="spring7_up2">
+                  <div class="spring7_up22">
+                      <div class="spring7_fileInput2">
+                          <input type="file" name="spring7_upfile2" id="spring7_upfile2" style="display:none" class="spring7_upfile2" onchange="document.getElementById('spring7_upfileResult2').innerHTML=this.value;"/>
+                          <input class="spring7_upFileBtn2" id="spring7_upfileResult2" type="button" value="上传图片" onclick="document.getElementById('spring7_upfile2').click();"/>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="shengchengs7">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+          </div>
+      </div>
+  </div>
+    <!-- 第九十四个页面结束 -->
+     <!-- 生成后显示页面结束 -->
+  <script type="text/javascript">
+      $("#spring7_upfile").change(function(){
+          var objUrl = getObjectURL(this.files[0]);
+          if (objUrl) {
+              $(".spring7_conbg11 img").attr("src", objUrl);
+          }
+      });
+      $("#spring7_upfile2").change(function(){
+          var objUrl = getObjectURL(this.files[0]);
+          if (objUrl) {
+              $(".spring7_con5 img").attr("src", objUrl);
+          }
+      });
+      //建立一个可存取到该file的url
+      function getObjectURL(file){
+          var url = null;
+          if (window.createObjectURL!=undefined) { // basic
+              url = window.createObjectURL(file);
+          } else if (window.URL!=undefined) { // mozilla(firefox)
+              url = window.URL.createObjectURL(file);
+          } else if (window.webkitURL!=undefined) { // webkit or chrome
+              url = window.webkitURL.createObjectURL(file);
+          }
+          return url;
+      }
+      $(".shengchengs7").click(function(){
+
+          $(".shengchengs7").hide();
+          $(".spring7_up1").hide();
+          $(".spring7_up2").hide();
+          $(".spring7_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+          $("body").css("background","none");
+
+          html2canvas($(".spring7_con"), {
+              allowTaint: true,
+              taintTest: false,
+              onrendered: function(canvas) {
+                  canvas.id = "mycanvas";
+                  //生成base75图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                  $(".baocun").show();
+                  $(".tool").show();
+                  var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                  $(".spring7").hide();
+                  console.log("已生成");
+              }
+          });
+      });
+      //第七十五个页面结束
+  </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

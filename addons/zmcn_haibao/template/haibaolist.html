@@ -1,0 +1,126 @@
+{template 'common/header'}
+
+<style type="text/css">
+.app a {display: block;}
+.app .aa {display: block;height:225px;}
+.app .icon { width: 120px; max-height:225px;}
+.app .thumbnail { min-height:280px; box-shadow:0 0 10px 0px #CCCCCC; position:relative; }
+.app .thumbnail.addapp { background-color:#F9F9F9;}
+.app .thumbnail.addapp .addAppBtn{ display:block; margin:5px 5px 0 5px; height:150px; border:2px dashed #BFBFBF; color:#2C2C2C; position:relative; -webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}
+.addAppBtn .addicon {position:absolute;width:100%; padding-top:56px; height:76px; background:url({MODULE_URL}static/images/add_icon.png) center top no-repeat; top:40%; text-align:center;}
+.app .thumbnail.addapp .addAppBtn:hover{ text-decoration:none;}
+.app .qr { position:absolute; top:110px;left:50%;margin-left: -60px; width: 120px; height:120px; overflow:hidden;}
+.app .qr canvas {width:100%; height:100%;-webkit-transform:translateY(100%);-moz-transform:translateY(100%);transform:translateY(100%);-webkit-transition:all 300ms;-moz-transition:all 300ms;transition:all 300ms;border:solid 5px #fff;}
+.app .qr.z-show canvas {-webkit-transform:translateY(0);-moz-transform:translateY(0);transform:translateY(0);border:solid 5px #fff;}
+.qr_icon {width:22px; height:22px; position:absolute; right:10px;background-image:url({MODULE_URL}static/images/qr_icon.png); background-size:contain;}
+@-webkit-keyframes rotate{from { -webkit-transform:rotate(0deg)} to { -webkit-transform:rotate(360deg)}}
+@-moz-keyframes rotate{from { -moz-transform:rotate(0deg)} to { -moz-transform:rotate(360deg)}}
+@keyframes rotate{from { transform:rotate(0deg)} to { transform:rotate(360deg)}}
+.abc{padding-left:5px;padding-right:5px;}
+.abcd{padding-left:5px;padding-right:5px;}
+.caption{text-align:center;}
+.clearfix{text-align:center;}
+</style>
+
+<ul class="nav nav-tabs">
+	{loop $classna $i=>$na}
+	<li{if $i==$cid} class="active"{/if}><a href="{php echo $this->createWebUrl('haibao',array('cid'=>$i))}"" title="" >{$na}专辑</a></li>		
+	{/loop}
+	<li class="active pull-right"><a href="{php echo $this->createWebUrl('haibao_daolist')}">导入海报列表</a></li>
+</ul>
+
+
+<style>
+.label{cursor:pointer;}
+</style>
+<div class="main">
+  <div class="panel panel-default">
+	<div class="panel-body abc">
+{loop $list $row}
+{php $appurl = $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&pag='.$row['id'].'&do=index&m=zmcn_haibao';}
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 abcd">
+            <div class="thumbnail app">
+                <a href="#" class="aa">
+                    <img src="{MODULE_URL}template/mobile/poster/images/{$row['pic']}" class="icon" alt="APP图标">
+                    <div class="qr" data-id="{$row['id']}" data-url="{$appurl}"></div>
+                </a>
+                <div class="caption">
+                    <div class="clearfix text-muted mt10">
+                        <span class="pull-left">{$classna[$row['class']]}：{$row['title']}</span>
+                    </div>
+                    <div class="clearfix text-muted mt10">
+                        <span class="pull-left"><span class="label label-success">浏览:{$row['com']}</span>  <span class="label label-info">生成:{$row['sccom']}</span></span>
+                    </div>
+                    <div class="clearfix text-muted mt10">
+                        <span class="pull-left">{if $row['zt']}<span class="label label-success" onclick="QIYUE.bufa(this, {$row['id']});">上线</span>{else}<span class="label label-default"  onclick="QIYUE.bufa(this, {$row['id']});">下线</span>{/if}  {if $row['istop']}<span class="label label-info" onclick="QIYUE.tuij(this, {$row['id']});">推荐</span>{else}<span class="label label-success"  onclick="QIYUE.tuij(this, {$row['id']});">正常</span>{/if}  <span class="label label-danger" onclick="QIYUE.suax(this, {$row['id']});">刷新</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+{/loop}
+<div class="col-xs-12 col-md-12 abcd">
+{$pager}
+</div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+ 	require(['bootstrap'],function($){
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
+<script type="text/javascript">
+    var QIYUE = {
+        jsonUrl: "{php echo $this->createWebUrl('hbgl')}",
+        bufa: function(_this, id){
+			$(_this).html('正…');
+            $.post(this.jsonUrl, {"foo":"bufa","id":id}, function(msg){
+                var _obj = JSON.parse(msg);
+                if(_obj.state==1){
+					$(_this).html('上线');
+					$(_this).removeClass().addClass("label label-success");
+                }else{
+					$(_this).html('下线');
+					$(_this).removeClass().addClass("label label-default");
+				}
+
+            });
+        },
+        tuij: function(_this, id){
+			$(_this).html('正…');
+            $.post(this.jsonUrl, {"foo":"tuij","id":id}, function(msg){
+                var _obj = JSON.parse(msg);
+                if(_obj.state==1){
+					$(_this).html('推荐');
+					$(_this).removeClass().addClass("label label-info");
+                }else{
+					$(_this).html('正常');
+					$(_this).removeClass().addClass("label label-success");
+				}
+            });
+        },
+        suax: function(_this, id){$(_this).html('正…');$.post(this.jsonUrl, {"foo":"suax","id":id}, function(msg){$(_this).html('刷新');});}
+    }
+</script> 
+<script>
+    require(['jquery', '{MODULE_URL}static/js/jquery.qrcode.min.js'],function($, qr){
+        $('.app .qr').each(function(index, element) {
+            $(element).qrcode({
+                foreground: "#29323c",
+				render: "canvas",
+				correctLevel:0,  
+                text : $(element).data('url'),
+                width : 110,
+                height : 110
+            });    
+        });
+        $('.aa').hover(function(){
+           $(this).parents('.app').find('.qr').addClass('z-show');
+        },function(){
+           $(this).parents('.app').find('.qr').removeClass('z-show');
+        });
+    });
+</script>
+{template 'common/footer'}

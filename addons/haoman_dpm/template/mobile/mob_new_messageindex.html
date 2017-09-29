@@ -1,0 +1,1140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>{$fashb['big_mobtitle']}大屏幕</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/jquery-1.11.1.min.js"></script>
+
+    <script  type="text/javascript" src="../addons/haoman_dpm/imgs/js/wmPhone.js?r=8"></script>
+    <link rel="stylesheet" type="text/css" href="../addons/haoman_dpm/imgs/css/wmPhone.css?r=7"/>
+    <script src="../addons/haoman_dpm/new_messages/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../addons/haoman_dpm/imgs/js/mzh.funlink.min.js"></script>
+    <script type="text/javascript" src="../addons/haoman_dpm/imgs/js/exif.js"></script>
+    <script type="text/javascript" src="../addons/haoman_dpm/imgs/js/uploadImage.js"></script>
+    <script src="../addons/haoman_dpm/new_messages/fastclick.min.js"></script>
+    <script src="../addons/haoman_dpm/new_messages/fish_widget.js"></script>
+    <script>
+        var go_Getmsg = "{php echo $this->createMobileUrl("Getmsg", array('rid' => $rid,'uid'=>$fans['from_user'],'op'=>'new'))}";
+        var go_sendmsg = "{php echo $this->createMobileUrl("sendmsg", array('rid' => $rid,'uid'=>$fans['from_user']))}";
+        var go_UploadImage="{php echo $this->createMobileUrl('UploadImage',array('rid' => $rid));}";
+        var load_history_msg_url="{php echo $this->createMobileUrl("GetHistoryMsg", array('rid' => $rid,'uid'=>$fans['from_user']))}";
+        var uploadImg="{php echo $this->createMobileUrl("uploadimg", array('rid' => $rid))}";
+        var go_makefriends="{php echo $this->createMobileUrl("m_friends", array('rid' => $rid,'from_user'=>$fans['from_user']))}";
+        var go_Confirm_bp="{php echo $this->createMobileUrl('Confirm_bp',array('token'=>'onBridge','id'=>$rid,'from_user'=>$page_from_user))}";
+
+        var is_opened=0;
+        var isAdmin=0;
+        var isback=0;
+        var ismbp=0;
+        var hbtype=0;//红包类型，0可以提现，1不可以提现。
+        var rootimg = "{$_W['attachurl']}";
+        var keyword ={$keyword};
+        var bp_listword ={$bp_listword};
+        //敏感词
+        var keyWord = {
+            systemWord:keyword,
+
+            check:function(val){
+                if($.trim(val).length==0)
+                    return true;
+                if(this.systemWord==null||this.systemWord=='')
+                    return true;
+                for(var x in this.systemWord){
+                    var arr = this.systemWord[x].split(' ');
+                    var newArr = [];
+                    for(var y=0;y<arr.length;y++){
+                        var e = $.trim(arr[y]);
+                        if(e.length>0)
+                            newArr.push(e);
+                    }
+                    //console.log(newArr);
+                    var bool = false;
+                    for(var i=0;i<newArr.length;i++){
+                        var e = $.trim(newArr[i]);
+
+                        if(val.indexOf(e)==-1){
+                            bool = true;
+                        }
+
+                    }
+                    if(!bool){
+                        //ajax_word(x);
+                        return false;
+                    }
+
+                }
+                return true;
+            },
+            list:bp_listword,
+            replace:function(val){
+
+                if(this.list==null||this.list=='')
+                    return val;
+
+                for(var x in this.list){
+                    var arrs = this.list[x].split(' ');
+                    var newArr = [];
+                    for(var yy=0;yy<arrs.length;yy++){
+                        var e = $.trim(arrs[yy]);
+                        if(e.length>0)
+                            newArr.push(e);
+                    }
+                    for(var i=0;i<newArr.length;i++){
+                        var e = $.trim(newArr[i]);
+
+                        //console.log(e);
+                        if(val.indexOf(e)!=-1){
+                            var len = e.length;
+                            var res = '';
+                            for(var i=0;i<len;i++)
+                                res += '*';
+                            var reg = new RegExp(e,"g");
+                            val = val.replace(reg,res);
+                        }
+
+                    }
+
+                }
+                return val;
+            }
+        }
+
+    </script>
+    <link href="../addons/haoman_dpm/new_messages/chats.css?v=2134" rel="stylesheet">
+    <link rel="stylesheet" href="../addons/haoman_dpm/new_messages/fish_ui.css?v=233">
+    <style>
+        .talk_panel {
+            background-color: #f9f9f9;
+            background-image: url("../addons/haoman_dpm/new_messages/chats_bg.png");
+            /*对话内容*/
+        }
+    </style>
+</head>
+<body ontouchstart>
+
+<div class="talk_panel wall_chat talk_main" id="wall_window">
+    <p class="top_loadmore">
+        <span class="iconfont icon-jiazai"></span>
+        加载更多...
+    </p>
+    <div class="msg_list">
+        <div class="msg_list_ctx">
+        </div>
+        <div class="msg_list_bottom"></div>
+    </div>
+</div>
+<div class="msg_input" {if $fashb['is_messages']==1}style="display: none"{/if}>
+    <div class="msg_input_main">
+        <span class="bottom_btn iconfont icon-tianjia1 menu_btn"></span>
+        <span class="bottom_btn iconfont icon-tubiaozhizuomoban1 bp_btn"></span>
+        <span class="bottom_btn iconfont icon-biaoqing2 smile_btn"></span>
+        <div class="input_line">
+            <input class="msg_input_box" placeholder="信息上墙" id="input_text"/>
+            <span class="iconfont icon-shangchuan submit_btn" id="send_btn"></span>
+        </div>
+    </div>
+    <div class="msg_hr"></div>
+    <div class="msg_input_menu">
+        <ul>
+            {if $bp['is_img']==0||$bp['is_img']==2}
+            <li>
+                <span class="icon iconfont icon-photo photo" ></span><p>相片</p>
+                <!--<input id="upload" class="photo_file" type="file" name="upload" accept="image/*">-->
+                <input id="uploads" class="photo_file" type="file" name="upload" accept="image/*"  onchange="imageUpLoad(this)">
+            </li>
+            {/if}
+            <li>
+                <a href="{php echo $this->createMobileUrl("m_friends", array('rid' => $rid,'from_user'=>$fans['from_user']))}">
+                    <span class="icon iconfont icon-liaotian" ></span><p>交友</p>
+                </a>
+            </li>
+            {if $punishment['is_punishment']==1}
+            <a href="{php echo $this->createMobileUrl('mob_turnplate', array('id' => $rid))}">
+                <li><span class="icon iconfont icon-jiazai" ></span><p>惩罚转盘</p></li>
+            </a>
+            {/if}
+
+            <!--<li>-->
+                <!--<span class="icon iconfont icon-huiyizhongpingmugongxiang  wall_menu_bp "></span><p>商城</p>-->
+            <!--</li>-->
+            {if $shop['shop_status']==1}
+
+            <a href="{php echo $this->createMobileUrl('mob_bjlist', array('id' => $rid))}">
+                <li><span class="icon iconfont icon-huiyizhongpingmugongxiang" ></span><p>商城</p></li>
+            </a>
+            {/if}
+            {if $reply['isqhb']!=1}
+            <li>
+                <a href="{php echo $this->createMobileUrl('qhbIndex', array('id' => $rid))}">
+                    <span class="icon iconfont icon-hongbao" ></span><p>抢红包</p>
+                </a>
+            </li>
+            {/if}
+                <!--<li class="menu_del"><span class="icon iconfont icon-shiliangzhinengduixiang4" ></span><p>撤回消息</p></li>-->
+            {if $yyy['isyyy']==0}
+            <li>
+                <a href="{php echo $this->createMobileUrl('yyyIndex', array('id' => $rid))}">
+                    <span class="icon iconfont icon-yaoyiyao" ></span><p>摇一摇</p>
+                </a>
+            </li>
+            {/if}
+            <!--<li>-->
+                <!--<a href="/game/Index/hitplane?h=gbgbhzomqi">-->
+                    <!--<span class="icon iconfont icon-iconfontticket2" ></span><p>打飞机</p>-->
+                <!--</a>-->
+            <!--</li>-->
+            {if $reply['istoupiao']==0||$vote['vote_status']==1}
+            <li>
+                <a href="{php echo $this->createMobileUrl('go_toupiao', array('id' => $rid))}">
+                    <span class="icon iconfont icon-toupiao" ></span><p>投票</p>
+                </a>
+            </li>
+            {/if}
+            <li>
+                <a href="{php echo $this->createMobileUrl('balance', array('rid' => $rid,'id'=>$fans['id']))}">
+                    <span class="icon iconfont icon-liwu" ></span><p>提现</p>
+                </a>
+            </li>
+            <!--<li><span class="icon iconfont icon-zhongxin" ></span><p>同步微信头像</p></li>-->
+    </ul>
+</div>
+    <div class="msg_input_face">
+    <ul class="emoji-list" id="emoji-gallery">
+        <li><a class="e1" data-shortname=":grinning:"><img src="../addons/haoman_dpm/new_messages/1f600.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":frowning2:"><img src="../addons/haoman_dpm/new_messages/2639.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":joy:"><img src="../addons/haoman_dpm/new_messages/1f602.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":sunglasses:"><img src="../addons/haoman_dpm/new_messages/1f60e.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":heart_eyes:"><img src="../addons/haoman_dpm/new_messages/1f60d.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":kissing_heart:"><img src="../addons/haoman_dpm/new_messages/1f618.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":smirk:"><img src="../addons/haoman_dpm/new_messages/1f60f.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":money_mouth:"><img src="../addons/haoman_dpm/new_messages/1f911.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":head_bandage:"><img src="../addons/haoman_dpm/new_messages/1f915.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":see_no_evil:"><img src="../addons/haoman_dpm/new_messages/1f648.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":smiling_imp:"><img src="../addons/haoman_dpm/new_messages/1f608.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":japanese_ogre:"><img src="../addons/haoman_dpm/new_messages/1f479.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":poop:"><img src="../addons/haoman_dpm/new_messages/1f4a9.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":santa:"><img src="../addons/haoman_dpm/new_messages/1f385.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":couplekiss:"><img src="../addons/haoman_dpm/new_messages/1f48f.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":muscle:"><img src="../addons/haoman_dpm/new_messages/1f4aa.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":point_left:"><img src="../addons/haoman_dpm/new_messages/1f448.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":middle_finger:"><img src="../addons/haoman_dpm/new_messages/1f595.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":v:"><img src="../addons/haoman_dpm/new_messages/270c.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":ok_hand:"><img src="../addons/haoman_dpm/new_messages/1f44c.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":thumbsup:"><img src="../addons/haoman_dpm/new_messages/1f44d.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":clap:"><img src="../addons/haoman_dpm/new_messages/1f44f.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":kiss:"><img src="../addons/haoman_dpm/new_messages/1f48b.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":zzz:"><img src="../addons/haoman_dpm/new_messages/1f4a4.svg" style="font-size: 0.625em;"></a></li>
+        <!--<li><a class="e1" data-shortname=":bikini:"><img src="1f459.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":handbag:"><img src="1f45c.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":birthday:"><img src="1f382.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":crown:"><img src="1f451.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":rose:"><img src="1f339.svg" style="font-size: 0.625em;"></a></li>
+        <li><a class="e1" data-shortname=":cucumber:"><img src="1f952.svg" style="font-size: 0.625em;"></a></li>-->
+        </ul>
+    </div>
+</div>
+<form id="bp_form">
+    <div id="popup_bp" class="fish_popup">
+        <div class="bp_tc">
+
+            <ul>
+                {loop $bpmoney $index $row}
+              <li value="13014" data-time="{$row['bp_time']}" class="bp_item bp_item_img {if $index==0}selected{/if}" img_count="{if $row['img_count']}{$row['img_count']}{else}1{/if}" price="{$row['bp_money']}">
+                                <img src="{if $row['bp_images']}{php echo tomedia($row['bp_images'])}{else}../addons/haoman_dpm/common/s1.png{/if}" alt="" />
+                                <span class="time">{$row['bp_time']}秒</span>
+                                 <span class="price">￥{$row['bp_money']}</span>
+              </li>
+                {/loop}
+                                <!--<li value="13013" data-time="30" class="bp_item bp_item_img" img_count="1" price="40.00">-->
+                                <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bp_icon/s3.png" alt="" />-->
+                                <!--<span class="time">30秒</span>-->
+                <!--<span class="price">￥40.00</span>-->
+                <!--</li>-->
+                                <!--<li value="13012" data-time="20" class="bp_item bp_item_img" img_count="1" price="30.00">-->
+                                <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bp_icon/s2.png" alt="" />-->
+                                <!--<span class="time">20秒</span>-->
+                <!--<span class="price">￥30.00</span>-->
+                <!--</li>-->
+                                <!--<li value="13011" data-time="10" class="bp_item bp_item_img" img_count="1" price="20.00">-->
+                                <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bp_icon/s1.png" alt="" />-->
+                                <!--<span class="time">10秒</span>-->
+                <!--<span class="price">￥20.00</span>-->
+                <!--</li>-->
+                                <li style="width: 8vw"></li>
+            </ul>
+            <div class="num_select">
+                <label for="bp_times_select">连续霸屏</label>
+                <select id="bp_times_select" style="opacity: 0;height: 21vh;width: 12vw;position: absolute;right: 2px;top: 0;">
+                    <option value="1" selected>一次霸屏</option>
+                    <option value="2">二连霸屏</option>
+                    <option value="3">三连霸屏</option>
+                    <option value="5">五连霸屏</option>
+                    <option value="8">八连霸屏</option>
+                    <option value="10">豪气十连霸！</option>
+                </select>
+            </div>
+        </div>
+        <p>
+            <textarea maxlength="30"  placeholder="好想说点什么哦..." rows="3" id="bp_form_ctx"></textarea>
+        </p>
+        <div class="bp_more_pice">
+            <ul class="weui-uploader__files">
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_img">
+                    <span class="img-guanbi"></span>
+                </li>
+                <li class="weui-uploader__file file_video">
+                    <span class="video-guanbi"></span>
+                </li>
+                <div class="weui-uploader__input-box up_images" style="background-image: url('../addons/haoman_dpm/new_messages/bp_upload_img.png');background-size: 100% 100%;border: 1px solid #ccc; display: inline-block;margin-top: 0.6rem;">
+                    <input id="bp_file" class="weui-uploader__input" type="file"  accept="image/*" onchange="imageUpLoad(this,3)">
+                    <input id="bp_type" type="hidden" value="1" >
+                    <input id="video_url" type="hidden" value="" >
+                </div>
+                 <div class="weui-uploader__input-box up_video" style="background-image: url('../addons/haoman_dpm/new_messages/bp_upload_video.png');background-size: 100% 100%;border:1px solid #ccc; display: inline-block;margin-top: 0.6rem;">
+                    <input id="bp_video" class="weui-uploader__input" type="file" accept="video/*">
+                </div>
+                            </ul>
+        </div>
+                <div class="bp_theme_list" id="bp_theme_list">
+            <span class="bp_theme_list_title"></span>
+            <div class="selected_box">
+                <ul class="bp_theme_list_ul">
+
+                    {loop $bptheme $row}
+                    <li data-id="{$row['id']}" id="bp-theme-{$row['id']}">
+                        <img src="{if $row['thumb']}{php echo tomedia($row['thumb'])}{else}../addons/haoman_dpm/common/def.png{/if}"/>
+                        <p class="node_text">{$row['name']}</p>
+                    </li>
+                    {/loop}
+
+                                        <!--<li data-id="2925" id="bp-theme-2925">-->
+                        <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/theme/1314/1314_logo.png"/>-->
+                        <!--<p class="node_text">1314霸屏</p>-->
+                    <!--</li>-->
+                                        <!--<li data-id="5" id="bp-theme-5">-->
+                        <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/theme/birthday/birthday_logo.png"/>-->
+                        <!--<p class="node_text">生日霸屏</p>-->
+                    <!--</li>-->
+                                        <!--<li data-id="1" id="bp-theme-1">-->
+                        <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/theme/wzry/theme_logo@small.png"/>-->
+                        <!--<p class="node_text">王者霸屏</p>-->
+                    <!--</li>-->
+                                        <!--<li data-id="4" id="bp-theme-4">-->
+                        <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/theme/kitty/kitty_logo.png"/>-->
+                        <!--<p class="node_text">女神霸屏</p>-->
+                    <!--</li>-->
+                                        <li data-id="" id="bp-theme-def">
+                        <img src="http://img.91qudong.com/static/theme/chats/def.png">
+                        <p class="node_text">默认主题</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+                <div class="fish_popup_footer">
+            <div class="cancel_button">取消</div>
+            <div class="action_button">确认支付
+                <span class="all_price"></span>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    var theme_list =  {$bptheme2};
+//    var theme_list = {
+//        "2":{
+//            "id":2,
+//            "name":"520\u9738\u5c4f",
+//            "extend_from":0,
+//            "price":0,
+//            "thumb":"http:\/\/91youyu.oss-cn-shenzhen.aliyuncs.com\/static\/theme\/520\/520_logo.png",
+//            "sort":1,
+//            "uniacid":0,
+//            "resource":null,
+//            "bp_time":520,
+//            "rank_position":3,
+//            "enabled":1,
+//            "selected":1,
+//            "condition_text":"\u5355\u6b21\u9738\u5c4f\u65f6\u95f4\u6ee1520\u79d2\u6216\u8005\u58d5\u699c\u6392\u884c\u524d3\u540d"},
+//        "1":{
+//            "id":1,
+//            "name":"520\u9738\u5c4f",
+//            "extend_from":0,
+//            "price":0,
+//            "thumb":"http:\/\/91youyu.oss-cn-shenzhen.aliyuncs.com\/static\/theme\/520\/520_logo.png",
+//            "sort":1,
+//            "uniacid":0,
+//            "resource":null,
+//            "bp_time":520,
+//            "rank_position":3,
+//            "enabled":1,
+//            "selected":0,
+//            "condition_text":"\u5355\u6b21\u9738\u5c4f\u65f6\u95f4\u6ee1520\u79d2\u6216\u8005\u58d5\u699c\u6392\u884c\u524d3\u540d"},
+//
+//    };
+    $(function(){
+        //霸屏
+        $('.bp_btn,.wall_menu_bp').click(function(){
+            if(isOpened == 0){
+                $.tip('大屏幕尚未开启~<br>如检测有误请刷新您的手机页面或更换网络环境重试');
+            }else{
+                $("#popup_bp").popup();
+                $('.msg_input').removeClass('showing_face').removeClass('showing_menu');
+            }
+        });
+        var img_count = 1;//$(".bp_item:selected").attr("img_count");
+        var select_theme = function () {
+            var bp_time = $('.bp_item.selected').attr('data-time');
+            $(".bp_theme_list_ul li").removeClass("selected");
+            $('#bp-theme-def').addClass('selected');
+            if(theme_list) {
+                $('.bp_theme_list_ul li').each(function(){
+                    var theme_id = $(this).attr('data-id');
+                    var theme = theme_list[theme_id];
+                    if(theme != undefined){
+                        //计算主题霸屏费用
+                        var theme_fee = theme.price;
+
+                        if (parseInt(theme.bp_time) <= parseInt(bp_time)) {
+                            theme_fee = 0;
+                        }
+
+
+                        if (theme.rank_position) {
+                            if (theme.price == 0) {
+                                theme_fee = 0;
+                            }
+                        }
+
+                        if (theme_fee == 0 && theme.selected) {
+                            $(".bp_theme_list_ul li").removeClass("selected");
+                            $('#bp-theme-' + theme_id).addClass('selected');
+                            return false
+                        }
+                    }
+                });
+            }
+        }
+        select_theme();
+        bp_amount();
+        //主题选项
+        $(".bp_theme_list_ul li").click(function(){
+            if($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                $('#bp-theme-def').addClass('selected');
+            } else {
+                $(".bp_theme_list_ul li").removeClass("selected");
+                $(this).addClass("selected");
+            }
+            bp_amount(true);
+        });
+        //霸屏时间选项
+        $(".bp_item").click(function(){
+            $(".bp_item").removeClass("selected");
+            $(this).addClass("selected");
+            img_count = $(this).attr("img_count");
+            select_theme();
+            checkImageCount();
+            bp_amount(false);
+        });
+        //连续霸屏
+        $("#bp_times_select").change(function(){
+            $(".num_select label").text($(this).find("option:selected").text());
+            bp_amount(false);
+        });
+        //图片删除
+        $("#popup_bp .img-guanbi").click(function(){
+            $(this).parent().find('img').remove();
+            $(this).parent().hide();
+            if($(".file_img").find('img').length==0){
+                $(".up_video").show();
+            }
+            checkImageCount();
+        });
+        //视频删除
+        $("#popup_bp .video-guanbi").click(function(){
+            $("#bp_video").val('');
+            $(this).parent().find('img').remove();
+            $(this).parent().hide();
+            $(".up_images").show();
+            $(".up_video").show();
+        });
+        //霸屏取消提交
+        $('#popup_bp .default_button').click(function(){
+            $("#popup_bp").removeClass('weui-popup__container--visible');
+        });
+        //图片、视频类型切换
+        $('.bp_type_switch').click(function(){
+            var type = $('#bp_type').val();
+            if(type=='1'){
+                $(".weui-uploader__files").parent().hide();
+                $(".file_video").parent().parent().show();
+                $('#bp_type').val(2);
+                $('.bp_qiehuan_text').html('图文霸屏')
+            }else{
+                $(".weui-uploader__files").parent().show();
+                $(".file_video").parent().parent().hide();
+                $('#bp_type').val(1);
+                $('.bp_qiehuan_text').html('小电影霸屏')
+            }
+        });
+        //霸屏上传图片
+        var bp_image_src = null;
+//        $("#bp_form #bp_file").onchange(function () {
+//            imageUpLoad(this,3)
+//        })
+//        $("#bp_form #bp_file").upload_image(function (img_url,type) {
+//            $("#bp_file").val('');
+//            $.hideLoading();
+//            bp_image_src = img_url;
+//            //$('#bp_image').attr('src',img_url);
+//            $('#bp_type').val(1);
+//            $(".up_video").hide();
+//            $("#popup_bp .file_img:hidden").first().append("<img src='"+img_url+"'/>").show().css("display","inline-block");
+//            checkImageCount();
+//            $(".weui-uploader__files").scrollLeft($(".weui-uploader__files").width());
+//        });
+        //视频上传
+        $("#bp_form #bp_video").upload_video(function (img_url,type) {
+            $("#bp_video").val('');
+            $.hideLoading();
+            bp_image_src = '/public/app/chats/image/video_default.png';//img_url;
+            $("#popup_bp .file_video").append("<img src='"+bp_image_src+"'/>").show().css("display","inline-block");
+            $('#bp_type').val(2);
+            $("#video_url").val(img_url);
+            $(".up_images").hide();
+            $("#bp_video").parent().hide();
+        });
+        //霸屏提交
+        $('#bp_form .action_button').click(function(){
+            var item = $(".bp_item.selected").attr('value');
+            var type = $('#bp_type').val();
+//            console.log(item);
+            var img_srcs = [];
+            var video_src = '';
+            if(type=='2'){
+                video_src = $("#video_url").val();
+            }else{
+                $("#popup_bp .file_img:visible").each(function(){
+                    var img_src = $(this).find('img').attr('src');
+                    if(img_src!=null&& img_src!=''){
+                        img_srcs.push(img_src);
+                    }
+                });
+            }
+            var theme = $(".bp_theme_list_ul li.selected").attr('data-id');
+            var bp_times = $('#bp_times_select').val();
+            if( bp_times == 0 || bp_times == null ){
+                bp_times = 1;
+            }
+            var content = $("#bp_form_ctx").val();
+            if("" == content&& "" == content){
+                $.tip("请填写霸屏内容或图片");
+                return;
+            }else {
+                if(!keyWord.check(content)){
+                    $(".bp_ctx textarea").val('');
+                    return $.tip('请勿发布广告等不适内容');
+                }
+
+                //敏感词
+                content = keyWord.replace(content);
+            }
+            var send_data = {
+                'theme':theme,
+                'item':item,
+                'bp_type':$('#bp_type').val(),
+                'content':content,
+                'image':img_srcs,
+                'times':bp_times,
+                'video':video_src,
+                'effect':$('#bp_pic_effect').is(':checked'),
+                'admin':$('#bp_admin').is(':checked')
+            };
+            if(bpsid != null ){
+                send_data['sid']=bpsid;
+            }
+            MagSender.sendItem(send_data,'bp');
+        });
+    });
+    var bpsid = null;
+    //为Ta霸屏
+    $(document).on("click", ".weitabp", function () {
+        if(isOpened == 0){
+            $.tip('大屏幕尚未开启~<br>如检测有误请刷新您的手机页面或更换网络环境重试');
+        }else{
+            $("#popup_bp").popup();
+            $('.msg_input').removeClass('showing_face').removeClass('showing_menu');
+            bpid = $(this).attr('data-id');
+            bpsid = $(this).attr('data-sid');console.log(bpsid);
+            bp_image_src = $('#msg_box_'+bpid+' .img_box img').attr('_src');
+            $('#bp_type').val(1);
+            $(".up_video").hide();
+            $(".file_video").hide();
+            $(".file_video").find('img').remove();
+            if(!bp_image_src){
+                bp_image_text = $('#msg_box_'+bpid+' .img_box_m p').text();
+                $('#bp_form_ctx').val(bp_image_text);
+                img_count = 0;
+                $("#popup_bp .bp_tc").find('.bp_item').each(function(i){
+                    icount = $(this).attr("img_count");
+                    if(img_count<icount){img_count  = icount;$(this).click();}
+                });
+                bp_image_src = $('#msg_box_'+bpid+' .img_box_m img');
+                bp_image_src.each(function(index,data) {
+                    if(index+1<=img_count){
+                        $("#popup_bp .file_img").slice(index,index+1).find('img').remove();
+                        $("#popup_bp .file_img").slice(index,index+1).append("<img src='" + $(data).attr("_src") + "'/>").show().css("display","inline-block");
+                    }
+                })
+            }else{
+                bp_image_text = $('#msg_box_'+bpid+' .img_box p').text();
+                $('#bp_form_ctx').val(bp_image_text);
+                $("#popup_bp .file_img").find('img').remove();
+                $("#popup_bp .file_img").first().append("<img src='"+bp_image_src+"'/>").show().css("display","inline-block");
+            }
+            checkImageCount();
+        }
+    });
+    function bp_amount(themeshowtext){
+        var times = $("#bp_times_select").val();
+        var price = $(".bp_item.selected").attr('price');
+        var bp_time = $('.bp_item.selected').attr('data-time');
+        var theme_id = $('.bp_theme_list_ul li.selected').attr('data-id');
+        var amount = times * price;
+        var theme = theme_list[theme_id];
+
+        if(theme != undefined) {
+            //计算主题霸屏费用
+            var theme_fee = theme.price;
+            if (parseInt(theme.bp_time) <= parseInt(bp_time)) {
+                theme_fee = 0;
+            }
+
+            if (theme_fee == 0) {
+                $('#bp-theme-' + theme_id).addClass('selected');
+            }
+            if(theme_fee) {
+                if(themeshowtext){
+                    $.alert(theme.condition_text + '可使用'+theme.name+'主题');
+                }
+                $('.bp_theme_list_ul li.selected').removeClass('selected');
+                $('#bp-theme-def').addClass('selected');
+            }
+        }
+
+        $(".all_price").text( amount +"元");
+    }
+
+    function checkImageCount(){
+        var img_count = $(".bp_item.selected").attr("img_count");
+        img_count = parseInt(img_count);
+        if($('#bp_type').val()==2) return;
+        $("#popup_bp .file_img").each(function(i,n){
+            if( i < img_count && $(this).find('img').size() == 1){
+                $(this).show();
+            }else{
+                $(this).hide();
+            }
+        });
+
+        if( $("#popup_bp .file_img:visible").size() >= img_count ){
+            $("#bp_file").parent().hide();
+        }else{
+            $("#bp_file").parent().show();
+        }
+    }
+</script>
+
+
+<form id="hb_form">
+    <div id="popup_rp" class="fish_popup">
+        <p><span class="redpack_total"></span><span class="redpack_text">总金额：</span></p>
+        <p class="redpack_p"><input class="weui-input" type="number" maxlength="9" pattern="[0-9]*" placeholder="最低金额6元" id="hb_total"></p>
+        <p><span class="redpack_num"></span><span class="redpack_text">红包数量:</span></p>
+        <p class="redpack_p"><input class="weui-input" type="number" maxlength="4" a pattern="[0-9]*" placeholder="不少于2个红包" id="hb_form_item"></p>
+        <p class="redpack_p"><textarea class="weui-textarea" maxlength="10" id="hb_form_ctx" placeholder="恭喜发财，大吉大利！" rows="2" id="hb_form_ctx"></textarea></p>
+        <p><span class="redpach_pay_text">支付方式：</span>
+            <span class="cell_pay_select selected" value="2"><span class="icon iconfont icon-wxpay"  ></span> 微信支付</span>
+            <span class="cell_pay_select" value="1"><span class="icon iconfont icon-hongbao"  ></span> 红包宝</span>
+        <div class="redpack_balance" style="display: none">红包宝余额：0.97</div>
+        </p>
+        <div class="fish_popup_footer">
+            <div class="cancel_button">取消</div>
+            <div class="action_button">确认支付</div>
+        </div>
+    </div>
+</form>
+<script>
+    $(function(){
+        //红包
+        $('.hb_btn,.wall_menu_rp').click(function(){
+            $("#popup_rp").popup();
+            $('.msg_input').removeClass('showing_face').removeClass('showing_menu');
+        });
+        //红包提交
+        $('#popup_rp .action_button').click(function(){
+
+            if(2 > parseInt($("#hb_form_item").val())){
+                $.tip('红包个数不能少于2个');
+                return ;
+            }
+            if(3 > parseInt($("#hb_total").val())){
+                $.tip('红包总金额不能少于3元');
+                return ;
+            }
+            var paytype = $("#popup_rp .cell_pay_select.selected").attr("value");
+            MagSender.sendItem({
+                'num':$("#hb_form_item").val(),
+                'total':$("#hb_total").val(),
+                'content':$("#hb_form_ctx").val(),
+              //  'desk_name':$("#desk_name").val(),
+                'paytype':paytype,
+            },'rp');
+        });
+        //选项
+        $("#popup_rp .cell_pay_select").click(function(){
+            $("#popup_rp .cell_pay_select").removeClass("selected");
+            $(this).addClass("selected");
+            var paytype = $("#popup_rp .cell_pay_select.selected").attr("value");
+            if(paytype==1){
+                $('.redpack_balance').show();
+            }else{
+                $('.redpack_balance').hide();
+            }
+        });
+    });
+
+</script>
+
+<link href="../addons/haoman_dpm/new_messages/hb.css" rel="stylesheet">
+<link href="../addons/haoman_dpm/new_messages/common.mzh.css" rel="stylesheet">
+<div class="mzh_modal_alert" id="redbox" style="display: none;">
+    <div class="mzh_modal_alert_dialog" style="background-color:rgba(0,0,0,0);box-shadow:none;">
+        <span class="am-icon-close iconfont icon-guanbi close" ></span>
+        <div class="hb_panel">
+            <div class="hb_status_panel" id="redcontent">
+            </div>
+        </div>
+        <div class="mzh_modal_alert_body"  id="redluck" style="display: none">
+            <div class="hb_logs">
+                <ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form id="ds_form">
+    <div id="popup_ds" class="fish_popup">
+        <p>
+            <span class="ds_object_icon"></span>选择打赏对象
+        </p>
+        <ul class="guest_list">
+                        <li class="selected" data-id="5994" data-uid="0">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/groups.png" alt="">
+            <span>全体观众</span>
+            </li>
+                        <li  data-id="5995" data-uid="0">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/female_groups.png" alt="">
+            <span>全体女观众</span>
+            </li>
+                        <li  data-id="5996" data-uid="0">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/male_groups.png" alt="">
+            <span>全体男观众</span>
+            </li>
+                        <li  data-id="1" data-uid="0">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/groups.png" alt="">
+            <span>全体观众</span>
+            </li>
+                        <li  data-id="2" data-uid="0">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/female_groups.png" alt="">
+            <span>全体女观众</span>
+            </li>
+                        <li  data-id="3" data-uid="0">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/male_groups.png" alt="">
+            <span>全体男观众</span>
+            </li>
+                        <li  data-id="4" data-uid="0">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com//static/items/image/14941693551681701.png" alt="">
+            <span>DJ</span>
+            </li>
+                        <li  data-id="5" data-uid="0">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com//static/items/image/14941693603202758.png" alt="">
+            <span>歌手</span>
+            </li>
+                        <li  data-id="6" data-uid="0">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com//static/items/image/14941693584799072.png" alt="">
+            <span>全体服务员</span>
+            </li>
+                    </ul>
+        <p>
+            <span class="ds_gift_icon"></span>选择礼物
+        </p>
+        <ul class="gift_list">
+                        <li class="selected" data-id="101" data-ctx="这车野，你开适合">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/car.jpg" alt="">
+            <span>跑车</span>
+            <span class="price">￥88.00</span>
+            </li>
+                        <li  data-id="102" data-ctx="以后就它陪你睡了">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/dog.jpg" alt="">
+            <span>牧羊犬</span>
+            <span class="price">￥78.00</span>
+            </li>
+                        <li  data-id="103" data-ctx="这个怎么用都可以">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/cucumber.jpg" alt="">
+            <span>黄瓜</span>
+            <span class="price">￥28.00</span>
+            </li>
+                        <li  data-id="104" data-ctx="这是为你定制的哦">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/bras.jpg" alt="">
+            <span>情趣内衣</span>
+            <span class="price">￥68.00</span>
+            </li>
+                        <li  data-id="105" data-ctx="愿你“杜”过一个愉快夜晚">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/durex.jpg" alt="">
+            <span>杜蕾斯</span>
+            <span class="price">￥68.00</span>
+            </li>
+                        <li  data-id="106" data-ctx="玫瑰玫瑰我爱你">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/rose.png" alt="">
+            <span>玫瑰花雨</span>
+            <span class="price">￥88.00</span>
+            </li>
+                        <li  data-id="107" data-ctx="我中了你的毒">
+            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/perfume.png" alt="">
+            <span>香水</span>
+            <span class="price">￥88.00</span>
+            </li>
+                    </ul>
+        <textarea  maxlength="30"  placeholder="请输入打赏语..." rows="1" id="ds_form_ctx">这车野，你开适合</textarea>
+                <div class="fish_popup_footer">
+            <div class="cancel_button">取消</div>
+            <div class="action_button">确认支付</div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(function(){
+        //打赏
+        $('.ds_btn,.wall_menu_ds').click(function(){
+            if(isOpened === 0){
+                $.tip('乐上墙大屏幕尚未开启~<br>如检测有误请刷新您的手机页面或更换网络环境重试');
+            }else{
+                $("#popup_ds").popup();
+                $('.msg_input').removeClass('showing_face').removeClass('showing_menu');
+            }
+        });
+        //选择打赏对象
+        $('.guest_list li').click(function(){
+            $('.guest_list li').removeClass('selected');
+            $(this).addClass('selected');
+        });
+        //选择打赏项目
+        $('.gift_list li').click(function(){
+            $('.gift_list li').removeClass('selected');
+            $(this).addClass('selected');
+            $("#ds_form_ctx").val($(this).attr('data-ctx'));
+        });
+        //打赏提交
+        $('#ds_form .action_button').click(function(){
+            MagSender.sendItem({
+                'item':$(".gift_list .selected").attr('data-id'),
+                'object':$(".guest_list .selected").attr('data-id'),
+                'content':$("#ds_form_ctx").val(),
+                'times':1,
+                'admin':$('#ds_admin').is(':checked')
+            },'ds');
+        });
+        //打赏取消提交
+        $('#ds_form .default_button').click(function(){
+            $("#popup_ds").removeClass('weui-popup__container--visible');
+        });
+    })
+</script>
+<div id="popup_other_user" class="fish_popup">
+    <div class="other_user_info">
+        <img id="other_user_avatar"/>
+        <p id="other_user_nickname"></p>
+    </div>
+    <ul class="other_user_menu">
+        <li class="user_menu_el"><span class="icon iconfont icon-aixin"></span><p>向Ta表白</p></li>
+        <li class="user_menu_chat"><span class="icon iconfont icon-liaoyiliao"></span><p>私聊Ta</p></li>
+        <li class="user_menu_ds"><span class="icon iconfont icon-shang"></span><p>打赏给Ta</p></li>
+        <li class="user_menu_sl"><span class="icon iconfont icon-liwu"></span><p>送礼给Ta</p></li>
+		<li class="user_menu_delmsg"><span class="icon iconfont icon-shanchu"></span><p>撤回信息</p></li>
+        <li class="user_menu_zhongxin"><span class="icon iconfont icon-zhongxin"></span><p>同步微信头像</p></li>
+        <!--<li class="menu_del"><span class="icon iconfont icon-shiliangzhinengduixiang4" ></span><p>撤回消息</p></li>-->
+    </ul>
+</div>
+<script>
+
+    $(function(){
+        //点击头像对应的信息
+        DsUsers = [];
+        var click_avatar_msgid = 0;
+        //点击头像
+        $(".msg_list").on("click",".msg_box .avatar",function(){
+            $("#popup_other_user").popup();
+            click_avatar_msgid = $(this).attr('msgid');
+            var msg = MsgList[click_avatar_msgid];
+            $("#other_user_avatar").attr('src',msg['avatar']);
+            $("#other_user_nickname").text(msg['nickname']);
+            if(DsUsers.indexOf(msg['uid'])=='-1'){
+                $(".user_menu_ds").hide();
+            }else{
+                $(".user_menu_ds").show();
+            }
+            if(msg['uid']==user_id){
+                $(".user_menu_delmsg").show();
+                $(".user_menu_zhongxin").show();
+                $(".user_menu_sl").hide();
+                $(".user_menu_el").hide();
+                $(".user_menu_chat").hide();
+            }else{
+                $(".user_menu_delmsg").hide();
+                $(".user_menu_zhongxin").hide();
+                $(".user_menu_sl").show();
+                $(".user_menu_el").show();
+                $(".user_menu_chat").show();
+            }
+        });
+
+        $(".user_menu_el").click(function(){
+            var msg = MsgList[click_avatar_msgid];
+            location.href ="/chats/wap.index/el.html?sid="+msg['uid'];
+        });
+
+        $(".user_menu_chat").click(function(){
+            var msg = MsgList[click_avatar_msgid];
+            location.href ="/party/wap.index/talking?sid="+msg['uid'];
+        });
+
+        $(".user_menu_ds").click(function(){
+            var msg = MsgList[click_avatar_msgid];
+            $('#popup_ds .guest_list li').each(function () {
+                if($(this).attr('data-uid')==msg['uid']){
+                    $(this).click();
+                }
+            })
+            $('.fish_modal').click();
+            $('.wall_menu_ds').click();
+        });
+
+        $(".user_menu_guanbi").click(function(){
+            $.fn.popup.close_popup();
+        });
+
+        $(".user_menu_sl").click(function(){
+            var msg = MsgList[click_avatar_msgid];
+            location.href ="/chats/wap.index/sl.html?sid="+msg['uid'];
+        });
+
+        $(".user_menu_delmsg").click(function(){
+            var msg = MsgList[click_avatar_msgid];
+            $.getJSON("/chats/message/delmsg?id="+msg['id'],function(data){
+                if(data.code==1){
+                    $.tip(data.msg);
+                    MsgLoader.deleteMsgbox(msg['id']);
+                    $('.fish_modal').click();
+                }
+            });
+        });
+    })
+</script>
+<div class="show_img_msg_box">
+    <img>
+</div>
+<div class="show_video_msg_box">
+    <video src="" id="perform_video" loop controls></video>
+</div>
+
+<div class="right_index">
+    <div class="hb_bgbox"></div>
+    <div class="hb_bgbox_user" style="background-image:url(http://wx.qlogo.cn/mmopen/Q3auHgzwzM7ujBGHrMtCSiaE4X64qKGP1fpNWWgYC8rR13HibgoIicgOMuOH8SEgdPNxHsd0vvIZeRMAB7qZCRE3A/0)"></div>
+    <ul style="position: relative; float: right; right: 0.4rem;">
+        <li class="wall_menu_rp"></li>
+                <li class="wall_menu_bp"></li>
+                <li class="wall_menu_ds"></li>
+                <li class="wall_menu_el" data-href="/chats/wap.index/el.html?type=2"></li>
+                <li class="wall_menu_sl" data-href="/chats/wap.index/sl.html?type=2"></li>
+            </ul>
+</div>
+<style>
+    @keyframes icon-spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(359deg);
+        }
+    }
+    #open_loading{z-index: 9;position: absolute;width: 100%;height: 100vh;text-align: center;}
+    #open_loading .open_loading_bg{z-index: -1;position: absolute;width: 100vw;height: 100vh;background: #323232;text-align: center;background-image: url('/public/app/images/loading_bg.png');}
+    #open_loading .loading_icon{background-image: url(../addons/haoman_dpm/new_messages/loading_logo2.png);background-repeat: no-repeat;background-position: center;background-size: 20%; }
+    #open_loading .loading_icon .spin{width: 45%;animation: icon-spin 2s infinite linear;}
+    #open_loading .loading_text{margin: auto;font-size: 5vw;font-family: '微软雅黑';color:#C6C6C6;padding: 2vh 6vh;background: #000000c9;display: inline-block;}
+</style>
+
+<script type="text/javascript" src="../addons/haoman_dpm/new_messages/emojione.js"></script>
+<script type="text/javascript" src="../addons/haoman_dpm/new_messages/upload.min.js?v=213"></script>
+<script type="text/javascript" src="../addons/haoman_dpm/new_messages/lrz.bundle.js"></script>
+<script type="text/javascript" src="../addons/haoman_dpm/new_messages/chats.min.js?v=1"></script>
+<script type="text/javascript" src="../addons/haoman_dpm/new_messages/fish_ui.min.js"></script>
+<script>isadmin = false;user_id=1012793;</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    wx.config({"debug":false,"beta":false,"appId":"wx44be8594e19523bc","nonceStr":"lyVyXKefR9","timestamp":1502002558,"url":"http:\/\/wap.91qudong.com\/chats\/wap.index?h=gbgbhzomqi","signature":"ec96c3cdbac407e1b3eebbc096c28834039bb3bb","jsApiList":["onMenuShareAppMessage","onMenuShareTimeline"]});
+    wx.ready(function () {
+        wx.onMenuShareAppMessage({
+            title: '有鱼互动',
+            desc: '19酒吧',
+            link: 'http://wap.91qudong.com/chats/wap.index/Hgbgbhzomqi',
+            imgUrl: 'http://img.91qudong.com/static/items/image/14942229687461883.png'
+        });
+        wx.onMenuShareTimeline({
+            title: '有鱼互动',
+            link: 'http://wap.91qudong.com/chats/wap.index/Hgbgbhzomqi',
+            imgUrl: 'http://img.91qudong.com/static/items/image/14942229687461883.png'
+        });
+    });
+</script>
+<script type="text/javascript">
+    window.onerror=function(msg,url,line){
+        $.ajax({
+            async:false,
+            url: "",
+            type: "GET",
+            dataType: 'jsonp',
+            jsonp: 'jsoncallback',
+            data: {"url":url,"msg":msg,"line":line,"uid":uniacid,'ver':navigator.userAgent},
+            timeout: 5000
+        });
+        return false;
+    };
+    if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
+        //ok
+    }else{
+        $(".wall_menu_ap").hide();
+    }
+</script>
+
+<script>
+    $(function(){
+        FastClick.attach(document.body);
+    });
+</script>
+<script type="text/javascript">
+    var upload = {
+        start:function(){
+            $.loadingModal(!0, "上传中..");
+        },
+        done:function(src,bigSrc,type){
+            if(type==2){
+                $.loadingModal(!1)
+                $('.for_photo').attr("src", src);
+                $("input[name=imgSrc]").val(src), n = src
+            }else if(type==3){
+                $.loadingModal(!1)
+                $("#bp_file").val('');
+                $.hideLoading();
+                bp_image_src = src;
+                //$('#bp_image').attr('src',img_url);
+                $('#bp_type').val(1);
+                $(".up_video").hide();
+                $("#popup_bp .file_img:hidden").first().append("<img src='"+src+"'/>").show().css("display","inline-block");
+                checkImageCount();
+                $(".weui-uploader__files").scrollLeft($(".weui-uploader__files").width());
+            }else {
+
+                $.getJSON(go_sendmsg, {image: src}, function (i) {
+                    $.loadingModal(!1)
+                    $.tip(i.data);
+                    $(".msg_input").removeClass("showing_menu")
+                    $(".msg_list_ctx").css("padding-bottom", "4rem")
+                    MsgLoader.loadmsg(true);
+
+                })
+            }
+        },
+        error:function(errorMsg){
+            $.loadingModal(!1)
+            showInfo(errorMsg||'上传失败!',false);
+        }
+    }
+    var imageUpLoad = function(e,type){
+        upload.start();
+        selectFileImage(e,{
+            width:200,height:200,
+            error:function(errorMsg){upload.error(errorMsg||'请上传宽高大于200px的图片')},
+            callback:function(base64,rotate){
+                ajax_imageUpload(base64,rotate,function(src,bigSrc){
+                    upload.done(src,bigSrc,type);
+                },function(errorMsg){
+                    upload.error();
+                })
+            }
+        })
+    }
+    var ajax_imageUpload = function(base64,rotate,fn1,fn2){
+        base64 = base64.split('base64,');
+        if(base64.length<1)
+            return fn2();
+        base64 = base64[1];
+        var resultMsg = null;
+        $.post(uploadImg,{strImg:base64,angel:rotate},function(result) {
+
+            if(result.isResultTrue){
+                fn1(result.resultMsg.sImgUrl,result.resultMsg.bImgUrl);
+            }else{
+                fn2(result.resultMsg);
+            }
+        });
+    }
+</script>
+</body>
+</html>
+

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+	<title>首页</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0,minimal-ui">
+    <meta name="imagemode" content="force">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link href="../addons/hc_article/style/css/basecss.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="page-index">
+        <div class="header">
+    <div class="thumb-hidden" style="width:0px;height:0px; overflow:hidden;"><img src="../addons/hc_article/style/images/sitelogo.jpg" /></div>
+    <div class="left">
+        <a class="logo" href=""><img src="{$_W['attachurl']}{$rule['index_logo']}"></a>
+        <span>分享创造价值</span>
+    </div>
+</div>
+        
+<style>
+.userinfo .my-name {
+	display: block;
+	overflow: hidden;
+	width: 8.8125em;
+	text-align: left;
+	line-height: 1.2em;
+	height: 1.2em
+}
+</style>
+<div style="background:#43AC43;height:10em;border-top:1px solid #43AC43" class="userinfo ucenter">
+    <div class="userinfo_content user_paypill user_balance">
+        <!-- 增加的 -->
+        <div class="my-info">
+            <span class="my-img" style="background-image: url('{$member['headurl']}')"></span>
+            <span class="my-name">
+			{$viplevel['title']}</span>
+        </div>
+        <!-- 增加的 end -->
+        <p class="user_count">账户余额(元)</p>
+        <p class="user_price">{$fans['credit2']}</p>
+    </div>
+</div>
+<div style="background: #43AC43;height:7em;" class="userinfo ucenter">
+    <div class="userinfo_content user_paypill">
+        <div class="user_paypill_content">
+            <div class="user_paypill_bd">
+                <a href="">
+                    <p style="font-size:1.1em;color:#F4BBBB" class="user_count">个人累计收益(元)-&gt;</p>
+                    <p style="font-size:1.8em;color:#fff;margin-top:.2em" class="user_price">{$commission1}</p>
+                </a>
+            </div>
+            <div class="user_paypill_bd">
+                <a href="">
+                    <p style="font-size:1.1em;color:#F4BBBB" class="user_count">下属累计收益(元)-&gt;</p>
+                    <p style="font-size:1.8em;color:#fff;margin-top:.2em" class="user_price">{$commission2}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{if !empty($rule['notice'])}
+<div class="user_notice">
+    <font color='#ffffff'><marquee scrollamount="4" behavior="right">{$rule['notice']}</marquee></font> 
+</div>
+{/if}
+<div class="nav-wrap nav-index">
+    <div style="visibility: visible;" id="slider_nav" class="swipe">
+        <div class="swipe-wrap">
+            <div>
+                <ul>
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('index', array('op'=>'question'))}">
+                            <div class="widget-icon wbg_1">
+                                <span class="icon icon-newuser"></span>
+                            </div>
+                            <span class="t"><span>新手学堂</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('articleindex')}">
+                            <div class="widget-icon wbg_2">
+                                <span class="icon icon-cash"></span>
+                            </div>
+                            <span class="t"><span>开始阅读</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('index', array('op'=>'myqrcode'))}">
+                            <div class="widget-icon  wbg_3">
+                                <span class="icon icon-invited"></span>
+                            </div>
+                            <span class="t"><span>邀请好友</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('withdraw', array('op'=>'withdraw'))}">
+                            <div class="widget-icon  wbg_4">
+                                <span class="icon icon-payme"></span>
+                            </div>
+                            <span class="t"><span>我要提现</span></span>
+                        </a>
+                    </li>
+                        
+                </ul>
+                <ul>
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('withdraw', array('op'=>'input'))}">
+                            <div class="widget-icon wbg_5">
+                                <span class="icon icon-paymeinfo"></span>
+                            </div>
+                            <span class="t"><span>我要充值</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('detail', array('op'=>'release'))}">
+                            <div class="widget-icon wbg_6">
+                                <span class="icon icon-contact"></span>
+                            </div>
+                            <span class="t"><span>文章发布</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('team')}">
+                            <div class="widget-icon wbg_7">
+                                <span class="icon icon-follow"></span>
+                            </div>
+                            <span class="t"><span>我的下属</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('rule', array('op'=>'more'))}">
+                            <div class="widget-icon wbg_8">
+                                <span class="icon icon-quit"></span>
+                            </div>
+                            <span class="t"><span>更多合作</span></span>
+                        </a>
+                    </li>   
+                </ul>  
+            </div>
+        </div>
+    </div>
+</div><br/><br/><br/>
+<link rel="stylesheet" type="text/css" href="../addons/hc_article/style/css/qscui.css">
+<footer class="qsc-bar bar-fixed">
+	<a href="{php echo $this->createMobileUrl('index')}" class="bar-item active">
+		<i class="icon bar-home">
+		</i>
+		首页
+	</a>
+	<a href="{php echo $this->createMobileUrl('detail', array('op'=>'release'))}" class="bar-item ">
+		<i class="icon bar-publish">
+		</i>
+		发起
+	</a>
+	<a href="{php echo $this->createMobileUrl('home', array('op'=>'my' , 'opp'=>'myarticle'))}" class="bar-item ">
+		<i class="icon bar-message">
+		</i>
+		文章
+	</a>
+	<a href="{php echo $this->createMobileUrl('home')}" class="bar-item ">
+		<i class="icon bar-user">
+		</i>
+		我
+	</a>
+</footer>
+</body>
+</html>

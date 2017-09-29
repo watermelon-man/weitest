@@ -1,0 +1,18 @@
+{template 'header'}
+<body class="select">
+<img class="bg" src="{php echo $this->module['config']['bgcover'] ? $_W['attachurl'].$this->module['config']['bgcover'] : '/addons/deyi_business/images/bg.jpg'}"/>
+<div class="alink">
+    <a href="{php echo $this->createMobileUrl('list', array('dist' => urlencode('全部'), 'rec' => 1))}"><i>这十家店非去不可</i></a>
+</div>
+<div class="area">
+    <h3></h3>
+    <h4>按区域查找店铺</h4>
+    <div>
+        {if !empty($list)}
+        {loop $list $row}
+        <a href="{php echo $this->createMobileUrl('list', array('dist' => urlencode($row['dist'])))}">{$row['dist']}</a>
+        {/loop}
+        {/if}
+    </div>
+</div>
+{template 'foot'}

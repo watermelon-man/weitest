@@ -1,0 +1,45 @@
+{template 'common/header'}
+<body class=" pace-done"><div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
+
+<div class="clearfix">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="javascript:;"><i class="fa fa-edit"></i> 模块配置参数</a></li>
+	</ul>
+	<div class="form-group" style="padding: 10px;">
+			</div>
+	
+	<form action="" method="post" class="form-horizontal form" onsubmit="return formcheck(this)">
+		<div class="panel panel-default">
+			<div class="panel-heading">模块配置参数</div>
+			<div class="panel-body">
+			
+			
+			<form action="" method="post" class="form-horizontal form" id="setting-form">
+									<div class="form-group">
+						<label class="col-md-2 control-label">百度AK </label>
+						<div class="col-md-10">
+															<input type="text" name="baiduAk" value="{$setting['baiduak']}" class="form-control">
+														<span class="help-block"></span>
+						</div>
+					</div>
+								<div class="form-group">
+					<div class="col-md-offset-2 col-md-10">
+						<input name="save" type="submit" value="提交" class="btn btn-primary" />
+						<input name="update" type="submit" value="更新" class="btn btn-primary" />
+					<input type="hidden" name="token" value="{$_W['token']}" />
+					</div>
+				</div>
+				
+				</form>
+				
+			</div>
+		</div>
+	</form>
+	
+	
+</div>
+</body>
+{template 'common/footer'}

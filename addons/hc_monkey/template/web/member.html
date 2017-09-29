@@ -1,0 +1,130 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li class="active"><a>{if $op=='display'}粉丝列表{else}粉丝信息{/if}</a></li>
+</ul>
+{if $op == 'post'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				编辑粉丝
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">头像</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('headimgurl', $member['headimgurl'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">昵称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="nickname" class="form-control" value="{$member['nickname']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">电话</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="mobile" class="form-control" value="{$member['mobile']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">点亮字数</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="word_num" class="form-control" placeholder="" value="{$member['word_num']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">最高分数</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="score" class="form-control" placeholder="请输入整数" value="{$member['score']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">备注</label>
+					<div class="col-sm-9 col-xs-12">
+						<textarea class="form-control" name="remark" placeholder="">{$member['remark']}</textarea>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-12">
+				<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+				<input type="hidden" name="token" value="{$_W['token']}" />
+				<input type="hidden" name="id" value="{$member['id']}" />
+			</div>
+		</div>
+	</form>
+</div>
+{elseif $op == 'display'}
+<div class="main">
+	<div class="panel panel-info">
+		<div class="panel-heading">查找</div>
+		<div class="panel-body">
+			<form action="" method="post" class="form-horizontal" role="form">
+				<input type="hidden" name="c" value="site">
+				<input type="hidden" name="a" value="entry">
+				<input type="hidden" name="m" value="hc_monkey">
+				<input type="hidden" name="do" value="member">
+				<input type="hidden" name="op" value="display">
+				<input type="hidden" name="opp" value="sort">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">昵称</label>
+					<div class="col-xs-12 col-sm-8 col-lg-9">
+						<input class="form-control" name="nickname" type="text" value="{$sort['nickname']}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">电话</label>
+					<div class="col-xs-12 col-sm-8 col-lg-9">
+						<input class="form-control" name="mobile" type="text" value="{$sort['mobile']}">
+					</div>
+					<div class="col-xs-12 col-sm-2 col-lg-2">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="member">
+		<div class="panel panel-default">
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>昵称</th>
+							<th>电话</th>
+							<th>点亮字数</th>
+							<th>最高分数</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					{loop $members $row}
+						<tr>
+							<td>
+								{$row['nickname']}
+							</td>
+							<td>
+								{if empty($row['mobile'])}-{else}{$row['mobile']}{/if}
+							</td>
+							<td>
+								{$row['word_num']}
+							</td>
+							<td>
+								{$row['score']}
+							</td>
+							<td>
+								<a href="{php echo $this->createWebUrl('member', array('op' => 'post', 'id' => $row['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+								<a href="{php echo $this->createWebUrl('member', array('op' => 'delete', 'id' => $row['id']))}" onclick="return confirm('确认删除该粉丝吗？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+					{/loop}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{$pager}
+{/if}
+{template 'common/footer'}

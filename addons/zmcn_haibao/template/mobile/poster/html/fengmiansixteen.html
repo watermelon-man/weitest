@@ -1,0 +1,103 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="editfm16">
+        <div class="editfm16_con"> 
+          <div class="editfm16_conbg1" id="editmove">
+               <img src="{MODULE_URL}template/mobile/poster/images/fm16up1.jpg" alt="uppic"/>
+          </div>
+          <div class="editfm16_conbg2"></div>
+          <div class="editfm16_con1">
+                <p contenteditable="true">{$settings['team_title']}团队金牌讲师—{$myset['name']}</p>
+          </div>
+		      <div class="editfm16_con2">
+                <p contenteditable="true">世界500强互联网营销主管  微商成交女神</p>
+                <p contenteditable="true">视频营销及制作资深导师    90后大学生创业典范</p>
+                <p contenteditable="true">{$settings['team_title']}战队视频商学院合伙人  {$settings['team_title']}团队资深金牌讲师</p>
+          </div>
+          <div class="editfm16_con3">
+                <p contenteditable="true">微信：{$myset['wechat']}  QQ：{$myset['qq']}</p>
+          </div>
+          
+          <div class="editfm16_up1">
+              <div class="editfm16_up11">
+                  <div class="editfm16_fileInput">
+                        <input type="file" name="editfm16_upfile" id="editfm16_upfile" style="display:none" class="editfm16_upfile" onchange="document.getElementById('editfm16_upfileResult').innerHTML=this.value;"/>
+                        <input class="editfm16_upFileBtn" id="editfm16_upfileResult" type="button" value="上传图片" onclick="document.getElementById('editfm16_upfile').click();" />
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="shengchengfm16">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!--封面第十六个页面结束 -->
+     <script type="text/javascript">
+        $("#editfm16_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+         $(".editfm16_conbg1 img").attr("src", objUrl);
+          }
+        });
+         //建立一个可存取到该file的url
+      function getObjectURL(file) {
+        var url = null; 
+        if (window.createObjectURL!=undefined) { // basic
+          url = window.createObjectURL(file);
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+          url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+          url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+      }
+      $(".shengchengfm16").click(function(){
+                
+                $(".shengchengfm16").hide();
+                $(".editfm16_up1").hide();
+                $(".editfm16_up2").hide();
+                $(".editfm16_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".editfm16_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base64图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".editfm16").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //封面图第十六个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

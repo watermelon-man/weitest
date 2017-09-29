@@ -1,0 +1,265 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="format-detection" content="telephone=no">
+        <meta name="format-detection" content="address=no">
+        <title>{$settings['qd_title']}</title>
+        <link href="../addons/tech_superarticle/public/css/base.min.css?v=20170117" rel="stylesheet" type="text/css">
+        <link href="../addons/tech_superarticle/public/css/weixin-public-new.min.css?v=20170315" rel="stylesheet" type="text/css">
+        <link href="../addons/tech_superarticle/public/css/header.min.css?v=20170117" rel="stylesheet" type="text/css">
+        <script src="../addons/tech_superarticle/public/js/zepto.min.js"></script>
+        <script src="../addons/tech_superarticle/public/js/weixin_share.min.js?v=20170518"></script>
+        <script src="../addons/tech_superarticle/public/js/common.min.js?v=20170228"></script>
+        <script src="../addons/tech_superarticle/public/js/common1.min.js?v=20170315"></script>
+        <script src="../addons/tech_superarticle/public/js/head.min.js?v=20170531"></script>
+        <!-- <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script> -->
+    </head>
+
+    <body>
+        <div class="my_wechat_area">
+            <div class="slide" id="lunbo">
+                <ul class="n-hd-box">
+                    {loop $qd $item}
+                    <li>
+                        <a href="{$item['url']}" data-uigs="topimg_0"><img src="{$item['img']}" width="100%" />
+                            <p><span>{$item['txt']}</span></p>
+                        </a>
+                    </li>
+                    {/loop}
+                </ul>
+                <div class="dot"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+        <div class="n-tab-box" id="type_tab">
+            <ul id="show_tab">
+                {loop $category1 $k $row}
+                <li id="wap_{$k}" data-index="{$k}" class="cate {if $k==0}cur{/if}" c_id="{$row['id']}" onclick="test(this)">
+                    <a href="javascript:void(0)" data-uigs="tab_{$k}">{$row['name']}</a>
+                </li>
+                {/loop}
+                <li class="more-btn" id="more_anchor">
+                    <a href="javascript:void(0)" data-uigs="tab_more"><i>更多</i><span></span></a>
+                </li>
+            </ul>
+            <ul class="n-tab-ul" id="hide_tab" style="display:none">
+                {loop $category2 $k1 $row1}
+                <li id="wap_{php echo $k1 + 5}" c_id="{$row1['id']}" class="cate" data-index="{php echo $k1 + 5}" onclick="test(this)">
+                    <a href="javascript:void(0)" data-uigs="tab_{php echo $k1 + 5}">{$row1['name']}</a>
+                </li>
+                {/loop}
+            </ul>
+        </div>
+        <div class="pic-list">
+            {if $settings['bd_ad']}{php echo htmlspecialchars_decode($settings['bd_code'])}{/if}
+            {loop $category $k $row}
+            <div id="wap_{$k}_d" data-type="articles" {if $k==0}{else}style="display:none;"{/if}>
+                <ul class="news_lst2" id="wap_{$k}_li">
+                </ul>
+            </div>
+            {/loop}
+            {if $settings['bd_ad']}{php echo htmlspecialchars_decode($settings['bd_code'])}{/if}
+            <a href="javascript:void(0)" rowid="0" tag="1" class="page loadmore" data-type="wap_0" data-uigs="load_more">查看更多</a>
+        </div>
+
+        <div class="footer2">
+            <p>Powered by {$settings['appid_title']}</p>
+        </div>
+        <script src="../addons/tech_superarticle/public/js/uigs.min.js?v=20170331"></script>
+        <script src="../addons/tech_superarticle/public/js/swipeSlide.min.js?v=20170117"></script>
+        <script src="../addons/tech_superarticle/public/js/juicer-min.js?v=20170117"></script>
+        <script src="../addons/tech_superarticle/public/js/tail.min.js?v=20170518"></script>
+        <script src="../addons/tech_superarticle/public/js/index.min.js?v=20170315"></script>
+        <script src="../addons/tech_superarticle/public/js/log.min.js?v=20170321"></script>
+        <script src="../addons/tech_superarticle/public/js/form.min.js?v=20170117"></script>
+        <script src="../addons/tech_superarticle/public/js/suggestion.min.js?v=20170510"></script>
+        <script src="../addons/tech_superarticle/public/js/jquery-1.8.2.min.js" type="text/javascript" charset="utf-8"></script>
+    </body>
+<script type="text/javascript">
+
+var pg=new Array();
+{loop $category $k $row}
+    pg[{$k}]=1;
+{/loop}
+$(document).ready(function(){
+    var c_id = $("#wap_0").attr("c_id");
+    var opt = '';
+    $.ajax({
+            url:"{php echo $this->createMobileUrl('listajax')}",
+            type : 'post',
+            dataType:'json',  
+            data : {
+                c_id:c_id,
+                pg:1
+            },
+            success : function(data){
+                if (data.code == 0) {
+                    $(".loadmore").text("我是有底线的，没数据了");
+                    $(".loadmore").attr("tag","0");
+                } else{
+                    if (data.isend == 1) {
+                        $(".loadmore").text("我是有底线的，没数据了");
+                        $(".loadmore").attr("tag","0");
+                    } else{
+                        $(".loadmore").text("点击加载更多文章");
+                        $(".loadmore").attr("tag","1");
+                        pg[0] = pg[0] + 1;
+                    }
+                    var spe = data.data;
+                    for (var i = 0; i < spe.length; i++) {
+                        opt += '<li><div class="list-txt">'
+                        opt += '<h4><a href="' + spe[i].url + '"><div>' + spe[i].title + spe[i].desc + '</div></a></h4>';
+                        opt += '<p class="time"><span class="s2" >'+ spe[i].author +'</span><a href="javascript:void(0)"><span class="s3" data-except="1" data-lastModified="1498513917">'+ spe[i].createtime +'</span></a></p></div><div class="pic"><a href="';
+                        opt += spe[i].url + '"><img src="' + spe[i].img + '" onload="resizeImage(this)" onerror="errorArticleImage(this)" data-resize="1" /></a></div></li>';
+                    }
+                    $("#wap_0_li").html(opt);  
+                }
+            },
+            error:function(){
+                alert("您的网络有点小问题");
+            }
+    }); 
+    
+   // document.getElementByClassNamre('cate')
+
+});
+
+
+    $(".loadmore").click(function(){
+        if ($(this).attr("tag") == 1) {
+            var rowid = $(this).attr("rowid");
+            var c_id = $("#wap_"+rowid).attr("c_id");
+            var opt1 = $("#wap_"+rowid+"_li").html(); 
+            $.ajax({
+                    url:"{php echo $this->createMobileUrl('listajax')}",
+                    type : 'post',
+                    dataType:'json',  
+                    data : {
+                        c_id:c_id,
+                        pg:pg[rowid]
+                    },
+                    success : function(data){
+                        if (data.code == 0) {
+                            $(".loadmore").text("我是有底线的，没数据了");
+                            $(".loadmore").attr("tag","0");
+                        } else{
+                            if (data.isend == 1) {
+                                $(".loadmore").text("我是有底线的，没数据了");
+                                $(".loadmore").attr("tag","0");
+                            } else{
+                                $(".loadmore").text("点击加载更多文章");
+                                $(".loadmore").attr("tag","1");
+                                pg[rowid] = pg[rowid] + 1;
+                            }
+                            var spe = data.data;
+                            for (var i = 0; i < spe.length; i++) {
+                                opt1 += '<li><div class="list-txt">'
+                                opt1 += '<h4><a href="' + spe[i].url + '"><div>' + spe[i].title + spe[i].desc + '</div></a></h4>';
+                                opt1 += '<p class="time"><span class="s2" >'+ spe[i].author +'</span><a href="javascript:void(0)"><span class="s3" data-except="1" data-lastModified="1498513917">'+ spe[i].createtime +'</span></a></p></div><div class="pic"><a href="';
+                                opt1 += spe[i].url + '"><img src="' + spe[i].img + '" onload="resizeImage(this)" onerror="errorArticleImage(this)" data-resize="1" /></a></div></li>';
+                            }
+                            $("#wap_"+rowid+"_li").html(opt1);    
+                        }
+                    },
+                    error:function(){
+                        alert("您的网络有点小问题");
+                    }
+            }); 
+        } else{
+            alert("已无更多数据");
+        }
+    });
+function test(t){
+    var rowid = $(t).attr("data-index");
+    pg[rowid] = 1;
+    $(".loadmore").attr("rowid",rowid);
+    $(".loadmore").attr("tag","1");
+    var c_id = $("#wap_"+rowid).attr("c_id");
+    var opt1 = '';
+    $.ajax({
+            url:"{php echo $this->createMobileUrl('listajax')}",
+            type : 'post',
+            dataType:'json',  
+            data : {
+                c_id:c_id,
+                pg:1
+            },
+            success : function(data){
+                if (data.code == 0) {
+                    $(".loadmore").text("我是有底线的，没数据了");
+                    $(".loadmore").attr("tag","0");
+                } else{
+                    if (data.isend == 1) {
+                        $(".loadmore").text("我是有底线的，没数据了");
+                        $(".loadmore").attr("tag","0");
+                    } else{
+                        $(".loadmore").text("点击加载更多文章");
+                        $(".loadmore").attr("tag","1");
+                        pg[rowid] = pg[rowid] + 1;
+                    }
+                    var spe = data.data;
+                    for (var i = 0; i < spe.length; i++) {
+                        opt1 += '<li><div class="list-txt">'
+                        opt1 += '<h4><a href="' + spe[i].url + '"><div>' + spe[i].title + spe[i].desc + '</div></a></h4>';
+                        opt1 += '<p class="time"><span class="s2" >'+ spe[i].author +'</span><a href="javascript:void(0)"><span class="s3" data-except="1" data-lastModified="1498513917">'+ spe[i].createtime +'</span></a></p></div><div class="pic"><a href="';
+                        opt1 += spe[i].url + '"><img src="' + spe[i].img + '" onload="resizeImage(this)" onerror="errorArticleImage(this)" data-resize="1" /></a></div></li>';
+                    }
+                    $("#wap_"+rowid+"_li").html(opt1);    
+                }
+            },
+            error:function(){
+                alert("您的网络有点小问题");
+            }
+    }); 
+};
+</script>
+
+<script type="text/javascript">
+window.alert = function(name){
+ var iframe = document.createElement("IFRAME");
+iframe.style.display="none";
+iframe.setAttribute("src", 'data:text/plain,');
+document.documentElement.appendChild(iframe);
+window.frames[0].window.alert(name);
+iframe.parentNode.removeChild(iframe);
+}
+</script>
+{php echo register_jssdk(0);}
+<script type="text/javascript">
+  wx.ready(function () {
+    wx.hideMenuItems({
+        menuList: [
+        'menuItem:copyUrl',
+        ] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+    });
+    wx.onMenuShareAppMessage({
+      title: "{$settings['qd_fx_title']} ",
+      desc: "{$settings['qd_fx_desc']} ",
+      link: "{$_W['siteurl']}",
+      imgUrl: "{php echo tomedia($settings['qd_fx_img']);}",
+      success: function (res) {
+        alert('分享成功');
+      },
+    });
+    wx.onMenuShareTimeline({
+      title: "{$settings['qd_fx_title']} ",
+      link: "{$_W['siteurl']}",
+      imgUrl: "{php echo tomedia($settings['qd_fx_img']);}",
+      success: function (res) {
+        alert('分享成功');
+      },
+    });
+    wx.onMenuShareQQ({
+      title: "{$settings['qd_fx_title']} ",
+      desc: "{$settings['qd_fx_desc']} ",
+      link: "{$_W['siteurl']}",
+      imgUrl: "{php echo tomedia($settings['qd_fx_img']);}",
+      success: function (res) {
+        alert('分享成功');
+      },
+    });
+  });
+</script>
+</html>

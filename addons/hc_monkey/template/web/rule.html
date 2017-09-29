@@ -1,0 +1,87 @@
+{template 'common/header'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit = "return checkSet();">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				规则管理
+			</div>
+			<div class="form-group"><br/>
+				<label class="col-xs-12 col-sm-3 col-md-1 col-lg-1 control-label">点亮文字</label>
+				<div>
+					<div class="col-sm-6">
+						<input type="text" name="success_content" class="form-control" value="{$rule['success_content']}" placeholder="点亮文字设置，规定8个字" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 col-lg-1 control-label">首页说明</label>
+				<div>
+					<div class="col-sm-6">
+						<textarea name="index_content" id="index_content" class="form-control" placeholder="换行请用<br/>">{$rule['index_content']}</textarea>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 col-lg-1 control-label">Logo图片</label>
+				<div>
+					<div class="col-sm-6">
+						{php echo tpl_form_field_image('get_thumb', $rule['get_thumb'])}
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 col-lg-1 control-label">关注链接</label>
+				<div>
+					<div class="col-sm-6">
+						<input type="text" name="gzurl" class="form-control" value="{$rule['gzurl']}" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 col-lg-1 control-label">分享标题</label>
+				<div>
+					<div class="col-sm-6">
+						<input type="text" name="share_title" class="form-control" value="{$rule['share_title']}" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 col-lg-1 control-label">分享描述</label>
+				<div>
+					<div class="col-sm-6">
+						<input type="text" name="share_content" class="form-control" value="{$rule['share_content']}" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 col-lg-1 control-label">分享图片</label>
+				<div>
+					<div class="col-sm-6">
+						{php echo tpl_form_field_image('share_thumb', $rule['share_thumb'])}
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-12">
+				<input type="hidden" name="token" value="{$_W['token']}" />
+				<input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+require(['jquery', 'util'], function($, u){
+	$(function(){
+		u.editor($('#index_content')[0]);
+	});
+});
+function checkSet(){
+	var success_content = $("input[name='success_content']").val();
+	if(success_content.length!=8){
+		alert('点亮文字请设置为8个字');
+		return false;
+	} else {
+		return true;
+	}
+}
+</script>
+{template 'common/footer'}

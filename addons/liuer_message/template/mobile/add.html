@@ -1,0 +1,47 @@
+{template 'header'}
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        {loop $banners $ad}
+        <div class="swiper-slide"><img src="{php echo tomedia($ad);}" alt="" width="100%"></div>
+        {/loop}
+    </div>
+    <div class="swiper-pagination"></div>
+</div><!--/幻灯片-->
+<div class="addmsg">
+    <form action="{php echo $this->createMobileUrl('addmsg');}" class="myform" method="post">
+        <div class="mform">
+            {loop $data $v}
+            <div class="mform-group">
+                <div class="mlabel">{$v['title']}</div>
+                <div class="mlabel-input">
+                    {if $v['field_type'] == 1}
+                    <input type="text" name="form[{$v['field']}]" {if $v['rules']}datatype="{$v['rules']}"{/if} {if $v['desc']}nullmsg="{php getTips($v['desc']);}" errormsg="{php getTips($v['desc'],1);}"{/if} placeholder="{php getTips($v['desc']);}">
+                    {elseif $v['field_type'] == 2}
+                    <textarea name="form[{$v['field']}]" {if $v['rules']}datatype="{$v['rules']}"{/if} {if $v['desc']}nullmsg="{php getTips($v['desc']);}" errormsg="{php getTips($v['desc'],1);}"{/if} placeholder="{php getTips($v['desc']);}"></textarea>
+                    {/if}
+                </div>
+            </div>
+            {/loop}
+            <div class="mform-info">
+                <i class="fa fa-info-circle"></i> 请如实填写各项参数！
+            </div>
+            <div class="mform-do">
+                <a href="javascript:;" class="mbtn mbtn-primary" id="ajaxBtn">提交留言</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/html" id="guanzhu">
+    <div class="isguanzhu">
+        <img src="{$qrimg}" alt="关注二维码" width="100%">
+    </div>
+</script>
+<script>
+    window.access = parseInt("{$access}");
+</script>
+<script src="{MODULE_URL}static/js/jquery-2.1.4.js"></script>
+<script src="{MODULE_URL}static/libs/jquery-weui/jquery-weui.min.js"></script>
+<script src="{MODULE_URL}static/libs/swiper/swiper.min.js"></script>
+<script src="{MODULE_URL}static/libs/validform/validform.js"></script>
+<script src="{MODULE_URL}static/libs/layer/layer.js"></script>
+<script src="{MODULE_URL}static/js/message.js"></script>

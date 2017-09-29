@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>{$_W['uniaccount']['name']}</title>
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="{TEMPLATE_PATH}css/qd.css">
+	{php echo register_jssdk(false);}
+	<script type="text/javascript" src="{TEMPLATE_PATH}js/zepto.20140212.js"></script>
+	
+	<?php 
+	  if(empty($this->settings[0]['yanse'])){
+	  
+	         $this->settings[0]['yanse'] = "#72A4BB;";
+	  }
+	  
+	   if(empty($this->settings[0]['biejingimg'])){
+	  
+	         $this->settings[0]['biejingimg'] = TEMPLATE_PATH.'images/9FFcpqc.jpg';
+	  }
+	
+	?>
+    <style type="text/css">
+     .login-screen, .popup {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10400;
+    background: #fff;
+    box-sizing: border-box;
+    display: none;
+    overflow: auto;
+  
+    }
+
+.bar-nav {
+    top: 0;
+}
+.bar {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    height: 2.2rem;
+    padding-right: .5rem;
+    padding-left: .5rem;
+    background-color: #f7f7f8;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.bar .icon {
+    position: relative;
+    z-index: 20;
+    padding: .5rem .1rem;
+    font-size: 1rem;
+    line-height: 1.2rem;
+}
+.pull-right {
+    float: right;
+}
+.icon {
+    font-family: iconfont-sm!important;
+    font-style: normal;
+    display: inline-block;
+    vertical-align: middle;
+    background-size: 100% auto;
+    background-position: center;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+.pull-right {
+    float: right;
+}
+.icon-down:before {
+    content: "\e611";
+}
+.content-block {
+    margin: 1.75rem 0;
+    padding: 0 .75rem;
+    color: #6d6d72;
+}
+.bbj {
+    background: #fff;
+    padding: 16px 16px;
+    border-radius: 5px;    border: 1px solid #E0D2D2;
+}
+
+
+.pre-wrap { 
+width: 200px; 
+height: 120px; 
+margin: 50px auto 0; 
+border: 2px solid #F00; 
+border-radius: 4px; 
+position: relative; 
+}
+
+.tbox_1 {
+   
+    background: url(<?php echo tomedia($this->settings[0]['biejingimg']);?>) no-repeat center 0;
+
+}
+
+
+
+.tbox_1 li:nth-of-type(2) a {
+ 
+    background:<?php echo $this->settings[0]['yanse'];?>;
+ 
+}
+
+.box {
+
+    background-color: <?php echo $this->settings[0]['yanse'];?>;
+}
+
+.lp-list-box .lp-score-list .num-1::before, .lp-list-box .lp-score-list .num-2::before, .lp-list-box .lp-score-list .num-3::before {
+
+  
+     background-color: <?php echo $this->settings[0]['yanse'];?>;
+	 
+     font-size: .1375rem;
+}
+
+
+
+
+
+
+#commission2 {
+ font-size: 12px;
+    position: absolute;
+    top: 110px;
+    right: 13px;
+    padding: 3px 8px;
+    line-height: 1;
+    border-radius: 10px;
+    background-color: #fff;
+    color: <?php echo $this->settings[0]['yanse'];?>;
+    border: 1px solid <?php echo $this->settings[0]['yanse'];?>;
+    text-align: center;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+
+	</style>
+</head>
+<body onselectstart="return true;" ondragstart="return false;">
+<div class="container container-fill">
+
+
+    {if $this->settings[0]['carry'] == 1}
+	    <span id="commission2" onclick="demotx()">我要提现</span>
+
+     {/if}
+
+    <?php 
+	
+	  if(empty($this->profile['credit1'])){
+	  
+	     $this->profile['credit1'] = 0;
+	  
+	  }
+	  
+	   if(empty($this->profile['credit2'])){
+	  
+	     $this->profile['credit2'] = 0;
+	  
+	  }
+	
+	?>
+
+<header>
+				<ul class="tbox tbox_1">
+					<li>
+						<p class="pre">
+							<label><?php echo $this->profile['credit1'];?></label>
+							可用积分
+						</p>
+					</li>
+					<li>
+				<a class ="qian" href="javascript:void(0)" ><label class ="qiandao"><?php if($this->user_shu){echo '已签到';}else{echo '未签到';}?></label></a>
+							
+					</li>
+					
+					<li>
+						<p class="pre">
+							<label><?php echo $this->profile['credit2'];?></label>
+							可用余额
+						</p>
+					</li>
+					
+				
+				</ul>
+				<nav class="nav_integral">
+					<ul class="box">
+						<li><a href="{php echo $this->createMobileUrl('Zong', array('rid' => $rid ));}"><span class="icons icons_prize">&nbsp;</span><label>总排行榜</label></a></li>
+						<li><a href="{php echo $this->createMobileUrl('my', array('rid' => $rid ));}"><span class="icons icons_luck">&nbsp;</span><label>签到记录</label></a></li>
+						<!-- <li><a href="{php echo $this->createMobileUrl('jing', array('rid' => $rid ));}"><span class="icons icons_record">&nbsp;</span><label>今日排名</label></a></li> -->
+							<li onclick="demo2()"><a href="#"><span class="icons icons_record">&nbsp;</span><label>规则说明</label></a></li>
+						{if $this->settings[0]['shangcheng'] == ''||empty($this->settings[0]['shangcheng'])}
+							<li><a href="<?php echo $this->token_url;?>"><span class="icons icons_teach">&nbsp;</span><label>积分兑换</label></a></li>
+											
+						{else}
+							<li><a href="<?php echo $this->settings[0]['shangcheng'];?>"><span class="icons icons_teach">&nbsp;</span><label><?php echo $this->settings[0]['scziduan'];?></label></a></li>
+											
+						{/if}
+						
+					</ul>
+				</nav>
+</header>
+<script>
+					function demo(){  
+
+					　　window.location.href="{php echo $this->createMobileUrl('List',array('type'=>'uids'))}";
+					
+					} 
+					
+					function demotx(){  
+
+					　　window.location.href="{php echo $this->createMobileUrl('Tixian',array('type'=>'uids'))}";
+					
+					} 
+					function demo2(){  
+                      
+					　　$("#gbpup").addClass("modal-in");
+			            $("#gbpup").show();
+					
+					} 
+					function demo3(){  
+
+					　$("#gbpup").hide();
+			          $("#gbpup").removeClass("modal-in");
+					
+					} 
+					</script>
+<div class="popup popup-about" style="display: none; background: transparent;" id="gbpup" onclick="demo3()">
+			<header class="bar bar-nav" style="background: transparent;">
+				<a class="icon icon-down pull-right close-popup" style="color: #fff;"></a>
+			</header>
+			<div class="content-block">
+				<div class="bbj">
+			
+					{php echo html_entity_decode($this->settings[0]['huodong_sm'], ENT_QUOTES)}
+					
+				</div>
+			</div>
+</div>
+

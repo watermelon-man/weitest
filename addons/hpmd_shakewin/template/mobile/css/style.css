@@ -1,0 +1,84 @@
+﻿/* 全局 */
+body { font:15px "microsoft yahei" ,hArial,simsun,sans-serif; color:#333;background:#fff;}
+body,form,menu,dir,fieldset,blockquote,p,pre,ul,ol,dl,dd,h1,h2,h3,h4,h5,h6 { padding:0; margin:0;-webkit-box-sizing: border-box;-moz-box-sizing: border-box; box-sizing: border-box; }
+ul,ol,dl { list-style:none; }
+a {color: #333;text-decoration: none;}
+a:hover {color: #000;text-decoration:none;}
+a img {border: none;}
+.clear {clear: both;line-height: 0px;height:0px;font-size:0px;}
+.content {width:990px;margin: 0 auto;}
+.left {float:left;}
+.right {float:right;}
+input[type="button"], input[type="submit"], input[type="reset"] {-webkit-appearance: none;}
+textarea {-webkit-appearance: none;}   
+body{background: #f4f4f4;}
+html,body {height: 100%;}
+*{-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;}
+    
+.wrapbox{width:100%; height:100%; position: fixed; padding-top:22%; background: url(../images/pic01.png) no-repeat top center #d23851; background-size:cover;
+-webkit-box-sizing: border-box;-moz-box-sizing: border-box; box-sizing: border-box; }
+.yaobox{width:56%; margin:0 auto;}
+.yaobox img{width:100%; height:100%;}
+.notice{top:0px; width:100%; margin:0 auto; text-align: center;margin-top:25%;}
+.notice p{display: inline-block; background:#9d2c3e; height:34px; line-height:34px; font-weight:bold; color:#fff; font-size:14px; border-radius:5px; padding:0px 10px; min-width:140px;}
+
+.my-jpbox{position: absolute; color:#fff; font-family: "microsoft yahei"; z-index: 55; right:15px; top:15px; width:130px; height:28px;background: url(../images/liwu.png) no-repeat center; background-size: cover;}
+.my-jpbox a{display: block; color:#fff; line-height:28px; padding-left:45px; }
+
+.wrapboxb{width:100%; min-height: 600px;background: #fff;}
+.jiangtop{height:40px;line-height:40px;width:100%; border-bottom:1px solid #ddd; padding:0px 15px;}
+.btbox{float: left; display: inline-block; color:#555; font-size:14px;}
+.btbox img{height:20px; vertical-align: middle; margin-right:5px;}
+.tshibox{float: right; font-size:14px;}
+.neirong{text-align: center; background: url(../images/img02.jpg); background-size: cover; }
+.neirong img{margin-top:20px; width:183px; height:185px;}
+.neirong h3{font-weight:normal; font-size:16px; padding:20px 0px;}
+
+.mingdan img{width:100%;}
+.gongbubox ul li{border-bottom: 1px solid #ddd; padding:10px 0px;}
+.kuai1{width:20%; float: left; text-align:left; padding-left:20px;}
+.kuai1 img{width:35px; height:35px; border-radius: 35px;}
+.kuai2{float: left; width:25%;}
+.kuai2 h2{font-size:14px;line-height:40px; height:40px; text-align: left;}
+.kuai3{float: left; width:35%; text-align: center; font-size:13px; line-height:40px; height:40px;}
+.kuai4{float: left; width:20%; text-align: right; padding-right:20px; line-height:40px; color:#bf0010; font-weight:bold; font-size:14px;}
+
+.bottombox{position: fixed; width:100%; height:60px; background:#fff; bottom:0px; z-index: 555; border-top:1px solid #ddd;}
+.bottombox a{display: block; height:40px;margin:10px 15px; border-radius: 5px; color:#fff; line-height:40px; text-align: center; background:#bf0010;}
+
+
+
+
+/*声音*/
+#audio_btn {position:fixed; width:50px;height:50px;right:15px;top:45px;z-index:9900;cursor:pointer;background-position: center center;}
+.audioOn {background:url(../images/music.gif) no-repeat;background-size: 60px 60px;}
+.audioOff {background:url(../images/music_off.png) no-repeat;background-size: 30px 30px;}
+.rotate {position: absolute;left: 10px;top: 10px;width: 30px;height: 30px;background-size: 100% 100%;background-image: url(../images/music_off.png);
+		-webkit-animation: rotating 1.2s linear infinite;
+		-moz-animation: rotating 1.2s linear infinite;
+		-o-animation: rotating 1.2s linear infinite;
+		animation: rotating 1.2s linear infinite;
+}
+@-webkit-keyframes rotating {
+	from{
+		-webkit-transform: rotate(0deg);
+	}to{
+		-webkit-transform: rotate(360deg);
+	 }
+}
+@keyframes rotating {
+	from{
+		transform: rotate(0deg);
+	}to{
+		transform: rotate(360deg);
+	}
+}
+@-moz-keyframes rotating {
+	from{
+		-moz-transform: rotate(0deg);
+	}to{
+		-moz-transform: rotate(360deg);
+	}
+}

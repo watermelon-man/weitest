@@ -1,0 +1,102 @@
+﻿{template 'poster'.DS.'html'.DS.'zmcn_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="spring5 edit_common" id="edit_common">
+        <div class="spring5_con">
+    			<div class="spring5_conbg11" id="editmove">
+    			     <img src="{MODULE_URL}template/mobile/poster/images/spring5up.jpg" alt="uppic"/>
+    			</div>
+    			<div class="spring5_conbg2"></div>
+          <div class="spring5_con1">
+      				<p contenteditable="true">活动时间：3月6日-3日8日</p>
+              <p contenteditable="true">靠自己，我就是女王，只为遇见最美丽的自己</p>
+         	</div>
+        	<div class="spring5_up1"> 
+              <div class="spring5_up11">
+                  <div class="spring5_fileInput left">
+                        <input type="file" name="spring5_upfile" id="spring5_upfile" style="display:none" class="spring5_upfile" onchange="document.getElementById('spring5_upfileResult').innerHTML=this.value;"/>
+                        <input class="spring5_upFileBtn" id="spring5_upfileResult" type="button" value="上传图片" onclick="document.getElementById('spring5_upfile').click();"/>
+                  </div>
+              </div>
+        	</div>
+         	
+        </div>
+        <div class="shengchengs5">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“文字”生成趣图</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!-- 第八十三个页面结束 -->
+     <script type="text/javascript">
+        $("#spring5_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+           $(".spring5_conbg11 img").attr("src", objUrl);
+            }
+        });
+        $("#spring5_upfile2").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+           $(".spring5_con2 img").attr("src", objUrl);
+            }
+        });
+         //建立一个可存取到该file的url
+        function getObjectURL(file){
+	        var url = null; 
+	        if (window.createObjectURL!=undefined) { // basic
+	          url = window.createObjectURL(file);
+	        } else if (window.URL!=undefined) { // mozilla(firefox)
+	          url = window.URL.createObjectURL(file);
+	        } else if (window.webkitURL!=undefined) { // webkit or chrome
+	          url = window.webkitURL.createObjectURL(file);
+	        }
+	        return url;
+	    }
+        $(".shengchengs5").click(function(){
+                
+                $(".shengchengs5").hide();
+                $(".spring5_up1").hide();
+                $(".spring5_up2").hide();
+                $(".spring5_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".spring5_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base83图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							}); 
+                            $(".spring5").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //第八十三个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

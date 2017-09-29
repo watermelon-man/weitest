@@ -1,0 +1,429 @@
+body{
+    max-width: 640px;
+    min-width: 320px;
+    margin: 0 auto;
+    height: 100%;
+    font-family:'Verdana','Microsoft YaHei';
+    color: #555;
+    font-size: 13px;
+    background: #eeeeee;
+}
+ul,ol,dl{
+    list-style:none;
+}
+img{
+    border: none;
+    vertical-align: middle;
+}
+li{
+    padding: 0;
+    margin: 0;
+}
+
+.mhiden{
+    display: none;
+}
+.mshow{
+    display: block;
+}
+/*自定义的样式*/
+
+.mform {
+    margin-top: 10px;
+    padding-left: 12px;
+    color: #666;
+    background: #ffffff;
+}
+.mform .mform-group{
+    padding: 12px 0;
+    border-bottom: 1px solid #e9e9e9;
+    font-size: 14px;
+    box-sizing: border-box;
+    overflow: hidden
+}
+
+.mform .mform-group {
+    display: flex;
+    justify-content: space-between
+}
+
+.mform .mform-group:last-child {
+    border-bottom: none
+}
+
+.mform-group .mlabel {
+    padding-left: 5px;
+    width: 80px
+}
+
+.mform-group .mlabel label {
+    margin-bottom: 0;
+    font-weight: 400
+}
+
+.mform-group .mlabel-input {
+    padding-right: 10px;
+    flex: 1
+}
+
+.mform-group .mlabel-input input:not([type=radio]) {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    font-size: 14px;
+    color: #999
+}
+
+.mform-group .mlabel-input textarea {
+    width: 100%;
+    border: none;
+    font-size: 14px;
+    margin-bottom: 0;
+    color: #999;
+    padding: 0
+}
+
+.mform-group .mradio-inline {
+    display: inline-block;
+    margin-right: 10px
+}
+
+.mform .mform-info {
+    padding: 12px 0;
+    font-size: 12px;
+    text-align: center;
+    color: #999
+}
+
+/*上传图*/
+.mform-upload{
+    flex-direction: column;
+}
+
+.mform-upload ul{
+    padding-right: 12px;
+}
+
+.mform-upload .mlabel{
+    width: 100%;
+}
+
+.mform-upload .mlabel span {
+    font-size: 12px;
+    color: #999;
+    margin-left: 12px
+}
+
+.mform-upload .mlabel-upload{
+    width: 100%;
+}
+
+.mlabel-upload img{
+    width: 100%;
+    max-width: 100%;
+}
+
+/*封面图*/
+.mlabel-upload .cover,.mlabel-upload .thumbs{
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mlabel-upload li{
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.mlabel-upload li .close{
+    position: absolute;
+    cursor: pointer;
+    right: -10px;
+    top: -10px;
+    width: 20px;
+    height: 20px;
+    background: #FF4A00;
+    text-indent: -9999px;
+    outline: 0;
+    border-radius: 50%;
+    opacity: .5
+}
+
+.mlabel-upload li .close:after {
+    content: '';
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 1px;
+    background: #fff
+}
+
+.mlabel-upload img{
+    width: 100%;
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+/*缩略图*/
+.mlabel-upload .thumbs{
+    width: 100%;
+}
+.mlabel-upload .thumbs li{
+    position: relative;
+    display: flex;
+    width: 60px;
+    height: 60px;
+    margin-top: 12px;
+    margin-right: calc((100% - 240px) / 3);
+    float: left;
+}
+.mlabel-upload .thumbs li:nth-of-type(4n){
+    margin-right: 0;
+}
+.mform-upload .thumbs .imgwrap {
+    overflow: hidden;
+    display: flex;
+    align-items: center
+}
+.mform-upload .thumbs li .close {
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    width: 16px;
+    height: 16px
+}
+/*封面图*/
+.mlabel-upload .cover li:first-child{
+    width: 100%;
+    margin-top: 12px;
+    position: relative;
+    height: auto;
+}
+.mform-upload .cover li:not(:first-child){
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-top: 12px;
+    margin-right: 15px;
+    float: left
+}
+/*上传框*/
+.mlabel-upload li.upfile {
+    position: relative;
+    border: 1px solid #D9D9D9;
+    box-sizing: border-box
+}
+
+.mlabel-upload li.upfile:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #D9D9D9;
+    width: 2px;
+    height: 40px
+}
+
+.mlabel-upload li.upfile input {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-tap-highlight-color: transparent
+}
+
+.mlabel-upload li.upfile:after {
+    content: " ";
+    width: 40px;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #D9D9D9
+}
+
+.mform-do {
+    padding-bottom: 12px;
+    padding-right: 12px
+}
+
+.mbtn {
+    display: block;
+    background: #E6E6F5;
+    font-size: 15px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-align: center;
+    color: #555;
+}
+.mbtn-success{
+    background: #04be02;
+    color: #ffffff;
+}
+.mbtn-warning{
+    background:#F37B1D;
+    color: #ffffff;
+}
+.mbtn-primary{
+    background: #2e8ded;
+    color: #ffffff;
+}
+
+.mytips .layui-m-layercont{
+    padding: 12px 0;
+}
+
+.msglist{
+    position: relative;
+    padding: 10px 12px;
+}
+.msglist::before{
+
+}
+.msg-item{
+    display: flex;
+    padding-bottom: 12px;
+    justify-content: space-between;
+    position: relative;
+}
+.msg-item:not(:last-child)::before{
+    position: absolute;
+    content: '';
+    width: 1px;
+    height: 100%;
+    left: 23px;
+    background: #3CC52F;
+    z-index:0;
+}
+.msg-media{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+}
+.msg-media img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 2px;
+    margin-bottom: 1px;
+    background: #ffffff;
+    border:1px solid #ececec;
+}
+.msg-media span{
+    color: #999999;
+    font-size: 10px;
+    text-align: center;
+    z-index:100;
+    background: #fff;
+}
+.msg-info{
+    flex:1;
+    background: #ffffff;
+    padding: 6px 10px;
+    margin-left: 12px;
+    position: relative;
+}
+.msg-info::before{
+    content: '';
+    position: absolute;
+    top: 16px;
+    right: 100%;
+    height: 0;
+    width: 0;
+    border: 6px solid transparent;
+    border-right: 6px solid white;
+}
+.msg-info h2{
+    font-size: 12px;
+    color: #666;
+    font-weight: normal;
+    padding-bottom: 3px;
+    border-bottom:1px dashed #ececec;
+    margin-bottom: 6px;
+}
+.msg-info h2 i{
+    color: #ff6600;
+}
+.msg-info p{
+    font-size: 12px;
+    color: #999;
+}
+.msg-do{
+    display: flex;
+    justify-content: space-between;
+}
+.msg-do span{
+    color: #999999;
+    font-size: 10px;
+}
+.msg-ttime{
+    background: #eeeeee;
+}
+.msg-hinfo{
+    position: relative;
+}
+.msg-hinfo a,.addmsgindex a{
+    position: absolute;
+    display: block;
+    padding: 5px;
+    width: 70px;
+    text-align: center;
+    right: 0;
+    top: -4px;
+    border-radius:0 3px 0 0;
+    font-size: 12px;
+    color: #ffffff;
+    background: #ff4949;
+}
+.statistics {
+    background: #ffffff;
+    color: #666
+}
+
+.statistics ul {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-around
+}
+
+.statistics li {
+    width: 33.33%;
+    font-size: 13px;
+    position: relative;
+    text-align: center;
+}
+
+.statistics li:not(:last-child):after {
+    content: '';
+    width: 0px;
+    height: 30px;
+    background: #fff;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%)
+}
+.addmsgindex{
+    text-align: center;
+    position: relative;
+}
+.addmsgindex a{
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    right: 50%;
+    padding: 7px;
+    transform:translate(50%,-50%);
+}

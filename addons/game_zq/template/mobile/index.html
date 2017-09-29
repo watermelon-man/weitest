@@ -1,0 +1,619 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<title></title>
+
+<base href="{$yobyurl}" />
+
+     <script>
+
+     var id="{$id}";
+
+     var game_time = "{$row['game_time']}";
+
+    var homeurl = "{$yobyurl}";
+
+     var  ajaxrec ="{php echo $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&do=ajaxrec&m='.$modname.'&id=';}"+id;
+
+
+
+     </script>
+
+<meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+
+<script type="text/javascript" src="js/sha1.js"></script>
+
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+<meta name="full-screen" content="true"/>
+
+<meta name="screen-orientation" content="portrait"/>
+
+<meta name="x5-fullscreen" content="true"/>
+
+<meta name="360-fullscreen" content="true"/>
+
+<script src="js/jquery-2.1.1.js"></script>
+
+
+
+<style>
+
+    html, body {
+
+        -ms-touch-action: none;
+
+        background: #000000;
+
+        padding: 0;
+
+        border: 0;
+
+        margin: 0;
+
+        height: 100%;
+
+    }
+
+ #toolbar {
+
+	  position: absolute;
+
+	  bottom: 2%;
+
+	  text-align: center;
+
+	  z-index: 99;
+
+	  margin: auto;
+
+	  width: 80%;
+
+	  left: 10%;
+
+	  z-index: 999;
+
+	  display: none;
+
+			  
+
+			}
+
+	#toolbar .btn{
+
+		width: 40%;
+
+		color: rgb(249, 244, 244);
+
+		background-color: rgb(180, 88, 0);
+
+		margin: auto;
+
+		text-align: center;
+
+		border-radius: 5px;
+
+		font-weight: bold;
+
+		border: none;
+
+		font-size: 18x;
+
+		margin: 1%;
+
+		position: relative;
+
+		max-width:240px;
+
+	}
+
+	.go_to{width: 35%;height: 20%;margin-left: 55%;position: absolute;margin-top:100%;left: 0%;display: none;z-index:1;}
+
+	.go_to_share{width: 30%;height: 20%;margin-left: 15%;position: absolute;margin-top:100%;left: 0%;display: none;z-index:1;}
+
+</style>
+
+
+
+<script egret="lib" src="js/egret.min.js"></script>
+
+<script egret="lib" src="js/egret.web.min.js"></script>
+
+<script egret="lib" src="js/game.min.js"></script>
+
+<script egret="lib" src="js/game.web.min.js"></script>
+
+<script egret="lib" src="js/tween.min.js"></script>
+
+<script egret="lib" src="js/res.min.js"></script>
+
+<script src="js/main.min.js"></script>
+
+</head>
+
+<body>
+
+<a style="height:22px;position: absolute;margin-top:15%;left: 0%;z-index:9;font-weight:bold;text-decoration: none;font-size:18px;" href="{php echo $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&do=rank&m='.$modname.'&id='.$id;}"><img src="images/ranking list.png" width="115" height="30"></a>
+
+<a style="height:22px;position: absolute;margin-top:25%;left: 0%;z-index:9;font-weight:bold;text-decoration: none;font-size:18px;" href="{php echo $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&do=rule&m='.$modname.'&id='.$id;}"><img src="images/rule.png" width="115" height="30"></a>
+
+<a href="{php echo $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&do=index&m='.$modname.'&id='.$id;}"><div class="go_to" onClick=""></div></a>
+
+<div class="go_to_share" onClick="share_img()"></div>
+
+<div onClick="off_share()" class="share_1" style="position: absolute;background-color: #000;opacity: 0.8;z-index: 2;display:none;height: 100%;width:100%;"><img onClick="off_share()" src="images/share-guide.png" alt="" style="z-index: 2;width: 100%;"></div>
+
+<input id="max" type="hidden" value="{$z}">
+
+	<div id="toolbar" >
+
+		<img class="btn" ontouchstart="clickMore();" src="images/more.png"/>
+
+</div>
+
+{if !empty($data['mp3'])}
+
+	<script>
+
+        var gSound ="{php echo tomedia($data['mp3'])}";
+
+    </script>
+
+    <div id="audiocontainer"></div>
+
+    <script src="images/sound.js"></script>
+
+{/if} 
+
+<div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+
+     data-entry-class="Main"
+
+     data-orientation="auto"
+
+     data-scale-mode="showAll"
+
+     data-resolution-mode="retina"
+
+     data-frame-rate="30"
+
+     data-content-width="480"
+
+     data-content-height="800"
+
+     data-show-paint-rect="false"
+
+     data-multi-fingered="2"
+
+     data-show-fps="false" data-show-log="false"
+
+     data-log-filter="" data-show-fps-style="x:0,y:0,size:30,textColor:0x00c200,bgAlpha:0.9">
+
+</div>
+
+
+
+<script>
+
+    egret.runEgret();
+
+</script>
+
+
+
+
+
+<script language=javascript>
+
+	function goHome(){
+
+	}
+
+	function clickMore(){
+
+	}
+
+	function dp_share(){
+
+	}
+
+	function dp_Ranking(){
+
+	}
+
+
+
+	function showAd(){
+
+	}
+
+	function hideAd(){
+
+	}
+
+	function dp_submitScore(score){
+
+		$.ajax({
+
+			url: ajaxrec,
+
+			type: "post",
+
+			dataType:"json",
+
+			data: {"pt_count" : score,},
+
+			success: function(data){
+
+			
+
+			}
+
+		});
+
+
+
+		$(".go_to").show();
+
+		$(".go_to_share").show();
+
+	}
+
+	function share_img(){
+
+		$('.share_1').css('display','');
+
+	}
+
+	function off_share(){
+
+	    $('.share_1').css('display','none');
+
+	}
+
+</script>
+
+ <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+
+<?php
+
+$wx = $_W['account']['jssdkconfig'];
+
+$wx['url'] ='http://'.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ;
+
+?> 
+
+<script>
+
+    var appIdstr = "{$wx['appId']}";
+
+    var timestampstr = "{$wx['timestamp']}";
+
+    var nonceStrstr = "{$wx['nonceStr']}";
+
+    var signaturestr = "{$wx['signature']}";
+
+wx.config({
+
+	debug: false,
+
+	appId: appIdstr,
+
+	timestamp: timestampstr,
+
+	nonceStr: nonceStrstr,
+
+	signature: signaturestr,
+
+	jsApiList: [
+
+		'checkJsApi',
+
+		'onMenuShareTimeline',
+
+		'onMenuShareAppMessage',
+
+		'onMenuShareQQ',
+
+		'onMenuShareWeibo',
+
+		'hideMenuItems',
+
+		'showMenuItems',
+
+		'hideAllNonBaseMenuItem',
+
+		'showAllNonBaseMenuItem',
+
+		'translateVoice',
+
+		'startRecord',
+
+		'stopRecord',
+
+		'onRecordEnd',
+
+		'playVoice',
+
+		'pauseVoice',
+
+		'stopVoice',
+
+		'uploadVoice',
+
+		'downloadVoice',
+
+		'chooseImage',
+
+		'previewImage',
+
+		'uploadImage',
+
+		'downloadImage',
+
+		'getNetworkType',
+
+		'openLocation',
+
+		'getLocation',
+
+		'hideOptionMenu',
+
+		'showOptionMenu',
+
+		'closeWindow',
+
+		'scanQRCode',
+
+		'chooseWXPay',
+
+		'openProductSpecificView',
+
+		'addCard',
+
+		'chooseCard',
+
+		'openCard'
+
+	]
+
+});
+
+wx.ready(function () {
+
+//要分享的数据
+
+  var shareData = {
+
+    title:"{$row['share_title']}",
+
+    desc: "{$row['share_desc']}",
+
+    link:"{php echo $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&id='.$id.'&do=index&m='.$modname.'&wxref=mp.weixin.qq.com';}" ,
+
+    imgUrl:"{php echo tomedia($row['share_img']);}",
+
+    type:'', // 分享类型,music、video或link，不填默认为link 分享给朋友
+
+    dataUrl:'', // 如果type是music或video，则要提供数据链接，默认为空 分享给朋友
+
+  };
+
+
+
+//分享给朋友
+
+wx.onMenuShareAppMessage({
+
+      title: shareData.title,
+
+      desc: shareData.desc,
+
+      link: shareData.link,
+
+      imgUrl:shareData.imgUrl,
+
+      type: shareData.type,
+
+    dataUrl: shareData.dataUrl,
+
+      trigger: function (res) {//菜单
+
+        
+
+      },
+
+      success: function (res) {//成功
+
+        
+
+      },
+
+      cancel: function (res) {//取消
+
+        
+
+      },
+
+      fail: function (res) {//失败
+
+        alert(JSON.stringify(res));
+
+      },
+
+      complete:function(res){//完成
+
+      
+
+      },
+
+    });	
+
+
+
+//分享到朋友圈
+
+    wx.onMenuShareTimeline({
+
+      title: shareData.title+shareData.desc,
+
+      link: shareData.link,
+
+      imgUrl:shareData.imgUrl,
+
+      trigger: function (res) {
+
+        
+
+      },
+
+      success: function (res) {
+
+  $.post("{php echo $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&do=share&m='.$modname.'';}",{id:{$id},openid:"{$_W['openid']}"},function(data){   
+
+if(data==1){
+
+alert('分享朋友圈成功,今天能多玩一次游戏,多次分享无效!');
+
+} else{
+
+alert('今天分享朋友圈一次机会已使用,多次分享无效');
+
+}
+
+});      
+
+      },
+
+      cancel: function (res) {
+
+       
+
+      },
+
+      fail: function (res) {
+
+        alert(JSON.stringify(res));
+
+      },
+
+      complete:function(res){//完成
+
+      	 //alert('完成');
+
+      },
+
+    });	
+
+
+
+//分享到QQ
+
+    wx.onMenuShareQQ({
+
+      title: shareData.title,
+
+      desc: shareData.desc,
+
+      link: shareData.link,
+
+      imgUrl:shareData.imgUrl,
+
+      trigger: function (res) {
+
+      
+
+      },
+
+      complete: function (res) {
+
+      
+
+      },
+
+      success: function (res) {
+
+        
+
+      },
+
+      cancel: function (res) {
+
+        
+
+      },
+
+      fail: function (res) {
+
+        alert(JSON.stringify(res));
+
+      }
+
+    });	
+
+    
+
+//分享到腾讯微博
+
+    wx.onMenuShareWeibo({
+
+      title: shareData.title,
+
+      desc: shareData.desc,
+
+      link: shareData.link,
+
+      imgUrl:shareData.imgUrl,
+
+      trigger: function (res) {
+
+       
+
+      },
+
+      complete: function (res) {
+
+        
+
+      },
+
+      success: function (res) {
+
+       
+
+      },
+
+      cancel: function (res) {
+
+      
+
+      },
+
+      fail: function (res) {
+
+        alert(JSON.stringify(res));
+
+      }
+
+    });
+
+
+
+});
+
+</script>
+
+
+
+</body>
+
+
+
+	
+
+</html>

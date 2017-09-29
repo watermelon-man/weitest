@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no" />
+	<title>摇一摇赢大奖 ({$replywords})</title>
+	<script type="text/javascript" src="../addons/hpmd_shakewin/template/mobile/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="../addons/hpmd_shakewin/template/mobile/js/jquery.rotate.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+	<script type="text/javascript" src="../addons/hpmd_shakewin/template/mobile/NoSleep_js/NoSleep.js"></script>
+	<link rel="stylesheet" type="text/css" href="../addons/hpmd_shakewin/template/mobile/css/style.css"/>
+	<script type="text/javascript">
+		var appid = '{$_W['account']['jssdkconfig']['appId']}';
+		var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+		var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+		var signature = '{$_W['account']['jssdkconfig']['signature']}';
+		var enableshare = '{$item['enableshare']}';
+
+		wx.config({
+			debug: false,
+			appId: appid,
+			timestamp: timestamp,
+			nonceStr: nonceStr,
+			signature: signature,
+			jsApiList: [
+			//'checkJsApi',
+			'downloadVoice',
+			'playVoice',
+			'getLocation',
+			//'hideMenuItems',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage'
+			]
+		});
+		
+		if(1 == enableshare) {
+			wx.ready(function () {
+				wx.onMenuShareAppMessage({
+					title: '{$item['sharetitle']}',  
+					desc: '{$item['sharedesc']}',  
+					link: '{$item['sharelink']}',  
+					imgUrl: '{$_W['attachurl_local']}'+'{$item['sharepic']}',  
+					type: '',  
+					dataUrl: '',  
+					success: function () { 
+					},
+					cancel: function () { 
+					}
+				});
+				wx.onMenuShareTimeline({
+					title: '{$item['sharetitle']}',  
+					link: '{$item['sharelink']}',  
+					imgUrl: '{$_W['attachurl_local']}'+'{$item['sharepic']}',  
+					success: function () { 
+					},
+					cancel: function () { 
+					}
+				});
+				wx.error(function(res){
+					//alert('errorMSG: '+JSON.stringify(res));
+				});
+			});
+		}
+		
+    var noSleep = new NoSleep();
+    noSleep.enable();
+
+
+	//测试代码
+	/*
+	var TimeOutSec = 6000;
+	function StartTimer(){
+		wx.getLocation({
+			type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+			success: function (res) {
+				var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+				var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+				var speed = res.speed; // 速度，以米/每秒计
+				var accuracy = res.accuracy; // 位置精度
+
+				alert(latitude);
+				alert(longitude);
+			}
+		});
+
+		window.Autotime = window.setTimeout(StartTimer,TimeOutSec);
+	}
+	StartTimer();
+	*/
+	</script>
+</head>
+<body>
+	<div class="wrapbox">
+		<div id="audio_btn" class="audioOff">
+			<div id="yinfu" ></div>
+			<!-- <audio loop="" src="../addons/hpmd_shakewin/voice/got.wav" id="media" autoplay="" preload=""></audio> -->
+		</div>
+		
+		
+		<div class="my-jpbox">
+			<a href="{php echo $this->createMobileUrl('MyAwards', array('replywords' => $replywords, 'ruleid' => $item['id']))}">我的奖品</a>
+		</div>
+		<div class="yaobox">
+			
+			<img id="yaoyy" src="../addons/hpmd_shakewin/template/mobile/images/pic03.png"/>
+		
+		</div>
+		
+		<div class="notice">
+			
+			<p id="noticetxt">摇的越给力中奖几率越高哦~</p>
+		
+		</div>
+	
+		<div style="display: none;">
+			<ul class="nav_links box">
+				<li>
+					<a id="mc_play"  onclick="play_music();">
+						<audio src="../addons/hpmd_shakewin/voice/got.wav" type="audio/wav"></audio>
+					</a>
+				</li>
+			</ul>
+		</div>  
+		<div style="display: none;">
+			<ul class="nav_links box">
+				<li>
+					<a id="yy_play">
+					<!-- 
+						<audio id="yy_play_media" src="http://xyxywxh.com/user/xyxygyw/webimg/mp3/02chunjiang.mp3" type="audio/wav"></audio>
+						<audio id="yy_play_media" src="http://www.w3school.com.cn/i/song.mp3" type="audio/wav"></audio>
+					 -->
+						<audio id="yy_play_media" src="../addons/hpmd_shakewin/voice/kaca.wav" type="audio/wav"></audio>
+					</a>
+				</li>
+			</ul>
+		</div> 
+	</div>
+
+<script type="text/javascript">
+	var playding = 0;
+	var isios = 0;
+	var xyrestrict = '{$item['xyrestrict']}';
+	var xyradius = '{$item['xyradius']}';
+	var restrictlat = '{$item['latitude']}';
+	var restrictlon = '{$item['longitude']}';
+	var awardsinterval = '{$shaketimeswin}';
+	var shaketimes = 0;
+	var replywords = '{$replywords}';
+	var speed = 35;//speed
+	var x = y = z = lastX = lastY = lastZ = 0;
+	if (window.DeviceMotionEvent) { 
+		window.addEventListener('devicemotion',deviceMotionHandler, false);  
+	} 
+
+    var winningyy = 0;
+	var localId_win = null;
+	var localId_yy = null;
+	function play_wx_yy() {
+		if(winningyy == 0) {
+			if(localId_yy == null) {
+				wx.downloadVoice({
+					serverId: 'n50aXGbaUNFVuiFAuhXqX3ehN6dYdxmQtzIKOWjLKnVUCUVV6gx4opLPZn0ufiwK', // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+					isShowProgressTips: 0, // 默认为1，显示进度提示
+					success: function (res) {
+						localId_yy = res.localId; // 返回音频的本地ID
+						wx.playVoice({
+							localId: localId_yy // 需要播放的音频的本地ID，由stopRecord接口获得
+						});
+					}
+				});
+			} else {
+				wx.playVoice({
+					localId: localId_yy // 需要播放的音频的本地ID，由stopRecord接口获得
+				});
+			}
+		}
+	}
+	function play_wx_win() {
+		winningyy = 1;
+		wx.stopVoice({
+			localId: localId_yy // 需要停止的音频的本地ID，由stopRecord接口获得
+		});
+		setTimeout(function(){
+			if(localId_win == null) {
+				wx.downloadVoice({
+					serverId: 'fGjNmu9OhAVum_4xQ8eCf741V3GG6M9xVGU0mjtM1q_HSzpLw_DdDSmPxVMYxT8X', // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+					isShowProgressTips: 0, // 默认为1，显示进度提示
+					success: function (res) {
+						//alert('downloadVoice success')
+						localId_win = res.localId; // 返回音频的本地ID
+							wx.playVoice({
+								localId: localId_win // 需要播放的音频的本地ID，由stopRecord接口获得
+							});
+							winningyy = 0;
+					}
+				});
+			} else {
+				wx.playVoice({
+					localId: localId_win // 需要播放的音频的本地ID，由stopRecord接口获得
+				});
+				winningyy = 0;
+			}
+		},500);
+	}
+	
+	function deviceMotionHandler(eventData) {  
+		var acceleration = eventData.accelerationIncludingGravity;
+		x = acceleration.x;
+		y = acceleration.y;
+		z = acceleration.z;
+		if(Math.abs(x-lastX) > speed || Math.abs(y-lastY) > speed || Math.abs(z-lastZ) > speed) {
+			shaketimes += 1;
+			if(shaketimes%2 == 0) {
+				$("#yaoyy").rotate({angle:40});
+			} else {
+				$("#yaoyy").rotate({angle:-40});
+			}
+			
+			if(playding == 1 && shaketimes%2 == 0) {
+				if(isios == 0) {
+					$('#yy_play audio').get(0).play();
+				} else {
+					$('#yy_play audio').get(0).play();
+					//play_wx_yy();
+				}
+			}
+			if(shaketimes%awardsinterval == 0) {
+				//摇够awardsinterval次去抽奖了
+				if(xyrestrict == 1)
+				{
+					wx.getLocation({
+						type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+						success: function (res) {
+							var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+							var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+							var speed = res.speed; // 速度，以米/每秒计
+							var accuracy = res.accuracy; // 位置精度
+
+							/*alert(latitude);
+							alert(longitude);
+							alert(restrictlat);
+							alert(restrictlon);
+							alert(xyradius);*/
+							if(latitude != '' && longitude != '' && restrictlat != '' && restrictlon != '' && xyradius > 0)
+							{
+								var distt = getDisance(latitude, longitude, restrictlat, restrictlon);
+								if(distt < xyradius) {
+									var submitData = {
+										shaketimes: shaketimes,
+										replywords: replywords
+									};
+									$.post('{php echo $this->createMobileUrl('ShakeAward')}', submitData, function (data) {
+										if (data.success == true) {
+											//中奖了
+											//alert(playding);
+											if(playding == 1) {
+												if(isios == 0) {
+													$('#yy_play audio').get(0).pause();
+													$('#mc_play audio').get(0).play();
+												} else {
+													//play_wx_win();
+													$('#yy_play audio').get(0).pause();
+													$('#mc_play audio').get(0).play();
+												}
+											}
+											$('#noticetxt').html('恭喜您摇中了：' + data.awardname);
+										}
+									}, "json");
+								} else {
+									$('#noticetxt').html('您的位置不在活动范围内，请前往活动场地！');
+								}
+							}
+						}
+					});
+				} else {
+					var submitData = {
+						shaketimes: shaketimes,
+						replywords: replywords
+					};
+					$.post('{php echo $this->createMobileUrl('ShakeAward')}', submitData, function (data) {
+						if (data.success == true) {
+							//中奖了
+							//alert(playding);
+							//alert(isios);
+						    console.log('playding:' + playding);
+						    console.log('isios:' + isios);
+							if(playding == 1) {
+								if(isios == 0) {
+									$('#yy_play audio').get(0).pause();
+									$('#mc_play audio').get(0).play();
+								} else {
+									//play_wx_win();
+									$('#yy_play audio').get(0).pause();
+									$('#mc_play audio').get(0).play();
+								}
+							}
+							$('#noticetxt').html('恭喜您摇中了：' + data.awardname);
+						}
+					}, "json");
+				}
+				
+			}
+		}
+		lastX = x;
+		lastY = y;
+		lastZ = z;
+	}
+	
+	function toRad(d) {  
+		return d * Math.PI / 180; 
+	}
+	function getDisance(lat1, lng1, lat2, lng2) { 
+		//两个算法都可以
+		/*var dis = 0;
+		var radLat1 = toRad(lat1);
+		var radLat2 = toRad(lat2);
+		var deltaLat = radLat1 - radLat2;
+		var deltaLng = toRad(lng1) - toRad(lng2);
+		var dis = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(deltaLat / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(deltaLng / 2), 2)));
+		return dis * 6378137;*/
+		
+		//较精确的算法
+		var b = Math.PI / 180;
+		var c = Math.sin((lat2 - lat1) * b / 2);
+		var d = Math.sin((lng2 - lng1) * b / 2);
+		var a = c * c + d * d * Math.cos(lat1 * b) * Math.cos(lat2 * b);
+		return 12756274 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+	}
+	
+
+	function play_music(){
+		$('#mc_play').find("Audio")[0].play();
+	}
+
+	function test(){
+		alert(123)
+		$('#yy_play').find("Audio")[0].play();
+	}
+	
+
+	if(typeof(Worker) !== undefined){
+		$("#audio_btn").css("display","block");
+		//音乐模块
+		$("#audio_btn").click(function(){
+			if($("#audio_btn").attr("class") == "audioOn"){
+				$("#audio_btn").attr("class","audioOff")
+				$("#yinfu").removeClass("rotate");
+				playding = 0;
+				$('#yy_play').find("Audio")[0].pause();
+			}else if($("#audio_btn").attr("class") == "audioOff"){
+				$("#audio_btn").attr("class","audioOn")
+				$("#yinfu").addClass("rotate");
+				playding = 1;
+
+				//测试浏览器是否支持制定音频类型
+				//myAudio = document.createElement('audio');
+				//isSupp = myAudio.canPlayType('audio/wav');
+				//alert(isSupp);
+
+				//$('#yy_play').load();
+				//alert($('#yy_play').find("Audio")[0].networkState);
+				if($('#yy_play').find("Audio")[0].networkState != 1) {
+					isios = 1;
+				}
+				if(isios == 0) {
+					$('#yy_play').find("Audio")[0].play();
+				} else {
+					alert(1)
+					$('#yy_play').load();
+					$('#yy_play').find("Audio")[0].play();
+					//play_wx_yy();
+				}
+
+				/*
+				yy_play_media = document.getElementById("yy_play_media");
+				alert(yy_play_media.networkState);
+				yy_play_media.src = "../addons/hpmd_shakewin/voice/kaca.wav"; 
+				
+				//play = function(){  
+				//	yy_play_media.play();  
+				//}; 
+				yy_play_media.play(); 
+				//document.addEventListener("WeixinJSBridgeReady", function () {  
+				//	play();  
+				//}, false); 
+				*/
+
+				/*
+				$('<audio id="chatAudio"><source src="../addons/hpmd_shakewin/voice/notify.ogg" type="audio/ogg"><source src="../addons/shakewin/voice/notify.mp3" type="audio/mpeg"><source src="../addons/shakewin/voice/notify.wav" type="audio/wav"></audio>').appendTo('body');
+				//chatAudio = document.getElementById("chatAudio");
+				//$('#chatAudio')[0].src = "../addons/hpmd_shakewin/voice/notify.ogg"; 
+				//$('#chatAudio')[0].type = "audio/ogg"; 
+				alert($('#chatAudio')[0].src);
+				alert($('#chatAudio')[0].type);
+				alert($('#chatAudio')[0].networkState);
+
+				//$('#chatAudio')[0].play(); //播放声音 
+				$('#chatAudio')[1].play(); //播放声音 
+				//$('#chatAudio')[2].play(); //播放声音 
+				*/
+				
+			}
+		});
+	}
+</script>
+
+</body>
+</html>

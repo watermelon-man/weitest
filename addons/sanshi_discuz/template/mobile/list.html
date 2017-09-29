@@ -1,0 +1,196 @@
+<!--{template 'common/header'}-->
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>话题墙</title>
+        <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="../addons/sanshi_discuz/template/mobile/dist/css/mui.css">
+	<link rel="stylesheet" type="text/css" href="../addons/sanshi_discuz/template/mobile/lib/css/lib.css">
+        <link rel="stylesheet" href="../addons/sanshi_discuz/template/mobile/css/liMarquee.css">
+</head>
+<style>
+	.introduce p{
+		padding: 20px;
+		background-image: url('../addons/sanshi_discuz/template/mobile/images/introBack.jpg');
+		background-size: 100% 100%;
+		color: white;
+                margin-bottom: 0;
+	}
+	.dowebok{
+		height: 16rem;
+                margin-top: 10px;
+	}
+	ul li{
+		 /*line-height: 3rem;*/ 
+	}
+	ul li p{
+		color: black;
+		white-space:normal;
+		font-size: 16px;
+                line-height: 20px;
+		width: 90%;
+	}
+	.mui-badge img{
+		width: 1rem;
+		/* height: 34px; */
+	}
+	.message{
+		width: 100%;
+		text-align: center;
+		padding-top: 1.5rem;
+	}
+	.message .mui-btn{
+		width: 50%;
+	}
+        .message>button{
+                background-color: #ff8d06;
+                color: white;
+                border: 1px solid #ff8d06;
+        }
+	.message>div{
+		padding-top: 1rem;
+		width: 90%;
+		margin: 0 auto;
+		display: none;
+                position: absolute;
+                top: 35%;
+                left: 5%;
+                padding-bottom: 0.5rem;
+	}
+	.message>div>textarea{
+		height: 100px;
+	}
+        .mui-bar-nav.mui-bar .mui-icon{
+            color:#666;
+        }
+	h6{color:#007aff;}
+	textarea{resize:none;}
+	#word{color:red;}
+        .mui-toast-container{
+            background: none;
+            min-height: 0;
+            top: auto; 
+            margin-left: 0; 
+        }
+</style>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="../addons/sanshi_discuz/template/mobile/index.html" title=""></a>
+		<h1 class="mui-title">{$row['topicname']}</h1>
+	</header>
+	<div class="mui-content">
+		<div class="introduce">
+			<p>{$row['topicdesc']}</p>
+		</div>
+    	<!-- <div class="dowebok"> -->
+		<ul class="mui-table-view dowebok">
+                   {loop $discuz_list $item}
+		    <li class="mui-table-view-cell">
+		    	<p>{$item['discuss']}</p>
+                        <span class="mui-badge"><i style='display:none'>{$item['id']}</i><img src="../addons/sanshi_discuz/template/mobile/images/fabulous.png" alt=""></span>
+		    </li>
+                    {/loop}
+		</ul>
+		<div class="message">
+			<button type="button" class="mui-btn mui-btn-primary">我要留言</button>
+			<div class="mui-popover">
+				<h6>说点什么吧，你可以输入<span>140</span>个字，现在剩余<span id="word">140</span>个</h6>
+				<textarea name="con" id="talk" cols="45" rows="6"></textarea>
+				<button type="button" class="mui-btn mui-btn-danger">提交</button>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../addons/sanshi_discuz/template/mobile/lib/js/jquery.min.js"></script>
+<script type="text/javascript" src="../addons/sanshi_discuz/template/mobile/dist/js/mui.js"></script>
+<script type="text/javascript" src="../addons/sanshi_discuz/template/mobile/js/ajax.js"></script>
+<script type="text/javascript" src="../addons/sanshi_discuz/template/mobile/js/jquery.liMarquee.js"></script>
+<script type="text/javascript">
+	$(function(){	
+            // 列表下滑
+	    $('.dowebok').liMarquee({
+	        direction: 'up',
+	        scrollamount: 20,
+	        drag:true
+	    });
+            var isLike = false;//点赞参数
+            // 留言字数显示
+            $("#talk").keyup(function(){
+                    var len = $(this).val().length;
+                    if(len > 139){
+                            $(this).val($(this).val().substring(0,140));
+                    }
+                    var num = 140 - len;
+                    if(num<0){num = 0};
+                    $("#word").text(num);
+            });
+            // 留言框弹出
+            $(".message>button").on("click",function () {
+                    mui('.mui-popover').popover('toggle');
+            });
+            $(".message>div>button").on("click",function () {
+                $.ajax({
+                    type: "POST",
+                    url: "{php echo $this->createMobileUrl('savediscuss')}",
+                    data: {
+                        "topic_id": {$row['id']},
+                        "discuss": $("#talk").val()
+                    },
+                    success: function (data) {
+                        if(JSON.parse(data).code == 200){
+                            var message = '<li class="mui-table-view-cell"><p>'+$("#talk").val()+'</p><span class="mui-badge">'+
+                                    '<img src="../addons/sanshi_discuz/template/mobile/images/fabulous.png" alt=""></span></li>';
+                            $(".mui-content").innerHTML += message;
+                            mui('.mui-popover').popover('hide');
+                            $("#talk").val("");  
+                            location.reload();
+                        }
+                    },
+                    error: function () {
+                          console.log("提交数据失败！");
+                    }
+                });
+            })
+            // 点赞
+            $("ul li .mui-badge").on("click",function () {
+                    if(!isLike){
+                            $(this).children("img")[0].src = "../addons/sanshi_discuz/template/mobile/images/fabulousClick.png";
+                            $(this).addClass("mui-badge-danger");
+                            isLike = true;
+                    }else{
+                            $(this).children("img")[0].src = "../addons/sanshi_discuz/template/mobile/images/fabulous.png";
+                            $(this).removeClass("mui-badge-danger");
+                            isLike = false;
+                    }
+                    var id = $(this).children("i")[0].innerHTML;
+                    var isClick = ($(this).hasClass('mui-badge-danger'));
+                    getZan(id,isClick);
+            })
+            
+            function getZan(id,isClick){
+               $.ajax({
+                    type: 'POST',
+                    url: "{php echo $this->createMobileUrl('zan')}",
+                    data: {
+                        'discuss_id':id
+                    },
+                    success: function(data){
+//                        console.log(this);
+                        if(isClick){
+                            mui.toast('已点赞',{ duration:'short', type:'div' }) 
+                        }else{
+                            mui.toast('已取消点赞',{ duration:'short', type:'div' }) 
+                        }
+                    },
+                    dataType: 'json'
+                  });
+            }
+	});
+</script>
+</html>

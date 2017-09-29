@@ -1,0 +1,51 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li class="active"><a href="javascript:;" title="" >用户列表</a></li>
+</ul>
+
+
+<style>
+.label{cursor:pointer;}
+</style>
+<div class="main">
+  <div class="panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="text-align:center; width:70px;">ID</th>
+					<th style="text-align:center; width:100px;">姓名</th>
+					<th style="text-align:center; width:100px;">团队名称</th>
+					<th style="text-align:center; width:120px;">电话</th>
+					<th style="text-align:center; width:120px;">微信</th>
+					<th style="text-align:center; width:100px;">QQ</th>
+					<th style="text-align:center; width:150px;">时间</th>	
+					<th style="text-align:center; width:150px;">生成次数</th>	
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $row}
+				<tr style="text-align:center;">
+					<td>{$row['id']}</td>
+					<td >{$row['name']}</td>
+					<td>{$row['team']}</td>
+					<td>{$row['phone']}</td>
+					<td>{$row['wechat']}</td>
+					<td>{$row['qq']}</td>
+					<td>{php echo date("Y-m-d H:i:s", $row['addtime'])}</td>
+					<td>{$row['sccom']}</td>
+				</tr>
+				{/loop}	
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+  </div>
+</div>
+<script type="text/javascript">
+ 	require(['bootstrap'],function($){
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
+
+{template 'common/footer'}

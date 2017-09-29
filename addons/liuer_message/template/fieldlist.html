@@ -1,0 +1,49 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li class="active"><a href="{php echo $this->createWebUrl('fieldlist');}">字段列表</a></li>
+    <li><a href="{php echo $this->createWebUrl('addfields');}">添加字段</a></li>
+</ul>
+<form action="" method="post">
+<div class="table-responsive clearfix">
+    <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th>排序</th>
+                    <th>字段名</th>
+                    <th>标题</th>
+                    <th>是否启用</th>
+                    <th>是否必填</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $fields $field}
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" style="width:50%;" name="order[{$field['id']}]" value="{$field['listorder']}">
+                    </td>
+                    <td style="vertical-align:middle;"><div>{$field['field']}</div></td>
+                    <td style="vertical-align:middle;">{$field['title']}</td>
+                    <td style="vertical-align:middle;"><input type="checkbox" name="available[{$field['id']}]" value="1" {if $field['status']}checked{/if}/></td>
+                    <td style="vertical-align:middle;"><input type="checkbox" name="required[{$field['id']}]" value="1" {if $field['required']}checked{/if}/></td>
+                    <td style="vertical-align:middle;">
+                        <!--<a href="{php echo url('user/fields/post', array('id' => $field['id']))}" title="编辑">编辑</a>-->
+                        <a href="{php echo $this->createWebUrl('editfields',array('id'=>$field['id']));}" class="btn btn-default btn-sm"><i class="fa fa-edit"></i> 编辑</a>
+                        {if !$field['issystem']}
+                        <a href="{php echo $this->createWebUrl('delete',array('id'=>$field['id']))}" onclick="return confirm('确定要删除吗？')" class="btn btn-default btn-sm"><i class="fa fa-trash"></i> 删除</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary col-lg-1" name="submit" value="修改">修改</button>
+        <input type="hidden" name="token" value="{$_W['token']}" />
+    </div>
+</div>
+</form>

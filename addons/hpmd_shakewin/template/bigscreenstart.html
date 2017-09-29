@@ -1,0 +1,91 @@
+{template 'common/header'}
+{template 'common'}
+<div class="main">
+    <ul class="nav nav-tabs">		
+        <li class="active"><a href="{php echo $this->createWebUrl('Shakerule',array('op'=>'list'));}">开启大屏幕</a></li>    
+    </ul>
+
+    <div class="panel panel-default">
+		<div class="panel-body table-responsive">
+        <table class="table table-hover">
+            <thead class="navbar-inner">
+                <tr>
+                    <th style="width:130px;">活动标题</th>
+                    <th style="width:80px;">回复关键字</th>
+                    {if $add_paper == 0}
+                    <th style="width:90px;">活动操作</th>
+                    {/if}
+                </tr>
+            </thead>
+            <tbody>
+				{php $started = 0}
+                {loop $list $index $item}
+				{php $starttime = date('Y-m-d h:i',$item['starttime'])}
+				{php $endtime = date('Y-m-d h:i',$item['endtime'])}
+                <tr>  
+                    <td>
+						{$item['title']}
+					</td>
+                    <td>
+						{$item['replywords']}
+					</td>
+                    <td>
+                        {if $add_paper == 0}
+                        <!-- <a class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" href="{php echo $this->createWebUrl('BigScreenStart',array('ruleid'=>$item['id']))}" title="开启大屏幕">开启大屏幕</a> -->
+                        <a class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" onclick="StartStopScreen({$item['id']}, {$item['started']})">{if $item['started'] == 0}开始活动{else}{php $started = 1}结束活动{/if}</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/loop}
+            </tbody>
+            <input name="token" type="hidden" value="{$_W['token']}" />
+        </table>
+		</div>
+    </div>
+	{$pager}
+</div>
+<script>
+	var startedact = '{$started}';
+
+    $(".check_all").click(function(){
+       var checked = $(this).get(0).checked;
+		$(':checkbox').each(function(){this.checked = checked});
+    });
+
+	require(['bootstrap'],function($){
+		$('.btn').tooltip();
+	});
+
+	function drop_confirm(msg, url){
+		if(confirm(msg)){
+			window.location = url;
+		}
+	}
+
+	function StartStopScreen(ruleid, started) {
+		console.log('ruleid:'+ruleid);
+		console.log('started:'+started);
+		if(started == 0 && startedact == 1) {
+			alert('只能开启一个活动，请先结束进行中的活动！');
+			return;
+		}
+		
+		$.post("{php echo $this->createWebUrl('StartStopAct',null)}", {ruleid:ruleid,started:started},function(data){
+			if (data.errno == 0)
+			{
+				if(data.started == 1) {
+					//刷新本页面并跳转
+					//window.open(data.url, '_blank');
+				} 
+				location.reload();
+			}
+			else
+			{
+				alert(data.msg);
+				location.reload();
+			}
+		},'json');
+	}
+
+</script>
+{template 'common/footer'}

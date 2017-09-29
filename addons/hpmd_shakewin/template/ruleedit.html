@@ -1,0 +1,506 @@
+{template 'common/header'}
+{template 'common'}
+<div class="main">
+    <ul class="nav nav-tabs">	 	
+      <li {if $op=='list' || empty($op)}class="active"{/if}><a href="{php echo $this->createWebUrl('Shakerule',array('op'=>'list'));}">活动管理</a></li>    
+      <li {if $op=='edit' && empty($item['id'])}class="active"{/if}><a href="{php echo $this->createWebUrl('Shakerule',array('op'=>'edit'));}">添加活动</a></li>	
+       {if $op=='edit' && !empty($item['id'])}<li class="active"><a href="{php echo $this->createWebUrl('Shakerule', array('op'=>'edit','id'=>$id));}">编辑活动</a></li>{/if}
+    </ul>
+    <form action="" class="form-horizontal form" method="post" enctype="multipart/form-data" onsubmit="return formcheck()">
+        <input type="hidden" name="id" value="{$item['id']}">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                活动编辑
+            </div>
+            <div class="panel-body"> 
+				 <div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>是否启用</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="online" value="1" {if $item['online'] == null || $item['online'] == '1'} checked="checked"{/if}/>是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="online" value="0" {if $item['online'] == '0'} checked="checked"{/if}/>否
+						</label>
+					</div>
+				</div>  
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">回复关键字</label>
+                    <div class="col-sm-9 col-xs-12">  
+                     	<input type='text' id='replywords' name='replywords' value="{$item['replywords']}"  class="form-control"/>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动标题</label>
+                    <div class="col-sm-9 col-xs-12">  
+                     	<input type='text' id='title' name='title' value="{$item['title']}"  class="form-control"/>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动描述</label>
+                    <div class="col-sm-9 col-xs-12">  
+                     	<input type='text' id='description' name='description' value="{$item['description']}"  class="form-control"/>
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 活动时间</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_daterange('datelimitsc', array('starttime'=>date('Y-m-d',$item['starttime']),'endtime'=>date('Y-m-d',$item['endtime'])), true)}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 领奖时间</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_daterange('datelimitex', array('starttime'=>date('Y-m-d',$item['exchangestarttime']),'endtime'=>date('Y-m-d',$item['exchangeendtime'])), true)}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">摇动几次可抽奖</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="shaketimeswin" name="shaketimeswin" value="{$item['shaketimeswin']}" />
+							<span class="input-group-addon">次</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">每人每天获奖次数</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="awardtimesday" name="awardtimesday" value="{$item['awardtimesday']}" />
+							<span class="input-group-addon">次</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">每人获奖总次数</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="awardtimestotal" name="awardtimestotal" value="{$item['awardtimestotal']}" />
+							<span class="input-group-addon">次</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">本期活动可获取奖品总数</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="awardtotal" name="awardtotal" value="{$item['awardtotal']}" />
+							<span class="input-group-addon">个</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>不同活动再次获奖</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="awarddiffact" value="1" {if $item['awarddiffact'] == '1'} checked="checked"{/if} />是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="awarddiffact" value="0" {if $item['awarddiffact'] == null || $item['awarddiffact'] == '0'} checked="checked"{/if} />否
+						</label>
+						<div class="help-block">否：每人获奖总次数 = 每人获奖总次数 - 往期活动获奖数 !</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">最小中奖间隔时间</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="minawardinterval" name="minawardinterval" value="{$item['minawardinterval']}" />
+							<span class="input-group-addon">秒</span>
+						</div>
+						<div class="help-block">两个获奖用户间的间隔时间，必须比这个时间大，若为0则不限制。</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">大屏幕背景图</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('backgrdpic',$item['backgrdpic']);}
+					</div>
+					<div class="help-block">不设置将使用默认背景。</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">大屏幕活动海报</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('showpic',$item['showpic']);}
+					</div>
+					<div class="help-block">不设置将使用默认背景。大屏幕活动没开始将显示最后一次设置的该海报图片。</div>
+				</div>
+            </div>
+        </div>
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                微信页面设置
+            </div>
+            <div class="panel-body"> 
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>开启坐标限制</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="xyrestrict" value="1" {if $item['xyrestrict'] == '1'} checked="checked"{/if} onclick="XYClick(1)"/>是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="xyrestrict" value="0" {if $item['xyrestrict'] == null || $item['xyrestrict'] == '0'} checked="checked"{/if} onclick="XYClick(0)"/>否
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">经度longitude</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="longitude" name="longitude" value="{$item['longitude']}" />
+							<span class="input-group-addon"></span>
+						</div>
+						<div class="help-block">火星坐标系，可使用高德地图（开放平台-开发-坐标拾取器）获取！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">纬度latitude</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="latitude" name="latitude" value="{$item['latitude']}" />
+							<span class="input-group-addon"></span>
+						</div>
+						<div class="help-block">火星坐标系，可使用高德地图（开放平台-开发-坐标拾取器）获取！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">半径</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="xyradius" name="xyradius" value="{$item['xyradius']}" />
+							<span class="input-group-addon">米</span>
+						</div>
+						<div class="help-block">以坐标为圆点，该半径范围内粉丝可以参加活动！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">坐标位置描述</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="xydescript" name="xydescript" value="{$item['xydescript']}" />
+							<span class="input-group-addon"></span>
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                大屏幕设置
+            </div>
+            <div class="panel-body"> 
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">大屏幕开始结束作为活动起始</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="screentime" value="1" {if $item['screentime'] == '1'} checked="checked"{/if} />是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="screentime" value="0" {if $item['screentime'] == null || $item['screentime'] == '0'} checked="checked"{/if} />否
+						</label>
+						<div class="help-block">开启后，活动开始结束时间是大屏幕开始结束按钮按下时间！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">球旋转速度</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="ballspeed" name="ballspeed" value="{$item['ballspeed']}" />
+						</div>
+						<div class="help-block">0-1之间数，数值越大旋转越快！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">球自动改变方向</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="autodirection" value="1" onclick="AutoDirect(1)" {if $item['autodirection'] == '1'} checked="checked"{/if} />是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="autodirection" value="0" onclick="AutoDirect(0)" {if $item['autodirection'] == null || $item['autodirection'] == '0'} checked="checked"{/if} />否
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">自动改变方向时间间隔</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="directtime" name="directtime" value="{$item['directtime']}" />
+							<span class="input-group-addon">毫秒</span>
+						</div>
+						<div class="help-block">球旋转时，自动改变方向的时间间隔！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">检测摇动用户时间间隔</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="checkshaketime" name="checkshaketime" value="{$item['checkshaketime']}" />
+							<span class="input-group-addon">毫秒</span>
+						</div>
+						<div class="help-block">球旋转时，自动检测摇动用户的时间间隔！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">检测获奖用户时间间隔</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="checkwintime" name="checkwintime" value="{$item['checkwintime']}" />
+							<span class="input-group-addon">毫秒</span>
+						</div>
+						<div class="help-block">球旋转时，自动检测获奖用户的时间间隔！</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">未摇动头像退出间隔</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="headexitsecond" name="headexitsecond" value="{$item['headexitsecond']}" />
+							<span class="input-group-addon">秒</span>
+						</div>
+						<div class="help-block">球旋转时，检测到用户摇动后，间隔多久未摇动则头像退出大屏幕！</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                	分享链接设置
+            </div>
+            <div class="panel-body"> 
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>开启自定义分享</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="enableshare" value="1" {if $item['enableshare'] == '1'} checked="checked"{/if} onclick="EnableShare(1)"/>是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="enableshare" value="0" {if $item['enableshare'] == null || $item['enableshare'] == '0'} checked="checked"{/if} onclick="EnableShare(0)"/>否
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="sharetitle" name="sharetitle" value="{$item['sharetitle']}" />
+							<span class="input-group-addon"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享描述</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="sharedesc" name="sharedesc" value="{$item['sharedesc']}" />
+							<span class="input-group-addon"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享链接</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="sharelink" name="sharelink" value="{$item['sharelink']}" />
+							<span class="input-group-addon"></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图片</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('sharepic',$item['sharepic']);}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                缓存设置
+            </div>
+            <div class="panel-body"> 
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">缓存过期时间</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="cachesecond" name="cachesecond" value="{$item['cachesecond']}" />
+							<span class="input-group-addon">秒</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">当前缓存数</label>
+					<div class="col-sm-5 col-xs-6">
+						<div class="input-group">
+							<input type="text" class="form-control"  id="clearcacheinput" name="clearcacheinput" value="{$allcachekeys}" />
+							<input type="button" class="btn btn-primary" name="clearcache" value="清除缓存" />
+						</div>
+						<div class="help-block">请勿在业务高峰期清楚缓存，会对DB形成冲击！</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+      	</div>
+    </form>
+</div>
+<script type="text/javascript">
+
+var xyrestrict = '{$item['xyrestrict']}';
+if(xyrestrict == 0) { 
+	$("#latitude").attr("disabled",true); 
+	$("#longitude").attr("disabled",true); 
+	$("#xyradius").attr("disabled",true); 
+	$("#xydescript").attr("disabled",true); 
+} else if(xyrestrict == 1) { 
+	$("#latitude").attr("disabled",false); 
+	$("#longitude").attr("disabled",false); 
+	$("#xyradius").attr("disabled",false); 
+	$("#xydescript").attr("disabled",false); 
+}
+var autodirection = '{$item['autodirection']}';
+if(autodirection == 0) { 
+	$("#directtime").attr("disabled",true); 
+} else if(autodirection == 1) { 
+	$("#directtime").attr("disabled",false); 
+}
+
+function AutoDirect(open){
+	if(open == 0) { 
+		$("#directtime").attr("disabled",true); 
+	} else if(open == 1) { 
+		$("#directtime").attr("disabled",false); 
+	}
+}
+function EnableShare(open){
+	if(open == 0) { 
+		$("#sharetitle").attr("disabled",true); 
+		$("#sharedesc").attr("disabled",true); 
+		$("#sharelink").attr("disabled",true); 
+		$("#sharepic").attr("disabled",true); 
+	} else if(open == 1) { 
+		$("#sharetitle").attr("disabled",false); 
+		$("#sharedesc").attr("disabled",false); 
+		$("#sharelink").attr("disabled",false); 
+		$("#sharepic").attr("disabled",false); 
+	}
+}
+function XYClick(open){
+	if(open == 0) { 
+		$("#latitude").attr("disabled",true); 
+		$("#longitude").attr("disabled",true); 
+		$("#xyradius").attr("disabled",true); 
+		$("#xydescript").attr("disabled",true); 
+	} else if(open == 1) { 
+		$("#latitude").attr("disabled",false); 
+		$("#longitude").attr("disabled",false); 
+		$("#xyradius").attr("disabled",false); 
+		$("#xydescript").attr("disabled",false); 
+	}
+}
+function formcheck(){
+   if($("#replywords").val() == ''){
+        Tip.focus("replywords","请填写回复关键字!","right");
+        return false;
+   }
+   if($("#title").val() == ''){
+        Tip.focus("title","请填写标题!","right");
+        return false;
+   }
+   if($("#description").val() == ''){
+        Tip.focus("description","请填写活动描述!","right");
+        return false;
+   }
+   if($("#awardtimesday").val() == ''){
+        Tip.focus("awardtimesday","请填写每人每天获奖次数!","right");
+        return false;
+   }
+   if($("#awardtimestotal").val() == ''){
+        Tip.focus("awardtimestotal","请填写每人获奖总次数!","right");
+        return false;
+   }
+   if($("#cachesecond").val() == ''){
+        Tip.focus("cachesecond","请填写缓存过期时间!","right");
+        return false;
+   }
+   if($("#awardtotal").val() == ''){
+        Tip.focus("awardtotal","请填写本期可获取奖品总数!","right");
+        return false;
+   }
+   if($("#latitude").val() != ''){
+	    var valrt = fucCheckXY($("#latitude").val());
+	    if(valrt == -1) {
+			Tip.focus("latitude","latitude为空!","right");
+			return false;
+		} else if(valrt == -2) {
+			Tip.focus("latitude","latitude输入非法，只能输入数字和 . !","right");
+			return false;
+		} else if(valrt == -3) {
+			Tip.focus("latitude","latitude输入非法，只能输入一个 . !!","right");
+			return false;
+		} else if(valrt == -4) {
+			Tip.focus("latitude","latitude长度不对，请仔细核对坐标!","right");
+			return false;
+		} 
+   }
+   if($("#longitude").val() != ''){
+	    var valrt = fucCheckXY($("#longitude").val());
+	    if(valrt == -1) {
+			Tip.focus("longitude","longitude为空!","right");
+			return false;
+		} else if(valrt == -2) {
+			Tip.focus("longitude","longitude输入非法，只能输入数字和 . !","right");
+			return false;
+		} else if(valrt == -3) {
+			Tip.focus("longitude","longitude输入非法，必须输入一个 . !!","right");
+			return false;
+		} else if(valrt == -4) {
+			Tip.focus("longitude","longitude长度不对，请仔细核对坐标!","right");
+			return false;
+		} 
+   }
+   var bspeed = $("#ballspeed").val();
+   if(bspeed != '' && (bspeed > 1 || bspeed < 0)){
+        Tip.focus("ballspeed","球旋转的速度必须在大于0，小于等于1 !","right");
+        return false;
+   }
+   return  true;
+}
+function fucCheckXY(XY)
+{
+	var i,j,dota,strTemp;
+	strTemp="0123456789.";
+	dota = 0;
+	if (XY.length== 0)
+		return -1;
+	if (XY.length> 20)
+		return -4;
+	for (i=0;i<XY.length;i++)
+	{
+		j=strTemp.indexOf(XY.charAt(i)); 
+		if (j==-1)
+		{
+			return -2;
+		}
+		else if(XY.charAt(i) == '.') {
+			dota ++;
+		}
+	}
+	if(dota == 1) {
+		return 1;
+	} else {
+		return -3;
+	}
+}
+$("input[name=clearcache]").click(function() {
+	if (confirm("清除缓存会对DB造成压力，确定清除吗?")) {
+		$.post("{php echo create_url('site/entry', array('do' => 'ClearCache','op'=>'', 'm' => 'hpmd_shakewin'))}", {idArr: 1}, function(data) {
+			location.reload();
+		}, 'json');
+	}
+});
+</script>
+{template 'common/footer'}

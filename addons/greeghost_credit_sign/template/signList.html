@@ -1,0 +1,87 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li class="active"><a href="{php echo $this->createWebUrl('SignAdmin', array('op'=>'display'));}">签到列表</a></li>
+	<li><a href="{php echo $this->createWebUrl('SignAdmin', array('op'=>'count'));}">签到统计</a></li>
+</ul>
+
+<div class="main">
+	<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="{$_GPC['c']}">
+			<input type="hidden" name="a" value="{$_GPC['a']}">
+			<input type="hidden" name="do" value="{$_GPC['do']}">
+			<input type="hidden" name="m" value="{$_GPC['m']}">
+			<input type="hidden" name="op" value="{$op}">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">粉丝ID</label>
+					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
+						<input class="form-control" name="fanid" type="text" value="{$_GPC['fanid']}" placeholder="粉丝ID">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">会员昵称</label>
+					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
+						<input class="form-control" name="nickname" type="text" value="{$_GPC['nickname']}" placeholder="粉丝昵称">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">签到日期</label>
+					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
+						{php echo tpl_form_field_daterange('time', $time);}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>&nbsp;&nbsp;
+						<input type="hidden" name="token" value="{$_W['token']}">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">签到列表</div>
+		<div class="table-responsive panel-body">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+					<tr>
+						<th class="col-sm-2">粉丝ID</th>
+						<th class="col-sm-2">粉丝头像</th>
+						<th class="col-sm-2">粉丝昵称</th>
+						<th class="col-sm-2">签到积分</th>
+						<th class="col-sm-2">签到时间</th>
+					</tr>
+				</thead>
+				{if !empty($records)}
+				{loop $records $key $value}
+				<tbody>
+					<tr>
+						<td>{$value['fanid']}</td>
+						<td><img src="{$value[avatar]}" width="48"></td>
+						<td>{$value['nickname']}</td>
+						<td>{$value['sign_score']}</td>
+						<td>{$value['sign_time']}</td>
+					</tr>
+				</tbody>
+				{/loop}
+				{/if}
+				{if empty($records)}
+				<tr>
+					<td colspan="10">
+						没有签到记录
+					</td>
+				</tr>
+				{/if}
+			</table>
+			{$pager}
+			
+		</div>
+	</div>
+</div>
+
+{template 'common/footer'}

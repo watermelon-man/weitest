@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="telephone=no" name="format-detection" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="apple-touch-icon-precomposed" href="../addons/hc_article/recouse/images/apple-touch-icon.png"/>
+	<title>发布文章链接</title>
+	<link rel='stylesheet' type='text/css' href='../addons/hc_article/recouse/css/product-intro.css' />
+    <link rel="stylesheet" type="text/css" href="../addons/hc_article/recouse/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../addons/hc_article/recouse/css/xmapp.css"/>
+</head>
+<body>
+<div class="header_03">
+  <div style="" class="tit">
+    <h3>发布文章</h3>
+  </div>
+</div>
+<section class="sp">
+	<div class="product-intro">
+	<link href="../addons/hc_article/recouse/css/flexslider.css" rel="stylesheet" type="text/css" />
+	<div class="show">
+		<div class="flexslider">
+			<ul class="slides">
+			<!-- -->
+			  <li><img src="../addons/hc_article/icon.jpg" style="height:300px;width:300px"/></li>
+			<!---->
+			</ul>
+		</div>
+	</div>
+		<div class="pro-info">
+			<p class="pro-name"><strong style="font-size: 22px;color:black">验证码：{$authcode} (有效期3600秒)</strong></br>{php echo $_W['siteroot'].'app/'.$this->createMobileUrl('release_index');}</p>
+		</div>
+	</div>
+</section>
+</body>
+</html>

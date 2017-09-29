@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$settings['life_title']}</title>
+    <meta name="apple-mobile-web-app-title" content="海报首页">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <link rel="stylesheet" type="text/css" href="{MODULE_URL}template/mobile/poster/css/zmcnswiper.css?qq=ttyhss">
+    <link rel="stylesheet" type="text/css" href="{MODULE_URL}template/mobile/poster/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="{MODULE_URL}template/mobile/poster/css/dropload.css">
+	<link rel="stylesheet" href="{$_W['siteroot']}addons/zmcn_erp/zmui/icon/iconfont.css"/><!--加快统一素质材-->
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+	{php echo register_jssdk(false);}
+<script>
+	wx.ready(function () {
+		sharedata = {
+			title: '{$_share['title']}',
+			desc: '{$_share['content']}',
+			link: '{$_share['link']}',
+			imgUrl: '{$_share['imgUrl']}',
+			success: function(){
+				//alert('success');
+			},
+			cancel: function(){
+				//alert('cancel');
+			}
+		};
+		wx.onMenuShareAppMessage(sharedata);
+	});
+</script>
+    <script src="{MODULE_URL}template/mobile/poster/js/jquery-2.2.3.min.js"></script>
+    <script src="{MODULE_URL}template/mobile/poster/js/swiper.min.js"></script>
+    <script src="{MODULE_URL}template/mobile/poster/js/touch.min.js"></script>
+    <script src="{MODULE_URL}template/mobile/poster/js/edit_1.js"></script>
+    <script src="{MODULE_URL}template/mobile/poster/js/htc.js"></script>
+    <script src="{MODULE_URL}template/mobile/poster/js/dropload.min.js"></script>
+   <script type="text/javascript">
+        var docEl = document.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                docEl.style.fontSize = 10 * (docEl.clientWidth / 320) + 'px';
+            };
+        window.addEventListener(resizeEvt, recalc, false);
+        document.addEventListener('DOMContentLoaded', recalc, false);
+    </script>
+   
+</head>
+<body>
+    <div class="first">
+	<div class="weui-btn_primary weui-header">
+		<div class="weui-header-left"><a class="zmui-icon zmui-icon-slider-left f-white" onclick='javascript:history.go(-1);'></a></div>
+		<h1 class="weui-header-title">微商海报设计</h1>
+		<div class="weui-header-right"><a class="zmui-icon zmui-icon-more f-white" href="{php echo $this->createMobileUrl('index',array('pag'=> 'list'))}"></a></div>
+	</div>

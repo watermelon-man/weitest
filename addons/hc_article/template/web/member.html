@@ -1,0 +1,112 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li class="active"><a>{if $op=='display'}粉丝列表{else}粉丝信息{/if}</a></li>
+</ul>
+{if $op == 'post'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				编辑粉丝
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">头像</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('headurl', $member['headurl'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">昵称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="nickname" class="form-control" value="{$member['nickname']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">电话</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="mobile" class="form-control" value="{$member['mobile']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">会员等级</label>
+					<div class="col-sm-9 col-xs-12">
+						<select class="form-control" name="viplevel">
+							{loop $viplevels $v}
+								<option value="{$v['id']}" {if $v['id']==$member['viplevel']}selected{/if}>{$v['title']}</option>
+							{/loop}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">剩余次数</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="articlenum" class="form-control" placeholder="" value="{$member['articlenum']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">总金额</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="credit2" class="form-control" placeholder="请输入整数" value="{$credit2}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">备注</label>
+					<div class="col-sm-9 col-xs-12">
+						<textarea class="form-control" name="remark" placeholder="" >{$member['remark']}</textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+			<input type="hidden" name="id" value="{$member['id']}" />
+		</div>
+	</form>
+</div>
+{elseif $op == 'display'}
+<div class="main">
+	<div class="member">
+		<div class="panel panel-default">
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>昵称</th>
+							<th>电话</th>
+							<th>会员等级</th>
+							<th>剩余文章</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					{loop $members $row}
+					<tr>
+						<td>
+							{$row['nickname']}
+						</td>
+						<td>
+							{$row['mobile']}
+						</td>
+						<td>
+							{$viplevel[$row['viplevel']]}
+						</td>
+						<td>
+							{$row['articlenum']}
+						</td>
+						<td>
+							<a href="{php echo $this->createWebUrl('member', array('op' => 'post', 'id' => $row['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+							<a href="{php echo $this->createWebUrl('member', array('op' => 'delete', 'id' => $row['id']))}" onclick="return confirm('确认删除此问题吗？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+						</td>
+					</tr>
+					{/loop}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{$pager}
+{/if}
+{template 'common/footer'}

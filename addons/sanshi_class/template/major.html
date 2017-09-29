@@ -1,0 +1,77 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li{if $_GPC['do'] == 'manage' || $_GPC['do'] == '' } class="active"{/if}><a href="{php echo $this->createWebUrl('manage');}">班级人数预览</a></li>	
+    <li{if $_GPC['do'] == 'class'} class="active"{/if}><a href="{php echo $this->createWebUrl('class');}">班级信息管理</a></li>
+    <li{if $_GPC['do'] == 'major'} class="active"{/if}><a href="{php echo $this->createWebUrl('major');}">专业管理</a></li>
+</ul> 
+<div class="main">
+    <div class="panel panel-info">
+        <div class="panel-heading">添加专业</div>
+        <div class="panel-body">
+            <form action="" class="form-horizontal form" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="op" value="post" />
+                <input type="hidden" name="id" value="{$row['id']}" />
+                <div class="form-group">
+                    <label class="col-xs-1 col-sm-2 col-md-2 col-lg-1 control-label">专业名称</label>
+                    <div class="col-sm-6 col-lg-6 col-xs-3">
+                        <input class="form-control" name="title"  type="text" value="{$row['majorname']}" placeholder="专业名称">
+                    </div>
+                    <div class="form-group col-sm-1 col-lg-1 col-xs-1">
+                        <input type="submit" name="submit" value="{if empty($row['id'])}提交{else}修改{/if}" class="btn btn-primary" />
+                        <input type="hidden" name="token" value="{$_W['token']}" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="panel panel-default">
+            <div class="panel-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                        <tr>
+                            <th>专业</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {loop $list $item}
+                        <tr>
+                            <td>{$item['majorname']}</td>	
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td style="text-align:left;">
+                                <a href="{php echo $this->createWebUrl('major', array('op' => 'display', 'id'=> $item['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                <a href="{php echo $this->createWebUrl('major', array('op' => 'delete', 'id' => $item['id']))}" onclick="return confirm('确认删除吗？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                        {/loop}
+                    </tbody>
+                </table>
+                {$pager}
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        require(['bootstrap'], function ($) {
+            $('.btn').hover(function () {
+                $(this).tooltip('show');
+            }, function () {
+                $(this).tooltip('hide');
+            });
+        });
+    </script>
+
+    {template 'common/footer'}
+

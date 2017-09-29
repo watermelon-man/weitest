@@ -1,0 +1,123 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="edit90 edit_common" id="edit_common">
+        <div class="edit90_con">
+    			<!-- <div class="edit90_conbg11" id="editmove">
+    			     <img src="images/m90up1.jpg" alt="uppic"/>
+    			</div> -->
+    			<div class="edit90_conbg2"></div>
+          <div class="edit90_con1">
+              <img src="{MODULE_URL}template/mobile/poster/images/m90up1.jpg" alt="uppic">
+         	</div>
+          <div class="edit90_con2">
+              <img src="{MODULE_URL}template/mobile/poster/images/m90up2.jpg" alt="uppic">
+          </div>
+          <div class="edit90_con3">
+              <img src="{$settings['share_qr']}" width="168px" height="168px"  alt="uppic">
+              <p>扫一扫关注我们</p>
+          </div>
+        	<div class="edit90_up1"> 
+              <div class="edit90_up11">
+                  <div class="edit90_fileInput left">
+                        <input type="file" name="edit90_upfile" id="edit90_upfile" style="display:none" class="edit90_upfile" onchange="document.getElementById('edit90_upfileResult').innerHTML=this.value;"/>
+                        <input class="edit90_upFileBtn" id="edit90_upfileResult" type="button" value="上传图片" onclick="document.getElementById('edit90_upfile').click();"/>
+                  </div>
+              </div>
+        	</div>
+         	<div class="edit90_up2"> 
+              <div class="edit90_up22">
+                  <div class="edit90_fileInput2 left">
+                        <input type="file" name="edit90_upfile2" id="edit90_upfile2" style="display:none" class="edit90_upfile2" onchange="document.getElementById('edit90_upfileResult2').innerHTML=this.value;"/>
+                        <input class="edit90_upFileBtn2" id="edit90_upfileResult2" type="button" value="上传图片" onclick="document.getElementById('edit90_upfile2').click();"/>
+                  </div>
+              </div>
+          </div>
+          <div class="edit90_up3"> 
+              <div class="edit90_up33">
+                  <div class="edit90_fileInput3 left">
+                        <input type="file" name="edit90_upfile3" id="edit90_upfile3" style="display:none" class="edit90_upfile3" onchange="document.getElementById('edit90_upfileResult3').innerHTML=this.value;"/>
+                        <input class="edit90_upFileBtn3" id="edit90_upfileResult3" type="button" value="上传图片" onclick="document.getElementById('edit90_upfile3').click();"/>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="shengcheng90">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!-- 第九十个页面结束 -->
+     <script type="text/javascript">
+        $("#edit90_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+           $(".edit90_conbg11 img").attr("src", objUrl);
+            }
+        });
+        $("#edit90_upfile2").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+           $(".edit90_con2 img").attr("src", objUrl);
+            }
+        });
+         //建立一个可存取到该file的url
+        function getObjectURL(file){
+	        var url = null; 
+	        if (window.createObjectURL!=undefined) { // basic
+	          url = window.createObjectURL(file);
+	        } else if (window.URL!=undefined) { // mozilla(firefox)
+	          url = window.URL.createObjectURL(file);
+	        } else if (window.webkitURL!=undefined) { // webkit or chrome
+	          url = window.webkitURL.createObjectURL(file);
+	        }
+	        return url;
+	    }
+        $(".shengcheng90").click(function(){
+                
+                $(".shengcheng90").hide();
+                $(".edit90_up1").hide();
+                $(".edit90_up2").hide();
+                $(".edit90_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".edit90_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base90图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".edit90").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //第九十个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

@@ -1,0 +1,147 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li {if $op == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('ShareAdmin', array('op'=>'display'));}">分享列表</a></li>
+	<li {if $op == 'config'}class="active"{/if}><a href="{php echo $this->createWebUrl('ShareAdmin', array('op'=>'config'));}">分享设置</a></li>
+</ul>
+{if $op == 'display'}
+<div class="main">
+	<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="{$_GPC['c']}">
+			<input type="hidden" name="a" value="{$_GPC['a']}">
+			<input type="hidden" name="do" value="{$_GPC['do']}">
+			<input type="hidden" name="m" value="{$_GPC['m']}">
+			<input type="hidden" name="op" value="{$op}">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">粉丝ID</label>
+					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
+						<input class="form-control" name="fanid" type="text" value="{$_GPC['fanid']}" placeholder="粉丝ID">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">粉丝昵称</label>
+					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
+						<input class="form-control" name="nickname" type="text" value="{$_GPC['nickname']}" placeholder="粉丝昵称">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">分享日期</label>
+					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
+						{php echo tpl_form_field_daterange('time', $time);}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>&nbsp;&nbsp;
+						<input type="hidden" name="token" value="{$_W['token']}">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">分享列表</div>
+		<div class="table-responsive panel-body">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+					<tr>
+						<th class="col-sm-2">粉丝ID</th>
+						<th class="col-sm-2">粉丝头像</th>
+						<th class="col-sm-2">粉丝昵称</th>
+						<th class="col-sm-2">分享次数</th>
+						<th class="col-sm-2">分享积分</th>
+						<th class="col-sm-2">分享时间</th>
+					</tr>
+				</thead>
+				{if !empty($records)}
+				{loop $records $key $value}
+				<tbody>
+					<tr>
+						<td>{$value['fanid']}</td>
+						<td><img src="{$value[avatar]}" width="48"></td>
+						<td>{$value['nickname']}</td>
+						<td>{$value['share_count']}</td>
+						<td>{$value['share_score']}</td>
+						<td>{$value['time']}</td>
+					</tr>
+				</tbody>
+				{/loop}
+				{/if}
+				{if empty($records)}
+				<tr>
+					<td colspan="10">
+						没有分享记录
+					</td>
+				</tr>
+				{/if}
+			</table>
+			{$pager}
+			
+		</div>
+	</div>
+</div>
+{/if}
+
+{if $op == 'config'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" id="form">
+		<div class="panel panel-default">
+			<div class="panel-heading">分享设置</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">分享标题</label>
+					<div class="col-xs-12 col-sm-4">
+						<input type="text" name="config[title]" class="form-control" value="{$config['title']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">分享图片</label>
+					<div class="col-xs-12 col-sm-4">
+						{php echo tpl_form_field_image('config[imgUrl]', $config['imgUrl']);}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">分享链接</label>
+					<div class="col-xs-12 col-sm-4">
+						<input type="text" name="config[link]" class="form-control" value="{$config['link']}" placeholder="如果为空则默认为分享页面" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">分享描述</label>
+					<div class="col-xs-12 col-sm-4">
+						<textarea style="height:100px;" name="config[desc]" class="form-control description" cols="60">{if !$config['desc']}亲，关注一下会有惊喜哦！{else}{$config['desc']}{/if}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 col-sm-offset-3 col-md-offset-2 col-lg-offset-2">
+						<input name="submit" type="submit" value="提交" class="btn btn-primary" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+require(['jquery', 'util'], function($, util){
+	$(function(){
+		$('#form').submit(function(){
+			var result = true;
+			if($('input[name="config[title]"]').val() == ''){
+				result = false;
+				util.message('请输入分享标题');
+			}
+			return result;
+		});
+	});
+});
+</script>
+
+{/if}
+{template 'common/footer'}

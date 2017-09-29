@@ -1,0 +1,340 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display' && $status == ''}class="active"{/if}>
+        <a href="{php echo $this->createWebUrl('deposit_detail', array('op' => 'display','rid'=>$rid))}">全部寄存</a>
+    </li>
+	<li {if $operation == 'display' && $status == '0'} class="active"{/if}>
+        <a href="{php echo $this->createWebUrl('deposit_detail', array('op' => 'display', 'status' =>0,'rid'=>$rid))}">待确认</a>
+    </li>
+	<li {if $operation == 'display' && $status == '1'}class="active"{/if}>
+        <a href="{php echo $this->createWebUrl('deposit_detail', array('op' => 'display', 'status' =>1,'rid'=>$rid))}">可取出</a>
+    </li>
+	<li {if $operation == 'display' && $status == '2'}class="active"{/if}>
+	<a href="{php echo $this->createWebUrl('deposit_detail', array('op' => 'display', 'status' =>2,'rid'=>$rid))}">待送达</a>
+	</li>
+	<li {if $operation == 'display' && $status == '3'}class="active"{/if}>
+        <a href="{php echo $this->createWebUrl('deposit_detail', array('op' => 'display', 'status' =>3,'rid'=>$rid))}">已送达</a>
+    </li>
+	{if $operation == 'detail'}
+    <li class="active">
+        <a href="#">订单详情</a>
+    </li>
+    {/if}
+</ul>
+
+{if $operation == 'display'}
+
+<div class="main">
+    <div class="panel panel-info">
+	    <div class="panel-heading">筛选</div>
+	    <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="haoman_dpm" />
+                <input type="hidden" name="do" value="deposit_detail" />
+                <input type="hidden" name="rid" value="{$rid}" />
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">订单号</label>
+                    <div class="col-sm-8 col-lg-9 col-xs-12">
+                        <input class="form-control" name="keyword" id="" type="text" value="{$_GPC['keyword']}" placeholder="可查询订单号">
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">用户信息</label>-->
+                    <!--<div class="col-sm-8 col-lg-9 col-xs-12">-->
+                        <!--<input class="form-control" name="member" id="" type="text" value="{$_GPC['member']}" placeholder="可查询昵称">-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">寄存时间</label>
+                        <div class="col-sm-7 col-lg-9 col-xs-12">
+                            {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d', $starttime),'endtime'=>date('Y-m-d', $endtime)));}
+                        </div>
+                        <div class="col-sm-3 col-lg-2"><button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button></div>
+                    </div>
+                <div class="form-group">
+                </div>
+            </form>
+	    </div>
+	</div>
+	<!--<button class="btn btn-success" onclick="location.href='{php echo $this->createWebUrl('download_shop',array('rid'=>$_GPC['rid']))}'" type="button"><i class="fa fa-search"></i> 导出订单</button>-->
+
+	<div class="panel panel-default">
+		<div class="panel-body table-responsive">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+					<tr>
+						<th style="width:180px;">订单号</th>
+						<th style="width:150px;">昵称</th>
+						<th style="width:80px;">图片</th>
+						<th style="width:200px;">寄存物品</th>
+						<th style="width:80px;">经办人</th>
+						<th style="width:80px;">位置</th>
+						<th style="width:80px;">状态</th>
+						<th style="width:150px;">寄存时间</th>
+						<th style="width:150px;">取出时间</th>
+						<th style="width:120px; text-align:right;">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $item}
+					<tr>
+						<td>{$item['orderid']}</td>
+						<td>{$item['nickname']}</td>
+						<td>{if $item['pic']}<a href="{php echo tomedia($item['pic'])}" target="_blank" title="点击看原图"><img src="{php echo tomedia($item['pic'])}" style="width:60px "></a>{else}{/if}</td>
+
+						<td>{$item['message']}</td>
+						<td>{$item['realname']}</td>
+						<td>{$item['address']}</td>
+						<td>
+							{if $item['status']==0}
+							<span class="btn btn-warning" onclick="abc(1,{$item['id']})">待确认</span>
+							{else if $item['status']==1}
+							<span class="btn btn-primary" onclick="abc(2,{$item['id']})">取出</span>
+							{else if $item['status']==2}
+							<span class="btn btn-success" onclick="abc(3,{$item['id']})">已送达</span>
+							{else if $item['status']==3}
+							<span class="btn btn-success">已完成</span>
+							{/if}
+						<td>{php echo date('Y-m-d H:i:s', $item['createtime'])}</td>
+						<td>{if $item['closetime']}{php echo date('Y-m-d H:i:s', $item['closetime'])}{else}{/if}</td>
+						<td style="text-align:right;">
+							<!--<a href="{php echo $this->createWebUrl('shop_order', array('op' => 'detail', 'id' => $item['id'],'rid'=>$item['rid']))}" class="btn btn-success btn-sm">查看订单</a>-->
+							<a href="{php echo $this->createWebUrl('deposit_detail', array('id' => $item['id'], 'op' => 'delete','rid'=>$item['rid']))}" onclick="return confirm('此操作不可恢复，确认删除？');"
+								class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{$pager}
+<script type="text/javascript">
+	require(['daterangepicker'], function($){
+		$('.daterange').on('apply.daterangepicker', function(ev, picker) {
+			$('#form1')[0].submit();
+		});
+	});
+
+	function abc(e,d) {
+		var status = e;
+		var id = d;
+      if(confirm("确认要执行此操作?")){
+          var submitData = {
+              status:status,
+              id_:id,
+              op:10
+
+          }
+
+          $.post("{php echo $this->createWebUrl('deposit_detail',array('rid'=>$rid))}", submitData, function(data) {
+
+              if (data.success == 1) {
+
+                  alert(data.msg);
+                  location.href="{php echo $this->createWebUrl('deposit_detail', array('rid' => $rid))}";
+
+              } else {
+                  alert(data.msg);
+                  location.href="{php echo $this->createWebUrl('deposit_detail', array('rid' => $rid))}";
+              }
+          },"json")
+
+          return false;
+	  }
+
+
+    }
+</script>
+
+{elseif $operation == 'detail'}
+
+<style type="text/css">
+	.main .form-horizontal .form-group{margin-bottom:0;}
+	.main .form-horizontal .modal .form-group{margin-bottom:15px;}
+	#modal-confirmsend .control-label{margin-top:0;}
+</style>
+
+<div class="main">
+	<form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+
+		<input type="hidden" name="dispatchid" value="{$dispatch['id']}" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				订单号：{$ids}
+			</div>
+			<div class="panel-body">
+				{if $item['transaction_id']}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">交易号 :</label>
+					<div class="col-sm-9 col-xs-12">
+						<p class="form-control-static">{$item['transaction_id']}</p>
+					</div>
+				</div>
+				{/if}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">总额 :</label>
+					<div class="col-sm-9 col-xs-12">
+						<p class="form-control-static">{$item['pay_total']} 元</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">配送方式 :</label>
+					<div class="col-sm-9 col-xs-12">
+						<p class="form-control-static">现场配送</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">付款方式 :</label>
+					<div class="col-sm-9 col-xs-12">
+						<p class="form-control-static">
+							{if $item['orderid'] == 1}余额支付{/if}
+							{if $item['orderid'] == 2}微信支付{/if}
+							{if $item['orderid'] == 3}支付宝支付{/if}
+							{if $item['orderid'] == 4}货到付款{/if}
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">订单状态 :</label>
+					<div class="col-sm-9 col-xs-12">
+						<p class="form-control-static">
+						{if $item['status'] == 1}<span class="label label-default">未付款</span>{/if}
+						{if $item['status'] == 2}<span class="label label-info">待送达</span>{/if}
+						{if $item['status'] == 3}<span class="label label-success">已完成</span>{/if}
+						{if $item['status'] == 4}<span class="label label-danger">已取消</span>{/if}
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">下单日期 :</label>
+					<div class="col-sm-9 col-xs-12">
+						<p class="form-control-static">{php echo date('Y-m-d H:i:s', $item['createtime'])}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">位置 :</label>
+					<div class="col-sm-9 col-xs-12">
+						<div disabled style="height:150px;text-align: left" class="form-control" name="remark" cols="70">
+						{$item['wordimg']}
+				     	</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				用户信息
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">昵称 :</label>
+					<div class="col-sm-9 col-xs-12">
+						<p class="form-control-static">{if $item['user']['realname']}{$item['user']['nickname']}{else}{$item['user']['nickname']}{/if}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">手机 :</label>
+					<div class="col-sm-9 col-xs-12">
+						<p class="form-control-static">{$item['user']['mobile']}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				商品信息<span class="text-muted"></span>
+			</div>
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead class="navbar-inner">
+					<tr>
+						<th style="width:5%;">ID</th>
+						<th style="width:10%;">商品标题</th>
+						<th style="width:20%;">销售价/成本价</th>
+						<th style="width:10%;">属性</th>
+						<th style="width:10%;color:red;">成交价</th>
+						<th style="width:5%;">数量</th>
+						<th style="width:10%;">操作</th>
+					</tr>
+					</thead>
+					{loop $item['goods'] $goods}
+					<tr>
+						<td>{$goods['id']}</td>
+						<td>
+							{$goods['title']}
+						</td>
+						<td>{$goods['productprice']}元</td>
+						<td>{if $goods['status']==1}<span class="label label-success">正常</span>{else}<span class="label label-error">下架</span>{/if}&nbsp</td>
+						<td style='color:red;font-weight:bold;'>{$goods['price']}</td>
+						<td>{$goods['number']}</td>
+						<td>
+							<a href="{php echo $this->createWebUrl('shop_order', array('id' => $id, 'op' => 'delete','rid'=>$rid))}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+						</td>
+					</tr>
+					{/loop}
+					<tr>
+						<td colspan="10" class="text-right">
+							{if $item['status'] == 4}
+								<button type="button" class="btn btn-danger">订单已取消</button>
+							{else}
+								{if $item['status']==1}
+									<button type="button" class="btn btn-primary" name="confrimpay" value="yes">未付款</button>
+								{elseif $item['status'] == 3}
+
+									<button type="button" class="btn btn-primary">订单完成</button>
+
+								{elseif $item['status'] ==2}
+								<button type="submit" class="btn btn-success" onclick="return confirm('确认完成此订单吗？');" name="finish" value="yes">完成订单</button>
+							    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-cancelsend">取消订单</button>
+
+							     {/if}
+								<!--<button type="submit" class="btn btn-warning" onclick="return confirm('订单取消后将会进行相关的退款操作，确认取消此订单吗？');" name="cancelorder" value="yes">取消订单</button>-->
+							{/if}
+
+							<input type="hidden" name="token" value="{$_W['token']}" />
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<!-- 取消发货 -->
+		<div id="modal-cancelsend" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="width:600px;margin:0px auto;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+						<h3>取消订单</h3>
+					</div>
+					<div class="modal-body">
+						<label>取消订单原因</label>
+						<textarea style="height:150px;" class="form-control" name="cancelreson" autocomplete="off"></textarea>
+						<div id="module-menus"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary span2" name="cancelsend" value="yes">取消订单</button>
+						<a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+{/if}
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{template 'common/footer'}

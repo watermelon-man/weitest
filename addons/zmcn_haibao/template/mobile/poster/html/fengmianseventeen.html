@@ -1,0 +1,106 @@
+﻿{template 'poster'.DS.'html'.DS.'_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+    <div class="editfm17">
+        <div class="editfm17_con"> 
+          <div class="editfm17_conbg1" id="editmove">
+               <img src="{MODULE_URL}template/mobile/poster/images/fm17up1.jpg" alt="uppic"/>
+          </div>
+          <div class="editfm17_conbg2"></div>
+          <div class="editfm17_con1">
+                <p contenteditable="true">{$settings['team_title']}团队</p>
+                <p contenteditable="true">{$settings['team_title']}团队创始人-{$myset['name']}</p>
+          </div>
+		      <div class="editfm17_con2">
+                <p contenteditable="true">{$settings['team_title']}团队货源齐全</p>
+                <p contenteditable="true">种类最多，价格最低</p>
+                <p contenteditable="true">为你提供最优质的货源</p>
+                <p contenteditable="true">期待你的加入</p>
+          </div>
+          <div class="editfm17_con3">
+                <p contenteditable="true">诚招代理 欢迎加入</p>
+                <p contenteditable="true">微信：{$myset['wechat']}</p>
+          </div>
+          
+          <div class="editfm17_up1">
+              <div class="editfm17_up11">
+                  <div class="editfm17_fileInput">
+                        <input type="file" name="editfm17_upfile" id="editfm17_upfile" style="display:none" class="editfm17_upfile" onchange="document.getElementById('editfm17_upfileResult').innerHTML=this.value;"/>
+                        <input class="editfm17_upFileBtn" id="editfm17_upfileResult" type="button" value="上传图片" onclick="document.getElementById('editfm17_upfile').click();" />
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="shengchengfm17">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!--封面第十七个页面结束 -->
+     <script type="text/javascript">
+        $("#editfm17_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+         $(".editfm17_conbg1 img").attr("src", objUrl);
+          }
+        });
+         //建立一个可存取到该file的url
+      function getObjectURL(file) {
+        var url = null; 
+        if (window.createObjectURL!=undefined) { // basic
+          url = window.createObjectURL(file);
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+          url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+          url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+      }
+      $(".shengchengfm17").click(function(){
+                
+                $(".shengchengfm17").hide();
+                $(".editfm17_up1").hide();
+                $(".editfm17_up2").hide();
+                $(".editfm17_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".editfm17_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //生成base64图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                            $(".editfm17").hide();
+                            console.log("已生成");
+                        }
+                });
+        });
+    //封面图第十七个页面结束
+     </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

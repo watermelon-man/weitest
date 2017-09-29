@@ -1,0 +1,21 @@
+							<tr>
+                            	<td><input type="text" name="prize_kw[{$key}]" class="form-control" value="{$prize['kw']}"></td>
+								<td><input type="text" name="prize_level[{$key}]" class="form-control" value="{$prize['level']}"></td>
+								<td><input type="text" name="prize_name[{$key}]" class="form-control" value="{$prize['name']}"></td>
+								<td><input type="text" name="prize_num[{$key}]" class="form-control" value="{$prize['num']}"></td>
+								<td><input type="text"  name="prize_rate[{$key}]" class="form-control" value="{$prize['rate']}"></td>											                                <td><input type="text"  name="prize[{$key}]" class="form-control" value="{$prize['bio']}"></td>
+                                {if $this->module['config']['ismerchant']==1}
+                                <td>
+                                <select name="prize_mchid[{$key}]" class="form-control">
+                                {php $merchant = pdo_getall('uber_flower_merchant', array('uniacid' => $_W['uniacid']), array('id','name'), 'id');}
+                                    {loop $merchant $mch}
+                                    <option value="{$mch['id']}" {if $mch['id'] == $prize['mchid']}selected{/if}>{$mch['name']}</option>
+                                    {/loop}
+                                </select>
+                                </td>
+                                {/if}
+								<td><div id="img_dv{$key}" style="margin:0 auto;"><img src="{if empty($prize['img'])} {UBER_RES}/default/images/default_prize.png{else}{php echo tomediaurl($prize['img'])}{/if}" style="margin:0 auto;text-align:center;display:block;max-width:60px; max-height:60px;"><input name="prize_img[{$key}]" type="hidden" value="{$prize['img']}" /></div></td>
+								<td><span class="btn btn-primary addbtn{$key}"{if $newtype==1} onclick="uploadType({$key});"{/if}><i class="fa fa-plus"></i>上传图片</span></td>
+                                <td><a class="btn btn-default" href='javascript:;' onclick='removeType(this)'><i class='icon icon-remove fa fa-times'></i> 删除</a></td>
+							</tr>
+    

@@ -1,0 +1,93 @@
+﻿{template 'poster'.DS.'html'.DS.'zmcn_header'}
+<meta name="viewport" content="width=740,user-scalable=no">
+<div class="edithead10 edit_common" id="edit_common">
+    <div class="edithead10_con">
+        <div class="edithead10_conbg1" id="editmove">
+            <img src="{MODULE_URL}template/mobile/poster/images/head10up.jpg" alt="uppic"/>
+        </div>
+        <div class="edithead10_conbg2"></div>
+        <div class="edithead10_up1">
+            <div class="edithead10_up11">
+                <div class="edithead10_fileInput">
+                    <input type="file" name="edithead10_upfile" id="edithead10_upfile" style="display:none" class="edithead10_upfile" onchange="document.getElementById('edithead10_upfileResult').innerHTML=this.value;"/>
+                    <input class="edithead10_upFileBtn" id="edithead10_upfileResult" type="button" value="上传图片" onclick="document.getElementById('edithead10_upfile').click();" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shengchenghead10">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+    </div>
+</div>
+</div>
+<!--头像图第十个页面结束 -->
+<!-- 生成后显示页面结束 -->
+<script type="text/javascript">
+    $("#edithead10_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]);
+        if (objUrl) {
+            $(".edithead10_conbg1 img").attr("src", objUrl);
+        }
+    });
+    //建立一个可存取到该file的url
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+    $(".shengchenghead10").click(function(){
+
+        $(".shengchenghead10").hide();
+        $(".edithead10_up1").hide();
+        $(".edithead10_up2").hide();
+        $(".edithead10_up3").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+        $("body").css("background","none");
+
+        html2canvas($(".edithead10_con"), {
+            allowTaint: true,
+            taintTest: false,
+            onrendered: function(canvas) {
+                canvas.id = "mycanvas";
+                //生成base64图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                $(".baocun").show();
+                $(".tool").show();
+
+                var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                $(".edithead10").hide();
+                console.log("已生成");
+            }
+        });
+    });
+    //头像图第十个页面结束
+</script>
+{template 'poster'.DS.'html'.DS.'_footer'}

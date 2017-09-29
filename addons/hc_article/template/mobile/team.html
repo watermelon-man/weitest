@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的下属</title>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+	<meta name="format-detection" content="telephone=no,address=no,email=no" />
+	<meta name="mobileOptimized" content="width" />
+	<meta name="handheldFriendly" content="true" />
+	<meta http-equiv="Cache-Control" content="max-age=0" />
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="stylesheet" href="../addons/hc_article/style/css/style.css"/>
+</head>
+<body>
+<section class="main animated fadeInDown">
+    <div class="main-box">
+        <h1 class="team-title"></h1>
+        <div class="top-ten-box">
+            <div class="top-ten-column my-team-column">
+                <ul class="rb-row fn-clear">
+                    <li>昵称</li>
+                    <li>电话</li>
+                </ul>
+				{if $op=='more'}
+					{if $level==0}一级下属{else}二级下属{/if}
+					{loop $memslevel $m}
+					<ul class="rb-row top-jjr fn-clear">
+						<li>{$m['nickname']}</li>
+						<li>{$m['mobile']}</li>
+					</ul>
+					{/loop}
+				{else}
+				{if !empty($memslevel)}
+				一级下属
+				{loop $memslevel $key $ms}
+					{if !empty($ms) && $key==1}二级下属{/if}
+					{if !empty($ms) && $key==2}三级下属{/if}
+					{loop $ms $k $m}
+						{if $k<10}
+							<ul class="rb-row top-jjr fn-clear">
+								<li>{$m['nickname']}</li>
+								<li>{$m['mobile']}</li>
+							</ul>
+						{else}
+							{php break;}
+						{/if}
+					{/loop}
+					{if count($ms)>10}<a href="{php echo $this->createMobileUrl('team', array('op'=>'more', 'level'=>$key, 'lowmemsid'=>$lowmemsid));}"><span style="position:absolute; right:10%; color:gray">查看更多...</span></a>{/if}
+				{/loop}
+				{else}
+					暂无下属
+				{/if}
+				{/if}
+			</div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

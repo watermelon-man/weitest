@@ -1,0 +1,97 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li class="active"><a href="{php echo $this->createWebUrl('coupon',array('op'=>'post'));}">添加优惠券</a></li>
+	<li><a href="{php echo $this->createWebUrl('coupon');}">优惠券管理</a></li>
+</ul>
+<div class="main">
+	<form action="" id="form" method="post" class="form-horizontal form" enctype="multipart/form-data">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				添加优惠券
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">排序</label>
+					<div class="col-sm-5">
+						<input type="text" name="listorder" class="form-control" value="{$coupon['listorder']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">标题</label>
+					<div class="col-sm-5">
+						<input type="text" name="title" class="form-control" value="{$coupon['title']}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">简介</label>
+					<div class="col-sm-5">
+						<textarea style="height:200px;" class="form-control" name="description" id="description">{$coupon['description']}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">详情</label>
+					<div class="col-sm-5">
+						<textarea style="height:200px;" class="form-control" name="detail" id="detail">{$coupon['detail']}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">数量</label>
+					<div class="col-sm-5">
+						<input type="text" name="total" class="form-control" value="{$coupon['total']}" placeholder=""/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">客服电话</label>
+					<div class="col-sm-5">
+						<input type="text" name="mobile" class="form-control" value="{$coupon['mobile']}" placeholder=""/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">消费密码</label>
+					<div class="col-sm-5">
+						<input type="text" name="password" class="form-control" value="{$coupon['password']}" placeholder=""/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">活动时间</label>
+					<div class="col-sm-5">
+						{php echo tpl_form_field_daterange('datelimit', array('starttime'=>date('Y-m-d h:i:s', $coupon['starttime']),'endtime'=>date('Y-m-d h:i:s', $coupon['endtime'])))}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">是否显示</label>
+					<div class="col-sm-5">
+						<label class="radio-inline">
+							<input type="radio" name="isopen" value="1" {if $coupon['isopen'] == 1}checked="true"{/if}>显示
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="isopen" value="0" {if $coupon['isopen'] == 0}checked="true"{/if}>不显示
+						</label>
+					</div>
+				</div>
+				{if !empty($coupon['createtime'])}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">添加时间</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" value="{php echo date('Y-m-d h:i:s', $coupon['createtime'])}" readonly />
+					</div>
+				</div>
+				{/if}
+			</div>
+			<div class="form-group col-sm-12">
+				<input type="hidden" name="token" value="{$_W['token']}" />
+				<input type="hidden" name="id" value="{$coupon['id']}" />
+				<input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+			</div>
+		</div>
+	</form>
+</div>
+<script text="text/javascript">
+require(['jquery', 'util'], function($, u){
+	$(function(){
+		u.editor($('#detail')[0]);
+		u.editor($('#description')[0]);
+	});
+});
+</script>
+{template 'common/footer'}

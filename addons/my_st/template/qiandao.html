@@ -1,0 +1,39 @@
+{template 'common/header'}
+
+<div class="main" style="margin-top:3%;">
+    <div class="panel-heading" style="font-size:20px;"><span style="color:orangered; font-weight:bold;">活动签到</span></div>
+    <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th>姓名</th>
+                    <th>手机</th>
+                    <th>微信</th>
+                    <th>报名时间</th>
+                    <th style="text-align:right;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $student_info_qiandao $row}
+                <tr>
+                    <td>{$row['name']}</td>
+                    <td>{$row['mobile']}</td>
+                    <td>{$row['wx']}</td>
+                    <td><?php echo date('Y-m-d H:m:s',$row['createtime']);?></td>
+                    <td style="text-align:right;">
+                        <a href="{php echo $this->createWebUrl('CheckQiandao', array('qiandao_id' => $row['id'],'activity_id' => $row['activity_id']))}" class="label label-success" data-toggle="tooltip" data-placement="top" title="点击核实通过" style="display:<?php echo $row['status']==0?'block':'none';?>; height:20px;width:23%; float:right;"><i class="fa fa-cog fa-spin"></i> 待核实</a>
+                        <a href="javascript:;" class="label label-warning" data-toggle="tooltip" data-placement="top" title="已确认" style="display:<?php echo $row['status']==1?'block':'none';?>; height:20px;width:23%; float:right;"><i class="fa fa-cog fa-spin"></i> 已确认</a>
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+        </div>
+        <div style="float:right;">{$pager}</div>
+        <div style="clear:both;"></div>
+    </div>
+</div>
+
+
+{template 'common/footer'}

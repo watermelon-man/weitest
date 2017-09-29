@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>猴赛雷</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=5"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta name="viewport" content="width=320, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, user-scalable=no">
+	<meta name="renderer" content="webkit">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telphone=no, email=no" />
+	<meta name="HandheldFriendly" content="true">
+	<meta name="MobileOptimized" content="320">
+	<meta name="browsermode" content="application">
+	<meta name="x5-page-mode" content="app">
+	<meta name="msapplication-tap-highlight" content="no">
+	<meta name="format-detection" content="telephone=no">
+
+	<link rel="stylesheet" href="../addons/hc_monkey/style/css/style.css?r=3">
+	<script src="../addons/hc_monkey/style/js/p2.min.js"></script>
+	<script src="../addons/hc_monkey/style/js/p2.michale.renderer.js"></script>
+	<script src="../addons/hc_monkey/style/js/jquery.js"></script>
+	<script src="../addons/hc_monkey/style/js/jquery.cookie.js"></script>
+	<script src="../addons/hc_monkey/style/js/TweenMax.min.js"></script>
+	<script src="../addons/hc_monkey/style/js/ScrollToPlugin.min.js"></script>
+	<script src="../addons/hc_monkey/style/js/hammer.min.js"></script>
+	<script src="../addons/hc_monkey/style/js/jquery.hammer.js"></script>
+	<script src="../addons/hc_monkey/style/js/mScrollPage.js"></script>
+	<script src="../addons/hc_monkey/style/js/preLoad.js"></script>
+	<script>
+		document.write('<script src="../addons/hc_monkey/style/js/common.js?n='+Math.round(Math.random()*999999999)+'"><\/script>');
+	</script>
+</head>
+<body>
+	<!--  -->
+	<div class="msgbox msgIndex posabs">
+		<div class="wrap0">
+			<div class="content">
+				<div class="wrap1 posabs">
+					<div class="t0">猴赛雷漫步</div>
+					<div class="t1"><br>{$rule['index_content']}</div>
+				</div>
+				<div class="figure posabs">
+					<div class="head">
+						<!-- <div class="eye eye0 posabs"></div> -->
+						<!-- <div class="eye eye1 posabs"></div> -->
+						<img src="../addons/hc_monkey/style/images/monkey_head.png">
+					</div>
+					<div class="body"><img src="../addons/hc_monkey/style/images/monkey_body.png"></div>
+					<div class="hand0 posabs"><img src="../addons/hc_monkey/style/images/monkey_hand0.png"></div>
+					<div class="hand1 posabs"><img src="../addons/hc_monkey/style/images/monkey_hand1.png"></div>
+					<div class="tail posabs"><img src="../addons/hc_monkey/style/images/monkey_tail.png"></div>
+					<div class="foot0 posabs"><img src="../addons/hc_monkey/style/images/monkey_footer1.png"></div>
+					<div class="foot1 posabs"><img src="../addons/hc_monkey/style/images/monkey_footer0.png"></div>
+					<div class="shadow posabs"></div>
+				</div>
+				<div class="btns posabs">
+					<div class="btn b0 btnStyle1">开始漫步</div>
+					<div class="btn b1 btnStyle1">开始漫步</div>
+				</div>
+			</div>
+			<div class="footer posabs">技术由火池网络支持</div>
+		</div>
+	</div>
+	<!--  -->
+	<div class="msgbox msgIntro posabs">
+		<div class="wrap0">
+			<div class="content">
+				<ul>
+					<li class='page0'>
+						<div class="wrap1 posabs">
+							<div class="t0"></div>
+							<!-- <div class="t1"></div> -->
+							<div class="t1"><br><br></div>
+							<div class="p0"><img src="../addons/hc_monkey/style/images/intro0.png"></div>
+						</div>
+					</li>
+					<li class='page1'>
+						<div class="wrap1 posabs">
+							<div class="t0"></div>
+							<div class="t1"></div>
+							<div class="p0"><img src="../addons/hc_monkey/style/images/intro1.png"></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="btns btns0 posabs">
+				<div class="step step0">
+					<span class="hit"></span><span></span>
+				</div>
+				<div class="btn b0 btnStyle1">开始漫步</div>
+			</div>
+			<div class="btns btns1 posabs">
+				<div class="step step0">
+					<span></span><span class="hit"></span>
+				</div>
+				<div class="btn b0 btnStyle1">开始漫步</div>
+			</div>
+			<div class="footer posabs"></div>
+		</div>
+	</div>
+	<!--  -->
+	<div class="msgbox msgGameOver posabs">
+		<div class="wrap0">
+			<div class="content">
+				<div class="wrap1 posabs">
+					<div class="t0">漫步结束</div>
+					<div class="t1">0</div>
+					<div class="t2">最高分:<span>0</span></div>
+					<div class="t t3"><br>恭喜你点亮<br/>全部贺词</div>
+					<div class="t t4"><span></span></div>
+					<div class="t t5"><br></div>
+				</div>
+				<div class="btns posabs">
+					<div class="btn b0 btnStyle1">领取优惠券</div>
+					<div class="btn b1 btnStyle0">炫耀成绩</div>
+					<div class="btn b2 btnStyle0">不服再战</div>
+				</div>
+			</div>
+			<div class="footer posabs"></div>
+		</div>
+	</div>
+	<!--  -->
+	<div class="msgbox msgLogin posabs">
+		<div class="wrap0">
+			<div class="content">
+				<div class="wrap1 posabs">
+					<div class="t t0">请输入正确的手机号码<br/>并领取优惠券</div>
+					<div class="t t1">52</div>
+					<div class="t t2">53</div>
+					<div class="p0"><img src="{php echo $_W['attachurl'].$rule['get_thumb']}"></div>
+				</div>
+				<!--
+				<div class="btns btns0 posabs">
+					<div class="btn b0 btnStyle1">是</div>
+					<div class="btn b1 btnStyle0">否</div>
+				</div>
+				-->
+				<div class="btns btns1 posabs" style="display:block">
+					<div class="tips">请输入正确的手机号码</div>
+					<div class="phone btnStyle0"><input type="number" maxlength=11 canTouch=true placeholder='请输入手机号码'></div>
+					<div class="btn b0 btnStyle1">提交并领取</div>
+				</div>
+				<div class="btns btns2 posabs">
+					<div class="tips"></div>
+					<div class="phone"></div>
+					<div class="btn b0 btnStyle0">返回修改</div>
+					<div class="btn b1 btnStyle1">确认</div>
+				</div>
+			</div>
+			<div class="footer posabs"></div>
+		</div>
+	</div>
+	<!--  -->
+	<div class="msgbox msgSignIn posabs">
+		<div class="wrap0">
+			<div class="content">
+				<div class="wrap1">
+					<div class="t0">5</div>
+					<div class="t1"></div>
+					<div class="t2">APP</div>
+					<div class="tips">
+						<div class="p0 posabs"><img src="../addons/hc_monkey/style/images/signin_logo.png"></div>
+						<div class="w w0">UBERAPP</div>
+						<div class="w w1">APP</div>
+						<div class="w w2">APP<br><br></div>
+					</div>
+
+				</div>
+				<div class="btns posabs">
+					<div class="btn b0 btnStyle0">UBER</div>
+					<div class="btn b1 btnStyle0"></div>
+				</div>
+			</div>
+			<div class="footer posabs"></div>
+		</div>
+	</div>
+	<!--  -->
+	<div class="msgbox msgCode posabs">
+		<div class="wrap0">
+			<div class="content">
+				<div class="wrap1">
+					<div class="t0"></div>
+					<div class="t1" canTouch=true></div>
+					<div class="t2"><br><br><br></div>
+				</div>
+				<div class="btns posabs">
+					<div class="btn b0 btnStyle1">点击查看</div>
+				</div>
+			</div>
+			<div class="footer posabs"></div>
+		</div>
+	</div>
+	<!--  -->
+	<div class="siteMain siteGame dynamicBG">
+		<div class="mainContent fullScreenSzie isTableCell">
+			<!--  -->
+			<div class="monkeyGame">
+				<canvas id='myCanvas' class='myCanvas' width=400 height=500></canvas>
+ 				<div class="tips posabs">
+					<div class="c posabs"></div>
+					<div class="p"><img src="../addons/hc_monkey/style/images/tips_hand.png"></div>
+				</div>
+				<div class="words posabs">
+					{loop $success_content $sc}
+						<span class='none'>{$sc}</span>
+					{/loop}
+				</div>
+				<div class="stepNum posabs"></div>
+<!--
+				<div class="road posabs"></div>
+ -->
+ 				<div class="myP2Word posabs">
+					<div class="figure posabs">
+						<div class="head box shape"><img src="../addons/hc_monkey/style/images/monkey_head.png"></div>
+						<div class="head1 box shape"><img src="../addons/hc_monkey/style/images/monkey_head1.png"></div>
+						<div class="hand0 box shape"><img src="../addons/hc_monkey/style/images/monkey_hand0.png"></div>
+						<div class="hand1 box shape"><img src="../addons/hc_monkey/style/images/monkey_hand1.png"></div>
+						<div class="tail box shape"><img src="../addons/hc_monkey/style/images/monkey_tail.png"></div>
+						<div class="cricle foot foot0 footStatus0 shape"><img src="../addons/hc_monkey/style/images/monkey_footer1.png"></div>
+						<div class="cricle foot foot1 footStatus1 shape"><img src="../addons/hc_monkey/style/images/monkey_footer0.png"></div>
+						<div class="box body shape"><img src="../addons/hc_monkey/style/images/monkey_body.png"></div>
+					</div>
+					<div class="box roadLine shape"><img src="../addons/hc_monkey/style/images/road_line.png"></div>
+					<div class="box peach shape"><img src="../addons/hc_monkey/style/images/peach.png"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+ </body>
+</html>
+<audio class="musicBox" id="musicEat" preload="metadata" src="../addons/hc_monkey/style/mp3/eat.mp3">
+<audio class="musicBox" id="musicFail" preload="metadata" src="../addons/hc_monkey/style/mp3/fail.mp3">
+<!-- <audio class="musicBox" id="musicFail" preload="metadata" src="http://m.muzhibuluo.com/biz/uber_s14e01/mp3/fail.wav"> -->
+<audio class="musicBox" id="musicWalk0" preload="metadata" src="../addons/hc_monkey/style/mp3/walk0.mp3">
+<audio class="musicBox" id="musicWalk1" preload="metadata" src="../addons/hc_monkey/style/mp3/walk1.mp3">
+
+<script src="../addons/hc_monkey/style/js/monkey_game.js"></script>
+<script>
+
+	var _czc = _czc || [];
+	//siteidsiteid"XXXXXXXX"
+	_czc.push(["_setAccount", "1257383402"]);
+
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return r[2]; return null;
+	}
+
+
+	var photoScrollAction;
+	var tipsAnmiTimeLite;
+	var gameStartSwitch=1;
+	var myGameDate = new Object();
+	var noScreenMove=0;
+	var getPrizeShare=0;
+
+	//...
+	$(function(){
+		var preLoadImgList = new Array('../addons/hc_monkey/style/images/monkey_head.png','../addons/hc_monkey/style/images/monkey_head1.png');
+		preLoad(preLoadImgList);
+	})
+
+	function siteLoaded(){
+		//
+		setBGSize(640,1000);
+
+		$('.msgIndex .btn').hide();
+		if($.cookie('introHaveRead')==1){
+			$('.msgIndex .b1').show();
+		}else{
+			$('.msgIndex .b0').show();
+		}
+
+		/**/
+
+		// $('.msgbox').hide();
+		// $('.msgLogin').show();
+		//
+		$('.msgIndex .b0').hammer({}).on("tap", function(){
+			_czc.push(["_trackEvent", "", "learnPage", "click", 1]);
+			TweenMax.killChildTweensOf($('.msgIndex .figure'));
+			TweenMax.killTweensOf($('.msgIndex .figure'));
+			buttonAnmi($(this),"closeDivOpen($('.msgbox'));openDivOpen($('.msgIntro'));");
+		})
+		//
+		$('.msgIndex .b1').hammer({}).on("tap", function(){
+			_czc.push(["_trackEvent", "", "startGame", "click", 1]);
+			if(gameStartSwitch==1){
+				gameStartSwitch=0
+				TweenMax.killChildTweensOf($('.msgIndex .figure'));
+				TweenMax.killTweensOf($('.msgIndex .figure'));
+				buttonAnmi($(this),"closeDivOpen($('.msgbox'));setTimeout('init();animate();',500)");
+			}
+		})
+		//
+		$('.msgIntro .btns0 .b0').hammer({}).on("tap", function(){
+			buttonAnmi($(this),"photoScrollAction.next()");
+		})
+		//
+		$('.msgIntro .btns1 .b0').hammer({}).on("tap", function(){
+			_czc.push(["_trackEvent", "", "startGame", "click", 1]);
+			// buttonAnmi($(this),"closeDivOpen($('.msgbox'));init();animate();");
+			if(gameStartSwitch==1){
+				gameStartSwitch=0
+				$.cookie('introHaveRead',1);
+				buttonAnmi($(this),"closeDivOpen($('.msgbox'));setTimeout('init();animate();',500)");
+			}
+		})
+		//
+		$('.msgGameOver .b0').hammer({}).on("tap", function(){
+			_czc.push(["_trackEvent", "", "getPrize", "click", 1]);
+			// if($.cookie('haveShare')!=1){
+				getPrizeShare=1;
+				buttonAnmi($(this),"openDivOpen($('.shareLayer'));");
+				TweenMax.fromTo($('.shareLayer .p0'),1,{x:'-100%', y:'100%'},{x:'0%', y:'0%', ease:Expo.easeIn})
+				// return false;
+			// }
+
+			// if(myGameDate.phoneFlag == true){
+			// 	buttonAnmi($(this),"submitPhone();");
+			// }else{
+			// 	buttonAnmi($(this),"closeDivOpen($('.msgbox'));openDivOpen($('.msgLogin'));");
+			// }
+		})
+		//
+		$('.msgGameOver .b1').hammer({}).on("tap", function(){
+			_czc.push(["_trackEvent", "", "shareBtn", "click", 1]);
+			buttonAnmi($(this),"openDivOpen($('.shareLayer'));");
+			TweenMax.fromTo($('.shareLayer .p0'),1,{x:'-100%', y:'100%'},{x:'0%', y:'0%', ease:Expo.easeIn})
+		})
+		//
+		$('.msgGameOver .b2').hammer({}).on("tap", function(){
+			_czc.push(["_trackEvent", "", "againGame", "click", 1]);
+			if(gameStartSwitch==1){
+				gameStartSwitch=0
+				buttonAnmi($(this),"closeDivOpen($('.msgbox'));init();");
+			}
+		})
+		//
+		$('.msgLogin .btns0 .b0').hammer({}).on("tap", function(){
+			_czc.push(["_trackEvent", "", "old", "click", 1]);
+			buttonAnmi($(this),"$('.msgLogin .btns').hide();$('.msgLogin .btns1').show();");
+		})
+		//30
+		$('.msgLogin .btns0 .b1').hammer({}).on("tap", function(){
+			// buttonAnmi($(this),"closeDivOpen($('.msgbox'));openDivOpen($('.msgSignIn'));");
+			// buttonAnmi($(this),"getCode()");
+			// buttonAnmi($(this),"location.href=''");
+			_czc.push(["_trackEvent", "", "new", "click", 1]);
+			// location.href=''
+			window.open('');
+		})
+		//
+		$('.msgLogin .btns1 .b0').hammer({}).on("tap", function(){
+			_czc.push(["_trackEvent", "", "phone", "click", 1]);
+			$('input').blur();
+			buttonAnmi($(this),"checkPhone();");
+		})
+		//
+		$('.msgLogin .btns2 .b0').hammer({}).on("tap", function(){
+			buttonAnmi($(this),"$('.msgLogin .btns').hide();$('.msgLogin .btns1').show();");
+		})
+		//
+		$('.msgLogin .btns2 .b1').hammer({}).on("tap", function(){
+			_czc.push(["_trackEvent", "", "enter", "click", 1]);
+			// buttonAnmi($(this),"closeDivOpen($('.msgbox'));openDivOpen($('.msgCode'));");
+			buttonAnmi($(this),"submitPhone()");
+		})
+		//
+		
+		$('.msgCode .b0').hammer({}).on("tap", function(){
+			//_czc.push(["_trackEvent", "", "againGame", "click", 1]);
+			location.href = "{php echo $this->createMobileUrl('coupon')}";
+			//if(gameStartSwitch==1){
+				//gameStartSwitch=0
+				//buttonAnmi($(this),"closeDivOpen($('.msgbox'));init();");
+			//}
+			// if(gameStartSwitch==1){
+			// 	gameStartSwitch=0
+			// 	init();
+			// 	buttonAnmi($(this),"closeDivOpen($('.msgbox'));");
+			// 	// setTimeout(init,0);
+			// }
+		})
+		
+		//APP
+		$('.msgSignIn .p0').hammer({}).on("tap", function(){
+			buttonAnmi($(this),"location.href=''");
+		})
+		//UBER
+		$('.msgSignIn .b0').hammer({}).on("tap", function(){
+			buttonAnmi($(this),"location.href=''");
+		})
+		//
+		$('.msgSignIn .b1').hammer({}).on("tap", function(){
+			if(gameStartSwitch==1){
+				gameStartSwitch=0
+				init();
+				buttonAnmi($(this),"closeDivOpen($('.msgbox'));");
+				// setTimeout(init,0);
+			}
+		})
+
+
+		//
+		photoScrollAction = new mScrollPage();
+		photoScrollAction.scroller = $('.msgIntro .content');
+		photoScrollAction.direction='horizontal';
+		photoScrollAction.onComplete(function(id){
+			$('.msgIntro .btns').hide();
+			if(id==1){gameHaveOver
+				$('.msgIntro .btns1').show();
+			}else{
+				$('.msgIntro .btns0').show();
+			}
+		})
+		photoScrollAction.init();
+
+		beginAnmi();
+		// init();
+		// animate();
+	}
+
+	//
+	function tipsAnmi(){
+		// gamePause=1;
+		$('.siteGame .tips').show();
+		tipsAnmiTimeLite = new TimelineMax();
+		tipsAnmiTimeLite.repeat(-1);
+		tipsAnmiTimeLite
+			.fromTo($('.siteGame .tips .p'),0.5,{force3D:true, scale:1.3, transformOrigin:"center top"},{scale:1, repeat:1, yoyo:true, ease:Expo.easeInOut, transformOrigin:"center top"})
+			.fromTo($('.siteGame .tips .c'),1,{force3D:true, scale:0,autoAlpha:1}, {scale:1.5, autoAlpha:0, ease:Expo.easeOut},'-=0.5')
+			.to($('.siteGame .tips'),0,{force3D:true})
+		;
+		// tipsAnmiTimeLite.pause();
+	}
+	function gameHaveOver(){
+		musicFail.play();
+		noScreenMove=0;
+		gamePause=1;
+		gameStatus=3;
+		//$('.msgGameOver .t4 span').text(7-$.cookie('peachPosId'));
+		openDivOpen($('.msgGameOver'));
+		$('.monkeyGame .stepNum').hide();
+
+		//
+		gs=Number($('.monkeyGame .stepNum').text());
+		if($.cookie('gameStepMax') == undefined){
+			$.cookie('gameStepMax',0);
+		}
+		if($.cookie('gameStepMax')<gs){
+			$.cookie('gameStepMax', gs);
+		}
+		$('.msgGameOver .t1').text(gs);
+		$('.msgGameOver .t2 span').text($.cookie('gameStepMax'));
+
+		$('.msgGameOver .t').hide();
+		if($.cookie('peachPosId')<7 || $.cookie('peachPosId')==undefined){
+			$('.msgGameOver .t4').show();
+			$('.msgGameOver .b0').hide();
+		}else{
+			$('.msgGameOver .b0').show();
+			if(myGameDate.prizeFlag==true){
+				$('.msgGameOver .t5').show();
+			}else{
+				$('.msgGameOver .t3').show();
+			}
+		}
+		submitScore();
+		//setWxOn();
+	}
+
+	document.addEventListener("touchmove", function(evt){
+		//IOS;
+		if(noScreenMove==1){
+			evt.preventDefault();
+		}
+	}, true);
+	//$.cookie('peachPosId', 0);
+	//
+	getUserData();
+	function getUserData(){
+		$.ajax({
+			type: "GET",
+			url:"{php echo $this->createMobileUrl('index', array('op'=>'getuser'))}",
+			// data:{_csrf:myGameDate._csrf, int:score},
+			dataType:'json',
+			success: function(data) {
+				if(data.success==1){
+					// alert(JSON.stringify(data));
+					myGameDate = data.data;
+					$('.msgLogin .phone input').val(myGameDate.mobile);
+					$.cookie('peachPosId', Number(myGameDate.word_num)-1);
+					$.cookie('gameStepMax', myGameDate.score);
+				}else{
+					alert('出错了');
+				}
+			},
+			beforeSend: function(){
+				// $(".ajaxLoading").show();
+			},
+			complete: function(data){
+				// $(".ajaxLoading").hide();
+			}
+
+		})
+	}
+	
+	function submitScore(){
+		$.ajax({
+			type: "POST",
+			url:"{php echo $this->createMobileUrl('index', array('op'=>'submitscore'))}",
+			data:{_csrf:myGameDate._csrf, peachNum:Number($.cookie('peachPosId'))+1, goodCollect:$.cookie('gameStepMax')},
+			dataType:'json',
+			success: function(data) {
+				// alert(JSON.stringify(data));
+				if(data.success==true){
+
+				}else{
+					// alert(data.msg);
+				}
+			},
+			beforeSend: function(){
+				// $(".ajaxLoading").show();
+			},
+			complete: function(data){
+				// $(".ajaxLoading").hide();
+			}
+
+		})
+	}
+	//
+	function submitPhone(){
+		$.ajax({
+			type: "POST",
+			url:"{php echo $this->createMobileUrl('index', array('op'=>'submitphone'))}",
+			data:{_csrf:myGameDate._csrf, phone:$('.msgLogin .phone input').val()},
+			dataType:'json',
+			success: function(data) {
+				// alert(JSON.stringify(data));
+				if(data.success==1){
+					// alert(data.msg);
+					$('.msgCode .t1').text(data.title);
+					$('.msgCode .t2').html(data.description);
+					//getUserData();
+					closeDivOpen($('.msgbox'));
+					openDivOpen($('.msgCode'));
+				}
+				if(data.success==0){
+					alert('优惠券已领完');
+				}
+			},
+			beforeSend: function(){
+				$(".ajaxLoading").show();
+			},
+			complete: function(data){
+				$(".ajaxLoading").hide();
+			}
+
+		})
+	}
+	//code
+	function getCode(){
+		$.ajax({
+			type: "GET",
+			url:"/biz/uber_s14e01/getPreferentialCode",
+			data:{_csrf:myGameDate._csrf},
+			dataType:'json',
+			success: function(data) {
+				// alert(JSON.stringify(data));
+				if(data.success==true){
+					// alert(data.msg);
+					$('.msgSignIn .t1').text(data.preferentialCode);
+					getUserData();
+					closeDivOpen($('.msgbox'));
+					openDivOpen($('.msgSignIn'));
+				}else{
+					alert(data.msg);
+				}
+			},
+			beforeSend: function(){
+				$(".ajaxLoading").show();
+			},
+			complete: function(data){
+				$(".ajaxLoading").hide();
+			}
+
+		})
+	}
+
+	//
+	function beginAnmi(){
+		anmi = new TimelineLite();
+		anmi
+			.from($('.msgIndex .t0'),0.5,{y:"-100%", autoAlpha:0, ease:Expo.easeOut},'+=1')
+			.from($('.msgIndex .t1'),0.5,{y:"100%", autoAlpha:0, ease:Expo.easeOut})
+			.from($('.msgIndex .btn'),1,{y:"0%", scale:0, ease:Elastic.easeOut, onComplete:monkeyAnmi})
+			.fromTo($('.msgIndex .btn'),0.3,{x:"-1%"},{x:"+1%", repeat:-1, yoyo:true, ease:Linear.easeNone})
+		;
+		// anmi.seek(10)
+
+		function monkeyAnmi(){
+			TweenMax.to($('.msgIndex .figure .head'),0,{x:0, rotation:-10, transformOrigin:"left center"})
+			TweenMax.to($('.msgIndex .figure .hand0'),0,{x:0, rotation:-10, transformOrigin:"left center"})
+			TweenMax.to($('.msgIndex .figure .hand1'),0,{x:0, rotation:8, transformOrigin:"left center"})
+			TweenMax.to($('.msgIndex .figure .foot0'),0,{x:0, rotation:-35, transformOrigin:"center top"})
+			TweenMax.to($('.msgIndex .figure .foot1'),0,{x:0, rotation:35, transformOrigin:"center top"})
+			TweenMax.to($('.msgIndex .figure .hand0'),0.6,{x:0, rotation:0, repeat:-1, yoyo:true, ease:Linear.easeNone, transformOrigin:"left center"})
+			TweenMax.to($('.msgIndex .figure .hand1'),0.6,{x:0, rotation:18, repeat:-1, yoyo:true, ease:Linear.easeNone, transformOrigin:"left center"})
+			TweenMax.to($('.msgIndex .figure .foot0'),0.6,{x:0, rotation:35, repeat:-1, yoyo:true, ease:Linear.easeNone, transformOrigin:"center top"})
+			TweenMax.to($('.msgIndex .figure .foot1'),0.6,{x:0, rotation:-35, repeat:-1, yoyo:true, ease:Linear.easeNone, transformOrigin:"center top"})
+			TweenMax.to($('.msgIndex .figure .tail'),0.6,{x:0, rotation:5, repeat:-1, yoyo:true, ease:Linear.easeNone, transformOrigin:"right bottom"})
+			TweenMax.to($('.msgIndex .figure .head'),0.6,{x:0, rotation:10, repeat:-1, yoyo:true, ease:Linear.easeNone, transformOrigin:"center bottom"})
+			TweenMax.to($('.msgIndex .figure .shadow'),0.6,{x:0, scale:1.1, repeat:-1, yoyo:true, ease:Linear.easeNone, transformOrigin:"center bottom"})
+			indexAnmi0();
+			$('.msgIndex .figure').show();
+		}
+		// TweenMax.to($('.msgIndex .figure'),0.6,{y:'+=2%', repeat:-1, yoyo:true, ease:Linear.easeNone})
+		function indexAnmi0(){
+			TweenMax.fromTo($('.msgIndex .figure'),3,{x:'-200%'},{x:'0%', ease:Linear.easeNone, transformOrigin:"center center", onComplete:indexAnmi1})
+		}
+		function indexAnmi1(){
+			TweenMax.pauseAll();
+			TweenMax.to($('.msgIndex .figure .head img'),0.3,{attr:{'src':'../addons/hc_monkey/style/images/monkey_head1.png'}, repeat:3, repeatDelay:0.3, onComplete:indexAnmi2});
+		}
+		function indexAnmi2(){
+			$('.msgIndex .figure .head img').attr('src','../addons/hc_monkey/style/images/monkey_head.png')
+			TweenMax.resumeAll();
+			TweenMax.fromTo($('.msgIndex .figure'),3,{x:'0%'},{x:'200%', ease:Linear.easeNone, transformOrigin:"center center", onComplete:indexAnmi0});
+		}
+	}
+	//
+	function checkPhone(){
+		if(isMobile($('.msgLogin .phone input').val())){
+			$('.msgLogin .btns2 .phone').text($('.msgLogin .phone input').val());
+
+		$('.msgLogin .btns1 .tips').hide();
+			$('.msgLogin .btns1 .phone').removeClass('btnStyle2');
+
+			$('.msgLogin .btns').hide();
+			$('.msgLogin .btns2').show();
+		}else{
+			$('.msgLogin .btns1 .tips').show();
+			$('.msgLogin .btns1 .phone').addClass('btnStyle2');
+		}
+	}
+	function isMobile(str){
+		reg = /^((1[3,5,8][0-9])|(14[5,7])|(17[0,6,7,8]))\d{8}$/;
+		return reg.test(String(str)); 
+	}
+
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+{php $signPackage = $_W['account']['jssdkconfig'];}	
+<script>
+wx.config({
+	debug: false,   
+	appId: '<?php echo $signPackage["appId"];?>',
+	timestamp: '<?php echo $signPackage["timestamp"];?>',
+	nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+	signature: '<?php echo $signPackage["signature"];?>',
+	jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo',]
+});
+
+wx.ready(function () {
+	var shareData = {
+		title: "{$rule['share_title']}",
+		desc: "{$rule['share_content']}",
+		link: "{php echo $_W['siteroot'].$this->createMobileUrl('index')}",
+		imgUrl: "{php echo $_W['attachurl'].$rule['share_thumb']}",
+		trigger: function (res) {},
+		complete: function (res) {},
+		success: function (res) {
+			{if $member['word_num']==8}
+				closeDivOpen($('.shareLayer'));
+				closeDivOpen($('.msgbox'));
+				openDivOpen($('.msgLogin'));
+				return;
+			{/if}
+			if(Number($.cookie('peachPosId'))+1 == 8){
+				closeDivOpen($('.shareLayer'));
+				closeDivOpen($('.msgbox'));
+				openDivOpen($('.msgLogin'));
+			}
+		},
+		cancel: function (res) {
+            
+		},
+		fail: function (res) {
+		
+		}
+	};
+	wx.onMenuShareAppMessage(shareData);
+	wx.onMenuShareQQ(shareData);
+	wx.onMenuShareWeibo(shareData);
+	wx.onMenuShareTimeline(shareData);
+});
+</script>

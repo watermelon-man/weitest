@@ -1,0 +1,142 @@
+﻿{template 'poster'.DS.'html'.DS.'zmcn_header'}
+    <meta name="viewport" content="width=640,user-scalable=no">
+    <div class="zmcn1">
+        <div class="zmcn1_con">
+      <!--     <div class="zmcn1_kong"></div> -->
+            <div class="zmcn1_con1pic" id="editmove">
+                    <img src="{MODULE_URL}template/mobile/poster/images/z22up1.jpg"/>
+            </div>
+            <div class="zmcn1_conbg">
+				<div class="zmcn1_con0">
+					<p contenteditable="true">天  天  特  价</p>
+					<p contenteditable="true">［天天特价］惊爆价100元，现在立省20元</p>
+				</div>
+              <div class="zmcn1_con1"> 
+                  <div class="zmcn1_up1">
+                      <div class="zmcn1_up11">
+                          <div class="zmcn1_fileInput left">
+                                <input type="file" name="zmcn1_upfile" id="zmcn1_upfile" style="display:none" class="zmcn1_upfile" onchange="document.getElementById('zmcn1_upfileResult').innerHTML=this.value;"/>
+                                <input class="zmcn1_upFileBtn" id="zmcn1_upfileResult" type="button" value="上传图片" onclick="document.getElementById('zmcn1_upfile').click();" />
+                          </div>
+                          <!-- <img src="images/upload.png" style="width:60px;height:60px;"> -->
+                      </div>
+                  </div>
+              </div>
+				<div class="zmcn1_con20">
+					<p contenteditable="true">截止日期：{php echo date("Y年m月d日", TIMESTAMP)}</p>
+				</div>
+              <div class="zmcn1_con2">
+                  <div class="zmcn1_con21">
+                    <p contenteditable="true">活动说明:</p>
+                    <p contenteditable="true">正品保证，订单满100</p>
+                    <p contenteditable="true">元即可减20元，扫二维</p>
+                    <p contenteditable="true">码即可买到，分享让更</p>
+                    <p contenteditable="true">多好友参与，抓紧机会</p>
+                    <p contenteditable="true">哦！</p>
+                  </div>
+              </div>
+              <div class="zmcn1_con3">
+                  <div class="zmcn1_con3pic" id="zmcn1_con3img">
+                    <img src="{$settings['share_qr']}" width="168px" height="168px" />
+                  </div>
+                  <div class="zmcn1_up2">
+                          <div class="zmcn1_up21">
+                              <div class="zmcn1_fileInput2 left">
+                                    <input type="file" name="zmcn1_upfile2" id="zmcn1_upfile2" style="display:none" class="zmcn1_upfile2" onchange="document.getElementById('zmcn1_upfileResult2').innerHTML=this.value;"/>
+                                    <input class="zmcn1_upFileBtn2" id="zmcn1_upfileResult2" type="button" value="上传图片" onclick="document.getElementById('zmcn1_upfile2').click();" />
+                              </div>
+                              <!-- <img src="images/upload.png" style="width:60px;height:60px;"> -->
+                          </div>
+                  </div>
+              </div>
+            </div>
+          
+        </div>
+        <div class="shengcheng475">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+        </div>  
+    </div>
+  </div>
+    <!-- 第九个页面结束 -->
+    <script type="text/javascript">
+       $("#zmcn1_upfile").change(function(){
+        var objUrl = getObjectURL(this.files[0]) ;
+           
+            console.log("objUrl = "+objUrl) ;
+        if (objUrl) {
+          $(".zmcn1_con1pic img").attr("src", objUrl) ;
+          
+        }
+      });
+    
+        $("#zmcn1_upfile2").change(function(){
+        var objUrl = getObjectURL(this.files[0]) ;
+            
+        if (objUrl) {
+          $(".zmcn1_con3pic img").attr("src", objUrl) ;
+          
+        }
+      });
+         //建立一个可存取到该file的url
+      function getObjectURL(file) {
+        var url = null ; 
+
+        if (window.createObjectURL!=undefined) { // basic
+          url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+          url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+          url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+      }
+      $(".shengcheng475").click(function(){
+                
+                $(".shengcheng475").hide();
+                // $(".edit3").show();
+                $(".zmcn1_up1").hide();
+                $(".zmcn1_up2").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+                $("body").css("background","none");
+                
+                html2canvas($(".zmcn1_con"), {
+                        allowTaint: true,
+                        taintTest: false,
+                        onrendered: function(canvas) {
+                            canvas.id = "mycanvas";
+                            //document.body.appendChild(canvas);
+                            //生成base64图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                            $(".baocun").show();
+                            $(".tool").show();
+                            var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});  
+                            // $(".baocunimg img").attr("src",dataUrl) ;
+                            $(".zmcn1").hide();
+                        }
+                });
+        });
+    //第十八个页面结束
+    </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

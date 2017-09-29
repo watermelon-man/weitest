@@ -1,0 +1,143 @@
+{template 'common/header'}
+
+<script type="text/javascript" src="./resource/js/lib/jquery-ui-1.10.3.min.js"></script>
+<ul class="nav nav-tabs">
+	<li {if $operation == 'post'}class="active"{/if}><a href="{php echo $this->createWebUrl('custom_setting', array('op' => 'post','rid'=>$rid))}">添加互动</a></li>
+	<li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('custom_setting', array('op' => 'display','rid'=>$rid))}">互动管理</a></li>
+</ul>
+{if $operation == 'post'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				{if empty($item['id'])}添加互动{else}编辑互动{/if}
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>互动名称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="goodsname" id="goodsname" class="form-control" value="{$item['title']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">互动图标</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('thumb', $item['thumb']);}
+						<div class="help-block">不上传使用默认图标，尺寸为：120*120</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">手机端互动地址</label>
+					<div class="col-sm-9 col-xs-12">
+							<input type="text" name="mob_stock" id="mob_stock" class="form-control" value="{$item['mob_stock']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">大屏幕端互动地址</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="dpm_stock" id="dpm_stock" class="form-control" value="{$item['dpm_stock']}" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+			<input type="hidden" name="id" value="{$item['id']}" />
+		</div>
+	</form>
+</div>
+<script>
+    $(function(){
+        $("input[type='radio']").click(function(){
+            var id= $(this).attr("id");
+            var fs=$("#"+id).val();
+
+            if(fs == 0){
+                $("#ones").hide();
+                $("#twos").hide();
+            }
+            if(fs == 2){
+                $("#ones").show();
+                $("#twos").hide();
+            }
+            if(fs == 1){
+                $("#twos").show();
+                $("#ones").hide();
+            }
+
+        });
+    });
+</script>
+
+{elseif $operation == 'display'}
+
+<div class="main">
+
+<style>
+.label{cursor:pointer;}
+</style>
+<div class="panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:50px;">ID</th>
+					<th style="width:100px;">标题</th>
+					<th style="width:100px;">图标</th>
+					<th style="width:700px;">手机链接</th>
+					<th style="width:700px;">大屏幕链接</th>
+					<th style="text-align:right; width:120px;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['id']}</td>
+					<td>{$item['title']}</td>
+					<td><img style="width: 75px;height: 75px" src="{php echo tomedia($item['thumb'])}"></td>
+					<td>{$item['mob_stock']}</td>
+					<td>{$item['dpm_stock']}</td>
+					<td style="text-align:right;">
+						<a href="{php echo $this->createWebUrl('custom_setting', array('id' => $item['id'], 'op' => 'post','rid'=>$item['rid']))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="编辑"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
+						<a href="{php echo $this->createWebUrl('custom_setting', array('id' => $item['id'], 'op' => 'delete','rid'=>$item['rid']))}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+	</div>
+</div>
+<script type="text/javascript">
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+
+	var category = {php echo json_encode($children)};
+	function setProperty(obj,id,type){
+		$(obj).html($(obj).html() + "...");
+		$.post("{php echo $this->createWebUrl('setgoodsproperty')}",{id:id,type:type, data: obj.getAttribute("data")},function(d){
+				$(obj).html($(obj).html().replace("...",""));
+
+				if(type=='status'){
+				 $(obj).html( d.data=='1'?'上架中':'已下架');
+				}
+				$(obj).attr("data",d.data);
+				if(d.result==1){
+					$(obj).toggleClass("label-info");
+				}
+			}
+			,"json"
+		);
+	}
+
+</script>
+{/if}
+{template 'common/footer'}

@@ -1,0 +1,126 @@
+{template 'common/header'}
+
+{if $op == 'display'}
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{php echo $this->createWebUrl('Wenzi',array('school_id' => $school_id));}">新闻列表</a></li>
+        <li><a href="{php echo $this->createWebUrl('Wenzi', array('op' => 'edit','school_id' => $school_id));}">新增新闻</a></li>
+    </ul>
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th>新闻标题</th>
+                    <th>新闻备注</th>
+                    <th>导向链接</th>
+                    <th style="text-align:right;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $edit_admin $row}
+                <tr>
+                    <td>{$row['wenzi_title']}</td>
+                    <td>{$row['wenzi']}</td>
+                    <td>{$row['link']}</td>
+                    <td style="text-align:right;">
+                        <a class="btn btn-default" data-toggle="tooltip" data-placement="top" href="{php echo $this->createWebUrl('Wenzi', array('id' => $row['id'], 'op' => 'edit','school_id' => $school_id))}" title="编辑"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-default" data-toggle="tooltip" data-placement="top" href="#" onclick="drop_confirm('您确定要删除吗?', '{php echo $this->createWebUrl('WenziDelete', array('id' => $row['id'],'school_id' =>$school_id))}');" title="删除"><i class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+        </div>
+        <div style="float:right;">{$pager}</div>
+        <div style="clear:both;"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function drop_confirm(msg, url){
+        if(confirm(msg)){
+            window.location = url;
+        }
+    }
+</script>
+
+
+
+
+
+
+{elseif $op == 'edit'}
+
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li><a href="{php echo $this->createWebUrl('Wenzi',array('school_id' => $school_id));}">新闻列表</a></li>
+        <li class="active"><a href="{php echo $this->createWebUrl('Wenzi', array('op' => 'edit','school_id' => $school_id));}">新增新闻</a></li>
+    </ul>
+
+
+    <style>
+        .table td span{display:inline-block;margin-top:4px;}
+        .table td input{margin-bottom:0;}
+    </style>
+
+
+    <div class="clearfix">
+        <form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+            <div class="panel panel-default">
+                <div class="panel-heading">新闻新增界面</div>
+                <div class="panel-body">
+
+                    <input type="hidden" name="id" value="{$info['id']}">
+                    <input type="hidden" name="op" value="edit">
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style="color:red;">*</span>新闻标题：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" placeholder="新闻标题" name="wenzi_title" value="{$info['wenzi_title']}" required="required" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style="color:red;">*</span>新闻备注：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" placeholder="新闻备注" name="wenzi" value="{$info['wenzi']}" required="required" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">图片</label>
+                        <div class="col-sm-8 col-xs-12">
+                            {php echo tpl_form_field_image('pic', $info['pic'], '')}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style="color:red;">*</span>跳转地址：</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" placeholder="文字跳转地址" name="link" value="{$info['link']}" required="required" >
+                        </div>
+                    </div>
+
+                    <input type="text" name="school_id" value="{$school_id}" style="display:none;">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+                    <input type="hidden" name="token" value="{$_W['token']}" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{/if}
+
+
+{template 'common/footer'}
+

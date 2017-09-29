@@ -1,0 +1,99 @@
+﻿{template 'poster'.DS.'html'.DS.'zmcn_header'}
+<meta name="viewport" content="width=640,user-scalable=no">
+      <div class="spring8 edit_common" id="edit_common">
+          <div class="spring8_con">
+              <div class="spring8_conbg11" id="editmove">
+                  <img src="{if $agent['avatar']}{$agent['avatar']}{else}{MODULE_URL}template/mobile/poster/images/spring8up.jpg{/if}" alt="uppic">
+              </div>
+              <div class="spring8_conbg2"></div>
+              <div class="spring8_con1">
+                  <p contenteditable="true">你好&nbsp;朋友</p>
+              </div>
+              <div class="spring8_con2">
+                  <p contenteditable="true">回报也不相同</p>
+                  <p contenteditable="true">但总是因为人们的勤奋程度不同给予人们的</p>
+                  <p contenteditable="true">人生是一个可以采掘开拓的金矿</p>
+
+              </div>
+              <div class="spring8_up1">
+                  <div class="spring8_up11">
+                      <div class="spring8_fileInput left">
+                          <input type="file" name="spring8_upfile" id="spring8_upfile" style="display:none" class="spring8_upfile" onchange="document.getElementById('spring8_upfileResult').innerHTML=this.value;"/>
+                          <input class="spring8_upFileBtn" id="spring8_upfileResult" type="button" value="上传图片" onclick="document.getElementById('spring8_upfile').click();"/>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="shengchengs8">
+            <div><h3>生成</h3></div>
+            <p id="desnote" style="text-align:center;">修改模板上的“图片”和“文字”生成你的海报</p>
+            <div style="background-color:#ffffff"></div>
+          </div>
+      </div>
+  </div>
+    <!-- 第九十四个页面结束 -->
+     <!-- 生成后显示页面结束 -->
+  <script type="text/javascript">
+      $("#spring8_upfile").change(function(){
+          var objUrl = getObjectURL(this.files[0]);
+          if (objUrl) {
+              $(".spring8_conbg11 img").attr("src", objUrl);
+          }
+      });
+      //建立一个可存取到该file的url
+      function getObjectURL(file){
+          var url = null;
+          if (window.createObjectURL!=undefined) { // basic
+              url = window.createObjectURL(file);
+          } else if (window.URL!=undefined) { // mozilla(firefox)
+              url = window.URL.createObjectURL(file);
+          } else if (window.webkitURL!=undefined) { // webkit or chrome
+              url = window.webkitURL.createObjectURL(file);
+          }
+          return url;
+      }
+      $(".shengchengs8").click(function(){
+
+          $(".shengchengs8").hide();
+          $(".spring8_up1").hide();
+                $(".weui-header").hide();
+                $(".weui-tabbar").hide();
+          $("body").css("background","none");
+
+          html2canvas($(".spring8_con"), {
+              allowTaint: true,
+              taintTest: false,
+              onrendered: function(canvas) {
+                  canvas.id = "mycanvas";
+                  //生成base75图片数据
+                            $(".weui-header").show();
+                $(".weui-tabbar").show();
+                  $(".baocun").show();
+                  $(".tool").show();
+                  var dataUrl = canvas.toDataURL("image/png");
+							var openid = "{$_W['openid']}";
+							$.ajax({
+							type : "GET",
+							  url : '{php echo $this->createMobileUrl('hbsc',array('id'=> $ppa['id']))}',
+							  data : {openid:openid},
+							  dataType: "json",
+							  success : function(s){
+								if (s.message.zt==0) {
+									$(".baocunimg img").attr("src", dataUrl);
+									$(".pic-download-use").attr("src", dataUrl);
+								}else{
+									alert('生成失败：' + s.message.ts);
+								}
+							  },
+							  error : function(){
+								alert('生成失败！');
+							  }
+							});
+                  $(".spring8").hide();
+                  console.log("已生成");
+              }
+          });
+      });
+      //第七十五个页面结束
+  </script>
+{template 'poster'.DS.'html'.DS.'_footer'}

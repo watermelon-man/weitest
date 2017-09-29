@@ -1,0 +1,407 @@
+<html class="hairlines">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>
+            添加银行卡-轻松筹
+        </title>
+        <meta property="wb:webmaster" content="26f01d0b94394447">
+        <meta property="qc:admins" content="2541756431167376730756375">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="dns-prefetch" href="http://static.qschou.com">
+        <link rel="dns-prefetch" href="http://images.qingsongchou.com">
+        <link rel="dns-prefetch" href="http://wysiwyg.qingsongchou.com">
+        <link rel="dns-prefetch" href="http://wx.qlogo.cn">
+        <link rel="dns-prefetch" href="http://mmbiz.qpic.cn">
+        <link rel="dns-prefetch" href="http://datax.baidu.com">
+        <link rel="stylesheet" type="text/css" href="http://static.qschou.com/css/v5/qscui.css?v=338">
+        <link rel="stylesheet" type="text/css" href="http://static.qschou.com/css/v5/upgrade.css?v=338">
+        <script charset="utf-8" src="http://datax.baidu.com/x.js?si=65dfcf8f1948f7203dd3fb620de01083&amp;dm=qschou.com">
+        </script>
+        <script type="text/javascript" async="" charset="utf-8" src="http://c.cnzz.com/core.php?web_id=1258099671&amp;t=q">
+        </script>
+        <script src="//hm.baidu.com/hm.js?65dfcf8f1948f7203dd3fb620de01083">
+        </script>
+        <script type="text/javascript">
+            var baseURL = 'http://m.qschou.com/';
+            var uploadURL = 'http://uploads.qingsongchou.com/';
+            var staticURL = 'http://static.qschou.com/';
+            var themeURL = 'http://static.qschou.com/';
+            var fileNumLimit = 9;
+            var queryParam = '?token=cfe5pfuYJUygk%2FkFtVqPrBjhMKRqHmeSNGBlhNpUaEvHwOQc7pDMdcjqMIXoLuF%2BZ8BGWr8';
+            var logged = '8456055e-ac31-47f9-9f11-d051bceab6aa';
+            var clientId = '';
+            var projectUrl = '';
+            var platform = 'mobile';
+            var geo = '';
+            if (window != parent && window.location.toString().indexOf("iframe=true") == -1) {
+                if (typeof baseURL != "undefined" && window.location.toString().indexOf(baseURL) != -1) {
+                    top.location.href = window.location.href
+                } else {
+                    top.location.href = baseURL
+                }
+            }
+            var _paq = _paq || [];
+            var _hmt = _hmt || [];
+            _hmt.push(["_setUserId", logged]);
+            var share = {
+                name: '添加银行卡-轻松筹',
+                introduction: '轻松筹社交版',
+                pic: 'http://static.qschou.com/themes/touch/assets/images/icon/touch-icon-ipad.png',
+                url: 'http://m.qschou.com/user/bank/add/personal'
+            };
+        </script>
+        <script type="text/javascript" src="http://sdk.talkingdata.com/app/h5/v1/websdk/js/sdk_release.js">
+        </script>
+        <style type="text/css">
+            .fancybox-margin{margin-right:0px;}
+        </style>
+    </head>
+    
+    <body ontouchstart="" class="platform_mobile">
+        <div class="global-notice">
+            <i class="icon">
+            </i>
+            <span>
+                <a href="/page/notice">
+                    轻松筹网站全新改版，点击查看新版介绍
+                </a>
+            </span>
+            <a href="javascript:void(0);" class="notice-close">
+            </a>
+        </div>
+        <div class="qsc-alert" style="display: none;">
+            <i class="info-base64">
+            </i>
+            <span>
+            </span>
+        </div>
+        <div class="modal qsc-modal qsc-modal-loading" id="qsc-modal-loading"
+        tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog middle">
+                <div class="modal-content">
+                    <i class="icon-white icon-loading-base64">
+                        <i class="icon-white icon-loading-box-base64 icon-spin">
+                        </i>
+                    </i>
+                    <span>
+                        加载中
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="modal qsc-modal qsc-modal-loading" id="qsc-modal-loading-new">
+            <div class="modal-dialog middle">
+                <div class="modal-content">
+                    <i class="icon-loading-base64">
+                        <i class="icon-loading-box-base64 icon-spin">
+                        </i>
+                    </i>
+                    <span>
+                        加载中
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="qsc-tab tab-line bankcard-tab">
+            <ul class="tab-item">
+                <li class="active">
+                    <a href="/user/bank/add/personal">
+                        个人银行卡
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/bank/add/business">
+                        对公银行卡
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="content top bottom bankcard-content">
+            <form method="POST" class="qsc-form-group qsc-form" name="bankcardForm"
+            id="bankcardForm">
+                <div class="form-item">
+                    <label for="holder" class="control-label">
+                        开户姓名
+                    </label>
+                    <input type="text" id="holder" name="holder" class="control-input" placeholder="填写开户人姓名"
+                    value="">
+                </div>
+                <div class="form-item">
+                    <label for="cardNo" class="control-label">
+                        银行卡号
+                    </label>
+                    <input type="tel" id="cardNo" name="cardNo" class="control-input" placeholder="填写银行卡号"
+                    value="">
+                </div>
+                <div class="form-item">
+                    <label class="control-label">
+                        开户银行
+                    </label>
+                    <div class="form-select">
+                        <select name="bank" id="bank">
+                            <option value="">
+                                请选择
+                            </option>
+                            <option value="ccb">
+                                建设银行
+                            </option>
+                            <option value="icbc">
+                                工商银行
+                            </option>
+                            <option value="abchina">
+                                农业银行
+                            </option>
+                            <option value="bankcomm">
+                                交通银行
+                            </option>
+                            <option value="boc">
+                                中国银行
+                            </option>
+                            <option value="psbc">
+                                邮政银行
+                            </option>
+                            <option value="cebbank">
+                                光大银行
+                            </option>
+                            <option value="cmbchina">
+                                招商银行
+                            </option>
+                            <option value="ecitic">
+                                中信银行
+                            </option>
+                            <option value="cmbc">
+                                民生银行
+                            </option>
+                            <option value="cib">
+                                兴业银行
+                            </option>
+                            <option value="cgb">
+                                广发银行
+                            </option>
+                            <option value="spdb">
+                                浦发银行
+                            </option>
+                            <option value="spabank">
+                                平安银行
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-item">
+                    <label for="province" class="control-label">
+                        开户省份
+                    </label>
+                    <div class="form-select">
+                        <select id="province" name="province" data-id="">
+                            <option value="">
+                                请选择
+                            </option>
+                            <option value="20">
+                                北京
+                            </option>
+                            <option value="38">
+                                天津
+                            </option>
+                            <option value="56">
+                                河北
+                            </option>
+                            <option value="240">
+                                山西
+                            </option>
+                            <option value="372">
+                                内蒙古
+                            </option>
+                            <option value="486">
+                                辽宁
+                            </option>
+                            <option value="601">
+                                吉林
+                            </option>
+                            <option value="671">
+                                黑龙江
+                            </option>
+                            <option value="813">
+                                上海
+                            </option>
+                            <option value="832">
+                                江苏
+                            </option>
+                            <option value="948">
+                                浙江
+                            </option>
+                            <option value="1050">
+                                安徽
+                            </option>
+                            <option value="1172">
+                                福建
+                            </option>
+                            <option value="1267">
+                                江西
+                            </option>
+                            <option value="1379">
+                                山东
+                            </option>
+                            <option value="1537">
+                                河南
+                            </option>
+                            <option value="1715">
+                                湖北
+                            </option>
+                            <option value="1833">
+                                湖南
+                            </option>
+                            <option value="1970">
+                                广东
+                            </option>
+                            <option value="2113">
+                                广西
+                            </option>
+                            <option value="2237">
+                                海南
+                            </option>
+                            <option value="2265">
+                                重庆
+                            </option>
+                            <option value="2305">
+                                四川
+                            </option>
+                            <option value="2508">
+                                贵州
+                            </option>
+                            <option value="2606">
+                                云南
+                            </option>
+                            <option value="2752">
+                                西藏
+                            </option>
+                            <option value="2833">
+                                陕西
+                            </option>
+                            <option value="2951">
+                                甘肃
+                            </option>
+                            <option value="3052">
+                                青海
+                            </option>
+                            <option value="3104">
+                                宁夏
+                            </option>
+                            <option value="3132">
+                                新疆
+                            </option>
+                            <option value="3307">
+                                香港
+                            </option>
+                            <option value="3308">
+                                澳门
+                            </option>
+                            <option value="3309">
+                                台湾
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-item">
+                    <label for="city" class="control-label">
+                        开户城市
+                    </label>
+                    <div class="form-select">
+                        <select id="city" name="city" data-id="">
+                            <option value="" selected="selected">
+                                请选择
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-item">
+                    <label class="control-label">
+                        选择地区
+                    </label>
+                    <div class="form-select">
+                        <select id="area" name="area" data-id="">
+                            <option value="" selected="selected">
+                                请选择
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="footer-btn">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block ajax-submit"
+                    data-form="bankcardForm" value="保存">
+                    <input type="hidden" name="country" value="CN">
+                    <input type="hidden" name="csrf" value="3534e7b2591834664b3514b9a4827741">
+                    <input name="token" type="hidden" value="e37amXGuewIfCtK3aZxqHMcd3Er2NimmWpIEr3rbgF/ceqHlK6U+y328UOS7ClKbzq0Z2EkX0DXXHr3uTFzbLSiLs4l5Tfhs">
+                    <input type="hidden" name="retry" value="">
+                </div>
+            </form>
+        </div>
+        <div class="modal qsc-modal" id="search-modal" style="display: none">
+            <div class="modal-backdrop in">
+            </div>
+            <div class="modal-dialog top">
+                <div class="modal-content clearfix">
+                    <div class="modal-body qsc-form" id="prompt_list">
+                        <div class="input-row input-cell">
+                            <input type="text" id="createLocation" autocomplete="off" name="name"
+                            value="" class="control-input" placeholder="如：中关村支行">
+                            <div id="btn-close">
+                                <span>
+                                </span>
+                            </div>
+                        </div>
+                        <h4>
+                            相关支行名称
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style type="text/css">
+            .autocomplete-suggestions { background: #fff; cursor: default; overflow:
+            auto; border-radius:3px;} .autocomplete-suggestion { padding: 10px 5px;
+            font-size: 1.2em; white-space: nowrap; overflow: hidden; } .autocomplete-selected
+            { background: #f0f0f0; } .autocomplete-suggestions strong { font-weight:
+            normal; color: #3399ff; } #bankDetail { color: #999; }
+        </style>
+        <footer class="qsc-bar bar-fixed">
+            <a href="/" class="bar-item ">
+                <i class="icon bar-home">
+                </i>
+                首页
+            </a>
+            <a href="{php echo $this->createMobileUrl'articleindex', array'op'=>'release'}" class="bar-item ">
+                <i class="icon bar-publish">
+                </i>
+                发起
+            </a>
+            <a href="/message" class="bar-item ">
+                <i class="icon bar-message">
+                </i>
+                消息
+            </a>
+            <a href="/user" class="bar-item  active">
+                <i class="icon bar-user">
+                </i>
+                我
+            </a>
+        </footer>
+        <link rel="stylesheet" type="text/css" href="http://static.qschou.com/css/v5/icons.css?v=338">
+        <script type="text/javascript" src="http://static.qschou.com/js/v5/user.min.js?v=338">
+        </script>
+        <script src="http://sdk.talkingdata.com/app/h5/v1?appid=1CF6F15A3E4A341EFFFF05E55386BDBF&amp;vn=轻松筹社交版
+        v1.0&amp;vc=1.0">
+        </script>
+        <script type="text/javascript">
+            var cnzz_protocol = (("https:" == document.location.protocol) ? " https://": " http://");
+            document.write(unescape("%3Cspan id='cnzz_stat_icon_1258099671'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/q_stat.php%3Fid%3D1258099671' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <span id="cnzz_stat_icon_1258099671">
+        </span>
+        <script src=" http://w.cnzz.com/q_stat.php?id=1258099671" type="text/javascript">
+        </script>
+    </body>
+</html>

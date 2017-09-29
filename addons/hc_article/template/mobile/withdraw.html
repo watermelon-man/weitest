@@ -1,0 +1,113 @@
+<DOCTYPE! html>
+<html>
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta name="format-detection" content="telephone=no"/>
+		<title>提现</title>
+		<link href="../addons/hc_article/style/css/inBalance.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="../addons/hc_article/style/js/jquery-1.4.4.min.js"></script>
+	</head>
+	<style type = "text/css">
+.skill_con{
+		background:#EEE url("../addons/hc_article/style/images/skill1.png")left center no-repeat;
+		background-size:15px;
+		padding-left:18px;
+		margin-top:10px;
+		line-height:35px; 
+		color:#898989;
+		font-size:0.96rem;  
+		text-decoration:none;
+		display:block;
+}  
+</style>  
+	<body>
+	<div class="main">
+		<div class="mainbottombg" >
+			<span class="ac" id="tab1" >提现</span><span style="left:97px" id="tab2">记录</span>
+		</div>
+		
+		<div class="tabs tab1">	
+			<form action="" method='post'  onsubmit="return checkCash();">
+				<div style="overflow:hidden;">  
+					<input type="text" name="credit2" placeholder="余额：{$fans['credit2']}元" onkeyup="value=value.replace(/[^\d\.]/g,'');if(this.value>{$fans['credit2']})value={$fans['credit2']}" onblur="value=value.replace(/[^\d\.]/g,'');if(this.value>{$fans['credit2']})value={$fans['credit2']}"/>
+					<input type='hidden' value="{$_W['token']}" name='token'>   	 				
+					<input type="submit" value="确认" name="submit">
+				</div> 
+			</form>	
+			<!--
+			<a class="skill_con" href="javascript:void(0)" id="pop_rule">充值规则 &nbsp; 点我有惊喜！</a>
+			<ol class="rules_det" id="pop_out" style="display:none">
+				<li>1.充值￥100送￥15</li>
+				<li>2.充值￥200送￥30</li> 
+				<li>3.充值￥300送￥45</li>
+				<li>4.充值￥400送￥60</li> 
+				<li>5.充值￥500送￥100</li>
+			</ol>
+			-->
+		</div>
+		<div class="tabs tab2" style="display:none;">
+			{loop $withdraws $w}
+			<div class="icontain">
+				<div class="conLeft">
+					<p>提现成功</p>
+					<p class="fs"><span >{php echo date('Y-m-d H:i:s', $w['createtime'])}</span></p>
+				</div>
+				<div class="conRight">
+					-￥{$w['credit2']}
+				</div>
+			</div>
+			{/loop}
+		</div>
+	</div>
+</body> 
+<script type="text/javascript">
+$('.mainbottombg span').click(function(){
+	$(this).parent().find('span').removeClass('ac');
+	$(this).addClass('ac');
+	$('.tabs').hide();
+	art = $(this).attr('id');
+	$('.'+art).show();
+});
+{if $_GPC['opp']=='log'}
+$(window).load(function() { 
+	$('#tab1').removeClass('ac');
+	$('#tab2').addClass('ac');
+	$('.tab1').hide();
+	$('.tab2').show();
+});
+{/if}
+</script>
+<!--
+<script type="text/javascript">
+$("#pop_rule").click(function (){
+	var pop_or = $("#pop_out");		
+		$("#pop_out").fadeToggle();			
+	})
+</script >
+
+<script>
+	$(document).ready(function (){
+		var last_li  = $("ol li:last")
+		//alert(last_li.html());
+		last_li.css("letter-spacing","1px")
+	})
+</script>
+-->  
+	<script type="text/javascript">
+	function checkCash(){
+			//alert('22'); 
+		var cash_val = $("input[name=credit2]").val();
+		//alert(cash_val); 
+		if(cash_val == '请输入充值金额' || cash_val == ''){
+			//alert("kong ");
+			alert("请输入充值金额！");
+			return false;
+		}else{
+			return true;
+		} 
+	} 	 
+</script>
+</html>

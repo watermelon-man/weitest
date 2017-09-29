@@ -1,0 +1,71 @@
+{template 'common/header'}
+
+<style>
+    .main .classBtn{
+        background-color: #428bca;
+        color: white;
+        margin-bottom: 10px;
+    }
+    .main .classBtn:hover{
+        background-color: #3071a9;
+    }
+    .main .classBtn a:hover{
+        color:white;
+    }
+    form .form-group:nth-of-type(4) label{
+        padding-top: 2px;
+    }
+</style>
+<div class="main">
+   <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+            <button class='classBtn btn'><a href="{php echo $this->createWebUrl('topic')}">返回话题列表</a></button>
+            <form action="{php echo $this->createWebUrl('edittopic')}" method="post" class="form-horizontal" role="form" id="form1">
+                <input type="hidden" name="op" value="editsave" />
+                <input type="hidden" name="id" value="{$row['id']}" />
+                            <div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">话题名称</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<input class="form-control" name="topicname" id="" type="text" value="{$row['topicname']}" placeholder="话题名称">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">话题描述</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<input class="form-control" name="topicdesc" id="" type="text" value="{$row['topicdesc']}" placeholder="话题描述">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">话题背景图</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						{php echo tpl_form_field_image('topicback',$row['topicback']);}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">是否审核</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+                                            {if $item['checked'] == 1}
+                                                  <input type="radio" name="is_check" checked value="1">是
+                                                  <input type="radio" name="is_check" value="2">否
+                                            {else}
+                                                  <input type="radio" name="is_check" value="1">是
+                                                  <input type="radio" name="is_check" checked value="2">否
+                                            {/if}
+					</div>
+				</div>
+				
+			    <div class="form-group">
+                                <div class="col-md-4 col-lg-2"></div>
+                                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
+                                    <input style="width:10%" type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+                                    <input type="hidden" name="token" value="{$_W['token']}" />	
+                                </div>
+				</div>
+				<div class="form-group">
+				</div>
+			</form>
+          
+        </div>
+    </div>
+</div>
+{template 'common/footer'}

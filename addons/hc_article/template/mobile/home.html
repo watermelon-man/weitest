@@ -1,0 +1,143 @@
+<html class="hairlines">
+    <head>
+        <meta charset="utf-8">
+        <title>我的主页</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" type="text/css" href="http://static.qschou.com/css/v5/qscui.css?v=338">
+    </head>
+    
+    <body class="platform_mobile">
+        <div class="global-notice">
+            <i class="icon">
+            </i>
+            <span>
+                <a href="/page/notice">
+                    轻松筹网站全新改版，点击查看新版介绍
+                </a>
+            </span>
+            <a href="javascript:void(0);" class="notice-close">
+            </a>
+        </div>
+        <div class="qsc-alert" style="display: none;">
+            <i class="info-base64">
+            </i>
+            <span>
+            </span>
+        </div>
+        <div class="content bottom mod-user">
+            <div class="mod-user-header">
+                <div class="qsc-list-group">
+                    <a href="{php echo $this->createMobileUrl('memberinfo')}" class="list-item list-thumb list-thumb-md">
+                        <strong>
+                            <i class="icon">
+                                <img class="lazy-load" src="{$member['headurl']}" style="display: inline;">
+                            </i>
+                            {$member['nickname']}
+                        </strong>
+                        <p>
+                            {$member['mobile']}
+                        </p>
+                        <span>
+                            <i class="list-arrow">
+                            </i>
+                        </span>
+                    </a>
+                </div>
+                <div class="mod-user-header_project clearfix">
+                    <a href="{php echo $this->createMobileUrl('home', array('op'=>'my' , 'opp'=>'myarticle'))}" class="item">
+                        <strong>
+                            {$myarticlenum}
+                        </strong>
+                        我的文章
+                    </a>
+                    <a href="{php echo $this->createMobileUrl('home', array('op'=>'my' , 'opp'=>'myshare'))}" class="item">
+                        <strong>
+                            {$sharenum}
+                        </strong>
+                        我的分享
+                    </a>
+                    <a href="{php echo $this->createMobileUrl('home', array('op'=>'my', 'opp'=>'mygz'))}" class="item">
+                        <strong>
+                            {$gznum}
+                        </strong>
+                        我的关注
+                    </a>
+                </div>
+            </div>
+            <div class="water">
+                <div class="water-1">
+                </div>
+                <div class="water-2">
+                </div>
+            </div>
+            <div class="qsc-list-group">
+                <a href="/user/balance" class="list-item list-thumb list-thumb-sm" style="border-top:none;">
+                    <strong>
+                        <i class="icon icon-user-wallet">
+                        </i>
+                        我的钱包
+                    </strong>
+                    <span>
+                        <span class="">
+                            0.00 元
+                        </span>
+                        <i class="list-arrow">
+                        </i>
+                    </span>
+                </a>
+            </div>
+            <div class="qsc-list-group">
+                <a href="{php echo $this->createMobileUrl('index', array('op'=>'question'))}" class="list-item list-thumb list-thumb-sm">
+                    <strong>
+                        <i class="icon icon-user-help">
+                        </i>
+                        帮助与反馈
+                    </strong>
+                    <span>
+                        <i class="list-arrow">
+                        </i>
+                    </span>
+                </a>
+                <a href="{php echo $this->createMobileUrl('home', array('op'=>'my' , 'opp'=>'myarticle'))}" class="list-item list-thumb list-thumb-sm">
+                    <strong>
+                        <i class="icon icon-user-about">
+                        </i>
+                        我的文章
+                    </strong>
+                    <span>
+                        <i class="list-arrow">
+                        </i>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <footer class="qsc-bar bar-fixed">
+            <a href="{php echo $this->createMobileUrl('index')}" class="bar-item ">
+                <i class="icon bar-home">
+                </i>
+                首页
+            </a>
+            <a href="{php echo $this->createMobileUrl('articleindex', array('op'=>'release'))}" class="bar-item ">
+                <i class="icon bar-publish">
+                </i>
+                发起
+            </a>
+            <a href="{php echo $this->createMobileUrl('home', array('op'=>'my' , 'opp'=>'myarticle'))}" class="bar-item ">
+                <i class="icon bar-message">
+                </i>
+                文章
+            </a>
+            <a href="{php echo $this->createMobileUrl('home')}" class="bar-item  active">
+                <i class="icon bar-user">
+                </i>
+                我
+            </a>
+        </footer>
+        <link rel="stylesheet" type="text/css" href="http://static.qschou.com/css/v5/icons.css?v=338">
+ 
+    </body>
+
+</html>

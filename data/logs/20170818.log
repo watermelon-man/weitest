@@ -1,0 +1,482 @@
+2017-08-18 15:13:28 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_5abe0223f895]]></ToUserName>
+<FromUserName><![CDATA[oZbg3uFkV8l5wJeDnVyrt4nA5IrE]]></FromUserName>
+<CreateTime>1503040407</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[测试]]></Content>
+<MsgId>6455509393070778435</MsgId>
+</xml>
+
+2017-08-18 15:13:28 params :
+------------
+String:
+array (
+  'message' => 
+  array (
+    'tousername' => 'gh_5abe0223f895',
+    'fromusername' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'createtime' => '1503040407',
+    'msgtype' => 'text',
+    'content' => '测试',
+    'msgid' => '6455509393070778435',
+    'from' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'to' => 'gh_5abe0223f895',
+    'time' => '1503040407',
+    'type' => 'text',
+    'event' => NULL,
+    'redirection' => false,
+    'source' => NULL,
+  ),
+  'module' => 'reply',
+  'rule' => '9',
+  'priority' => '0',
+  'keyword' => 
+  array (
+    'id' => '13',
+    'rid' => '9',
+    'uniacid' => '2',
+    'module' => 'reply',
+    'content' => '测试',
+    'type' => '1',
+    'displayorder' => '0',
+    'status' => '1',
+    'reply_type' => 
+    array (
+      0 => 'basic',
+    ),
+  ),
+  'reply_type' => 
+  array (
+    0 => 'basic',
+  ),
+)
+
+2017-08-18 15:13:28 response :
+------------
+Array:
+FromUserName : gh_5abe0223f895 ;
+ToUserName : oZbg3uFkV8l5wJeDnVyrt4nA5IrE ;
+MsgType : text ;
+Content : 这是测试，请注意。 ;
+
+2017-08-18 15:16:48 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_5abe0223f895]]></ToUserName>
+<FromUserName><![CDATA[oZbg3uFkV8l5wJeDnVyrt4nA5IrE]]></FromUserName>
+<CreateTime>1503040608</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[图文]]></Content>
+<MsgId>6455510256359205029</MsgId>
+</xml>
+
+2017-08-18 15:16:48 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_5abe0223f895',
+    'fromusername' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'createtime' => '1503040608',
+    'msgtype' => 'text',
+    'content' => '图文',
+    'msgid' => '6455510256359205029',
+    'from' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'to' => 'gh_5abe0223f895',
+    'time' => '1503040608',
+    'type' => 'text',
+    'event' => NULL,
+    'redirection' => false,
+    'source' => NULL,
+  ),
+)
+
+2017-08-18 15:16:48 response :
+------------
+
+2017-08-18 15:16:54 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_5abe0223f895]]></ToUserName>
+<FromUserName><![CDATA[oZbg3uFkV8l5wJeDnVyrt4nA5IrE]]></FromUserName>
+<CreateTime>1503040614</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[图文测试]]></Content>
+<MsgId>6455510282129008806</MsgId>
+</xml>
+
+2017-08-18 15:16:54 params :
+------------
+String:
+array (
+  'message' => 
+  array (
+    'tousername' => 'gh_5abe0223f895',
+    'fromusername' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'createtime' => '1503040614',
+    'msgtype' => 'text',
+    'content' => '图文测试',
+    'msgid' => '6455510282129008806',
+    'from' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'to' => 'gh_5abe0223f895',
+    'time' => '1503040614',
+    'type' => 'text',
+    'event' => NULL,
+    'redirection' => false,
+    'source' => NULL,
+  ),
+  'module' => 'reply',
+  'rule' => '10',
+  'priority' => '0',
+  'keyword' => 
+  array (
+    'id' => '14',
+    'rid' => '10',
+    'uniacid' => '2',
+    'module' => 'reply',
+    'content' => '图文测试',
+    'type' => '1',
+    'displayorder' => '0',
+    'status' => '1',
+    'reply_type' => 
+    array (
+      0 => 'news',
+    ),
+  ),
+  'reply_type' => 
+  array (
+    0 => 'news',
+  ),
+)
+
+2017-08-18 15:16:54 response :
+------------
+Array:
+FromUserName : gh_5abe0223f895 ;
+ToUserName : oZbg3uFkV8l5wJeDnVyrt4nA5IrE ;
+MsgType : news ;
+ArticleCount : 1 ;
+Articles : Array ;
+
+2017-08-18 15:17:01 SQL Error :
+------------
+String:
+SQL: <br/>SELECT * FROM `ims_stat_visit` WHERE `date` =  :__date_1 AND `uniacid` =  :__uniacid_2 AND `module` =  :__module_3  LIMIT 1<hr/>Params: <br/>array (
+  ':__date_1' => '20170818',
+  ':__uniacid_2' => 2,
+  ':__module_3' => 'core',
+)<hr/>SQL Error: <br/>Table 'weiqing.ims_stat_visit' doesn't exist<hr/>Traces: <br/>file: /framework/class/db.class.php; line: 167; <br />file: /framework/class/db.class.php; line: 227; <br />file: /framework/function/pdo.func.php; line: 49; <br />file: /framework/model/app.mod.php; line: 54; <br />file: /app/source/utility/visit.ctrl.php; line: 9; <br />file: /app/index.php; line: 115; <br />
+
+2017-08-18 15:17:01 SQL Error :
+------------
+String:
+SQL: <br/>INSERT INTO `ims_stat_visit` SET `uniacid` =  :uniacid_1 , `module` =  :module_2 , `date` =  :date_3 , `count` =  :count_4<hr/>Params: <br/>array (
+  ':uniacid_1' => 2,
+  ':module_2' => 'core',
+  ':date_3' => '20170818',
+  ':count_4' => 1,
+)<hr/>SQL Error: <br/>Table 'weiqing.ims_stat_visit' doesn't exist<hr/>Traces: <br/>file: /framework/class/db.class.php; line: 115; <br />file: /framework/class/db.class.php; line: 285; <br />file: /framework/function/pdo.func.php; line: 71; <br />file: /framework/model/app.mod.php; line: 62; <br />file: /app/source/utility/visit.ctrl.php; line: 9; <br />file: /app/index.php; line: 115; <br />
+
+2017-08-18 15:17:56 SQL Error :
+------------
+String:
+SQL: <br/>SELECT * FROM `ims_stat_visit` WHERE `date` =  :__date_1 AND `uniacid` =  :__uniacid_2 AND `module` =  :__module_3  LIMIT 1<hr/>Params: <br/>array (
+  ':__date_1' => '20170818',
+  ':__uniacid_2' => 2,
+  ':__module_3' => 'wesite',
+)<hr/>SQL Error: <br/>Table 'weiqing.ims_stat_visit' doesn't exist<hr/>Traces: <br/>file: /framework/class/db.class.php; line: 167; <br />file: /framework/class/db.class.php; line: 227; <br />file: /framework/function/pdo.func.php; line: 49; <br />file: /framework/model/app.mod.php; line: 54; <br />file: /app/source/utility/visit.ctrl.php; line: 9; <br />file: /app/index.php; line: 115; <br />
+
+2017-08-18 15:17:56 SQL Error :
+------------
+String:
+SQL: <br/>INSERT INTO `ims_stat_visit` SET `uniacid` =  :uniacid_1 , `module` =  :module_2 , `date` =  :date_3 , `count` =  :count_4<hr/>Params: <br/>array (
+  ':uniacid_1' => 2,
+  ':module_2' => 'wesite',
+  ':date_3' => '20170818',
+  ':count_4' => 1,
+)<hr/>SQL Error: <br/>Table 'weiqing.ims_stat_visit' doesn't exist<hr/>Traces: <br/>file: /framework/class/db.class.php; line: 115; <br />file: /framework/class/db.class.php; line: 285; <br />file: /framework/function/pdo.func.php; line: 71; <br />file: /framework/model/app.mod.php; line: 62; <br />file: /app/source/utility/visit.ctrl.php; line: 9; <br />file: /app/index.php; line: 115; <br />
+
+2017-08-18 15:18:31 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_5abe0223f895]]></ToUserName>
+<FromUserName><![CDATA[oZbg3uFkV8l5wJeDnVyrt4nA5IrE]]></FromUserName>
+<CreateTime>1503040711</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[链接]]></Content>
+<MsgId>6455510698740836549</MsgId>
+</xml>
+
+2017-08-18 15:18:31 params :
+------------
+String:
+array (
+  'message' => 
+  array (
+    'tousername' => 'gh_5abe0223f895',
+    'fromusername' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'createtime' => '1503040711',
+    'msgtype' => 'text',
+    'content' => '链接',
+    'msgid' => '6455510698740836549',
+    'from' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'to' => 'gh_5abe0223f895',
+    'time' => '1503040711',
+    'type' => 'text',
+    'event' => NULL,
+    'redirection' => false,
+    'source' => NULL,
+  ),
+  'module' => 'reply',
+  'rule' => '11',
+  'priority' => '0',
+  'keyword' => 
+  array (
+    'id' => '15',
+    'rid' => '11',
+    'uniacid' => '2',
+    'module' => 'reply',
+    'content' => '链接',
+    'type' => '1',
+    'displayorder' => '0',
+    'status' => '1',
+    'reply_type' => 
+    array (
+      0 => 'basic',
+    ),
+  ),
+  'reply_type' => 
+  array (
+    0 => 'basic',
+  ),
+)
+
+2017-08-18 15:18:31 response :
+------------
+Array:
+FromUserName : gh_5abe0223f895 ;
+ToUserName : oZbg3uFkV8l5wJeDnVyrt4nA5IrE ;
+MsgType : text ;
+Content : http://www.fyiyao.com/app/index.php?i=2&c=home&t=3 ;
+
+2017-08-18 15:18:33 SQL Error :
+------------
+String:
+SQL: <br/>SELECT * FROM `ims_stat_visit` WHERE `date` =  :__date_1 AND `uniacid` =  :__uniacid_2 AND `module` =  :__module_3  LIMIT 1<hr/>Params: <br/>array (
+  ':__date_1' => '20170818',
+  ':__uniacid_2' => 2,
+  ':__module_3' => 'wesite',
+)<hr/>SQL Error: <br/>Table 'weiqing.ims_stat_visit' doesn't exist<hr/>Traces: <br/>file: /framework/class/db.class.php; line: 167; <br />file: /framework/class/db.class.php; line: 227; <br />file: /framework/function/pdo.func.php; line: 49; <br />file: /framework/model/app.mod.php; line: 54; <br />file: /app/source/utility/visit.ctrl.php; line: 9; <br />file: /app/index.php; line: 115; <br />
+
+2017-08-18 15:18:33 SQL Error :
+------------
+String:
+SQL: <br/>INSERT INTO `ims_stat_visit` SET `uniacid` =  :uniacid_1 , `module` =  :module_2 , `date` =  :date_3 , `count` =  :count_4<hr/>Params: <br/>array (
+  ':uniacid_1' => 2,
+  ':module_2' => 'wesite',
+  ':date_3' => '20170818',
+  ':count_4' => 1,
+)<hr/>SQL Error: <br/>Table 'weiqing.ims_stat_visit' doesn't exist<hr/>Traces: <br/>file: /framework/class/db.class.php; line: 115; <br />file: /framework/class/db.class.php; line: 285; <br />file: /framework/function/pdo.func.php; line: 71; <br />file: /framework/model/app.mod.php; line: 62; <br />file: /app/source/utility/visit.ctrl.php; line: 9; <br />file: /app/index.php; line: 115; <br />
+
+2017-08-18 16:16:37 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_5abe0223f895]]></ToUserName>
+<FromUserName><![CDATA[oZbg3uFkV8l5wJeDnVyrt4nA5IrE]]></FromUserName>
+<CreateTime>1503044196</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[英语]]></Content>
+<MsgId>6455525666701864024</MsgId>
+</xml>
+
+2017-08-18 16:16:37 params :
+------------
+String:
+array (
+  'message' => 
+  array (
+    'tousername' => 'gh_5abe0223f895',
+    'fromusername' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'createtime' => '1503044196',
+    'msgtype' => 'text',
+    'content' => '英语',
+    'msgid' => '6455525666701864024',
+    'from' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'to' => 'gh_5abe0223f895',
+    'time' => '1503044196',
+    'type' => 'text',
+    'event' => NULL,
+    'redirection' => false,
+    'source' => NULL,
+  ),
+  'module' => 'english_daily',
+  'rule' => 12,
+  'priority' => 0,
+  'keyword' => 
+  array (
+    'id' => 16,
+    'rid' => 12,
+    'uniacid' => 2,
+    'module' => 'english_daily',
+    'content' => '英语',
+    'type' => 1,
+    'displayorder' => 0,
+    'status' => 1,
+    'reply_type' => 
+    array (
+    ),
+  ),
+  'reply_type' => 
+  array (
+  ),
+)
+
+2017-08-18 16:16:37 response :
+------------
+Array:
+FromUserName : gh_5abe0223f895 ;
+ToUserName : oZbg3uFkV8l5wJeDnVyrt4nA5IrE ;
+MsgType : news ;
+ArticleCount : 1 ;
+Articles : Array ;
+
+2017-08-18 16:26:37 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_5abe0223f895]]></ToUserName>
+<FromUserName><![CDATA[oZbg3uFkV8l5wJeDnVyrt4nA5IrE]]></FromUserName>
+<CreateTime>1503044797</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[英语]]></Content>
+<MsgId>6455528247977209052</MsgId>
+</xml>
+
+2017-08-18 16:26:37 params :
+------------
+String:
+array (
+  'message' => 
+  array (
+    'tousername' => 'gh_5abe0223f895',
+    'fromusername' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'createtime' => '1503044797',
+    'msgtype' => 'text',
+    'content' => '英语',
+    'msgid' => '6455528247977209052',
+    'from' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'to' => 'gh_5abe0223f895',
+    'time' => '1503044797',
+    'type' => 'text',
+    'event' => NULL,
+    'redirection' => false,
+    'source' => NULL,
+  ),
+  'module' => 'english_daily',
+  'rule' => 12,
+  'priority' => 0,
+  'keyword' => 
+  array (
+    'id' => 16,
+    'rid' => 12,
+    'uniacid' => 2,
+    'module' => 'english_daily',
+    'content' => '英语',
+    'type' => 1,
+    'displayorder' => 0,
+    'status' => 1,
+    'reply_type' => 
+    array (
+    ),
+  ),
+  'reply_type' => 
+  array (
+  ),
+)
+
+2017-08-18 16:26:37 response :
+------------
+Array:
+FromUserName : gh_5abe0223f895 ;
+ToUserName : oZbg3uFkV8l5wJeDnVyrt4nA5IrE ;
+MsgType : news ;
+ArticleCount : 1 ;
+Articles : Array ;
+
+2017-08-18 19:20:40 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_5abe0223f895]]></ToUserName>
+<FromUserName><![CDATA[oZbg3uABH5tg0VeaLVAq-sq0WGnU]]></FromUserName>
+<CreateTime>1503055240</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[unsubscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>
+
+2017-08-18 19:26:13 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_5abe0223f895]]></ToUserName>
+<FromUserName><![CDATA[oZbg3uFkV8l5wJeDnVyrt4nA5IrE]]></FromUserName>
+<CreateTime>1503055573</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[文章]]></Content>
+<MsgId>6455574530544794258</MsgId>
+</xml>
+
+2017-08-18 19:26:13 params :
+------------
+String:
+array (
+  'message' => 
+  array (
+    'tousername' => 'gh_5abe0223f895',
+    'fromusername' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'createtime' => '1503055573',
+    'msgtype' => 'text',
+    'content' => '文章',
+    'msgid' => '6455574530544794258',
+    'from' => 'oZbg3uFkV8l5wJeDnVyrt4nA5IrE',
+    'to' => 'gh_5abe0223f895',
+    'time' => '1503055573',
+    'type' => 'text',
+    'event' => NULL,
+    'redirection' => false,
+    'source' => NULL,
+  ),
+  'module' => 'cover',
+  'rule' => '14',
+  'priority' => '0',
+  'keyword' => 
+  array (
+    'id' => '18',
+    'rid' => '14',
+    'uniacid' => '2',
+    'module' => 'cover',
+    'content' => '文章',
+    'type' => '1',
+    'displayorder' => '0',
+    'status' => '1',
+    'reply_type' => 
+    array (
+    ),
+  ),
+  'reply_type' => 
+  array (
+  ),
+)
+
+2017-08-18 19:26:13 response :
+------------
+Array:
+FromUserName : gh_5abe0223f895 ;
+ToUserName : oZbg3uFkV8l5wJeDnVyrt4nA5IrE ;
+MsgType : news ;
+ArticleCount : 1 ;
+Articles : Array ;
+

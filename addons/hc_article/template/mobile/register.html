@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>会员注册</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="x-dns-prefetch-control" content="on" />
+    <link rel="stylesheet" href="../addons/hc_article/style/css/buy.css" />
+    <link href="../addons/hc_article/style/css/style1.css" rel="stylesheet" />
+    <script src="../addons/hc_article/style/js/jquery-1.8.3.min.js" type="text/javascript"></script>
+</head>
+<body>
+<form class="productform" method="post" action="">
+	<input type="hidden" name="op" value="pay" />
+    <div class="mobile" id="mobile">
+        <div class="box boxcontent ">
+			<img width="100%" src="{php echo $_W['attachurl'].$rule['register_bg']}">
+		</div>
+        <div class="box">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="parameter">
+                <tr>
+                    <td width="90">会 员 价：</td>
+                    <td><a class="money">&yen;{$viplevels[0]['needmoney']}</a></td>
+                </tr>
+                <tr>
+                    <td>会员等级：</td>
+                    <td>
+                        <ul class="sku">
+                            {loop $viplevels $key $v}
+								<li data-id="{$v['id']}" data-price="{$v['needmoney']}" {if $key==0}class="curr"{/if}>{$v['title']}<i></i></li>
+							{/loop}
+                        </ul>
+						<input type="hidden" id="skuID" value="{$viplevels[0]['id']}" name="vipid" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="bg"></div>
+        <div class="wra">
+            <h3>会员信息</h3>
+            <div class="line"></div>
+            <div class="box">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="buyAddress">
+                    <tr>
+                        <td>联系手机：</td>
+                        <td>
+                            <input type="text" datatype="m" name="mobile" nullmsg="请输入手机号码" errormsg="填写错误" placeholder="请输入手机号码" id="smobile" />
+                            <em class="validMsg Validform_checktip"></em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>备注：</td>
+                        <td>
+                            <textarea name="remark" placeholder="请输入备注(选填)" id="textarea"></textarea>
+							<em class="validMsg Validform_checktip"></em>
+						</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+		<div class="bg"></div>
+        <div class="wra" style="margin-bottom:60px">
+            <h3>服务承诺</h3>
+            <div class="line"></div>
+            <div class="box">
+                <ul class="services">
+					<li><i></i> 由东方云平台信誉保证</li>
+                    <li><i></i> 最高可获得医社保福利</li>
+					<li><i></i> 最低10元成为尊享会员</li>
+                </ul>
+            </div>
+        </div>
+        <div class="bg"></div>
+        <div class="bg"></div> 
+        <div class="footerBuy">
+            <div class="box">
+                <input type="submit" class="btn red" value="提交申请" />
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="../addons/hc_article/style/js/Validform_v5.3.2.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	var kc = $(".sku li:first-child").attr("data-kc");
+	var ck = $(".xie li:first-child").attr("data-kc");
+	$("#kucun a").html(kc);
+	$("#kucun a").html(ck);
+})
+
+$(".detail_tab li").click(function () {
+	$(".detail_tab li,.detail_item li").removeClass("curr");
+	$(this).addClass("curr");
+	var index = $(this).index();
+	$(".detail_item li").eq(index).addClass("curr");
+})
+
+$(".sku li").click(function () {
+	$(".sku li").removeClass("curr");
+	$(this).addClass("curr");
+	var price = $(this).attr("data-price");
+	var kc = $(this).attr("data-kc");
+	$(".money").html("&yen;" + price);
+	$("#skuID").val($(this).attr("data-id"));
+	$(".kucun").val("<a class=\"red\">" + $(this).attr("data-inventory") + "</a>");
+	$("#kucun a").html(kc);
+});
+
+$(".xie li").click(function () {
+	$(".xie li").removeClass("curr");
+	$(this).addClass("curr");
+	var price = $(this).attr("data-price");
+	var ck = $(this).attr("data-ck");
+	$(".money").html("&yen;" + price);
+	$("#xieId").val($(this).attr("data-id"));
+	$(".kucun").val("<a class=\"red\">" + $(this).attr("data-inventory") + "</a>");
+	$("#kucun a").html(ck);
+});
+
+$(".left").click(function () {
+	var v = Number($(".input").val()) - 1;
+	if (v >= 1) {
+		$(".input").val(v);
+	}
+});
+
+$("#right").click(function () {
+	var v = Number($("#orderNumber").val()) + 1;
+	if (v >= 1) {
+		$("#orderNumber").val(v);
+	}
+});
+
+$(".productform").Validform({
+	tiptype: 2,
+	callback: function (form) {
+		form[0].submit();
+		return false;
+	}
+});
+</script>
+</body>
+</html>

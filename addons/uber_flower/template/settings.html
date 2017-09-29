@@ -1,0 +1,52 @@
+{template 'common/header'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1"> 
+		<div class="panel panel-default">
+		<div class="panel-heading">模板选择切换</div>
+		
+			<div class="panel-body">
+				<div class="form-group">
+		                    <label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">模板选择：</label>
+		                    <div class="col-sm-8 col-xs-12">
+		                        <select class='form-control' name='style'>
+		                            {loop $styles  $style}
+		                            <option value='{$style}' {if $style==$settings['style']}selected{/if}>{$style}</option>
+		                            {/loop}
+		                        </select>
+		                    </div>
+		                </div> 
+                  <div class="form-group">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">编辑器模式：</label>
+                  <div class="col-sm-9">
+                    <label class="radio-inline">
+                      <input type="radio" name="editor" value="0" {if empty($settings['editor']) } checked{/if} />
+                      普通文本</label>
+                    <label class="radio-inline">
+                      <input type="radio" name="editor" value="1" {if $settings['editor'] == 1} checked{/if} />
+                      富文本</label>
+                    
+                  </div>
+                </div>
+                <div class="form-group" style="display:none;">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">奖品所属商家：</label>
+                  <div class="col-sm-9">
+                    <label class="radio-inline">
+                      <input type="radio" name="ismerchant" value="0" {if empty($settings['ismerchant']) } checked{/if} />
+                      关闭</label>
+                    <label class="radio-inline">
+                      <input type="radio" name="ismerchant" value="1" {if $settings['ismerchant'] == 1} checked{/if} />
+                      开启</label>
+                    
+                  </div>
+                </div>   
+				<div class="form-group col-sm-12">
+			        <input type="submit" name="submit" value="保存" class="btn btn-primary col-lg-1" />
+			        <input type="hidden" name="token" value="{$_W['token']}" />
+		        </div>
+			</div>
+	    </div>
+	 
+		
+	</form>
+</div>
+{template 'common/footer'}
