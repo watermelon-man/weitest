@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns="http://www.we7.cc" versionCode="">
 	<application setting="false">
-		<name><![CDATA[微信尬聊墙]]></name>
+		<name><![CDATA[微信讨论墙]]></name>
 		<identifie><![CDATA[sanshi_discuz]]></identifie>
 		<version><![CDATA[1.0]]></version>
 		<type><![CDATA[other]]></type>
@@ -24,10 +24,10 @@
 	<bindings>
 		<menu>
 			<entry title="话题管理" do="topic" state="ims_sanshi_topic" direct="false" />
-			<entry title="讨论管理" do="discuss" state="ims_sanshi_discuss" direct="false" />
+			<!--<entry title="讨论管理" do="discuss" state="ims_sanshi_discuss" direct="false" />-->
 		</menu>
                 <cover>
-			<entry title="尬聊入口" do="index" state="" direct="false" />
+			<entry title="讨论入口" do="index" state="" direct="false" />
 		</cover>
 	</bindings>
 	<permissions>

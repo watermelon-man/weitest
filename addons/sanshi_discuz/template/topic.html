@@ -36,7 +36,7 @@
                     <tr>
                         <td>{$item['topicname']}</td>
                         <td class="mui-ellipsis">{$item['topicdesc']}</td>
-                        <td><img src="{$item['topicback']}"></td>	
+                        <td><img src="../attachment/{$item['topicback']}"></td>	
                         <td>{$item['topic_num']}</td>
 			<td>{$item['topic_read']}</td>	
                         <td>
@@ -45,7 +45,7 @@
                         <td>
                             <!--<a href="{php echo $this->createWebUrl('discuss',array('topic_id'=> $item['id']))}">查看留言</a>-->
                             <a href="{php echo $this->createWebUrl('edittopic',array('op' => 'edit', 'id'=> $item['id']))}" class="btn btn-default btn-sm" title="编辑"><i class="fa fa-edit"></i></a>
-                            <a href="{php echo $this->createWebUrl('delclass', array('op' => 'delete', 'id' => $item['id']))}" onclick="return confirm('确认删除吗？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+                            <a href="{php echo $this->createWebUrl('topicdelete', array('op' => 'delete', 'id' => $item['id']))}" onclick="return confirm('确认删除吗？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                     {/loop}

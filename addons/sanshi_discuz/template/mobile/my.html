@@ -1,0 +1,146 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>个人中心</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="../addons/sanshi_discuz/template/mobile/dist/css/mui.css">
+	<link rel="stylesheet" type="text/css" href="../addons/sanshi_discuz/template/mobile/lib/css/lib.css">-->
+{template 'lib/head'}
+	<title>个人中心</title>
+	<style type="text/css" media="screen">
+            header .mui-icon{
+                color: #666;
+            }
+            .mui-content{
+                    margin-top: 5px;
+            }
+            .mui-content div:nth-of-type(1){
+                    background-color: white;
+                    font-size: 16px;
+            }
+            .mui-content div:nth-of-type(1):after{
+                    height: 0;
+            }
+            .mui-content div:nth-of-type(1) img{
+                    height: 27px;
+                    float: left;
+            }
+            .mui-content div:nth-of-type(1) span:nth-of-type(1){
+                    line-height: 27px;
+            }
+            .mui-content div:nth-of-type(2){
+                    height: 28px;
+                    line-height: 28px;
+                    font-size: 14px;
+                    padding-left: 1.5em;
+            }
+            .mui-content div:nth-of-type(3){
+                    background-color: white;
+            }
+            .mui-content div:nth-of-type(3) li:nth-child(odd){
+                    margin-bottom: -22px;
+            }
+            .mui-content div:nth-of-type(3) li:nth-child(odd):after{
+                    height: 0;
+            }
+            .mui-content div:nth-of-type(3) li img{
+                    width: 10%;
+            }
+            .mui-content div:nth-of-type(3) li img:nth-of-type(1){
+                    margin-right: 20px;
+                    border-radius: 50%;
+            }
+            .mui-content div:nth-of-type(3) .mui-media-body:nth-of-type(1){
+                    width: 80%;
+                    float: left;
+            }
+            .message>div{
+                    display: inline-block;
+            }
+            .message>div:nth-of-type(1){
+                    width: 80%;
+            }
+            .message>div:nth-of-type(2){
+                    padding-left: 0;
+                    line-height: 20px;
+                    text-align: right;
+                    float: right;
+                    min-height: 40px;
+            }
+            .red{
+                    color: red;
+            }
+            .green{
+                    color: green;
+            }
+	</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="{php echo $this->createMobileUrl('topic')}" title=""></a>-->
+		<h1 class="mui-title">我的留言</h1>
+	</header>
+	<div class="mui-content">
+		<div class="mui-table-view-cell">
+			<a href="{php echo $this->createMobileUrl('index')}" title="">
+				<img src="../addons/sanshi_discuz/template/mobile/images/icon.png" alt="">
+				<span>查看话题</span>
+				<span class="mui-navigate-right"></span>
+			</a>
+		</div>
+		<div>
+			<p>我的留言</p>
+		</div>
+		<div>
+			<ul class="mui-table-view">
+                            {loop $list $item}
+                                <li class="mui-table-view-cell mui-media">
+                                    <!--<a href="javascript:;">-->
+                                    <img class="mui-pull-left" src="{$pic}">
+                                    <div class="mui-media-body">
+                                        {$name}
+                                        <p class='mui-ellipsis'>{$item['createtime']}</p>
+                                    </div>
+                                    <!--</a>-->
+                                </li>
+                                <li class="mui-table-view-cell mui-media message">
+                                    <div>
+                                       {$item['discuss']}
+                                    </div>
+                                    <div>
+                                        <i class="mui-icon mui-icon-closeempty"><span style="display: none;">$item['id']</span></i><br/>
+                                        {if $item['checked'] == 1}
+                                        <span class="green">已审核</span>
+                                        {else}
+                                        <span class="red">未审核</span>{/if}
+                                    </div>
+                                </li>
+                            {/loop}
+			</ul>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../addons/sanshi_discuz/template/mobile/lib/js/jquery.min.js"></script>
+<script type="text/javascript">
+	$("ul li .mui-icon").on("click",function () {
+		$(this).parent().parent().prev().remove();
+		$(this).parent().parent().remove();
+		var id = $(this).children("span")[0].innerHTML;
+                delate(id);
+	});
+        function delate(id){
+            $.ajax({
+                type: 'POST',
+                url: "{php echo $this->createMobileUrl('discussdelete')}",
+                data: {
+                    'discuss_id':id
+                },
+                success: function(data){
+                    alert(data.code);
+                },
+                dataType: 'json'
+            });
+        }
+</script>
+</html>
