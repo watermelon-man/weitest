@@ -32,7 +32,7 @@ class Sanshi_discuzModuleSite extends WeModuleSite {
          */
         public function doMobileTopic(){
             global $_W,$_GPC;
-            $weid = $_W['uniacid'];
+            $weid = $_W['weid'];
             if($_GPC['id']){
                 //查出话题明细
                 $row = pdo_fetch("SELECT * FROM ".tablename('sanshi_topic') . " WHERE id =:id", array(':id'=> intval($_GPC['id'])));
@@ -42,6 +42,17 @@ class Sanshi_discuzModuleSite extends WeModuleSite {
                     ':topic_id' => $_GPC['id'],
                     ':weid'     => $weid
                  ));
+                foreach($discuz_list as &$val){
+                   $rs = pdo_get('sanshi_discuss_zan', 
+                     array(
+                       'discuss_id' => $val['id'],
+                       'weid'       => $weid,
+                        'openid'   => $_W['openid']
+                       ),
+                     array('id'));
+                   $val['is_zan'] = empty($rs) ? 2 : 1;
+                }
+//                var_dump($discuz_list);
                 //更新阅读次数
                $sql = "update ".tablename('sanshi_topic').  "set topic_read=topic_read+1 where id = '".intval($_GPC['id'])."'";
                pdo_query($sql);
@@ -67,13 +78,12 @@ class Sanshi_discuzModuleSite extends WeModuleSite {
             }else{
                 //确定是否需要审核
                 $topic  = pdo_getcolumn('sanshi_topic', array('id' =>intval($_GPC['topic_id'])), 'is_check',1);
-                $checked = $topic['is_check'] == 1 ? : 2;
                 $data = array(
                     'weid'     => $_W['uniacid'],
                     'topic_id' => $_GPC['topic_id'],
                     'openid'   => $_W['openid'],
                     'discuss'  => $_GPC['discuss'],
-                    'is_check' => $checked
+                    'checked' =>  1 == $topic ? 2 : 1
                 );
                 pdo_insert('sanshi_discuss', $data);
                 $id = pdo_insertid();
@@ -164,6 +174,7 @@ class Sanshi_discuzModuleSite extends WeModuleSite {
                 if (!empty($id)) {
                     $row = pdo_fetch("SELECT * FROM ".tablename('sanshi_topic') . " WHERE id =:id", array(':id'=> $id));
                 }
+//                var_dump($row);
             }else{
                 $data = array(
                     'weid'      => $_W['uniacid'],
@@ -172,6 +183,7 @@ class Sanshi_discuzModuleSite extends WeModuleSite {
                     'topicback' => $_GPC['topicback'],
                     'is_check'  => $_GPC['is_check']
                 );
+//                var_dump($_GPC);die();
             if(empty($_GPC['topicname']) || empty($_GPC['topicdesc'])){
                  message('信息不完整', $this->createWebUrl('topic', array(
                     'op' => 'display'
@@ -241,7 +253,7 @@ class Sanshi_discuzModuleSite extends WeModuleSite {
             $checked   = intval($_GPC['checked']);
             if($disuss_id && $checked){
                     $data['checked'] = $checked ==1 ? 2 : 1;
-                    $result = pdo_update('sanshi_disccus',$data,array('id'=>$disuss_id));
+                    $result = pdo_update('sanshi_discuss',$data,array('id'=>$disuss_id));
                     if($result){
                         echo json_encode(array(
                                 'code'    => 200,
@@ -266,8 +278,10 @@ class Sanshi_discuzModuleSite extends WeModuleSite {
         public function doWebTopicdelete(){
             global $_W, $_GPC;
             $id = intval($_GPC['id']);
-            if($id){
+            $weid = $_W['uniacid'];
+            if($id && $weid){
                 if(pdo_delete('sanshi_topic', array('id' => $id))){
+                    pdo_delete('sanshi_discuss', array('topic_id' => $id,'weid'=>$weid));
                     message('删除成功', $this->createWebUrl('topic', array(
                         'op' => 'display'
                     )), 'success');
@@ -300,4 +314,43 @@ class Sanshi_discuzModuleSite extends WeModuleSite {
                 )), 'info');
             }
         }
+        
+        public function doMobileUser(){
+            global $_W,$_GPC;
+            $list = pdo_getall('sanshi_discuss', array(
+               'openid' => $_W['openid'],
+                'weid'  => $_W['weid'],
+            ));
+            $msg = mc_oauth_userinfo();
+            $pic  = $msg['avatar'];
+            $name = $msg['nickname'];
+            include $this->template('my');
+        }
+        
+        
+        
+         /**
+         * 留言删除
+         */
+        public function doMobileDiscussdelete(){
+            global $_W, $_GPC;
+            $id = intval($_GPC['discuss_id']);
+//            $topic_id = intval($_GPC['topic_id']);
+            if($id){
+                if(pdo_delete('sanshi_discuss', array('id' => $id))){
+                   echo json_encode(array(
+                       'code' => 200,
+                       'message' => '删除成功',
+                       'data'    => []
+                   ));
+                }
+            }else{
+                echo json_encode(array(
+                       'code' => 400,
+                       'message' => '参数不完整',
+                       'data'    => []
+                   ));
+            }
+        }
+       
 }

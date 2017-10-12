@@ -1,17 +1,18 @@
-<!--{template 'common/header'}-->
-<!DOCTYPE html>
+{template 'lib/head'}
+<!--<!DOCTYPE html>-->
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<!--<html>
     <head>
         <title>话题墙</title>
         <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 	<link rel="stylesheet" type="text/css" href="../addons/sanshi_discuz/template/mobile/dist/css/mui.css">
-	<link rel="stylesheet" type="text/css" href="../addons/sanshi_discuz/template/mobile/lib/css/lib.css">
+	<link rel="stylesheet" type="text/css" href="../addons/sanshi_discuz/template/mobile/lib/css/lib.css">-->
+        <title>话题墙</title>
         <link rel="stylesheet" href="../addons/sanshi_discuz/template/mobile/css/liMarquee.css">
 </head>
 <style>
@@ -78,6 +79,13 @@ and open the template in the editor.
             top: auto; 
             margin-left: 0; 
         }
+        .mui-content>p{
+            text-align: center;
+            margin-top: 20px;
+        }
+        .mui-content>p a:active,a:hover{
+            color: #007aff;
+        }
 </style>
 <body>
 	<header class="mui-bar mui-bar-nav">
@@ -105,6 +113,7 @@ and open the template in the editor.
 				<button type="button" class="mui-btn mui-btn-danger">提交</button>
 			</div>
 		</div>
+            <p><a href="{php echo $this->createMobileUrl('user')}">查看我的留言</a></p>
 	</div>
 </body>
 <script type="text/javascript" src="../addons/sanshi_discuz/template/mobile/lib/js/jquery.min.js"></script>
@@ -189,7 +198,7 @@ and open the template in the editor.
                         }
                     },
                     dataType: 'json'
-                  });
+                });
             }
 	});
 </script>

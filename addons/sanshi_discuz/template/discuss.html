@@ -69,9 +69,10 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>{if $item['checked'] == 1}
-                                <i class="fa fa-check"></i>
+                                <i class="fa fa-check"><span style="display:none;">$item['id']</span></i>
                                 {else}
-                                <i class="fa fa-close"></i>{/if}</td>
+                                <i class="fa fa-close"><span style="display:none;">$item['id']</span></i>{/if}
+                            </td>
                             <td style="text-align:left;">
                                 <a href="{php echo $this->createWebUrl('discussdelete', array('op' => 'delete', 'id' => $item['id'],'topic_id' => $topic['id']))}" onclick="return confirm('确认删除吗？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
                             </td>
@@ -82,11 +83,9 @@
                 {$pager}
             </div>
         </div>
-
     </div>
-
     <script>
-        require(['bootstrap'], function ($) {
+        require(['bootstrap'], function () {
             $('.btn').hover(function () {
                 $(this).tooltip('show');
             }, function () {
@@ -94,14 +93,45 @@
             });
         });
         $(".main table td>i").on("click",function(){
+            var isCheck = false;
             if($(this).hasClass("fa-check")){
                 $(this).removeClass("fa-check");
                 $(this).addClass("fa-close");
+//                $.ajax({
+//                    {php echo $this->createWebUrl('check')}
+//                })
             }else{
                 $(this).removeClass("fa-close");
                 $(this).addClass("fa-check");
+                isCheck = true;
             }
+            var id = $(this).children("span")[0].innerHTML;
+            checkChange(id,isCheck);
         });
+        function checkChange(id,isCheck){
+            $.ajax({
+                type: "POST",
+                url: "{php echo $this->createWebUrl('check')}",
+                data: {
+                    "item_id": id,
+                    "checked": isCheck
+                },
+                success: function (data) {
+                    console.log(data.code);
+//                    if(JSON.parse(data).code == 200){
+//                        var message = '<li class="mui-table-view-cell"><p>'+$("#talk").val()+'</p><span class="mui-badge">'+
+//                                '<img src="../addons/sanshi_discuz/template/mobile/images/fabulous.png" alt=""></span></li>';
+//                        $(".mui-content").innerHTML += message;
+//                        mui('.mui-popover').popover('hide');
+//                        $("#talk").val("");  
+//                        location.reload();
+//                    }
+                },
+                error: function () {
+                      console.log("提交数据失败！");
+                }
+            });
+        }
     </script>
 
     {template 'common/footer'}
