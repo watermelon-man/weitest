@@ -11,6 +11,7 @@ class My_stModuleSite extends WeModuleSite {
         $openid = $_W['openid'];
         $id = $_GPC['id'];
         $shetuan = pdo_fetch("SELECT * FROM " . tablename('my_st') . " WHERE uniacid = '{$uniacid}' AND id = '{$id}'");
+//        var_dump($shetuan);
         $students_apply = pdo_fetch("SELECT * FROM " . tablename('my_st_students') . " WHERE uniacid = '{$uniacid}' AND openid = '{$openid}' AND shetuan_id = '{$id}'");
         $user_info = pdo_fetch("SELECT * FROM " . tablename('my_st_msg') . " WHERE uniacid = '{$uniacid}' AND openid = '{$openid}'");
         if (empty($user_info)) {
@@ -28,18 +29,28 @@ class My_stModuleSite extends WeModuleSite {
         $openid = $_W['openid'];
         $id = $_GPC['id'];
         $shetuan = pdo_fetch("SELECT * FROM " . tablename('my_st_activity') . " WHERE uniacid = '{$uniacid}' AND id = '{$id}'");
-        $students = pdo_fetch("SELECT * FROM " . tablename('my_st_students') . " WHERE uniacid = '{$uniacid}' AND shetuan_id = '{$shetuan['shetuan_id']}' AND openid = '$openid' AND status = 1");
+        //当前用户参加的社团信息。
+        $students = pdo_fetch("SELECT * FROM " . tablename('my_st_students') . " WHERE uniacid = '{$uniacid}' AND shetuan_id = '{$shetuan['shetuan_id']}' AND openid = '{$openid}' AND status = 1");
+        
+        //单个社团信息
         $msg_shetuan = pdo_fetch("SELECT * FROM " . tablename('my_st') . " WHERE uniacid = '{$uniacid}' AND id = '{$shetuan['shetuan_id']}'");
+        //单个用户信息
         $user_info = pdo_fetch("SELECT * FROM " . tablename('my_st_msg') . " WHERE uniacid = '{$uniacid}' AND openid = '{$openid}'");
         if (empty($user_info)) {
             message('请先填写信息', $this->createMobileUrl('UserMsg', '', 'error'));
             exit;
-        } $school_lunbo = pdo_fetchall("SELECT * FROM " . tablename('my_st_school_lunbo') . " WHERE uniacid = '{$uniacid}' AND school_id = '{$user_info['school']}' ORDER BY createtime DESC");
+        }
+        $school_lunbo = pdo_fetchall("SELECT * FROM " . tablename('my_st_school_lunbo') . " WHERE uniacid = '{$uniacid}' AND school_id = '{$user_info['school']}' ORDER BY createtime DESC");
         $wx = pdo_fetch("SELECT * FROM " . tablename('my_st_activity_qiandao') . " WHERE uniacid = '{$uniacid}' AND activity_id = '{$id}' AND openid = '{$openid}'");
         $my_shetuan = pdo_fetchall("SELECT a.activity_id,a.createtime,a.status,b.name,b.mobile,b.nicheng,b.touxiang FROM " . tablename('my_st_activity_qiandao') . " a LEFT JOIN " . tablename('my_st_msg') . " b ON a.openid = b.openid" . " WHERE a.uniacid = '{$uniacid}' AND a.activity_id = '{$id}' ORDER BY a.createtime DESC");
         include $this->template('activity');
     }
 
+    /**
+     * 
+     * @global type $_GPC
+     * @global type $_W手机入团申请
+     */
     public function doMobileApply() {
         global $_GPC;
         global $_W;
@@ -47,11 +58,35 @@ class My_stModuleSite extends WeModuleSite {
         $openid = $_W['openid'];
         $shetuan_id = $_GPC['shetuan_id'];
         $data['uniacid'] = $uniacid;
-        $data['uniacid'] = $uniacid;
+//        $data['uniacid'] = $uniacid;
         $data['openid'] = $openid;
         $data['shetuan_id'] = $shetuan_id;
         $data['createtime'] = time();
+        //每个成员最多申请两个社团。
+        $students_apply = pdo_fetchcolumn("SELECT count(*) FROM " . tablename('my_st_students') . " WHERE uniacid = '{$uniacid}' AND openid = '{$openid}'");
+        if ($students_apply >= 2) {
+            echo json_encode(array(
+                'code' => 200,
+                'message' => '每人最多申请两个社团',
+                'data' => array()
+            ));
+            exit();
+        }
         $result = pdo_insert('my_st_students', $data);
+        if ($result) {
+            echo json_encode(array(
+                'code' => 200,
+                'message' => '申请递交成功，请耐心等待管理员审核',
+                'data' => array()
+            ));
+        } else {
+            echo json_encode(array(
+                'code' => 400,
+                'message' => '申请失败，请联系我们',
+                'data' => array()
+            ));
+        }
+        exit();
     }
 
     public function doMobileQiandao() {
@@ -84,7 +119,8 @@ class My_stModuleSite extends WeModuleSite {
                 QRcode::png($url, $root_png, 1, 2, 2);
                 if ($root_png) {
                     $data['wx_link'] = $timewx . '.png';
-                } $data['openid'] = $openid;
+                } 
+                $data['openid'] = $openid;
                 $data['uniacid'] = $uniacid;
                 $data['activity_id'] = $activity_id;
                 $data['createtime'] = time();
@@ -112,7 +148,7 @@ class My_stModuleSite extends WeModuleSite {
         if ($openid != $shetuan['admin']) {
             message('抱歉您不是该社团的管理员,无法核销!', $this->createMobileUrl('Index', '', 'error'));
             exit;
-        } 
+        }
         $check = pdo_fetch("SELECT * FROM " . tablename('my_st_activity_qiandao') . " WHERE uniacid='{$uniacid}' AND activity_id = '{$activity_id}' AND status = 1 AND openid = '{$student_openid}'");
         if ($check) {
             message('该二维码已被核销,无需重复核销!', $this->createMobileUrl('Index', '', 'error'));
@@ -131,11 +167,11 @@ class My_stModuleSite extends WeModuleSite {
                 $result = mc_credit_update($user_id, 'credit1', $howmuch, $log);
                 $data_msg['jifen'] = $user_yonghu['jifen'] + $activity['how_much'];
                 $show = '社团考核分';
-            } 
+            }
             $rs = pdo_update('my_st_msg', $data_msg, array('uniacid' => $uniacid, 'openid' => $student_openid));
             if ($rs) {
                 message('签到成功!', $this->createMobileUrl('Index', '', 'error'));
-               exit;
+                exit;
                 $templateid = $this->module['config']['template'];
                 $url = '';
                 $data = array('first' => array('value' => "您已成功签到此次活动,获得" . $activity['how_much'] . "个." . $show . "\n", 'color' => "#68228B",), 'keyword1' => array('value' => $user['name'], 'color' => "#FF0000",), 'keyword2' => array('value' => date('Y-m-d H:m'), 'color' => "#FF0000",), 'keyword3' => array('value' => "我们的正常工作时间是8:00-17:00\n", 'color' => "#FF0000",), 'remark' => array('value' => "如有问题请致电或直接在微信留言，我们将第一时间为您服务！", 'color' => "#ABABAB",),);
@@ -196,7 +232,7 @@ class My_stModuleSite extends WeModuleSite {
         foreach ($activity_info as $k => $item) {
             $shetuan = pdo_fetch("SELECT * FROM " . tablename('my_st') . " WHERE uniacid = '{$uniacid}' AND id = '{$item['shetuan_id']}'");
             $activity_info[$k]['st'] = $shetuan['name'];
-        } 
+        }
         $total_activity = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('my_st_activity_qiandao') . " WHERE uniacid = '{$uniacid}' AND openid = '{$openid}'");
         include $this->template('user_center');
     }
@@ -223,14 +259,21 @@ class My_stModuleSite extends WeModuleSite {
         $data['openid'] = $openid;
         $data['uniacid'] = $uniacid;
         $data['createtime'] = time();
-        $result = pdo_insert('my_st_msg', $data);
-        if ($result) {
-            print_r(1);
-            exit;
-        } else {
-            print_r(2);
-            exit;
+        //判断是否已经添加过用户信息。
+        $user = pdo_get('my_st_msg', array('uniacid' => $uniacid,'open_id'=>$openid));
+        if($user){
+            message('信息已经填写过了，请重新进入', $this->createMobileUrl('Index'));
+        }else{
+            $result = pdo_insert('my_st_msg', $data);
+            if ($result) {
+                print_r(1);
+                exit;
+            } else {
+                print_r(2);
+                exit;
+            }
         }
+        
     }
 
     public function doWebShetuan() {
@@ -253,13 +296,13 @@ class My_stModuleSite extends WeModuleSite {
                     $data['createtime'] = time();
                     $res = pdo_insert('my_st', $data);
                     if ($res) {
-                        message('新增成功', $this->doWebUrl('Shetuan', array('op' => 'edit')), 'success');
+                        message('新增成功', $this->createWebUrl('Shetuan', array('op' => 'edit')), 'success');
                     }
                 } else {
                     $data['updatetime'] = time();
                     $result = pdo_update('my_st', $data, array('id' => $id));
                     if (!empty($result)) {
-                        message('修改成功', $this->doWebUrl('Shetuan', array('op' => 'display')), 'success');
+                        message('修改成功', $this->createWebUrl('Shetuan', array('op' => 'display')), 'success');
                     }
                 }
             } else {
@@ -283,14 +326,14 @@ class My_stModuleSite extends WeModuleSite {
         $del = $_GPC['id'];
         $uniacid = $_W['uniacid'];
         load()->func('tpl');
-        
-        $isEx = pdo_fetch("select * from ". tablename('my_st_activity')  . " WHERE `shetuan_id` = :id AND `uniacid`=:uniacid", array(':id' => $del, ':uniacid' => $uniacid));
-        if($isEx){
+
+        $isEx = pdo_fetch("select * from " . tablename('my_st_activity') . " WHERE `shetuan_id` = :id AND `uniacid`=:uniacid", array(':id' => $del, ':uniacid' => $uniacid));
+        if ($isEx) {
             message('社团下有活动，需先删除活动', $this->createWebUrl('Shetuan', array('op' => 'display'), 'error'));
-        }else{
-             $result = pdo_query("DELETE FROM " . tablename('my_st') . " WHERE `id` = :id AND `uniacid`=:uniacid", array(':id' => $del, ':uniacid' => $uniacid));
-        if (!empty($result)) {
-            message('删除成功', $this->createWebUrl('Shetuan', array('op' => 'display'), 'success'));
+        } else {
+            $result = pdo_query("DELETE FROM " . tablename('my_st') . " WHERE `id` = :id AND `uniacid`=:uniacid", array(':id' => $del, ':uniacid' => $uniacid));
+            if (!empty($result)) {
+                message('删除成功', $this->createWebUrl('Shetuan', array('op' => 'display'), 'success'));
             }
         }
     }
@@ -424,7 +467,8 @@ class My_stModuleSite extends WeModuleSite {
         $result = pdo_query("DELETE FROM " . tablename('my_st_students') . " WHERE `id` = :id AND `uniacid`=:uniacid", array(':id' => $del, ':uniacid' => $uniacid));
         if (!empty($result)) {
             message('删除成功', $this->createWebUrl('Students', array('op' => 'display', 'shetuan_id' => $shetuan_id), 'success'));
-        } include $this->template('activity');
+        } 
+        include $this->template('activity');
     }
 
     public function doWebLunbo() {
