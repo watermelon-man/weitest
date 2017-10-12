@@ -86,6 +86,12 @@ $arr = array_slice($datas,0,3);
 
 
 $arr2 = array_slice($datas,3);
+if($reply['ismessage']==2){
+    $url = $_W['siteroot'] . 'app/' . $this->createMobileUrl('new_messagesindex', array('id' => $rid));
+}else{
+    $url = $_W['siteroot'] . 'app/' . $this->createMobileUrl('messagesindex', array('id' => $rid));
+}
+
 
 //分享信息
 $sharelink = $_W['siteroot'] . 'app/' . $this->createMobileUrl('share', array('rid' => $rid, 'from_user' => $page_from_user));

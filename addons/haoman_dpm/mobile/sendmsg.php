@@ -7,14 +7,21 @@ $uniacid = $_W['uniacid'];
 
 $fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid = '" . $rid . "' and from_user='" . $uid . "'");
 
+if(empty($fans['avatar'])||$fans['avatar']=='/0'){
+    $avatar = '../addons/haoman_dpm/images/item8.jpg';
+}else{
+    $avatar = $fans['avatar'];
+}
 
 $content = $_GPC['content'];
 
 $image = $_GPC['image'];
 
+$content = $this->emoji_encode($content);
+
 $insert = array(
     'uniacid' => $uniacid,
-    'avatar' => $fans['avatar'],
+    'avatar' => $avatar,
     'nickname' => $fans['nickname'],
     'from_user' => $fans['from_user'],
     'word' => $content,
@@ -32,8 +39,8 @@ $temp = pdo_insert('haoman_dpm_messages',$insert);
 pdo_update('haoman_dpm_fans', array('last_onlinetime' => time()), array('id' => $fans['id']));
 
 $result = array(
-    'code' => 1,
-    'data' => "提交成功！",
+    'code' => 8,
+    'data' => "信息已上墙，请关注大屏幕！",
     'msg' => "信息已上墙，请关注大屏幕！",
 
 );

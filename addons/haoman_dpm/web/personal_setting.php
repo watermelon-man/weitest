@@ -9,6 +9,12 @@ load()->func('tpl');
 
 if($operation == 'addad'){
     $id = intval($_GPC['personalid']);
+     if($_GPC['tx_cc']<0){
+         $_GPC['tx_cc']=0;
+     }elseif ($_GPC['tx_cc']>90){
+         $_GPC['tx_cc']=90;
+     }
+    $tx_cc = $_GPC['tx_cc'];
 
     $insert_ = array(
         'personal_style' => $_GPC['personal_style'],
@@ -19,6 +25,7 @@ if($operation == 'addad'){
         'my_bg' => $_GPC['my_bg'],
         'prize_bg' => $_GPC['prize_bg'],
         'money_bg' => $_GPC['money_bg'],
+        'tx_cc' => $tx_cc,
     );
 
 

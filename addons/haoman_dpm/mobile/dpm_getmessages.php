@@ -30,6 +30,7 @@ if($reply['isckmessage'] == 0){
         if($v['wordimg']){
             $v['wordimg'] = tomedia($v['wordimg']);
         }
+        $v['word'] = $this->emoji_decode($v['word'] );
     }
     unset($v);
 

@@ -161,20 +161,20 @@
                 </div>
             </div>
 
-            <div class="fl-slide-optional">
-                <label for="number">数量:</label>
-                <div class="fl-number-picker">
-                    <div class="iconfont fl-number-picker-minus"></div>
-                    <div class="fl-input-wrapper">
-                        <input type="number" name="number" id="number" value="1"/>
-                    </div>
-                    <div class="iconfont fl-number-picker-add enabled"></div>
-                </div>
-            </div>
-            <div class="fl-slide-optional">
-                <input type="checkbox" class="fl-checkbox" name="anonymous" id="anonymous" checked="checked"/>
-                <label for="anonymous">大屏弹幕显示</label>
-            </div>
+            <!--<div class="fl-slide-optional">-->
+                <!--<label for="number">数量:</label>-->
+                <!--<div class="fl-number-picker">-->
+                    <!--<div class="iconfont fl-number-picker-minus"></div>-->
+                    <!--<div class="fl-input-wrapper">-->
+                        <!--<input type="number" name="number" id="number" value="1"/>-->
+                    <!--</div>-->
+                    <!--<div class="iconfont fl-number-picker-add enabled"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="fl-slide-optional">-->
+                <!--<input type="checkbox" class="fl-checkbox" name="anonymous" id="anonymous" checked="checked"/>-->
+                <!--<label for="anonymous">大屏弹幕显示</label>-->
+            <!--</div>-->
             <p>￥<span class="fl-strong el-price">0.00</span>, 送给<span class="fl-strong el-to-user-name"></span></p>
         </div>
         <div class="mzh_modal_alert_footer">
@@ -183,7 +183,41 @@
         </div>
     </div>
 </div>
+<div id="zhifu" style="display: none">
 
+    <h4>订单信息</h4>
+
+    <div class="panel">
+
+        <div class="clearfix" style="padding-top:10px;">
+
+            <p>商品名称 :<span class="pull-right otitle">{$params['title']}</span></p>
+
+            <p>订单编号 :<span class="pull-right ordersn" >{$params['ordersn']}</span></p>
+
+            <p>商家名称 :<span class="pull-right shangjia">{$_W['account']['name']}</span></p>
+
+            <p>支付金额 :<span class="pull-right jine">￥{php echo sprintf('%.2f', $params['fee']);} 元</span></p>
+        </div>
+
+    </div>
+
+    <div class="pay-btn" id="wechat-panel">
+
+        <form action="{php echo url('mc/cash/wechat');}" method="post" id="biaodan">
+
+            <input type="hidden" name="params" value=""  />
+
+            <input type="hidden" name="token" value="{$_W['token']}" />
+
+            <button class="weui_btn_primary weui_btn col-sm-12"  style="z-index: 9999;" type="submit" id="wBtn" value="wechat">微信支付(必须使用微信内置浏览器)</button>
+
+        </form>
+
+    </div>
+
+
+</div>
 <script>
     {if $bp['bp_pay2']==1}
     $("#el-confirm-btn").click(function () {
@@ -192,19 +226,16 @@
 
         if (to_user.uid = to_user.uid, to_user.item_id = parseInt(to_user.item_id), to_user.item_number = parseInt(to_user.item_number), (to_user.uid =='') && (e += "-请选择送礼对象<br/>"), (isNaN(to_user.item_id) || to_user.item_id <= 0) && (e += "-请选择礼物<br/>"), (isNaN(to_user.item_number) || to_user.item_number <= 0) && (e += "-请填写赠送数量<br/>"), "" == e) {
 
-           var  checkid = document.getElementById("anonymous").checked;
+//           var  checkid = document.getElementById("anonymous").checked;
             var submitData = {
                     "uid": to_user.uid,//送礼对象openid
                     "item_id": to_user.item_id,//礼品ID
-                    "item_number": to_user.item_number,//送礼数量
+                    "item_number": 1,//送礼数量
                     "item_price": to_user.item_price,//单价
-                    "anonymous": checkid,//是否大屏幕播放
+                    "anonymous": 1,//是否大屏幕播放
 //                    "fansid": tokens,//是否大屏幕播放
             };
 
-
-//            console.log(submitData)
-//            return;
             $.post('{php echo $this->createMobileUrl('confirm_dpm_gift',array('token'=>'onBridge','id'=>$rid))}',submitData, function(data) {
                 $(".el_panel").hide();
                 to_user.uid = 0;
@@ -222,13 +253,55 @@
                     $("#biaodan").submit();
                 }else if(data.success == 1&&data.isAdmin==1){
                     $.tip("礼物发送成功！")
-                    location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                    setTimeout(function () {
+                        location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                    },1000)
                 }else{
+//                    $.tip(data.success);
                     $.tip(data.msg);
                 }
             },'json');
 
         } else $.alert(e)
+    })
+    {else if $bp['bp_pay2']==2}
+    $("#el-confirm-btn").click(function(){
+
+        var e = "";
+        if (to_user.uid = to_user.uid, to_user.item_id = parseInt(to_user.item_id), to_user.item_number = parseInt(to_user.item_number), (to_user.uid =='') && (e += "-请选择送礼对象<br/>"), (isNaN(to_user.item_id) || to_user.item_id <= 0) && (e += "-请选择礼物<br/>"), (isNaN(to_user.item_number) || to_user.item_number <= 0) && (e += "-请填写赠送数量<br/>"), "" == e) {
+
+            var submitData = {
+                "uid": to_user.uid,//送礼对象openid
+                "item_id": to_user.item_id,//礼品ID
+                "item_number": 1,//送礼数量
+                "item_price": to_user.item_price,//单价
+                "anonymous": 1,//是否大屏幕播放
+//                        "token": tokens//是否大屏幕播放
+            };
+            $.post("{php echo $this->createMobileUrl('confirm_dpm_gift',array('id'=>$rid,'from_user'=>$page_from_user))}", submitData,function(data){
+
+                if(data.success == 1&&data.isadmin==0){
+                    location.href="{php echo $this->createMobileUrl('pay',array('pay_type' => 7))}&orderid="+data.orderid;
+
+                }else if(data.success == 1&&data.isadmin==1){
+
+                    $(".el_panel").hide();
+                    to_user.uid = 0;
+                    $.tip("送礼成功！！");
+                    setTimeout(function () {
+                        location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                    },1000)
+                }
+                else {
+
+                    alert(data.msg)
+                }
+            },'json');
+
+        }else $.alert(e)
+
+
+
     })
     {else}
     $(document).ready(function(){
@@ -244,14 +317,14 @@
 
                 if (to_user.uid = to_user.uid, to_user.item_id = parseInt(to_user.item_id), to_user.item_number = parseInt(to_user.item_number), (to_user.uid =='') && (e += "-请选择送礼对象<br/>")&&(click=false), (isNaN(to_user.item_id) || to_user.item_id <= 0) && (e += "-请选择礼物<br/>")&&(click=false), (isNaN(to_user.item_number) || to_user.item_number <= 0) && (e += "-请填写赠送数量<br/>")&&(click=false), "" == e) {
 
-                    var  checkid = document.getElementById("anonymous").checked;
+//                    var  checkid = document.getElementById("anonymous").checked;
 
                     var submitData = {
                         "uid": to_user.uid,//送礼对象openid
                         "item_id": to_user.item_id,//礼品ID
-                        "item_number": to_user.item_number,//送礼数量
+                        "item_number": 1,//送礼数量
                         "item_price": to_user.item_price,//单价
-                        "anonymous": checkid,//是否大屏幕播放
+                        "anonymous": 1,//是否大屏幕播放
 //                        "token": tokens//是否大屏幕播放
                     };
 
@@ -273,7 +346,9 @@
                                 success : function(result) {
                                     click=false;
                                     $.tip("送礼成功！！");
-                                    location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                                    setTimeout(function () {
+                                        location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                                    },1000)
                                     //location.href="{php echo $_W['siteroot'].$this->createMobileUrl('results')}&tid="+idata.orderid;
                                 },
                                 fail : function(result) {
@@ -289,7 +364,9 @@
                             $(".el_panel").hide();
                             to_user.uid = 0;
                             $.tip("送礼成功！！");
-                            location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                            setTimeout(function () {
+                                location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                            },1000)
                         }else{
                             click=false;
                             $(".el_panel").hide();

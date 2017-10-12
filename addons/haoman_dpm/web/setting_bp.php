@@ -52,10 +52,11 @@ if($operation == 'addad'){
         'top_bg' => $_GPC['top_bg'],
         'bp_logo' => $_GPC['bp_logo'],
         'is_messages' => $_GPC['is_messages'],
+        'is_show_screen' => $_GPC['is_show_screen'],
         'bp_type' => $_GPC['bp_type'],
         'big_mobtitle' => $_GPC['big_mobtitle'],
         'bb_bgcoclor' => $_GPC['bb_bgcoclor'],
-        'bp_opacity' => empty($_GPC['bp_opacity'])?1:$_GPC['bp_opacity'],
+        'bp_opacity' => $_GPC['bp_opacity'],
     );
     pdo_update('haoman_dpm_reply', $insert, array('id' => $id));
     pdo_update('haoman_dpm_mp4', $insert_video, array('id' => $vedioid));

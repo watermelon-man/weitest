@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../addons/haoman_dpm/newimg3/3d.css?v=3232233">
     <link rel="stylesheet" href="../addons/haoman_dpm/newimg3/style.css?v=32333232" media="screen" type="text/css">
     <link rel="stylesheet" href="../addons/haoman_dpm/newimg3/normalize.css">
-    <script src="./index.php?i={$_W['uniacid']}&c=entry&m=haoman_base&do=GetJs&js=jquery191min" type="text/javascript" charset="utf-8"></script>
+    <script src="../addons/haoman_base/base/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
     //判断浏览器类型
     var Sys = {};
@@ -181,6 +181,7 @@
     <script src="../addons/haoman_dpm/newimg3/2d.js?v=3144433223"></script>
     <script type="text/javascript">
     var personArray = new Array;
+    var CurPersonNum = 0;
 
     {loop $list $row}
 
@@ -194,18 +195,21 @@
 
 
     {/loop}
+    CurPersonNum = personArray.length;
+    // console.log(CurPersonNum)
     </script>
     {if $reply['qdthemes']==0}
     <script src="../addons/haoman_dpm/newimg3/arrfiles.js?v=34324"></script>
     {/if}
     {if $reply['qdthemes']==1}
-    <script src="../addons/haoman_dpm/newimg3/arrfiles2.js?v=3132"></script>
+    <script src="../addons/haoman_dpm/newimg3/arrfiles2.js?v=313333332"></script>
     {/if}
   
     <script type="text/javascript">
     QD.Dc.init('.canvas');
 
-  
+   // console.log(personArray);
+
 
 
     var edit_personArray = new Array;
@@ -247,6 +251,8 @@
         }
         return return_array;
     }
+
+
     getArrayItems(personArray, 50);
 
     window.onload = function() {
@@ -266,8 +272,9 @@
 
     var newPic = new Array(),
         signNo = 0,
-        name,qdword;
+        name,qdword,qd_pid;
     setInterval(function() {
+        // console.log($('.element').find('img'))
         if (newPic.length > 0) {
 
             var firstInfo = newPic.shift();
@@ -278,9 +285,17 @@
             qd_pid= firstInfo.qd_pid;
 
             personArray.push(firstInfo);
-
-            $('.element').eq(personArray.length - 1).find('img').attr('src', showImg);
-
+            
+            
+           // console.log(personArray);
+           // var Curtet = personArray.length - CurPersonNum;
+           if(CurPersonNum >= 160){
+            CurPersonNum = 0;
+           }
+           // console.log(CurPersonNum);
+            $('.element').eq(CurPersonNum).find('img').attr('src', showImg);
+            CurPersonNum++;
+// console.log(CurPersonNum)
             {if $reply['qdshow']==0}
             $("#qdimg").attr('src', showImg);
             $('#qdname').html(name);
@@ -313,13 +328,14 @@
         
         
         getArrayItems(personArray, 50);
+        // console.log(return_array)
             
     }, 8000);
     </script>
-    <script src="./index.php?i={$_W['uniacid']}&c=entry&m=haoman_base&do=GetJs&js=threemin"></script>
+    <script src="../addons/haoman_base/base/three.min.js"></script>
     <script src="../addons/haoman_dpm/newimg3/tween.min.js"></script>
     <script src="../addons/haoman_dpm/newimg3/CSS3DRenderer.js"></script>
-    <script src="./index.php?i={$_W['uniacid']}&c=entry&m=haoman_base&do=GetJs&js=3d"></script>
+    <script src="../addons/haoman_dpm/newimg3/3d.js?v=313232312"></script>
     <script type="text/javascript">
     init();
     animate();

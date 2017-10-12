@@ -53,6 +53,7 @@ if($fromuser!=$from_user){
     message('非法访问，请重新发送消息进入活动页面！');
 }
 $fans = pdo_fetch("select id,avatar,nickname,from_user,sex,is_online from " . tablename('haoman_dpm_fans') . " where rid = '" . $rid . "' and from_user='" . $uid . "'");
+$bp = pdo_fetch("select is_img,isbp,isds,bp_pay,bp_pay2,bp_listword,bp_keyword,ishb,isvo,isbb,is_mf,is_gift from " . tablename('haoman_dpm_bpreply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
 
 //$page_from_user = base64_encode(authcode($from_user, 'ENCODE'));
 //
@@ -84,8 +85,8 @@ for ($i=0;$i<$num;$i++){
 //	$bg = tomedia($reply['mobpicurl']);
 //}
 //
-//$jssdk = new JSSDK();
-//$package = $jssdk->GetSignPackage();
+    $jssdk = new JSSDK();
+    $package = $jssdk->GetSignPackage();
 //if($reply['ismessage']==1){
 //    include $this->template('mob_newindex');
 //}else{

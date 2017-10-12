@@ -698,7 +698,7 @@ QD.Sp = (function () {
     render: function () {
       	for (var d = 0; d < dots.length; d++) {
       		if (return_array.length > 0){
-            // console.log(1)
+      		    // console.log(1)
       			var j = d%return_array.length;
     			  dots[d].render(return_array[j].thumb_image_46);
       	  }else{

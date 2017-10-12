@@ -43,7 +43,7 @@ global $_GPC, $_W;
 
 		$num2 = $reply['tx_most'];
 
-		$num2 = $num2 < 500 ? 500 : $num2;
+		$num2 = $num2 < 500 ? 500 : $num2;//强制审核
 
 		$fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid = " . $rid . " and from_user='" . $from_user . "'");
 
@@ -84,21 +84,34 @@ global $_GPC, $_W;
 		if(empty($nickname)){
 			$nickname = $fans['nickname'];
 		}
-        $hb_award = pdo_fetchall("select * from " . tablename('haoman_dpm_hb_award') . " where rid = :rid and  status = 1 and prizetype = 0   and from_user=:from_user and uniacid = :uniacid",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
+//        $hb_award = pdo_fetchall("select * from " . tablename('haoman_dpm_hb_award') . " where rid = :rid and  status = 1 and prizetype = 0   and from_user=:from_user and uniacid = :uniacid",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
+//
+//		$num0 =0;
+//		foreach($hb_award as $v){
+//			$num0 +=$v['credit'];
+//		}
 
-		$num0 =0;
-		foreach($hb_award as $v){
-			$num0 +=$v['credit'];
-		}
 
+//		$award = pdo_fetchall("select * from " . tablename('haoman_dpm_award') . " where rid = :rid and status = 1 and prizetype = 0  and from_user=:from_user and uniacid = :uniacid",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
+//		$nums =0;
+//		foreach($award as $k){
+//			$nums +=$k['credit'];
+//		}
 
-		$award = pdo_fetchall("select * from " . tablename('haoman_dpm_award') . " where rid = :rid and status = 1 and prizetype = 0  and from_user=:from_user and uniacid = :uniacid",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
-		$nums =0;
-		foreach($award as $k){
-			$nums +=$k['credit'];
-		}
+       $nums=$fans['totalnum'];
 
-       $nums=$nums+$num0*100;
+    //手续费
+    $personals = pdo_fetch("select settings from " . tablename('haoman_dpm_setting') . " where rid = :rid order by `id` asc", array(':rid' => $rid));
+    $personal = unserialize($personals['settings']);
+
+    $txcc = $personal['tx_cc'];
+
+    if($txcc<0||empty($txcc)){
+        $txcc=0;
+    }elseif ($txcc>90){
+        $txcc=90;
+    }
+        $nums = $nums*(100-$txcc)/100;
 
 		if($nums<$num){
 			$data = array(
@@ -137,9 +150,9 @@ global $_GPC, $_W;
 					);
 					$temps = pdo_update('haoman_dpm_fans', array('totalnum' => 0, 'sharetime' => $fans['sharetime'] + 1), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid']));
 
-					$tempss = pdo_update('haoman_dpm_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
+//					$tempss = pdo_update('haoman_dpm_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
 
-					pdo_update('haoman_dpm_hb_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
+//					pdo_update('haoman_dpm_hb_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
 
 					$temp = pdo_insert('haoman_dpm_cash', $insert);
 					$data = array(
@@ -155,7 +168,7 @@ global $_GPC, $_W;
 			} else {
 
 			if ($reply['xf_condition'] == 0) {
-
+              //后台审核
 				// if (intval($fans['totalnum']) > 0 && intval($fans['totalnum']) == $content && intval($fans['totalnum']) == intval($nums)) {
 
 					$insert = array(
@@ -177,9 +190,9 @@ global $_GPC, $_W;
 					);
 					$temps = pdo_update('haoman_dpm_fans', array('totalnum' => 0, 'sharetime' => $fans['sharetime'] + 1), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid']));
 
-					$tempss = pdo_update('haoman_dpm_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
+//					$tempss = pdo_update('haoman_dpm_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
 
-				    pdo_update('haoman_dpm_hb_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
+//				    pdo_update('haoman_dpm_hb_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
 
 					$temp = pdo_insert('haoman_dpm_cash', $insert);
 					$data = array(
@@ -193,7 +206,7 @@ global $_GPC, $_W;
 				// 	);
 				// }
 			} elseif ($reply['xf_condition'] == 1) {
-
+                     //直接下发
 				// if (intval($fans['totalnum']) > $num && intval($fans['totalnum']) == $content && intval($fans['totalnum']) == intval($nums)) {
 
 					$insert = array(
@@ -225,8 +238,8 @@ global $_GPC, $_W;
 						//更新提现状态
 						$temp = pdo_insert('haoman_dpm_cash', $insert);
 						$temps = pdo_update('haoman_dpm_fans', array('totalnum' => 0, 'sharetime' => $fans['sharetime'] + 1), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid']));
-						$tempss = pdo_update('haoman_dpm_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
-						 pdo_update('haoman_dpm_hb_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
+//						$tempss = pdo_update('haoman_dpm_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
+//						 pdo_update('haoman_dpm_hb_award', array('status' => 2), array('rid' => $rid, 'from_user' => $from_user, 'uniacid' => $_W['uniacid'], 'prizetype' => 0));
 
 						if ($temp == false) {
 							$data = array(

@@ -329,6 +329,8 @@ class haoman_dpmModule extends WeModule {
 			'mobqhbbg' =>  $_GPC['mobqhbbg'],
 			'ad_link' =>  $_GPC['ad_link'],
 			'lose_hb' =>  $_GPC['lose_hb'],
+			'isfansimg' =>  $_GPC['IsFansImg'],
+			'FansImgTitle' =>  $_GPC['FansImgTitle'],
 			'daojishimusic' =>  $_GPC['daojishimusic'],
 			'k_templateid' =>  $_GPC['k_templateid'],
 			'jiabintitle' =>  $_GPC['jiabintitle'],
@@ -526,6 +528,8 @@ class haoman_dpmModule extends WeModule {
 			'hbtype' => intval($_GPC['hbtype']),
 			'top_bg' => $_GPC['top_bg'],
 			'bp_logo' => $_GPC['bp_logo'],
+			'is_follow' => $_GPC['is_follow'],
+			'hb_base' => $_GPC['hb_base'],
 		);
 
 
@@ -687,17 +691,64 @@ class haoman_dpmModule extends WeModule {
 	public function ruleDeleted($rid = 0) {
 		global $_W;
 			load()->func('file');
-		$replies = pdo_fetchall("SELECT id, picture FROM ".tablename($this->tablenames)." WHERE rid = '$rid'");
-		$deleteid = array();
-		
-		if (!empty($replies)) {
-			foreach ($replies as $index => $row) {
-				file_delete($row['picture']);
-				$deleteid[] = $row['id'];
-			}
-		}
-		pdo_delete($this->tablenames, "id IN ('".implode("','", $deleteid)."')");
-		
+        pdo_delete('haoman_dpm_bgitems',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_love_gife_log',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_bptheme',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_award',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_fans',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_data',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_password',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_cash',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_reply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_prize',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_addad',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_messages',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_pici',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_jiabing',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_toupiao',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_tp_log',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_pay_order',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_draw_default',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_yyyreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_yyyuser',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_xysreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_bpreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_bpmoney',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_ds_pay_order',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_ds_reply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_whyerror',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_pair_combination',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_mp4',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_guest',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_xyhm',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_xyhreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_cjxreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_bpadmin',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_notifications',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_hb_log',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_hb_setting',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_hb_award',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_hb_award',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_on_line',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_private_chat',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_change_mysql',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_shouqian',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_shouqianBase',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_newvote',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_newvote_set',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_photo_add',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_photo_setting',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_shop_category',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_shop_goods',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_pay_order_goods',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_shop_setting',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_shop_wditer',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_shop_car',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_paytxlog',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_punishment',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+        pdo_delete('haoman_dpm_pw',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+
+
 		return true;
 	}
 }

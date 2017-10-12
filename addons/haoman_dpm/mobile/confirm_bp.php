@@ -43,12 +43,23 @@ if (empty($from_user) || empty($avatar) || empty($nickname)) {
 }
 
 //网页授权借用结束
-$reply = pdo_fetch( " SELECT * FROM ".tablename('haoman_dpm_bpreply')." WHERE rid='".$rid."' " );
 
+
+
+
+
+$reply = pdo_fetch( " SELECT * FROM ".tablename('haoman_dpm_bpreply')." WHERE rid='".$rid."' " );
+$codes =10;
 $fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid = '" . $rid . "' and from_user='" . $from_user . "'");
+//$bp = pdo_fetch("select * from " . tablename('haoman_dpm_bpreply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
+
+    $codes =$reply['bp_pay2'];
+
+
 
 //是否是管理员判断
 $isAdmin =0;
+
 $admin = pdo_fetch("select id,free_times,uses_times from " . tablename('haoman_dpm_bpadmin') . "  where admin_openid=:admin_openid and status=0 and rid=:rid", array(':admin_openid' => $from_user,':rid'=>$rid));
 
 if($admin){
@@ -61,23 +72,41 @@ $bppic = trim($_GPC['bppic']);
 $pay_type = $_GPC['type'];
 $bp_type = $_GPC['bp_type'];
 
-if($bp_type==1){
+if($bp_type==1||$bp_type==2){
     $message = trim($_GPC['content']);
 
     $pbtime = trim($_GPC['item']);
+
     $bppic = trim($_GPC['image']);
+    if(is_array($_GPC['image'])){
+        foreach ($_GPC['image'] as $k=>$v){
+            $bppic =$v;
+        }
+    }
+
+
     //主题
     $theme = trim($_GPC['theme']);
     //次数
     $item = trim($_GPC['times']);
     //视频
     $video = trim($_GPC['video']);
+        if($bp_type==2){
+            $bppic = $video;
+            $pay_type =4;
+        }
 
     $sid = trim($_GPC['sid']);
 }
 
-if($pay_type==5){
+if($pay_type==5||!empty($sid)){
     $forTa_nickname=trim($_GPC['forTa_nickname']);
+    if($sid){
+           $forTa_=  pdo_fetch("select nickname from " . tablename('haoman_dpm_fans') . " where rid = '" . $rid . "' and from_user='" . $sid . "'");
+           $forTa_nickname=$forTa_['nickname'];
+           $pay_type =5;
+       }
+
 }else{
     $forTa_nickname='';
 }
@@ -86,12 +115,17 @@ if(empty($nickname)){
     $nickname = trim($_GPC['nickname']);
 }
 
-if(empty($nickname) || empty($avatar)){
+if(empty($nickname) || empty($avatar)||$avatar=='/0'){
     $nickname = $fans['nickname'];
-    $avatar = tomedia($fans['avatar']);
+    if($fans['avatar']&&$fans['avatar']!='/0'){
+        $avatar = tomedia($fans['avatar']);
+    }else{
+        $avatar = '../addons/haoman_dpm/images/item8.jpg';
+    }
+
 }
 
-if(empty($message)&&empty($bppic)){
+if(empty($message)&&empty($bppic)&&empty($video)){
     $data = array(
         'success' => 100,
         'msg' => "请输入霸屏语或上传图片",
@@ -155,6 +189,7 @@ $result = pdo_insert('haoman_dpm_pay_order', array(
     'pay_ip' => $_W['clientip'],
     'rid' => $rid,
     'status' => 1,
+    'pay_addr' => $theme,
     'isadmin' => 0,
     'psy_type' => $pay_type,
     'pay_type' => 2,
@@ -184,7 +219,7 @@ if (empty($result)) {
             $ress =  $this->modify($transid,$update);
 
             $data = array(
-                'success' => 1,
+                'success' => 2,
                 'isadmin'=>1,
                 'msg' => "提交霸屏支付成功",
             );
@@ -200,7 +235,7 @@ if (empty($result)) {
     }
 
 
-    if($token=='onBridge'){
+    if($token=='onBridge'&&$codes==1){
         $data = array('fee' => floatval($pay_money), 'uniacid' => $_W['uniacid'], 'ordersn' => date('YmdHi').random(8, 1), 'openid' => $from_user, 'nickname' => $nickname, 'status' => 0, 'title' => "大屏幕霸屏费用", 'xq' => '微信支付', 'addtime' => date('Y-m-d H:i:s', time()));
         $params = array('tid' => $tid, 'ordersn' => $tid, 'title' => "大屏幕霸屏费用", 'user' => $from_user, 'fee' => floatval($pay_money), 'module' => 'haoman_dpm',);
 
@@ -214,7 +249,9 @@ if (empty($result)) {
 
         $params = base64_encode(json_encode($params));
     }
+
     $data = array(
+        'code' => $codes,
         'success' => 1,
         'params' => $params,
         'arr' => $data,

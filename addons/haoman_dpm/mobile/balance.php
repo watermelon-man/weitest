@@ -79,22 +79,23 @@ if(empty($fans)){
 
 //
 //
-     $mybobing = pdo_fetchall("select * from " . tablename('haoman_dpm_award') . " where rid = :rid and from_user =:from_user and uniacid = :uniacid  ORDER BY id desc",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
-    $nums =0;
-    foreach($mybobing as $k){
+$nums =0;
+//     $mybobing = pdo_fetchall("select * from " . tablename('haoman_dpm_award') . " where rid = :rid and from_user =:from_user and uniacid = :uniacid  ORDER BY id desc",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
+//
+//    foreach($mybobing as $k){
+//
+//        if($k['status']==1&&$k['prizetype']==0){
+//            $nums +=$k['credit'];
+//        }
+//    }
 
-        if($k['status']==1&&$k['prizetype']==0){
-            $nums +=$k['credit'];
-        }
-    }
 
-
-	$hb_award = pdo_fetchall("select * from " . tablename('haoman_dpm_hb_award') . " where rid = :rid and  status = 1 and prizetype = 0   and from_user=:from_user and uniacid = :uniacid",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
-	$nums_hb =0;
-	foreach($hb_award as $v){
-		$nums_hb +=$v['credit'];
-	}
-   $nums= $nums+$nums_hb*100;
+//	$hb_award = pdo_fetchall("select * from " . tablename('haoman_dpm_hb_award') . " where rid = :rid and  status = 1 and prizetype = 0   and from_user=:from_user and uniacid = :uniacid",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
+//	$nums_hb =0;
+//	foreach($hb_award as $v){
+//		$nums_hb +=$v['credit'];
+//	}
+   $nums=  $fans['totalnum'];
 
         $cashs = pdo_fetchall("select * from " . tablename('haoman_dpm_cash') . " where rid = :rid and from_user =:from_user and uniacid = :uniacid order by createtime desc",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
         $numx = 0;
@@ -127,6 +128,14 @@ $txlog = array_slice($cashs,0,5);
     $personals = pdo_fetch("select settings from " . tablename('haoman_dpm_setting') . " where rid = :rid order by `id` asc", array(':rid' => $rid));
     $personal = unserialize($personals['settings']);
 
+    $txcc = $personal['tx_cc'];
+
+    if($txcc<0||empty($txcc)){
+        $txcc=0;
+    }elseif ($txcc>90){
+        $txcc=90;
+    }
+   $nums2 = $nums*(100-$txcc)/100;
     $jssdk = new JSSDK();
     $package = $jssdk->GetSignPackage();
 

@@ -82,7 +82,21 @@
     $(function() {
         shouhui.photoUrl = '../addons/haoman_dpm/static/mob_shouqian/';
         shouhui.ajaxUrl = "{php echo $this->createMobileUrl('mob_shouqian_send',array('id'=>$rid,'from_user'=>$page_from_user))}";
+
+        {if $reply['registimg']==0||$reply['registimg']==''}
         shouhui.indexUrl = "{php echo $this->createMobileUrl('index',array('id'=>$rid))}";
+        {else if $reply['registimg']==1}
+        shouhui.indexUrl = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+        {else if $reply['registimg']==2}
+        shouhui.indexUrl = "{php echo $this->createMobileUrl('qhbIndex',array('id'=>$rid))}";
+        {else if $reply['registimg']==3}
+        shouhui.indexUrl = "{php echo $this->createMobileUrl('go_toupiao',array('id'=>$rid))}";
+        {else if $reply['registimg']==4}
+        shouhui.indexUrl = "{php echo $this->createMobileUrl('showjiabin',array('id'=>$rid))}";
+        {else if $reply['registimg']==5}
+        shouhui.indexUrl = "{php echo $this->createMobileUrl('yyyIndex',array('id'=>$rid))}";
+        {/if}
+
         shouhui.rand = '0';
         shouhui.isTest = '1';
         shouhui.recheck = '1';

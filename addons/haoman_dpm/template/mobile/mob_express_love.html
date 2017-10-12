@@ -43,6 +43,7 @@
     <script>
         var get_moreUsers = "{php echo $this->createMobileUrl("moreUsers", array('rid' => $rid,'uid'=>$fans['from_user']))}";
         var go_UploadImage="{php echo $this->createMobileUrl('UploadImage',array('rid' => $rid));}";
+        var uploadImg="{php echo $this->createMobileUrl("uploadimg", array('rid' => $rid))}";
 
         var is_opened=0;
         var isAdmin=0;
@@ -67,7 +68,8 @@
 <body>
 <script type="text/javascript" src="../addons/haoman_dpm/imgs/js/index_love.min.js"></script>
 
-
+<script type="text/javascript" src="../addons/haoman_dpm/imgs/js/exif.js"></script>
+<script type="text/javascript" src="../addons/haoman_dpm/imgs/js/uploadImage.js"></script>
 
 
 <div id="main_body">
@@ -125,7 +127,7 @@
             <div class="fl-slide-el-text" style="height:62px;">
                 <span class="el-image-upload" style="height: 60px; width:20%;float: left">
                     <img class="el-image-preview" src="../addons/haoman_dpm/imgs/zp.png" style="border-radius: 8px;vertical-align:bottom;"/>
-                    <input id="upload" class="photo_file" type="file" name="upload" accept="image/*" capture="camera"/>
+                    <input id="upload" class="photo_file" type="file" name="upload" accept="image/*" capture="camera" onchange="imageUpLoad(this,2)"  />
                     <input type="hidden" name="image" id="image"/>
                 </span>
                 <textarea style="height:50px;width: 70%;float: right;padding: 5px;" class="el-love-letter" placeholder="表白内容(限30字以内)" maxlength="30" name="love_letter" id="love_letter"></textarea>
@@ -144,7 +146,41 @@
     </div>
 </div>
 
+<div id="zhifu" style="display: none">
 
+    <h4>订单信息</h4>
+
+    <div class="panel">
+
+        <div class="clearfix" style="padding-top:10px;">
+
+            <p>商品名称 :<span class="pull-right otitle">{$params['title']}</span></p>
+
+            <p>订单编号 :<span class="pull-right ordersn" >{$params['ordersn']}</span></p>
+
+            <p>商家名称 :<span class="pull-right shangjia">{$_W['account']['name']}</span></p>
+
+            <p>支付金额 :<span class="pull-right jine">￥{php echo sprintf('%.2f', $params['fee']);} 元</span></p>
+        </div>
+
+    </div>
+
+    <div class="pay-btn" id="wechat-panel">
+
+        <form action="{php echo url('mc/cash/wechat');}" method="post" id="biaodan">
+
+            <input type="hidden" name="params" value=""  />
+
+            <input type="hidden" name="token" value="{$_W['token']}" />
+
+            <button class="weui_btn_primary weui_btn col-sm-12"  style="z-index: 9999;" type="submit" id="wBtn" value="wechat">微信支付(必须使用微信内置浏览器)</button>
+
+        </form>
+
+    </div>
+
+
+</div>
 <script type="text/javascript" src="../addons/haoman_dpm/imgs/js/mzh.funlink.min.js"></script>
 <script type="text/javascript" src="../addons/haoman_dpm/imgs/js/lrz.bundle.js"></script>
 <script type="text/javascript" src="../addons/haoman_dpm/mobimg/lrz.mobile.min.js"></script>
@@ -218,7 +254,7 @@
 <script type="text/javascript">
 
     $(function () {
-        $('#upload').upload_image(function(x){
+        $('#uploads').upload_image(function(x){
             $('.el-image-preview').attr('src', rootimg+x);
 
             $('#image').val(rootimg+x);
@@ -227,6 +263,96 @@
 
 //        lover.item_id = 2096 || 0;
     });
+    {if $bp['bp_pay2']==1}
+    $("#el-confirm-btn").click(function(){
+
+        lover.love_letter = $("#love_letter").val();
+
+        lover.image = $("#image").val();
+        var e = "";
+        if (lover.uid = lover.uid, lover.item_id = parseInt(lover.item_id), lover.theme_id = parseInt(lover.theme_id), (lover.uid =='') && (e += "-请选择表白对象<br/>")&&(click=false), (isNaN(lover.theme_id) || lover.theme_id <= 0) && (e += "-请选择表白主题<br/>")&&(click=false), (isNaN(lover.item_id) || lover.item_id <= 0) && (e += "-请选择霸屏时长<br/>")&&(click=false), $("#bp-field-admin").length && (lover.admin_el = $("#bp-field-admin").prop("checked")), "" == e) {
+            var submitData = {
+                "uid": lover.uid,//送礼对象openid
+                "item_id": lover.theme_id,//主题ID
+                "item_theme_id": lover.item_id,//时间id
+                "item_photo": lover.image,//图片
+                "item_content": lover.love_letter,//说的话
+            };
+            $.post("{php echo $this->createMobileUrl('confirm_dpm_saylove',array('token'=>'onBridge','id'=>$rid,'from_user'=>$page_from_user))}", submitData,function(data){
+
+                if(data.success == 1&&data.isadmin==0){
+                    var result = data.arr;
+                    $(".otitle").empty().append(result.xq);
+
+                    $(".ordersn").empty().append(result.ordersn);
+
+                    $(".shangjia").empty().append(result.title);
+
+                    $(".jine").empty().append(result.fee);
+
+                    $("input[name='params']").val(data.params);
+                    $("#biaodan").submit();
+//                    $("#wBtn").click();
+
+                }else if(data.success == 1&&data.isadmin==1){
+
+                    $(".el_panel").hide();
+                    lover.uid = 0;
+                    $.tip("表白成功！！");
+                    setTimeout(function () {
+                        location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                    },1000)
+                }
+                else {
+
+                    alert(data.msg)
+                }
+            },'json');
+
+        }
+
+    })
+    {else if $bp['bp_pay2']==2}
+    $("#el-confirm-btn").click(function(){
+        lover.love_letter = $("#love_letter").val();
+
+        lover.image = $("#image").val();
+        var e = "";
+        if (lover.uid = lover.uid, lover.item_id = parseInt(lover.item_id), lover.theme_id = parseInt(lover.theme_id), (lover.uid =='') && (e += "-请选择表白对象<br/>")&&(click=false), (isNaN(lover.theme_id) || lover.theme_id <= 0) && (e += "-请选择表白主题<br/>")&&(click=false), (isNaN(lover.item_id) || lover.item_id <= 0) && (e += "-请选择霸屏时长<br/>")&&(click=false), $("#bp-field-admin").length && (lover.admin_el = $("#bp-field-admin").prop("checked")), "" == e) {
+
+            var submitData = {
+                "uid": lover.uid,//送礼对象openid
+                "item_id": lover.theme_id,//主题ID
+                "item_theme_id": lover.item_id,//时间id
+                "item_photo": lover.image,//图片
+                "item_content": lover.love_letter,//说的话
+            };
+            $.post("{php echo $this->createMobileUrl('confirm_dpm_saylove',array('id'=>$rid,'from_user'=>$page_from_user))}", submitData,function(data){
+
+                if(data.success == 1&&data.isadmin==0){
+                    location.href="{php echo $this->createMobileUrl('pay',array('pay_type' => 6))}&orderid="+data.orderid;
+
+                }else if(data.success == 1&&data.isadmin==1){
+
+                    $(".el_panel").hide();
+                    lover.uid = 0;
+                    $.tip("表白成功！！");
+                    setTimeout(function () {
+                        location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                    },1000)
+                }
+                else {
+
+                    alert(data.msg)
+                }
+            },'json');
+
+        }else $.alert(e)
+
+
+
+    })
+    {else}
     $(document).ready(function(){
         document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
 
@@ -269,7 +395,9 @@
                                 success : function(result) {
                                     click=false;
                                     $.tip("表白成功！！");
-                                    location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                                    setTimeout(function () {
+                                        location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                                    },1000)
                                     //location.href="{php echo $_W['siteroot'].$this->createMobileUrl('results')}&tid="+idata.orderid;
                                 },
                                 fail : function(result) {
@@ -285,7 +413,10 @@
                             $(".el_panel").hide();
                             lover.uid = 0;
                             $.tip("表白成功！！");
-                            location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                            setTimeout(function () {
+                                location.href = "{php echo $this->createMobileUrl('messagesindex',array('id'=>$rid))}";
+                            },1000)
+
                         }else{
                             click=false;
                             $(".el_panel").hide();
@@ -299,9 +430,68 @@
 
         });
     });
-
+    {/if}
 </script>
+<script type="text/javascript">
+    var upload = {
+        start:function(){
+            $.loadingModal(!0, "上传中..");
+        },
+        done:function(src,bigSrc,type){
+            if(type==2){
+                $.loadingModal(!1)
 
+                $('.el-image-preview').attr('src', src);
+
+                $('#image').val(src);
+
+//                $('.for_photo').attr("src", src);
+//                $("input[name=imgSrc]").val(src), n = src
+            }else {
+
+                $.getJSON(go_sendmsg, {image: src}, function (i) {
+                    $.loadingModal(!1)
+                    $.tip(i.data);
+                    a.loadmsg();
+
+                })
+            }
+        },
+        error:function(errorMsg){
+            $.loadingModal(!1)
+            showInfo(errorMsg||'上传失败!',false);
+        }
+    }
+    var imageUpLoad = function(e,type){
+        upload.start();
+        selectFileImage(e,{
+            width:200,height:200,
+            error:function(errorMsg){upload.error(errorMsg||'请上传宽高大于200px的图片')},
+            callback:function(base64,rotate){
+                ajax_imageUpload(base64,rotate,function(src,bigSrc){
+                    upload.done(src,bigSrc,type);
+                },function(errorMsg){
+                    upload.error(errorMsg);
+                })
+            }
+        })
+    }
+    var ajax_imageUpload = function(base64,rotate,fn1,fn2){
+        base64 = base64.split('base64,');
+        if(base64.length<1)
+            return fn2();
+        base64 = base64[1];
+        var resultMsg = null;
+        $.post(uploadImg,{strImg:base64,angel:rotate},function(result) {
+
+            if(result.isResultTrue){
+                fn1(result.resultMsg.sImgUrl,result.resultMsg.bImgUrl);
+            }else{
+                fn2(result.resultMsg);
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

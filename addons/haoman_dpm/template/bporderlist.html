@@ -6,7 +6,9 @@
 		<li{if $pay_type==2 } class="active"{/if}><a href="{php echo $this->createWebUrl('bp_order',array('rid'=>$rid,'pay_type'=>2,'delete'=>$delete));}">霸屏支付订单管理</a></li>
 		<li{if $pay_type==3} class="active"{/if}><a href="{php echo $this->createWebUrl('bp_order',array('rid'=>$rid,'pay_type'=>3,'delete'=>$delete));}">打赏支付订单管理</a></li>
 		<li{if $pay_type==4} class="active"{/if}><a href="{php echo $this->createWebUrl('bp_order',array('rid'=>$rid,'pay_type'=>4,'delete'=>$delete));}">红包支付订单管理</a></li>
-        <!-- <li{if $_GPC['do'] == 'post'} class="active"{/if}><a class="btn-lg" href="{php echo $this->createWebUrl('newad');}">添加广告</a></li> -->
+		<li{if $pay_type==6} class="active"{/if}><a href="{php echo $this->createWebUrl('bp_order',array('rid'=>$rid,'pay_type'=>6,'delete'=>$delete));}">表白支付订单管理</a></li>
+		<li{if $pay_type==7} class="active"{/if}><a href="{php echo $this->createWebUrl('bp_order',array('rid'=>$rid,'pay_type'=>7,'delete'=>$delete));}">送礼支付订单管理</a></li>
+		<li{if $pay_type==10} class="active"{/if}><a href="{php echo $this->createWebUrl('shop_order',array('rid'=>$rid,'pay_type'=>10,'delete'=>$delete));}">商城订单管理</a></li>
 	</ul>
 	<div class="panel panel-info">
 		<div class="panel-heading">霸屏筛选</div>
@@ -57,9 +59,15 @@
 	{/if}
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			{if $pay_type!=4}
+			{if $pay_type==2||$pay_type==3}
 			<div class="alert" style="margin-bottom:0;">本次活动霸屏总额(支付成功包括管理员)：{$num1}元　　
 			<div class="alert" style="margin-bottom:0;">本次活动霸屏总额(支付成功，不包括管理员支付)：{$num2}元
+				{else if $pay_type==6}
+				<div class="alert" style="margin-bottom:0;">本次活动表白总额(支付成功包括管理员)：{$num1}元　　
+					<div class="alert" style="margin-bottom:0;">本次活动表白总额(支付成功，不包括管理员支付)：{$num2}元
+				{else if $pay_type==7}
+						<div class="alert" style="margin-bottom:0;">本次活动送礼总额(支付成功包括管理员)：{$num1}元　　
+							<div class="alert" style="margin-bottom:0;">本次活动送礼总额(支付成功，不包括管理员支付)：{$num2}元
 				{else}
 				<div class="alert" style="margin-bottom:0;">本次活动红包总额(支付成功包括管理员)：{$num1}元　　
 					<div class="alert" style="margin-bottom:0;">本次活动红包总额(支付成功，不包括管理员支付)：{$num2}元

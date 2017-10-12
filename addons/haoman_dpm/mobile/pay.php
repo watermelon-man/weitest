@@ -22,6 +22,10 @@ if($pay_type==0){
     $order = pdo_fetch("SELECT * FROM " . tablename('haoman_dpm_pay_order') . " WHERE uniacid = :uniacid AND id = :id AND status = :status AND pay_type=:pay_type", array(':uniacid' => $uniacid,':id' => $orderid,':status' => 1,':pay_type'=>4));
 }elseif ($pay_type==8){
     $order = pdo_fetch("SELECT * FROM " . tablename('haoman_dpm_pay_order') . " WHERE uniacid = :uniacid AND id = :id AND status = :status AND pay_type=:pay_type", array(':uniacid' => $uniacid,':id' => $orderid,':status' => 1,':pay_type'=>8));
+}elseif ($pay_type==6){
+    $order = pdo_fetch("SELECT * FROM " . tablename('haoman_dpm_pay_order') . " WHERE uniacid = :uniacid AND id = :id AND status = :status AND pay_type=:pay_type", array(':uniacid' => $uniacid,':id' => $orderid,':status' => 1,':pay_type'=>6));
+}elseif ($pay_type==7){
+    $order = pdo_fetch("SELECT * FROM " . tablename('haoman_dpm_pay_order') . " WHERE uniacid = :uniacid AND id = :id AND status = :status AND pay_type=:pay_type", array(':uniacid' => $uniacid,':id' => $orderid,':status' => 1,':pay_type'=>7));
 }
 
 if($order == false){
@@ -48,9 +52,15 @@ if($order == false){
         $params['fee'] = $order['pay_total'];
     }elseif ($order['pay_type']==4){
         $params['title'] = "大屏幕发红包";
-        $params['fee'] = $order['pay_total'];
+        $params['fee'] = $order['pay_addr'];
     }elseif ($order['pay_type']==8){
         $params['title'] = "商城购物";
+        $params['fee'] = $order['pay_total'];
+    }elseif ($order['pay_type']==6){
+        $params['title'] = "大屏幕表白";
+        $params['fee'] = $order['pay_total'];
+    }elseif ($order['pay_type']==7){
+        $params['title'] = "大屏幕送礼";
         $params['fee'] = $order['pay_total'];
     }
 

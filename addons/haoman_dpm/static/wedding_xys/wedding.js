@@ -63,6 +63,7 @@
                 last_id: last_id
             },
             function(C) {
+                // console.log(C);
                 if (C && C.ret == 1 && $.isArray(C.data)) {
                     if (C.data.length > 0) {
                         b._msgList = C.data.concat(b._msgList);

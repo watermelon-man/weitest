@@ -13,7 +13,12 @@
     <meta name="apple-touch-fullscreen" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/jquery-1.11.1.min.js"></script>
-
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/util.js"></script>
+    <!--<script src="{$_W['siteroot']}app/resource/js/app/config.js"></script>-->
+    <!--<script src="{$_W['siteroot']}app/resource/js/require.js"></script>-->
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/mui.min.js"></script>
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/common.js"></script>
     <script  type="text/javascript" src="../addons/haoman_dpm/imgs/js/wmPhone.js?r=8"></script>
     <link rel="stylesheet" type="text/css" href="../addons/haoman_dpm/imgs/css/wmPhone.css?r=7"/>
     <script src="../addons/haoman_dpm/new_messages/jquery-2.1.4.min.js"></script>
@@ -22,6 +27,29 @@
     <script type="text/javascript" src="../addons/haoman_dpm/imgs/js/uploadImage.js"></script>
     <script src="../addons/haoman_dpm/new_messages/fastclick.min.js"></script>
     <script src="../addons/haoman_dpm/new_messages/fish_widget.js"></script>
+    <script type="text/javascript" src="../addons/haoman_dpm/mobimg/lrz.mobile.min.js"></script>
+    <script>
+        isadmin = '{$is_admin}';
+        user_id='{$fans['from_user']}';
+
+    </script>
+    <script type="text/javascript">
+
+        window.sysinfo = {
+        {if !empty($_W['uniacid'])}'uniacid': '{$_W['uniacid']}',{/if}
+        {if !empty($_W['acid'])}'acid': '{$_W['acid']}',{/if}{if !empty($_W['openid'])}'openid': '{$_W['openid']}',{/if}
+        {if !empty($_W['uid'])}'uid': '{$_W['uid']}',{/if}
+        'siteroot': '{$_W['siteroot']}',
+            'siteurl': '{$_W['siteurl']}',
+            'attachurl': '{$_W['attachurl']}',
+            'attachurl_local': '{$_W['attachurl_local']}',
+            'attachurl_remote': '{$_W['attachurl_remote']}',
+            {if defined('MODULE_URL')}'MODULE_URL': '{MODULE_URL}',{/if}
+        'cookie' : {'pre': '{$_W['config']['cookie']['pre']}'}
+        };
+
+
+    </script>
     <script>
         var go_Getmsg = "{php echo $this->createMobileUrl("Getmsg", array('rid' => $rid,'uid'=>$fans['from_user'],'op'=>'new'))}";
         var go_sendmsg = "{php echo $this->createMobileUrl("sendmsg", array('rid' => $rid,'uid'=>$fans['from_user']))}";
@@ -30,10 +58,22 @@
         var uploadImg="{php echo $this->createMobileUrl("uploadimg", array('rid' => $rid))}";
         var go_makefriends="{php echo $this->createMobileUrl("m_friends", array('rid' => $rid,'from_user'=>$fans['from_user']))}";
         var go_Confirm_bp="{php echo $this->createMobileUrl('Confirm_bp',array('token'=>'onBridge','id'=>$rid,'from_user'=>$page_from_user))}";
-
-        var is_opened=0;
-        var isAdmin=0;
-        var isback=0;
+        var go_Confirm_dpmhb="{php echo $this->createMobileUrl('Confirm_dpmhb',array('token'=>'onBridge','id'=>$rid,'from_user'=>$page_from_user))}";
+        var go_Confirm_dpmds="{php echo $this->createMobileUrl('Confirm_dpmds',array('token'=>'onBridge','id'=>$rid,'from_user'=>$page_from_user))}";
+        var go_tx="{php echo $this->createMobileUrl('balance', array('rid' => $rid,'id'=>$fans['id']))}";
+        var go_pay="{php echo $this->createMobileUrl("pay")}";
+        var go_syncinfo="{php echo $this->createMobileUrl("syncinfo", array('rid' => $rid,'openid'=>$fans['from_user']))}";
+        var go_RedPackStatus = "{php echo $this->createMobileUrl("RedPackStatus", array('rid' => $rid,'uid'=>$fans['from_user'],'op'=>'new'))}";
+        var go_RedPackLuck = "{php echo $this->createMobileUrl("RedPackLuck", array('rid' => $rid,'uid'=>$fans['from_user'],'op'=>'new'))}";
+        var go_deletemsg="{php echo $this->createMobileUrl('deletemsg',array('rid' => $rid,'uid'=>$fans['from_user'],'op'=>'new'));}";
+        var go_pullblack="{php echo $this->createMobileUrl('pullblack',array('rid' => $rid,'uid'=>$fans['from_user'],'op'=>'new'));}";
+        var uniacid = '{$uniacid}';
+        var rpMinMoney={php echo $fashb['hb_minmoney']};
+        var rpMaxMoney={php echo $fashb['hb_manmoney']};
+        var isOpened=0;
+        var isbpopen='{$isbpopen}';
+//        var isAdmin=0;
+           isback=0;
         var ismbp=0;
         var hbtype=0;//红包类型，0可以提现，1不可以提现。
         var rootimg = "{$_W['attachurl']}";
@@ -109,14 +149,34 @@
         }
 
     </script>
-    <link href="../addons/haoman_dpm/new_messages/chats.css?v=2134" rel="stylesheet">
-    <link rel="stylesheet" href="../addons/haoman_dpm/new_messages/fish_ui.css?v=233">
+    <link href="../addons/haoman_dpm/new_messages/chats.css?v=21323343" rel="stylesheet">
+    <link rel="stylesheet" href="../addons/haoman_dpm/new_messages/fish_ui.css?v=23433">
     <style>
         .talk_panel {
             background-color: #f9f9f9;
-            background-image: url("../addons/haoman_dpm/new_messages/chats_bg.png");
+            background-image: url("{if $fashb['bp_logo']}{php echo tomedia($fashb['bp_logo'])}{else}../addons/haoman_dpm/new_messages/chats_bg.png{/if}");
             /*对话内容*/
         }
+        .right_index {
+           {if $bp['ishb']==1}right: 0.5rem;{else}left:0.5rem;{/if}
+
+            position: fixed;
+            top: 0rem;
+            z-index: 6;
+        }
+        select {
+            appearance:none;
+            -moz-appearance:none;
+            -webkit-appearance:none;
+
+            padding-right: 14px;
+
+        }
+    </style>
+    <style>
+        #rulebox{ width:96%; background:#FFF; margin: 2%;border-radius:4px; position:fixed; bottom: 30%; z-index:99000;padding: 10px 0px;}
+        #markser{ width:100%; height:100%; background:rgba(0,0,0,0.6); position:fixed; z-index:9999; display:none;top: 0;bottom: 0;right: 0;left: 0;}
+        .rulefoot1{ width:76px;height:30px;border-radius:5px;font-size:14px; font-weight:700; background:#03BD01; color:#fff; border:0	}
     </style>
 </head>
 <body ontouchstart>
@@ -248,30 +308,15 @@
 
             <ul>
                 {loop $bpmoney $index $row}
-              <li value="13014" data-time="{$row['bp_time']}" class="bp_item bp_item_img {if $index==0}selected{/if}" img_count="{if $row['img_count']}{$row['img_count']}{else}1{/if}" price="{$row['bp_money']}">
+              <li value="{$row['bp_time']}" data-time="{$row['bp_time']}" class="bp_item bp_item_img {if $index==0}selected{/if}" img_count="1" price="{$row['bp_money']}">
                                 <img src="{if $row['bp_images']}{php echo tomedia($row['bp_images'])}{else}../addons/haoman_dpm/common/s1.png{/if}" alt="" />
                                 <span class="time">{$row['bp_time']}秒</span>
                                  <span class="price">￥{$row['bp_money']}</span>
               </li>
                 {/loop}
-                                <!--<li value="13013" data-time="30" class="bp_item bp_item_img" img_count="1" price="40.00">-->
-                                <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bp_icon/s3.png" alt="" />-->
-                                <!--<span class="time">30秒</span>-->
-                <!--<span class="price">￥40.00</span>-->
-                <!--</li>-->
-                                <!--<li value="13012" data-time="20" class="bp_item bp_item_img" img_count="1" price="30.00">-->
-                                <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bp_icon/s2.png" alt="" />-->
-                                <!--<span class="time">20秒</span>-->
-                <!--<span class="price">￥30.00</span>-->
-                <!--</li>-->
-                                <!--<li value="13011" data-time="10" class="bp_item bp_item_img" img_count="1" price="20.00">-->
-                                <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bp_icon/s1.png" alt="" />-->
-                                <!--<span class="time">10秒</span>-->
-                <!--<span class="price">￥20.00</span>-->
-                <!--</li>-->
                                 <li style="width: 8vw"></li>
             </ul>
-            <div class="num_select">
+            <div class="num_select"style="display: none">
                 <label for="bp_times_select">连续霸屏</label>
                 <select id="bp_times_select" style="opacity: 0;height: 21vh;width: 12vw;position: absolute;right: 2px;top: 0;">
                     <option value="1" selected>一次霸屏</option>
@@ -327,15 +372,21 @@
                 <li class="weui-uploader__file file_video">
                     <span class="video-guanbi"></span>
                 </li>
+                {if $bp['isbp']==1}
+                {if $bp['is_img']==0||$bp['is_img']==1}
                 <div class="weui-uploader__input-box up_images" style="background-image: url('../addons/haoman_dpm/new_messages/bp_upload_img.png');background-size: 100% 100%;border: 1px solid #ccc; display: inline-block;margin-top: 0.6rem;">
                     <input id="bp_file" class="weui-uploader__input" type="file"  accept="image/*" onchange="imageUpLoad(this,3)">
                     <input id="bp_type" type="hidden" value="1" >
                     <input id="video_url" type="hidden" value="" >
                 </div>
+                 {/if}
+                {/if}
+                 {if $bp['isvo']==1}
                  <div class="weui-uploader__input-box up_video" style="background-image: url('../addons/haoman_dpm/new_messages/bp_upload_video.png');background-size: 100% 100%;border:1px solid #ccc; display: inline-block;margin-top: 0.6rem;">
                     <input id="bp_video" class="weui-uploader__input" type="file" accept="video/*">
                 </div>
-                            </ul>
+                 {/if}
+              </ul>
         </div>
                 <div class="bp_theme_list" id="bp_theme_list">
             <span class="bp_theme_list_title"></span>
@@ -348,23 +399,6 @@
                         <p class="node_text">{$row['name']}</p>
                     </li>
                     {/loop}
-
-                                        <!--<li data-id="2925" id="bp-theme-2925">-->
-                        <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/theme/1314/1314_logo.png"/>-->
-                        <!--<p class="node_text">1314霸屏</p>-->
-                    <!--</li>-->
-                                        <!--<li data-id="5" id="bp-theme-5">-->
-                        <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/theme/birthday/birthday_logo.png"/>-->
-                        <!--<p class="node_text">生日霸屏</p>-->
-                    <!--</li>-->
-                                        <!--<li data-id="1" id="bp-theme-1">-->
-                        <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/theme/wzry/theme_logo@small.png"/>-->
-                        <!--<p class="node_text">王者霸屏</p>-->
-                    <!--</li>-->
-                                        <!--<li data-id="4" id="bp-theme-4">-->
-                        <!--<img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/theme/kitty/kitty_logo.png"/>-->
-                        <!--<p class="node_text">女神霸屏</p>-->
-                    <!--</li>-->
                                         <li data-id="" id="bp-theme-def">
                         <img src="http://img.91qudong.com/static/theme/chats/def.png">
                         <p class="node_text">默认主题</p>
@@ -382,45 +416,24 @@
 </form>
 <script>
     var theme_list =  {$bptheme2};
-//    var theme_list = {
-//        "2":{
-//            "id":2,
-//            "name":"520\u9738\u5c4f",
-//            "extend_from":0,
-//            "price":0,
-//            "thumb":"http:\/\/91youyu.oss-cn-shenzhen.aliyuncs.com\/static\/theme\/520\/520_logo.png",
-//            "sort":1,
-//            "uniacid":0,
-//            "resource":null,
-//            "bp_time":520,
-//            "rank_position":3,
-//            "enabled":1,
-//            "selected":1,
-//            "condition_text":"\u5355\u6b21\u9738\u5c4f\u65f6\u95f4\u6ee1520\u79d2\u6216\u8005\u58d5\u699c\u6392\u884c\u524d3\u540d"},
-//        "1":{
-//            "id":1,
-//            "name":"520\u9738\u5c4f",
-//            "extend_from":0,
-//            "price":0,
-//            "thumb":"http:\/\/91youyu.oss-cn-shenzhen.aliyuncs.com\/static\/theme\/520\/520_logo.png",
-//            "sort":1,
-//            "uniacid":0,
-//            "resource":null,
-//            "bp_time":520,
-//            "rank_position":3,
-//            "enabled":1,
-//            "selected":0,
-//            "condition_text":"\u5355\u6b21\u9738\u5c4f\u65f6\u95f4\u6ee1520\u79d2\u6216\u8005\u58d5\u699c\u6392\u884c\u524d3\u540d"},
-//
-//    };
+
     $(function(){
         //霸屏
         $('.bp_btn,.wall_menu_bp').click(function(){
-            if(isOpened == 0){
+            if (1 == isback)
+            {
+                $.tip("您已经被禁言");
+                return;
+            }
+            if(is_Opened == 0){
                 $.tip('大屏幕尚未开启~<br>如检测有误请刷新您的手机页面或更换网络环境重试');
             }else{
-                $("#popup_bp").popup();
-                $('.msg_input').removeClass('showing_face').removeClass('showing_menu');
+              if (isbpopen==0){
+                  $.tip('霸屏还没未开启~<br>如检测有误请刷新您的手机页面或更换网络环境重试');
+              }else{
+                  $("#popup_bp").popup();
+                  $('.msg_input').removeClass('showing_face').removeClass('showing_menu');
+              }
             }
         });
         var img_count = 1;//$(".bp_item:selected").attr("img_count");
@@ -539,7 +552,8 @@
         $("#bp_form #bp_video").upload_video(function (img_url,type) {
             $("#bp_video").val('');
             $.hideLoading();
-            bp_image_src = '/public/app/chats/image/video_default.png';//img_url;
+
+            bp_image_src = '../addons/haoman_dpm/new_messages/video_default.png';//img_url;
             $("#popup_bp .file_video").append("<img src='"+bp_image_src+"'/>").show().css("display","inline-block");
             $('#bp_type').val(2);
             $("#video_url").val(img_url);
@@ -547,6 +561,7 @@
             $("#bp_video").parent().hide();
         });
         //霸屏提交
+        {if $bp['bp_pay2']!=0}
         $('#bp_form .action_button').click(function(){
             var item = $(".bp_item.selected").attr('value');
             var type = $('#bp_type').val();
@@ -563,18 +578,33 @@
                     }
                 });
             }
+
             var theme = $(".bp_theme_list_ul li.selected").attr('data-id');
             var bp_times = $('#bp_times_select').val();
             if( bp_times == 0 || bp_times == null ){
                 bp_times = 1;
             }
             var content = $("#bp_form_ctx").val();
-            if("" == content&& "" == content){
+            if("" == content&& "" == img_srcs&&type!=2){
                 $.tip("请填写霸屏内容或图片");
                 return;
             }else {
                 if(!keyWord.check(content)){
                     $(".bp_ctx textarea").val('');
+                    return $.tip('请勿发布广告等不适内容');
+                }
+
+                //敏感词
+                content = keyWord.replace(content);
+            }
+            if("" == content&& "" == video_src&&type==2){
+                $.tip("请填写霸屏内容或视频");
+                click=false;
+                return;
+            }else {
+                if(!keyWord.check(content)){
+                    $(".bp_ctx textarea").val('');
+                    click=false;
                     return $.tip('请勿发布广告等不适内容');
                 }
 
@@ -597,13 +627,291 @@
             }
             MagSender.sendItem(send_data,'bp');
         });
+        {else}
+        $(document).ready(function(){
+            document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+
+                var click=false;
+                $("#bp_form .action_button").click(function(){
+                    if(click){
+                        return $.tip("请不要频繁点击");
+                    }
+                    click=true;
+                    var item = $(".bp_item.selected").attr('value');
+                    var type = $('#bp_type').val();
+//            console.log(item);
+                    var img_srcs = [];
+                    var video_src = '';
+                    if(type=='2'){
+                        video_src = $("#video_url").val();
+                    }else{
+                        $("#popup_bp .file_img:visible").each(function(){
+                            var img_src = $(this).find('img').attr('src');
+                            if(img_src!=null&& img_src!=''){
+                                img_srcs.push(img_src);
+                            }
+                        });
+                    }
+
+                    var theme = $(".bp_theme_list_ul li.selected").attr('data-id');
+                    var bp_times = $('#bp_times_select').val();
+                    if( bp_times == 0 || bp_times == null ){
+                        bp_times = 1;
+                    }
+                    var content = $("#bp_form_ctx").val();
+                    if("" == content&& "" == img_srcs&&type!=2){
+                        click=false;
+                        $.tip("请填写霸屏内容或图片!");
+                        return;
+                    }else {
+                        if(!keyWord.check(content)){
+                            $(".bp_ctx textarea").val('');
+                            click=false;
+                            return $.tip('请勿发布广告等不适内容');
+                        }
+
+                        //敏感词
+                        content = keyWord.replace(content);
+                    }
+                    if("" == content&& "" == video_src&&type==2){
+                        click=false;
+                        $.tip("请填写霸屏内容或视频");
+
+                        return;
+                    }else {
+                        if(!keyWord.check(content)){
+                            $(".bp_ctx textarea").val('');
+                            click=false;
+                            return $.tip('请勿发布广告等不适内容');
+                        }
+
+                        //敏感词
+                        content = keyWord.replace(content);
+                    }
+
+                    var send_data = {
+                        'theme':theme,
+                        'item':item,
+                        'bp_type':$('#bp_type').val(),
+                        'content':content,
+                        'image':img_srcs,
+                        'times':bp_times,
+                        'video':video_src,
+                        'effect':$('#bp_pic_effect').is(':checked'),
+                        'admin':$('#bp_admin').is(':checked')
+                    };
+                    if(bpsid != null ){
+                        send_data['sid']=bpsid;
+                    }
+                    $.post('{php echo $this->createMobileUrl('Confirm_bp',array('id'=>$rid))}',send_data, function(idata) {
+                        $("#popup_bp .img-guanbi").click();
+                        $('.fish_modal').click();
+                        $("#popup_bp .video-guanbi").click();
+                        if(idata.success == 1&&idata.isadmin==0){
+                            click=false;
+                            $(".bp_form_ctx").val("");
+//                            $(".bp_img_field img").attr("src", "../addons/haoman_dpm/imgs/zp.png");
+//                            $(".bp_panel").hide();
+//                            $(".content video").show();
+                            util.pay({
+                                orderFee : idata.pay_money,
+                                payMethod : 'wechat',
+                                orderTitle : '霸屏'+idata.pay_money+'元',
+                                orderTid : idata.tid,
+                                module : 'haoman_dpm',
+                                success : function(result) {
+                                    click=false;
+
+                                    $.tip("霸屏成功！！");
+//                                    location.reload();
+                                    //location.href="{php echo $_W['siteroot'].$this->createMobileUrl('results')}&tid="+idata.orderid;
+                                },
+                                fail : function(result) {
+                                    click=false;
+                                    alert('fail : ' + result.message);
+                                },
+                                complete : function(result) {
+                                    //location.reload();
+                                }
+                            });
+                        }else if(idata.success == 1&&idata.isadmin==1){
+                            click=false;
+                             $(".bp_form_ctx").val("");
+//                            $(".bp_img_field img").attr("src", "../addons/haoman_dpm/imgs/zp.png");
+//                            $(".bp_panel").hide();
+//                            $(".content video").show();
+                        }else{
+                            click=false;
+//                            $(".content video").show();
+                            $.tip(idata.msg);
+                        }
+                    },'json');
+
+                })
+
+                $("#ds_form .action_button").click(function(){
+                    if(click){
+                        return $.tip("请不要频繁点击");
+                    }
+                    click=true;
+                    var item_id =$(".gift_list .selected").attr('data-id');
+                    var guest_id =$(".guest_list .selected").attr('data-id');
+                    var megs =$("#ds_form_ctx").val();
+                    if (guest_id > 0 && item_id > 0) {
+
+                        var submitData = {
+                            'item':item_id,
+                            'object':guest_id,
+                            'content':megs,
+                            'times':1,
+                            "type":3,
+                            "new_type": 2,
+                            'admin':$('#ds_admin').is(':checked')
+                        };
+
+                        $.post('{php echo $this->createMobileUrl('Confirm_dpmds',array('id'=>$rid))}',submitData, function(idata) {
+                            click=false;
+                            $('.fish_modal').click();
+                            if(idata.success == 1&&idata.isAdmin==0){
+                                util.pay({
+                                    orderFee : idata.pay_money,
+                                    payMethod : 'wechat',
+                                    orderTitle : '打赏'+idata.pay_money+'元',
+                                    orderTid : idata.tid,
+                                    module : 'haoman_dpm',
+                                    success : function(result) {
+                                        $.tip("打赏成功！！");
+                                        //location.reload();
+                                        //location.href="{php echo $_W['siteroot'].$this->createMobileUrl('results')}&tid="+idata.orderid;
+                                    },
+                                    fail : function(result) {
+                                        alert('fail : ' + result.message);
+                                    },
+                                    complete : function(result) {
+                                        //location.reload();
+                                    }
+                                });
+                            }else if(idata.success == 1&&idata.isAdmin==1){
+                                click=false;
+                                $.tip("打赏成功!")
+                            }else{
+                                click=false;
+                                $.tip(idata.msg);
+                            }
+                        },'json');
+
+
+                    } else {
+                        $(".content video").show();
+                        click=false;
+                        $.tip("请选择打赏对象、打赏礼物")
+                    }
+
+
+                })
+
+                $("#popup_rp .action_button").click(function(){
+                    if(click){
+                        return $.tip("请不要频繁点击");
+                    }
+                    click=true;
+                    var m =$("input[name=money]").val();
+                    var n =$("input[name=hb_num]").val();
+                    var c =$.trim($("#popup_rp textarea").val());
+                    var d =$("select[name=nums]").val();
+
+                    if(m<rpMinMoney){
+                        $.tip("红包总金额不低于" + rpMinMoney + "元");
+                        click=false;
+                        return;
+                    }
+                    if(m>rpMaxMoney&&rpMaxMoney>=rpMinMoney&&rpMaxMoney!=0){
+                        $.tip("红包总金额不能大于" + rpMaxMoney + "元");
+                        click=false;
+                        return;
+                    }
+                    if(n<1){
+                        $.tip("红包个数不低于1个");
+                        click=false;
+                        return;
+                    }
+                    if(hbtype==0){
+                        if(m/n>200){
+                            $.tip("每人每次最多可领取红包金额200元");
+                            click=false;
+                            return;
+                        }
+                    }
+                    var paytype = $("#popup_rp .cell_pay_select.selected").attr("value");
+                    var submitData = {
+                        'num':n,
+                        'total':m,
+                        'content':c,
+                        'hb_type':d,
+                        'paytype':paytype,
+                        "type": 4,
+                        "new_type": 2,
+                    };
+
+                    $.post('{php echo $this->createMobileUrl('Confirm_dpmhb',array('id'=>$rid))}',submitData, function(data) {
+                        click=false;
+                        $('.fish_modal').click();
+                        $("input[name=money]").val('');
+                        $("input[name=hb_num]").val('');
+                        $.trim($("#popup_rp textarea").val(''));
+                        if(data.success == 1&&data.isAdmin==0){
+                            util.pay({
+                                orderFee : data.pay_money,
+                                payMethod : 'wechat',
+                                orderTitle : '发红包'+data.pay_money+'元',
+                                orderTid : data.tid,
+                                module : 'haoman_dpm',
+                                success : function(result) {
+                                    $.tip("红包发送成功！！");
+                                    //location.reload();
+                                    //location.href="{php echo $_W['siteroot'].$this->createMobileUrl('results')}&tid="+idata.orderid;
+                                },
+                                fail : function(result) {
+                                    alert('fail : ' + result.message);
+                                },
+                                complete : function(result) {
+                                    //location.reload();
+                                }
+                            });
+                        }else if(data.success == 1&&data.isAdmin==1){
+//                            $(".content video").show();
+                            click=false;
+                            $.tip("红包发送成功！")
+                        }else{
+                           click=false;
+// $(".content video").show();
+                            $.tip(data.msg);
+                        }
+                    },'json');
+
+
+                })
+            });
+        });
+        {/if}
+
     });
     var bpsid = null;
     //为Ta霸屏
     $(document).on("click", ".weitabp", function () {
-        if(isOpened == 0){
+        if (1 == isback)
+        {
+            $.tip("您已经被禁言");
+            return;
+        }
+        if(is_Opened == 0){
             $.tip('大屏幕尚未开启~<br>如检测有误请刷新您的手机页面或更换网络环境重试');
         }else{
+            {if $bp['isbp']!=1}
+            $.tip('霸屏还没未开启~<br>如检测有误请刷新您的手机页面或更换网络环境重试');
+            return;
+            {/if}
+
             $("#popup_bp").popup();
             $('.msg_input').removeClass('showing_face').removeClass('showing_menu');
             bpid = $(this).attr('data-id');
@@ -691,14 +999,22 @@
 <form id="hb_form">
     <div id="popup_rp" class="fish_popup">
         <p><span class="redpack_total"></span><span class="redpack_text">总金额：</span></p>
-        <p class="redpack_p"><input class="weui-input" type="number" maxlength="9" pattern="[0-9]*" placeholder="最低金额6元" id="hb_total"></p>
+        <p class="redpack_p"><input class="weui-input" type="number" maxlength="9" pattern="[0-9]*" name="money" placeholder="最低金额{php echo $fashb['hb_minmoney']}元" id="hb_total"></p>
         <p><span class="redpack_num"></span><span class="redpack_text">红包数量:</span></p>
-        <p class="redpack_p"><input class="weui-input" type="number" maxlength="4" a pattern="[0-9]*" placeholder="不少于2个红包" id="hb_form_item"></p>
+        <p class="redpack_p"><input class="weui-input" type="number" name="hb_num" maxlength="4" a pattern="[0-9]*" placeholder="不少于2个红包" id="hb_form_item"></p>
         <p class="redpack_p"><textarea class="weui-textarea" maxlength="10" id="hb_form_ctx" placeholder="恭喜发财，大吉大利！" rows="2" id="hb_form_ctx"></textarea></p>
-        <p><span class="redpach_pay_text">支付方式：</span>
+        <div class="redpack_p" style="margin-top: 10px;background-color: #f0f0f0;text-align: right;letter-spacing: 1px;">
+
+            <select class="weui-select" name="nums" style="width: 100%;height: 40px;line-height: 40px;text-align: right;color: #999;font-size: 1.2rem;border: none;padding-left:1.6rem " >
+                <option value="1" selected>随机</option>
+                <option value="2">均分</option>
+            </select>
+        </div>
+        <div style="font-size: 10px;color: #666;text-align: right;margin-top: 10px;" class="conts">系统将扣除{php echo $fashb['counter']}%手续费</div>
+        <p style="margin-top: 0px;"><span class="redpach_pay_text">支付方式：</span>
             <span class="cell_pay_select selected" value="2"><span class="icon iconfont icon-wxpay"  ></span> 微信支付</span>
-            <span class="cell_pay_select" value="1"><span class="icon iconfont icon-hongbao"  ></span> 红包宝</span>
-        <div class="redpack_balance" style="display: none">红包宝余额：0.97</div>
+            <span class="cell_pay_select" value="1"><span class="icon iconfont icon-hongbao"  ></span> 账户余额</span>
+        <div class="redpack_balance" style="display: none">账户余额：{php echo $fans['totalnum']/100}元</div>
         </p>
         <div class="fish_popup_footer">
             <div class="cancel_button">取消</div>
@@ -707,32 +1023,69 @@
     </div>
 </form>
 <script>
+    $('#hb_total').bind('input propertychange', function() {
+        var mon= $(this).val()*(100+{php echo $fashb['counter']})/100;
+        mon = mon.toFixed(2);
+        $('.conts').html('本次合计支付'+mon+'元');
+    });
+</script>
+<script>
     $(function(){
         //红包
         $('.hb_btn,.wall_menu_rp').click(function(){
-            $("#popup_rp").popup();
-            $('.msg_input').removeClass('showing_face').removeClass('showing_menu');
+            if (1 == isback)
+            {
+                $.tip("您已经被禁言");
+                return;
+            }
+            if(is_Opened == 0){
+                $.tip('大屏幕尚未开启~<br>如检测有误请刷新您的手机页面或更换网络环境重试');
+            }else {
+                $("#popup_rp").popup();
+                $('.msg_input').removeClass('showing_face').removeClass('showing_menu');
+            }
         });
         //红包提交
+        {if $bp['bp_pay2']!=0}
         $('#popup_rp .action_button').click(function(){
+            var m =$("input[name=money]").val();
+            var n =$("input[name=hb_num]").val();
+            var c =$.trim($("#popup_rp textarea").val());
+            var d =$("select[name=nums]").val();
 
-            if(2 > parseInt($("#hb_form_item").val())){
-                $.tip('红包个数不能少于2个');
-                return ;
+            if(m<rpMinMoney){
+                $.tip("红包总金额不低于" + rpMinMoney + "元")
+                return;
             }
-            if(3 > parseInt($("#hb_total").val())){
-                $.tip('红包总金额不能少于3元');
-                return ;
+            if(m>rpMaxMoney&&rpMaxMoney>=rpMinMoney&&rpMaxMoney!=0){
+                $.tip("红包总金额不能大于" + rpMaxMoney + "元")
+                return;
             }
+            if(n<1){
+                $.tip("红包个数不低于1个");
+                return;
+            }
+
+            if(hbtype==0){
+                if(m/n>200){
+                    $.tip("每人每次最多可领取红包金额200元");
+                    return;
+                }
+            }
+
             var paytype = $("#popup_rp .cell_pay_select.selected").attr("value");
             MagSender.sendItem({
-                'num':$("#hb_form_item").val(),
-                'total':$("#hb_total").val(),
-                'content':$("#hb_form_ctx").val(),
+                'num':n,
+                'total':m,
+                'content':c,
+                'hb_type':d,
               //  'desk_name':$("#desk_name").val(),
                 'paytype':paytype,
+                "type": 4,
+                "new_type": 2,
             },'rp');
         });
+        {/if}
         //选项
         $("#popup_rp .cell_pay_select").click(function(){
             $("#popup_rp .cell_pay_select").removeClass("selected");
@@ -772,84 +1125,27 @@
             <span class="ds_object_icon"></span>选择打赏对象
         </p>
         <ul class="guest_list">
-                        <li class="selected" data-id="5994" data-uid="0">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/groups.png" alt="">
-            <span>全体观众</span>
-            </li>
-                        <li  data-id="5995" data-uid="0">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/female_groups.png" alt="">
-            <span>全体女观众</span>
-            </li>
-                        <li  data-id="5996" data-uid="0">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/male_groups.png" alt="">
-            <span>全体男观众</span>
-            </li>
-                        <li  data-id="1" data-uid="0">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/groups.png" alt="">
-            <span>全体观众</span>
-            </li>
-                        <li  data-id="2" data-uid="0">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/female_groups.png" alt="">
-            <span>全体女观众</span>
-            </li>
-                        <li  data-id="3" data-uid="0">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/male_groups.png" alt="">
-            <span>全体男观众</span>
-            </li>
-                        <li  data-id="4" data-uid="0">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com//static/items/image/14941693551681701.png" alt="">
-            <span>DJ</span>
-            </li>
-                        <li  data-id="5" data-uid="0">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com//static/items/image/14941693603202758.png" alt="">
-            <span>歌手</span>
-            </li>
-                        <li  data-id="6" data-uid="0">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com//static/items/image/14941693584799072.png" alt="">
-            <span>全体服务员</span>
-            </li>
+            {loop $guest_list $index $row}
+                <li {if $index==0}class="selected"{/if} data-id="{$row['id']}" data-uid="0">
+                <img src="{php echo tomedia($row['pic'])}" alt="">
+                <span>{$row['name']}</span>
+                </li>
+            {/loop}
                     </ul>
         <p>
             <span class="ds_gift_icon"></span>选择礼物
         </p>
         <ul class="gift_list">
-                        <li class="selected" data-id="101" data-ctx="这车野，你开适合">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/car.jpg" alt="">
-            <span>跑车</span>
-            <span class="price">￥88.00</span>
-            </li>
-                        <li  data-id="102" data-ctx="以后就它陪你睡了">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/dog.jpg" alt="">
-            <span>牧羊犬</span>
-            <span class="price">￥78.00</span>
-            </li>
-                        <li  data-id="103" data-ctx="这个怎么用都可以">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/cucumber.jpg" alt="">
-            <span>黄瓜</span>
-            <span class="price">￥28.00</span>
-            </li>
-                        <li  data-id="104" data-ctx="这是为你定制的哦">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/bras.jpg" alt="">
-            <span>情趣内衣</span>
-            <span class="price">￥68.00</span>
-            </li>
-                        <li  data-id="105" data-ctx="愿你“杜”过一个愉快夜晚">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/durex.jpg" alt="">
-            <span>杜蕾斯</span>
-            <span class="price">￥68.00</span>
-            </li>
-                        <li  data-id="106" data-ctx="玫瑰玫瑰我爱你">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/rose.png" alt="">
-            <span>玫瑰花雨</span>
-            <span class="price">￥88.00</span>
-            </li>
-                        <li  data-id="107" data-ctx="我中了你的毒">
-            <img src="http://91youyu.oss-cn-shenzhen.aliyuncs.com/static/bpds/perfume.png" alt="">
-            <span>香水</span>
-            <span class="price">￥88.00</span>
-            </li>
+            {loop $item_list $index $row}
+                <li {if $index==0}class="selected" {/if} data-id="{$row['id']}" data-ctx="{$row['says']}">
+                <img src="{php echo tomedia($row['pic'])}" alt="">
+                <span>{$row['name']}</span>
+                <span class="price">￥{$row['price']}</span>
+                </li>
+            {/loop}
+
                     </ul>
-        <textarea  maxlength="30"  placeholder="请输入打赏语..." rows="1" id="ds_form_ctx">这车野，你开适合</textarea>
+        <textarea  maxlength="30"  placeholder="请输入打赏语..." rows="1" id="ds_form_ctx">{$item_list[0]['says']}</textarea>
                 <div class="fish_popup_footer">
             <div class="cancel_button">取消</div>
             <div class="action_button">确认支付</div>
@@ -861,8 +1157,13 @@
     $(function(){
         //打赏
         $('.ds_btn,.wall_menu_ds').click(function(){
-            if(isOpened === 0){
-                $.tip('乐上墙大屏幕尚未开启~<br>如检测有误请刷新您的手机页面或更换网络环境重试');
+            if (1 == isback)
+            {
+                $.tip("您已经被禁言");
+                return;
+            }
+            if(is_Opened == 0){
+                $.tip('大屏幕尚未开启~<br>如检测有误请刷新您的手机页面或更换网络环境重试');
             }else{
                 $("#popup_ds").popup();
                 $('.msg_input').removeClass('showing_face').removeClass('showing_menu');
@@ -880,15 +1181,19 @@
             $("#ds_form_ctx").val($(this).attr('data-ctx'));
         });
         //打赏提交
+        {if $bp['bp_pay2']!=0}
         $('#ds_form .action_button').click(function(){
             MagSender.sendItem({
                 'item':$(".gift_list .selected").attr('data-id'),
                 'object':$(".guest_list .selected").attr('data-id'),
                 'content':$("#ds_form_ctx").val(),
                 'times':1,
+                "type":3,
+                "new_type": 2,
                 'admin':$('#ds_admin').is(':checked')
             },'ds');
         });
+        {/if}
         //打赏取消提交
         $('#ds_form .default_button').click(function(){
             $("#popup_ds").removeClass('weui-popup__container--visible');
@@ -920,43 +1225,76 @@
         $(".msg_list").on("click",".msg_box .avatar",function(){
             $("#popup_other_user").popup();
             click_avatar_msgid = $(this).attr('msgid');
+
             var msg = MsgList[click_avatar_msgid];
+
             $("#other_user_avatar").attr('src',msg['avatar']);
             $("#other_user_nickname").text(msg['nickname']);
-            if(DsUsers.indexOf(msg['uid'])=='-1'){
-                $(".user_menu_ds").hide();
-            }else{
-                $(".user_menu_ds").show();
-            }
-            if(msg['uid']==user_id){
+//            if(DsUsers.indexOf(msg['id'])=='-1'){
+//                $(".user_menu_ds").hide();
+//            }else{
+//                $(".user_menu_ds").show();
+//            }
+
+
+            if(msg['from_user']==user_id){
                 $(".user_menu_delmsg").show();
                 $(".user_menu_zhongxin").show();
                 $(".user_menu_sl").hide();
                 $(".user_menu_el").hide();
                 $(".user_menu_chat").hide();
+                $(".user_menu_ds").hide();
+
             }else{
                 $(".user_menu_delmsg").hide();
+
                 $(".user_menu_zhongxin").hide();
+
+                {if $bp['is_gift']==1}
                 $(".user_menu_sl").show();
+                {else}
+                $(".user_menu_sl").hide();
+                {/if}
+                    {if $bp['isbb']==1}
                 $(".user_menu_el").show();
+                    {else}
+                    $(".user_menu_el").hide();
+                 {/if}
+                 {if $bp['is_mf']==1}
                 $(".user_menu_chat").show();
+                        {else}
+                        $(".user_menu_chat").hide();
+                {/if}
+                            $(".user_menu_ds").hide();
+//                $(".user_menu_ds").show();
+
+
             }
+                     if (1 == isback)
+                     {
+                         $(".user_menu_sl").hide();
+                         $(".user_menu_el").hide();
+                         $(".user_menu_chat").hide();
+                         $(".user_menu_ds").hide();
+
+                     }
+
         });
 
         $(".user_menu_el").click(function(){
             var msg = MsgList[click_avatar_msgid];
-            location.href ="/chats/wap.index/el.html?sid="+msg['uid'];
+            location.href ="{php echo $this->createMobileUrl('express_love', array('rid' => $rid,'from_user'=>$fans['from_user']))}&uid="+msg['from_user'];
         });
 
         $(".user_menu_chat").click(function(){
             var msg = MsgList[click_avatar_msgid];
-            location.href ="/party/wap.index/talking?sid="+msg['uid'];
+            location.href ="{php echo $this->createMobileUrl('talk', array('rid' => $rid,'from_user'=>$fans['from_user']))}&uid="+msg['from_user'];
         });
 
         $(".user_menu_ds").click(function(){
             var msg = MsgList[click_avatar_msgid];
             $('#popup_ds .guest_list li').each(function () {
-                if($(this).attr('data-uid')==msg['uid']){
+                if($(this).attr('data-uid')==msg['gift_id']){
                     $(this).click();
                 }
             })
@@ -970,14 +1308,14 @@
 
         $(".user_menu_sl").click(function(){
             var msg = MsgList[click_avatar_msgid];
-            location.href ="/chats/wap.index/sl.html?sid="+msg['uid'];
+            location.href ="{php echo $this->createMobileUrl('send_gift', array('rid' => $rid,'from_user'=>$fans['from_user']))}&uid="+msg['from_user'];
         });
 
         $(".user_menu_delmsg").click(function(){
             var msg = MsgList[click_avatar_msgid];
-            $.getJSON("/chats/message/delmsg?id="+msg['id'],function(data){
-                if(data.code==1){
-                    $.tip(data.msg);
+            $.getJSON("{php echo $this->createMobileUrl('deletemsg',array('rid' => $rid,'uid'=>$fans['from_user']));}&msgid="+msg['id'],function(data){
+                if(data.isResultTrue==1){
+//                    $.tip(data.msg);
                     MsgLoader.deleteMsgbox(msg['id']);
                     $('.fish_modal').click();
                 }
@@ -993,16 +1331,149 @@
 </div>
 
 <div class="right_index">
-    <div class="hb_bgbox"></div>
-    <div class="hb_bgbox_user" style="background-image:url(http://wx.qlogo.cn/mmopen/Q3auHgzwzM7ujBGHrMtCSiaE4X64qKGP1fpNWWgYC8rR13HibgoIicgOMuOH8SEgdPNxHsd0vvIZeRMAB7qZCRE3A/0)"></div>
+    <div class="hb_bgbox" onclick="haobang()"></div>
+    <div class="hb_bgbox_user" style="background-image:url({if $first_one}{php echo $first_one}{else}{php echo tomedia($fans['avatar'])}{/if})"></div>
     <ul style="position: relative; float: right; right: 0.4rem;">
+        {if $fashb['isfanshb']==1}
         <li class="wall_menu_rp"></li>
+        {/if}
+        {if $bp['isbp']==1}
                 <li class="wall_menu_bp"></li>
+        {/if}
+        {if $bp['isds']==1}
                 <li class="wall_menu_ds"></li>
-                <li class="wall_menu_el" data-href="/chats/wap.index/el.html?type=2"></li>
-                <li class="wall_menu_sl" data-href="/chats/wap.index/sl.html?type=2"></li>
+        {/if}
+         {if $bp['isbb']==1}
+                <li class="wall_menu_el" data-href="{php echo $this->createMobileUrl('express_love', array('rid' => $rid,'from_user'=>$fans['from_user']))}"></li>
+            {/if}
+        {if $bp['is_gift']==1}
+                <li class="wall_menu_sl" data-href="{php echo $this->createMobileUrl('send_gift', array('rid' => $rid,'from_user'=>$fans['from_user']))}"></li>
+           {/if}
+        {if $xys['isxys']==0}
+        <li class="wall_menu_charts" onclick="showrule();"></li>
+        {/if}
+        {if $fashb['is_ty']==1}
+        <li class="wall_menu_ty" onclick="go_ty();"></li>
+         {/if}
+        {if $bp['is_mf']==1}
+        <li class="wall_menu_mf" data-href="{php echo $this->createMobileUrl('m_friends', array('rid' => $rid,'from_user'=>$fans['from_user']))}"></li>
+            {/if}
+        <!--<li class="wall_menu_ap"></li>-->
+        <!--<li class="wall_menu_dc"></li>-->
+
             </ul>
 </div>
+
+<div id="rulebox" style="display:none;z-index: 99999999;">
+    <div class="rulebody"><span id="bp_title" style="font-size:20px;text-align:center;color: #03bd01;display: block;">许愿</span>
+        <div id="bapingImage"></div>
+        <input name="bpfor" type="hidden" value="" id="bpfor"/>
+        <div class="form-group1 row1" style="margin-top:20px;">
+            <label class="control-label col-md-4"></label>
+            <div class="col-md-8 xuyuan">
+                <div id="bapingQiehuan">
+                    <textarea id="bapingContent"  class="form-control" name="content" style="margin-top:20px;width:92%; margin-left: 2%;margin-right: 2%;height:100px;border:1px solid #dcdcdc; overflow:hidden; resize:none;   padding: 2%;" placeholder="请不要发布广告涉黄等内容" ></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div style="width:100%;height:30px;text-align:center;line-height: 30px;    margin: 4% auto 1%;">
+
+        <button class="rulefoot1" type="button"   onClick="closeRule();" style="background:none;color:black;">取消</button>
+        <button class="rulefoot1" type="button" style="width: 40%;" id="button">
+            <input type="button" value="许愿" style="background:none;border: none;color: #fff;" id="bpSubmit"/>
+            <input type="hidden" value="0" id="_type"/>
+            <!--0表示许愿1表示霸屏-->
+        </button>
+    </div>
+
+</div>
+
+<div id="markser" style="z-index: 9999999"></div>
+<div id="toast"></div>
+
+<script>
+    function showrule(){
+        if (1 == isback)
+        {
+            $.tip("您已经被禁言,不能许愿了");
+            return;
+        }
+
+        var title='心愿';
+        $("#bp_title").text(title);
+        $(".baping").hide();
+        $(".xuyuan").show();
+        $("#markser").show();
+        $("#bpSubmit").val("许愿");
+        $("#rulebox").show();
+        $("#_type").val("0");
+    }
+    function closeRule(){
+        $("#rulebox").hide();
+        $("#markser").hide();
+    }
+
+
+
+    $("#button").click(function () {
+        var $btn = $(this);
+        var $type =$("#_type").val();
+
+        if ($btn.hasClass("disabled")) return;
+        $btn.addClass("disabled");
+        if($type==0){
+
+            if (($("#bapingQiehuan textarea").val() == "") || ($("#bapingQiehuan textarea").val() == "null")) {
+
+
+                $btn.removeClass("disabled");
+                return $.tip('请输入要许愿的话');
+
+            }else {
+                var message = $("#bapingQiehuan textarea").val();
+                if(!keyWord.check(message)){
+                    $("#bapingQiehuan textarea").val('');
+                    return $.tip('请勿发布广告等不适内容');
+                }
+//                console.log(message);
+                //敏感词
+                message = keyWord.replace(message);
+            }
+            $.ajax({
+                url: '{php echo $this->createMobileUrl('savemessages',array('id'=>$rid,'from_user'=>$page_from_user))}',
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                data: {
+                    "message": message,
+                    "type": 1,
+                },
+                success: function(data) {
+                    $btn.removeClass("disabled");
+                    if (data.success == 1) {
+                        $("#rulebox").hide();
+                        $("#bapingQiehuan textarea").val("");
+                        $("#markser").hide();
+//                        $(".content video").show();
+                        $.tip("许愿成功！！")
+                    } else {
+//                        $(".content video").show();
+                        $.tip(data.msg)
+                        return;
+                    }
+                },
+                error: function() {
+                    window.location.reload();
+                }
+            });
+        }
+
+
+
+    })
+</script>
 <style>
     @keyframes icon-spin {
         0% {
@@ -1018,29 +1489,113 @@
     #open_loading .loading_icon .spin{width: 45%;animation: icon-spin 2s infinite linear;}
     #open_loading .loading_text{margin: auto;font-size: 5vw;font-family: '微软雅黑';color:#C6C6C6;padding: 2vh 6vh;background: #000000c9;display: inline-block;}
 </style>
+<div id="zhifu" style="display: none">
 
+    <h4>订单信息</h4>
+
+    <div class="panel">
+
+        <div class="clearfix" style="padding-top:10px;">
+
+            <p>商品名称 :<span class="pull-right otitle">{$params['title']}</span></p>
+
+            <p>订单编号 :<span class="pull-right ordersn" >{$params['ordersn']}</span></p>
+
+            <p>商家名称 :<span class="pull-right shangjia">{$_W['account']['name']}</span></p>
+
+            <p>支付金额 :<span class="pull-right jine">￥{php echo sprintf('%.2f', $params['fee']);} 元</span></p>
+        </div>
+
+    </div>
+
+    <div class="pay-btn" id="wechat-panel">
+
+        <form action="{php echo url('mc/cash/wechat');}" method="post" id="biaodan">
+
+            <input type="hidden" name="params" value=""  />
+
+            <input type="hidden" name="token" value="{$_W['token']}" />
+
+            <button class="weui_btn_primary weui_btn col-sm-12"  style="z-index: 9999;" type="submit" id="wBtn" value="wechat">微信支付(必须使用微信内置浏览器)</button>
+
+        </form>
+
+    </div>
+
+
+</div>
 <script type="text/javascript" src="../addons/haoman_dpm/new_messages/emojione.js"></script>
-<script type="text/javascript" src="../addons/haoman_dpm/new_messages/upload.min.js?v=213"></script>
+<script type="text/javascript" src="../addons/haoman_dpm/new_messages/upload.min.js?v=2133"></script>
 <script type="text/javascript" src="../addons/haoman_dpm/new_messages/lrz.bundle.js"></script>
-<script type="text/javascript" src="../addons/haoman_dpm/new_messages/chats.min.js?v=1"></script>
-<script type="text/javascript" src="../addons/haoman_dpm/new_messages/fish_ui.min.js"></script>
-<script>isadmin = false;user_id=1012793;</script>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" charset="utf-8">
-    wx.config({"debug":false,"beta":false,"appId":"wx44be8594e19523bc","nonceStr":"lyVyXKefR9","timestamp":1502002558,"url":"http:\/\/wap.91qudong.com\/chats\/wap.index?h=gbgbhzomqi","signature":"ec96c3cdbac407e1b3eebbc096c28834039bb3bb","jsApiList":["onMenuShareAppMessage","onMenuShareTimeline"]});
-    wx.ready(function () {
-        wx.onMenuShareAppMessage({
-            title: '有鱼互动',
-            desc: '19酒吧',
-            link: 'http://wap.91qudong.com/chats/wap.index/Hgbgbhzomqi',
-            imgUrl: 'http://img.91qudong.com/static/items/image/14942229687461883.png'
-        });
-        wx.onMenuShareTimeline({
-            title: '有鱼互动',
-            link: 'http://wap.91qudong.com/chats/wap.index/Hgbgbhzomqi',
-            imgUrl: 'http://img.91qudong.com/static/items/image/14942229687461883.png'
-        });
+<script type="text/javascript" src="../addons/haoman_dpm/new_messages/chats.min.js?v=2021941"></script>
+<script type="text/javascript" src="../addons/haoman_dpm/new_messages/fish_ui.min.js?v=1222"></script>
+
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<!--<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>-->
+<script type="text/javascript">
+    wx.config({
+        debug:false,
+        appId: '{$package["appId"]}',
+        timestamp: '{$package["timestamp"]}',
+        nonceStr: '{$package["nonceStr"]}',
+        signature: '{$package["signature"]}',
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
+        ]
     });
+    var sharedata = {
+        "imgUrl" : "{$shareimg}",
+        "link" : "{$sharelink}",
+        "desc" : "{$sharedesc}",
+        "title" : "{$sharetitle}"
+    };
+
+    wx.ready(function () {
+        {if $reply['is_b_share'] == 2}
+        wx.hideOptionMenu();
+        {else}
+        wx.showOptionMenu();
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+        wx.onMenuShareQQ(sharedata);
+        wx.onMenuShareQZone(sharedata);
+        wx.onMenuShareWeibo(sharedata);
+        {/if}
+        });
+
 </script>
 <script type="text/javascript">
     window.onerror=function(msg,url,line){
@@ -1063,6 +1618,17 @@
 </script>
 
 <script>
+    function go_ty(){
+        if (1 == isback)
+        {
+            $.tip("您已经被禁言");
+            return;
+        }
+        location.href = "{php echo $this->createMobileUrl("mob_bp_sq", array('id' => $rid))}";
+    }
+    function haobang(){
+        location.href = "{php echo $this->createMobileUrl("haobang", array('rid' => $rid,'uid'=>$fans['from_user'],'type'=>'today'))}";
+    }
     $(function(){
         FastClick.attach(document.body);
     });
@@ -1070,6 +1636,7 @@
 <script type="text/javascript">
     var upload = {
         start:function(){
+
             $.loadingModal(!0, "上传中..");
         },
         done:function(src,bigSrc,type){
@@ -1106,6 +1673,11 @@
         }
     }
     var imageUpLoad = function(e,type){
+        if (1 == isback)
+        {
+            $.tip("您已经被禁言");
+            return;
+        }
         upload.start();
         selectFileImage(e,{
             width:200,height:200,

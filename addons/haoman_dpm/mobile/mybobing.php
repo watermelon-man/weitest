@@ -78,24 +78,24 @@ $fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid 
 
  $mybobing = pdo_fetchall("select * from " . tablename('haoman_dpm_award') . " where rid = :rid and from_user =:from_user and uniacid = :uniacid ORDER BY id desc",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
 $nums =0;
-foreach($mybobing as $k){
-
-	if($k['status']==1&&$k['prizetype']==0){
-		$nums +=$k['credit'];
-	}
-}
+//foreach($mybobing as $k){
+//
+//	if($k['status']==1&&$k['prizetype']==0){
+//		$nums +=$k['credit'];
+//	}
+//}
 
 //$award = pdo_fetchall("select * from " . tablename('haoman_dpm_award') . " where status = 1 and prizetype = 0 and rid = " . $rid . " and from_user='" . $from_user . "'");
 //
 //foreach($award as $k){
 //    $nums +=$k['credit'];
 //}
-	$hb_award = pdo_fetchall("select * from " . tablename('haoman_dpm_hb_award') . " where rid = :rid and  status = 1 and prizetype = 0   and from_user=:from_user and uniacid = :uniacid",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
-	$nums_hb =0;
-	foreach($hb_award as $v){
-		$nums_hb +=$v['credit'];
-	}
-   $nums= $nums+$nums_hb*100;
+//	$hb_award = pdo_fetchall("select * from " . tablename('haoman_dpm_hb_award') . " where rid = :rid and  status = 1 and prizetype = 0   and from_user=:from_user and uniacid = :uniacid",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
+//	$nums_hb =0;
+//	foreach($hb_award as $v){
+//		$nums_hb +=$v['credit'];
+//	}
+   $nums= $fans['totalnum'];
 
 	$cashs = pdo_fetchall("select * from " . tablename('haoman_dpm_cash') . " where rid = :rid and from_user =:from_user and uniacid = :uniacid and status = 0",array(':rid'=>$rid,':from_user'=>$from_user,'uniacid'=>$uniacid));
     $numx = 0;

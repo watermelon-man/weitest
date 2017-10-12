@@ -5,9 +5,34 @@ require_once "phpqrcode.php";/*引入PHP QR库文件*/
 //require_once '../framework/library/qrcode/phpqrcode.php';
 require_once "jssdk.php";
 require_once ROOT_PATH."custom/custom.inc.php"; //引入定制判断文件
+
+require ROOT_PATH .'GatewayClient/Gateway.php';
+// GatewayClient 3.0.0版本开始要使用命名空间
+use GatewayClient\Gateway;
+
 class haoman_dpmModuleSite extends WeModuleSite {
 
-
+//workerman 语句
+//发送给所有 Gateway::sendToAll(json_encode($_W));
+//发送给当前链接 Gateway::sendToClient($client_id, json_encod($data));
+//关闭链接 Gateway::closeClient($client_id);
+//是否在线 Gateway::isOnline($client_id);
+//注册uid Gateway::bindUid($client_id, $uid);
+//判断uid是否在线 Gateway::isUidOnline($uid);
+//获取uid的链接 Gateway::getClientIdByUid($uid);
+//解除绑定 Gateway::unbindUid($client_id, $uid);
+//发送给绑定的uid Gateway::sendToUid($uid, $data);
+//加入群组 Gateway::joinGroup($client_id, $group);
+//发送群组信息 Gateway::sendToGroup($group, $data);
+//离开群组 Gateway::leaveGroup($client_id, $group);
+//获取群组 Gateway::getClientCountByGroup($group);
+//登记群组Gateway::getClientSessionsByGroup($group);
+//获取所有链接Gateway::getAllClientCount();
+//获取所有的超级变量 Gateway::getAllClientSessions();
+//设置超级变量 Gateway::setSession($client_id, $session);
+//更新超级变量 Gateway::updateSession($client_id, $session);
+//设置超级变量的链接 Gateway::getSession($client_id);
+    //客服发送给粉丝
     
     /******************************* 定制开始区域  *********************************************/
 
@@ -226,6 +251,39 @@ class haoman_dpmModuleSite extends WeModuleSite {
 	public function doMobilelogin(){
 		$this->__mobile(__FUNCTION__);
 	}
+	//2017-10-04
+    public function doMobilewxceshi(){
+            $this->__mobile(__FUNCTION__);
+        }
+    //微信端登陆uid绑定chlient_id
+//        public function doMobileWsend(){
+//            global $_W,$_GPC;
+//            $uniacid = $_W['uniacid'];
+//            $client_id = $_POST['client_id'];
+//            $rid = intval($_GPC['rid']);
+//            $from_user = $_W['fans']['from_user'];
+//            $avatar = $_W['fans']['tag']['avatar'];
+//            $nickname = $_W['fans']['nickname'];
+//
+//            $from_user =1;
+//            $uid = $from_user;
+//            // 用户已经登录，用户uid在session中
+//            Gateway::bindUid($client_id, $uid);
+//
+//            $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and status = 1 and is_back !=1 and is_xy !=1  ORDER BY id desc limit 20",array(':rid'=>$rid,':uniacid'=>$uniacid));
+//
+//            $time = time() - 7 * 3600 * 24;
+//
+//
+//                    $log_message = [
+//                        'message_type' => 'logMessage',
+//                        'data' => $list
+//                    ];
+//
+//                    Gateway::sendToAll(json_encode($log_message));
+////                    Gateway::sendToUid($uid, json_encode($log_message));
+//
+//        }
 
     public function doMobileframe(){
         $this->__mobile(__FUNCTION__);
@@ -497,6 +555,233 @@ class haoman_dpmModuleSite extends WeModuleSite {
     //新增霸屏部分
 
     public function doMobiledpm_bp(){
+        $this->__mobile(__FUNCTION__);
+    }
+    //2017-09-16
+    //新增主题霸屏
+    public function doMobiledpm_newbp(){
+        $this->__mobile(__FUNCTION__);
+    }
+    public function doMobileget_times(){
+        global $_GPC,$_W;
+        $t = time();
+
+
+        $data = array(
+            'lasttime' => $t,
+        );
+
+        echo json_encode($data);
+        exit;
+
+
+    }
+
+    public function doMobileget_bangdan(){
+        global $_GPC,$_W;
+        $rid = intval($_GPC['rid']);
+//        $rid = 233;
+        $uniacid = $_W['uniacid'];
+        $type = intval($_GPC['type']);
+
+        $reply = pdo_fetch("select * from " . tablename('haoman_dpm_reply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
+
+//        $from_user = $_W['fans']['from_user'];
+//        $avatar = $_W['fans']['tag']['avatar'];
+//        $nickname = $_W['fans']['nickname'];
+//
+//        load()->model('account');
+//        $_W['account'] = account_fetch($_W['acid']);
+//        $cookieid = '__cookie_haoman_dpm_201606186_' . $rid;
+//        $cookie = json_decode(base64_decode($_COOKIE[$cookieid]),true);
+//        if ($_W['account']['level'] != 4) {
+//            $from_user = authcode(base64_decode($_GPC['from_user']), 'DECODE');
+//            $avatar = $cookie['avatar'];
+//            $nickname = $cookie['nickname'];
+//        }
+//检测是否为空
+//        $fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid = '" . $rid . "' and from_user='" . $from_user . "'");
+//        if ($fans == false) {
+//            header("HTTP/1.1 301 Moved Permanently");
+//            header("Location: " . $this->createMobileUrl('information', array('id' => $rid,'from_user'=>$page_from_user)) . "");
+//            exit();
+//        }
+        $params = array(':rid' => $rid, ':uniacid' => $_W['uniacid']);
+        if($type==0){
+//            今日榜单
+            $t = time();
+            $start = mktime(0,0,0,date("m",$t),date("d",$t),date("Y",$t));
+            $end = mktime(23,59,59,date("m",$t),date("d",$t),date("Y",$t));
+
+
+            $where.=' and createtime>=:createtime1 and createtime<=:createtime2 ';
+
+            $params[':createtime1'] = $start;
+            $params[':createtime2'] = $end;
+
+        }
+
+//        $datas = pdo_fetchall("SELECT avatar,nickname,pay_total FROM " . tablename('haoman_dpm_pay_order') . " WHERE uniacid = :uniacid and rid =:rid AND status= 2 AND pay_type != 0  ORDER BY pay_total DESC LIMIT 10", $params);
+        $datas = pdo_fetchall("SELECT avatar,nickname,sum(pay_total)as money FROM " . tablename('haoman_dpm_pay_order') . " WHERE uniacid = :uniacid and rid =:rid AND status= 2 AND pay_type != 0 " . $where . " GROUP BY from_user ORDER BY money DESC LIMIT 10", $params);
+
+        if($datas){
+            $data = array(
+                'errno' => 0,
+                'message' => $datas,
+            );
+        }else{
+            $data = array(
+                'errno' => 1,
+                'message' => '未获取',
+            );
+        }
+
+
+        echo json_encode($data);
+        exit;
+
+
+    }
+
+    public function doMobileget_moremessages(){
+        global $_GPC,$_W;
+         $rid = intval($_GPC['rid']);
+//        $rid = 233;
+        $uniacid = $_W['uniacid'];
+        $lasttime = intval($_GPC['lasttime']);
+        $show_max_id = intval($_GPC['show_max_id']);
+
+
+        $reply = pdo_fetch("select * from " . tablename('haoman_dpm_reply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
+
+//        $from_user = $_W['fans']['from_user'];
+//        $avatar = $_W['fans']['tag']['avatar'];
+//        $nickname = $_W['fans']['nickname'];
+//
+//        load()->model('account');
+//        $_W['account'] = account_fetch($_W['acid']);
+//        $cookieid = '__cookie_haoman_dpm_201606186_' . $rid;
+//        $cookie = json_decode(base64_decode($_COOKIE[$cookieid]),true);
+//        if ($_W['account']['level'] != 4) {
+//            $from_user = authcode(base64_decode($_GPC['from_user']), 'DECODE');
+//            $avatar = $cookie['avatar'];
+//            $nickname = $cookie['nickname'];
+//        }
+//检测是否为空
+//        $fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid = '" . $rid . "' and from_user='" . $from_user . "'");
+//        if ($fans == false) {
+//            header("HTTP/1.1 301 Moved Permanently");
+//            header("Location: " . $this->createMobileUrl('information', array('id' => $rid,'from_user'=>$page_from_user)) . "");
+//            exit();
+//        }
+
+        $list = pdo_fetchall("SELECT id,is_bpshow FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and is_bp =1 and is_bpshow =1 and id<=:id ",array(':rid'=>$rid,':uniacid'=>$uniacid,':id'=>$show_max_id));
+
+        foreach ($list as $v){
+            pdo_update('haoman_dpm_messages',array('is_bpshow'=>0),array('id'=>$v['id']));
+        }
+
+
+
+            $data = array(
+                'hadNew' => 1,
+                'delmsg' => '',
+                'lasttime' => $lasttime,
+                'show_max_id' => $show_max_id,
+            );
+
+
+
+        echo json_encode($data);
+        exit;
+
+
+    }
+
+    public function doMobileget_moremessages2(){
+        global $_GPC,$_W;
+        $rid = intval($_GPC['rid']);
+//        $rid = 233;
+        $uniacid = $_W['uniacid'];
+        $lasttime = intval($_GPC['lasttime']);
+        $show_max_id = intval($_GPC['show_max_id']);
+
+        $reply = pdo_fetch("select * from " . tablename('haoman_dpm_reply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
+        $fanshb = pdo_fetch("select is_show_screen from " . tablename('haoman_dpm_hb_setting') . " where rid = :rid order by `id` asc", array(':rid' => $rid));
+
+        $bpreply = pdo_fetch("SELECT status,bp_mesages_num FROM " . tablename('haoman_dpm_bpreply') . " WHERE uniacid=:uniacid AND rid = :rid LIMIT 1", array(':uniacid' => $uniacid, ':rid' => $rid));
+
+        $num = $bpreply['bp_mesages_num'];
+
+        $totaldata = pdo_fetchcolumn("SELECT id FROM " . tablename('haoman_dpm_messages') . " WHERE uniacid = :uniacid AND rid = :rid and is_back !=1 and is_xy !=1  ORDER BY id DESC", array(':uniacid' => $uniacid,':rid'=>$rid));
+
+        $limit = 200;
+
+        $limit = $totaldata - $show_max_id;
+        if($num>0){
+            if($limit>$num){
+                $limit =$num;
+            }
+
+        }else{
+            if($limit>2000){
+                $limit =200;
+            }
+        }
+    if($fanshb['is_show_screen']==1){
+        $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and is_back !=1 and is_xy !=1 and is_bp = 1  ORDER BY id DESC limit {$limit}",array(':rid'=>$rid,':uniacid'=>$uniacid));
+
+    }else{
+        $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and is_back !=1 and is_xy !=1  ORDER BY id DESC limit {$limit}",array(':rid'=>$rid,':uniacid'=>$uniacid));
+
+    }
+
+        foreach ($list as &$v){
+            $v['extend_params'] = '' ;
+            //主题名称
+            if(!empty($v['bb_theme'])){
+                $v['theme'] =$v['bb_theme'] ;
+            }
+            $v['word'] = $this->emoji_decode($v['word'] );
+            if($v['wordimg']){
+                $v['wordimg'] = tomedia($v['wordimg']);
+            }
+            if($v['type']==4){
+                $v['extend_params']=tomedia($v['wordimg']);
+            }
+            if($v['type']==2&&$v['gift_id']!=''){
+                $v['extend_params'] = pdo_fetch("SELECT `name`,`id`,`says`,`ds_time`as`bp_time`,`ds_pic`as`ds_user_avatar`,ds_vodiobg,`sort`as`iconName` FROM " . tablename('haoman_dpm_guest') . " WHERE id =:id and  rid = :rid and uniacid = :uniacid  ORDER BY id DESC ",array(':id'=>$v['gift_id'],':rid'=>$rid,':uniacid'=>$uniacid));
+                $v['bp_time'] =  $v['extend_params']['bp_time'];
+                $v['forwho'] =  tomedia($v['extend_params']['ds_vodiobg']);
+            }elseif($v['type']==7){
+                $v['to_sex'] = $v['gift'] ;
+                $v['extend_params'] = pdo_fetch("SELECT `bb_name`as`gift_des`,`bb_pic` as `gift_gif` FROM " . tablename('haoman_dpm_bbgift') . " WHERE id =:id  ",array(':id'=>$v['gift_id']));
+//                $v['forwho'] =  tomedia($v['extend_params']['ds_vodiobg']);
+            }elseif($v['type']==6){
+                $v['to_sex'] = $v['gift'] ;
+                $v['extend_params'] = pdo_fetch("SELECT * FROM " . tablename('haoman_dpm_bbgift') . " WHERE id =:id  ",array(':id'=>$v['gift_id']));
+
+            }
+
+        }
+        unset($v);
+            $data = array(
+                'list' =>  $list,
+                'lasttime' =>time(),
+                'totaldata' =>$totaldata,
+                'limit' =>$limit,
+                'show_max_id' =>$show_max_id,
+            );
+
+
+
+        echo json_encode($data);
+        exit;
+
+
+    }
+
+    public function doMobilesyncinfo(){
         $this->__mobile(__FUNCTION__);
     }
 
@@ -1546,8 +1831,12 @@ class haoman_dpmModuleSite extends WeModuleSite {
                 $bpreply = pdo_fetch("select * from " . tablename('haoman_dpm_bpreply') . " where uniacid = :uniacid and rid =:rid order by `id` desc", array(':uniacid' => $_W['uniacid'],':rid'=>$order['rid']));
                 $bphb = pdo_fetch("select * from " . tablename('haoman_dpm_hb_setting') . " where uniacid = :uniacid and rid =:rid order by `id` desc", array(':uniacid' => $_W['uniacid'],':rid'=>$order['rid']));
 
-                if($order['pay_type']==2||$order['pay_type']==3||$order['pay_type']==4){
-                    $linkUrl = $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&m=haoman_dpm&do=messagesindex&id='.$order['rid'];
+                if($order['pay_type']==2||$order['pay_type']==3||$order['pay_type']==4||$order['pay_type']==6||$order['pay_type']==7){
+                    if($reply['ismessage']==2){
+                        $linkUrl = $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&m=haoman_dpm&do=new_messagesindex&id='.$order['rid'];
+                    }else{
+                        $linkUrl = $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&m=haoman_dpm&do=messagesindex&id='.$order['rid'];
+                    }
                     header("HTTP/1.1 301 Moved Permanently");
                     header("Location: " .$linkUrl . "");
                     exit();
@@ -1655,6 +1944,7 @@ class haoman_dpmModuleSite extends WeModuleSite {
                 return false;
             }
         }
+
         if ($exits&&$exits['pay_type']==2){
             //霸屏
             $fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid = '" . $exits['rid'] . "' and from_user='" . $exits['from_user'] . "'");
@@ -1699,6 +1989,7 @@ class haoman_dpmModuleSite extends WeModuleSite {
                     'gift' =>0,
                     'is_bpshow' =>1,
                     'bptime' =>$exits['bptime'],
+                    'bb_theme' =>$exits['pay_addr'],
                     'createtime' => time(),
                 );
                 $temp = pdo_insert('haoman_dpm_messages',$insert);
@@ -1726,11 +2017,11 @@ class haoman_dpmModuleSite extends WeModuleSite {
         }
         if ($exits&&$exits['pay_type']==7){
             //送礼
-            $fans = pdo_fetch("select is_back,avatar from " . tablename('haoman_dpm_fans') . " where rid = '" . $exits['rid'] . "' and from_user='" . $exits['from_user'] . "'");
-            $for_fans = pdo_fetch("select nickname,avatar from " . tablename('haoman_dpm_fans') . " where rid = '" . $exits['rid'] . "' and from_user='" . $exits['from_realname'] . "'");
+            $fans = pdo_fetch("select is_back,avatar,sex from " . tablename('haoman_dpm_fans') . " where rid = '" . $exits['rid'] . "' and from_user='" . $exits['from_user'] . "'");
+            $for_fans = pdo_fetch("select nickname,avatar,totalnum,id,sex from " . tablename('haoman_dpm_fans') . " where rid = '" . $exits['rid'] . "' and from_user='" . $exits['from_realname'] . "'");
 
 //            $reply = pdo_fetch( " SELECT * FROM ".tablename('haoman_dpm_bpreply')." WHERE rid='".$exits['rid']."' " );
-            $item_list = pdo_fetch("SELECT bb_price,bb_time,bb_name FROM " . tablename('haoman_dpm_bbgift') . " WHERE rid = :rid and uniacid = :uniacid and type =1 and id =:id ORDER BY id desc",array(':rid'=>$exits['rid'],':uniacid'=>$exits['uniacid'],':id'=>$exits['wordimg']));
+            $item_list = pdo_fetch("SELECT bb_price,bb_time,bb_name,bb_pic FROM " . tablename('haoman_dpm_bbgift') . " WHERE rid = :rid and uniacid = :uniacid and type =1 and id =:id ORDER BY id desc",array(':rid'=>$exits['rid'],':uniacid'=>$exits['uniacid'],':id'=>$exits['wordimg']));
 
 
                if($exits['psy_type']==4){
@@ -1743,10 +2034,11 @@ class haoman_dpmModuleSite extends WeModuleSite {
                    $typ=1;
                }
 
+            $_status=1;
             if($exits['pay_total']!=$entity['pay_total']){
                 $entity['pay_status']=1;
+                $_status=2;
             }
-
             $update = $entity;
             $ret = pdo_update('haoman_dpm_pay_order', $update, array('transid'=>$transid));
             if($ret) {
@@ -1764,14 +2056,44 @@ class haoman_dpmModuleSite extends WeModuleSite {
                     'is_back' => $fans['is_back'],
                     'is_xy' =>0,
                     'is_bp' =>1,
+                    'sex' =>$fans['sex'],
                     'type' =>$typ,//1表示图片霸屏4表示视频霸屏5表示未他人霸屏
-                    'gift' =>0,
+                    'gift_id' =>$exits['wordimg'],
+                    'gift' =>$for_fans['sex'],
                     'is_bpshow' =>1,
                     'says' =>$exits['message'],
                     'bptime' =>$exits['bptime'],
                     'createtime' => time(),
                 );
                 $temp = pdo_insert('haoman_dpm_messages',$insert);
+
+                if($temp&&$_status!=2&&$exits['closetime']<100){
+                    if($exits['closetime']<0){
+                        $charge = 0;
+                    }else{
+                        $charge =$exits['closetime'];
+                    }
+                    $money =$exits['pay_total'];
+
+                    $totalnum = $money*(100-$charge);
+
+                    $insert_gift = array(
+                        'rid' => $exits['rid'],
+                        'uniacid' => $exits['uniacid'],
+                        'send_fansopenid' =>  $exits['from_user'],
+                        'from_user' =>  $exits['from_realname'],
+                        'gift_id' =>  $exits['wordimg'],
+                        'type' =>  7,
+                        'status' =>  0,
+                        'price' =>  $totalnum,
+                        'percentage' =>  $charge,
+                        'createtime' => time(),
+                    );
+                    pdo_insert('haoman_dpm_love_gife_log',$insert_gift);
+
+                    pdo_update('haoman_dpm_fans', array('totalnum'=>$for_fans['totalnum']+$totalnum), array('id'=>$for_fans['id']));
+                }
+
                 $admin = pdo_fetchall("select id,free_times,uses_times,bpadmin,admin_openid from " . tablename('haoman_dpm_bpadmin') . "  where status=0 and rid=:rid", array(':rid'=>$exits['rid']));
                 $isadmin_msg = pdo_fetch("select isadmin from " . tablename('haoman_dpm_pay_order') . "  where transid = :transid ", array(':transid'=>$transid));
 
@@ -1797,10 +2119,11 @@ class haoman_dpmModuleSite extends WeModuleSite {
         if ($exits&&$exits['pay_type']==6){
             //表白
             $fans = pdo_fetch("select is_back,avatar from " . tablename('haoman_dpm_fans') . " where rid = '" . $exits['rid'] . "' and from_user='" . $exits['from_user'] . "'");
-            $for_fans = pdo_fetch("select nickname,avatar from " . tablename('haoman_dpm_fans') . " where rid = '" . $exits['rid'] . "' and from_user='" . $exits['from_realname'] . "'");
+
+            $for_fans = pdo_fetch("select nickname,avatar,id,totalnum,sex from " . tablename('haoman_dpm_fans') . " where rid = '" . $exits['rid'] . "' and from_user='" . $exits['from_realname'] . "'");
 
 //            $reply = pdo_fetch( " SELECT * FROM ".tablename('haoman_dpm_bpreply')." WHERE rid='".$exits['rid']."' " );
-            $item_list = pdo_fetch("SELECT bb_says,bb_pic,bb_name FROM " . tablename('haoman_dpm_bbgift') . " WHERE rid = :rid and uniacid = :uniacid and type =2 and id =:id ORDER BY id desc",array(':rid'=>$exits['rid'],':uniacid'=>$exits['uniacid'],':id'=>$exits['pay_addr']));
+            $item_list = pdo_fetch("SELECT bb_says,bb_pic,bb_name,id FROM " . tablename('haoman_dpm_bbgift') . " WHERE rid = :rid and uniacid = :uniacid and type =2 and id =:id ORDER BY id desc",array(':rid'=>$exits['rid'],':uniacid'=>$exits['uniacid'],':id'=>$exits['pay_addr']));
 
 
                if($exits['psy_type']==4){
@@ -1814,9 +2137,10 @@ class haoman_dpmModuleSite extends WeModuleSite {
                }else{
                    $typ=1;
                }
-
+            $_status=1;
             if($exits['pay_total']!=$entity['pay_total']){
                 $entity['pay_status']=1;
+                $_status=2;
             }
 
             $update = $entity;
@@ -1836,16 +2160,46 @@ class haoman_dpmModuleSite extends WeModuleSite {
                     'is_back' => $fans['is_back'],
                     'is_xy' =>0,
                     'is_bp' =>1,
+                    'sex' =>$fans['sex'],
                     'type' =>$typ,//1表示图片霸屏4表示视频霸屏5表示未他人霸屏
-                    'gift' =>0,
+                    'gift' =>$for_fans['sex'],
+                    'gift_id' =>$item_list['id'],
                     'is_bpshow' =>1,
-                    'says' =>$item_list['bb_says'],
+                    'says' =>$for_fans['avatar'],
                     'bptime' =>$exits['bptime'],
-                    'bb_theme' =>$item_list['bb_name'],
+                    'bb_theme' =>$item_list['id'],
                     'createtime' => time(),
                 );
                 $temp = pdo_insert('haoman_dpm_messages',$insert);
+
+                if($temp&&$_status!=2&&$exits['closetime']<100){
+                     if($exits['closetime']<0){
+                         $charge = 0;
+                     }else{
+                         $charge =$exits['closetime'];
+                     }
+                     $money =$exits['pay_total'];
+
+                         $totalnum = $money*(100-$charge);
+
+                    $insert_gift = array(
+                        'rid' => $exits['rid'],
+                        'uniacid' => $exits['uniacid'],
+                        'send_fansopenid' =>  $exits['from_user'],
+                        'from_user' =>  $exits['from_realname'],
+                        'gift_id' =>  $item_list['id'],
+                        'type' =>  6,
+                        'status' =>  0,
+                        'price' =>  $totalnum,
+                        'percentage' =>  $charge,
+                        'createtime' => time(),
+                    );
+                    pdo_insert('haoman_dpm_love_gife_log',$insert_gift);
+
+                    pdo_update('haoman_dpm_fans', array('totalnum'=>$for_fans['totalnum']+$totalnum), array('id'=>$for_fans['id']));
+                }
                 $admin = pdo_fetchall("select id,free_times,uses_times,bpadmin,admin_openid from " . tablename('haoman_dpm_bpadmin') . "  where status=0 and rid=:rid", array(':rid'=>$exits['rid']));
+
                 $isadmin_msg = pdo_fetch("select isadmin from " . tablename('haoman_dpm_pay_order') . "  where transid = :transid ", array(':transid'=>$transid));
 
                 foreach($admin as $v){
@@ -1897,7 +2251,7 @@ class haoman_dpmModuleSite extends WeModuleSite {
                     'avatar' => $avatar,
                     'nickname' => $exits['nickname'],
                     'from_user' =>  $exits['from_user'],
-                    'word' => $guest_list['name'],
+                    'word' => $exits['wordimg'],
                     'wordimg' => $item_list['pic'],
                     'rid' => $exits['rid'],
                     'status' => $status,
@@ -1909,7 +2263,7 @@ class haoman_dpmModuleSite extends WeModuleSite {
                     'gift_id' =>$exits['pay_addr'],
                     'gift' =>1,
                     'bptime' =>1,
-                    'says' =>$exits['wordimg'],
+                    'says' =>$guest_list['name'],
                     'createtime' => time(),
                 );
                 $temp = pdo_insert('haoman_dpm_messages',$insert);
@@ -1948,11 +2302,17 @@ class haoman_dpmModuleSite extends WeModuleSite {
 //                $status =1;
 //            }
             $avatar = empty($exits['avatar'])?tomedia($fans['avatar']):tomedia($exits['avatar']);
+
             $fashb = pdo_fetch( " SELECT * FROM ".tablename('haoman_dpm_hb_setting')." WHERE rid='".$exits['rid']."' " );
 
             $hb_money = $entity['pay_total']/((100+$fashb['counter'])/100);//支付费用加手续费
-
+            $abc =$entity['pay_total'];
             $hb_money=sprintf("%.2f",$hb_money);
+            if(empty($fashb['hb_base'])){
+                $hb_bp_time = ceil($fashb['hb_base']*$exits['pay_addr']);
+            }else{
+                $hb_bp_time = 0;
+            }
 
             if($exits['pay_addr']!=$entity['pay_total']){
                 $entity['pay_addr']=$entity['pay_total'];
@@ -2006,11 +2366,24 @@ class haoman_dpmModuleSite extends WeModuleSite {
                     'type' =>3,
                     'gift_id' =>$hbid,
                     'gift' =>1,
-                    'bptime' =>1,
+                    'bptime' =>$hb_bp_time,
                     'says' =>0,
                     'createtime' => time(),
                 );
                 $temp = pdo_insert('haoman_dpm_messages',$insert);
+
+            if($exits['fansid']==1){
+                //账户余额发红包
+
+                if($fans['totalnum']-$entity['pay_total']>0){
+                    $totalmoney = $fans['totalnum']-$abc*100;
+                }else{
+                    $totalmoney=0;
+                }
+                 pdo_update('haoman_dpm_fans', array('totalnum'=>$totalmoney), array('id'=>$fans['id']));
+
+            }
+
                 $admin = pdo_fetchall("select id,free_times,uses_times,bpadmin,admin_openid from " . tablename('haoman_dpm_bpadmin') . "  where status=0 and rid=:rid", array(':rid'=>$exits['rid']));
                 $isadmin_msg = pdo_fetch("select isadmin from " . tablename('haoman_dpm_pay_order') . "  where transid = :transid ", array(':transid'=>$transid));
 
@@ -2029,6 +2402,7 @@ class haoman_dpmModuleSite extends WeModuleSite {
                 }
             };
         }
+
         if ($exits&&$exits['pay_type']==10){
             //购物
             $fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid = '" . $exits['rid'] . "' and from_user='" . $exits['from_user'] . "'");
@@ -2087,7 +2461,30 @@ class haoman_dpmModuleSite extends WeModuleSite {
         return false;
     }
 
+    function emoji_encode($str){
+        $strEncode = '';
 
+        $length = mb_strlen($str,'utf-8');
+
+        for ($i=0; $i < $length; $i++) {
+            $_tmpStr = mb_substr($str,$i,1,'utf-8');
+            if(strlen($_tmpStr) >= 4){
+                $strEncode .= '[[EMOJI:'.rawurlencode($_tmpStr).']]';
+            }else{
+                $strEncode .= $_tmpStr;
+            }
+        }
+
+        return $strEncode;
+    }
+//对emoji表情转反义
+    function emoji_decode($str){
+        $strDecode = preg_replace_callback('|\[\[EMOJI:(.*?)\]\]|', function($matches){
+            return rawurldecode($matches[1]);
+        }, $str);
+
+        return $strDecode;
+    }
 
     //报名订单管理
     public function doWebBm_order() {
@@ -2415,9 +2812,30 @@ class haoman_dpmModuleSite extends WeModuleSite {
                 mkdir($pathName);
             }
             $data = base64_decode($_GPC['strImg']);
+
+
             if (file_put_contents($oImgUrl, $data)) {
-                $img = array('sImgUrl' => tomedia($rImgUrl), 'bImgUrl' => tomedia($rImgUrl));
-                $this->ajaxReturn($status = 1, $img);
+
+                if(!empty($_W['setting']['remote']['type'])) {
+                    load()->func('file');
+                    $remotestatus = file_remote_upload($rImgUrl,true);
+                    if (is_error($remotestatus))
+                    {
+                        file_delete($rImgUrl);
+                        $this->ajaxReturn($status = 0, '远程附件上传失败，请检查配置并重新上传');
+                    }
+                    else {
+                        file_delete($rImgUrl);
+
+                        $img = array('sImgUrl' => tomedia($rImgUrl), 'bImgUrl' => tomedia($rImgUrl));
+                        $this->ajaxReturn($status = 1, $img);
+                    }
+                    exit();
+                }else{
+                    $img = array('sImgUrl' => tomedia($rImgUrl), 'bImgUrl' => tomedia($rImgUrl));
+                    $this->ajaxReturn($status = 1, $img);
+                }
+
             } else {
                 $this->ajaxReturn($status = 0, '图片上传失败');
             }
@@ -2517,7 +2935,14 @@ class haoman_dpmModuleSite extends WeModuleSite {
 	public function doWebAdmanage() {
 		$this->__web(__FUNCTION__);
 	}
-
+ //霸屏背景管理
+	public function doWebbp_bgup() {
+		$this->__web(__FUNCTION__);
+	}
+    //添加霸屏背景
+    public function doWebNewbp_bgup() {
+        $this->__web(__FUNCTION__);
+    }
     //添加广告
 	public function doWebNewad() {
 		$this->__web(__FUNCTION__);
@@ -2799,7 +3224,64 @@ class haoman_dpmModuleSite extends WeModuleSite {
 		}
 		if (pdo_delete('rule', array('id' => $rid))) {
 			pdo_delete('rule_keyword', array('rid' => $rid));
-			//删除统计相关数据
+
+            pdo_delete('haoman_dpm_bptheme',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_award',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_fans',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_data',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_password',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_cash',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_reply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_prize',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_addad',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_messages',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_pici',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_jiabing',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_toupiao',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_tp_log',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_pay_order',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_draw_default',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_yyyreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_yyyuser',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_xysreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_bpreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_bpmoney',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_ds_pay_order',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_ds_reply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_whyerror',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_pair_combination',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_mp4',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_guest',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_xyhm',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_xyhreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_cjxreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_bpadmin',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_notifications',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_hb_log',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_hb_setting',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_hb_award',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_hb_award',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_on_line',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_private_chat',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_change_mysql',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_shouqian',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_shouqianBase',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_newvote',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_newvote_set',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_photo_add',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_photo_setting',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_shop_category',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_shop_goods',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_pay_order_goods',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_shop_setting',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_shop_wditer',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_shop_car',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_paytxlog',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_punishment',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+            pdo_delete('haoman_dpm_pw',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+
+
+            //删除统计相关数据
 			pdo_delete('stat_rule', array('rid' => $rid));
 			pdo_delete('stat_keyword', array('rid' => $rid));
 			//调用模块中的删除
@@ -2825,6 +3307,65 @@ class haoman_dpmModuleSite extends WeModuleSite {
             }
             if (pdo_delete('rule', array('id' => $rid))) {
                 pdo_delete('rule_keyword', array('rid' => $rid));
+
+
+                pdo_delete('haoman_dpm_bptheme',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_award',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_fans',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_data',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_password',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_cash',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_reply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_prize',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_addad',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_messages',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_pici',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_jiabing',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_toupiao',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_tp_log',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_pay_order',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_draw_default',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_yyyreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_yyyuser',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_xysreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_bpreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_bpmoney',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_ds_pay_order',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_ds_reply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_whyerror',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_pair_combination',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_mp4',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_guest',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_xyhm',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_xyhreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_cjxreply',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_bpadmin',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_notifications',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_hb_log',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_hb_setting',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_hb_award',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_hb_award',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_on_line',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_private_chat',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_change_mysql',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_shouqian',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_shouqianBase',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_newvote',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_newvote_set',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_photo_add',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_photo_setting',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_shop_category',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_shop_goods',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_pay_order_goods',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_shop_setting',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_shop_wditer',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_shop_car',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_paytxlog',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_punishment',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+                pdo_delete('haoman_dpm_pw',array('rid' => $rid, 'uniacid' => $_W['uniacid']));
+
+
+
                 //删除统计相关数据
                 pdo_delete('stat_rule', array('rid' => $rid));
                 pdo_delete('stat_keyword', array('rid' => $rid));
@@ -2999,7 +3540,7 @@ class haoman_dpmModuleSite extends WeModuleSite {
        load()->classs('weixin.account');
        load()->func('communication');
        $tokens = WeAccount::token();
-      $url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={$tokens}";
+       $url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={$tokens}";
 		//检测ticket是否过期
 		if ($data['createtime'] < time()) {
 			//$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appSecret."";
@@ -3839,4 +4380,154 @@ class haoman_dpmModuleSite extends WeModuleSite {
         }
         return $type;
     }
+
+    Function get_narrow_img2($Image,$filename)
+    {
+        //获取源图gd图像标识符
+        $srcImg = imagecreatefrompng($Image);
+        $srcWidth = imagesx($srcImg);
+        $srcHeight = imagesy($srcImg);
+
+//创建新图
+        $newWidth = round($srcWidth / 5);
+        $newHeight = round($srcHeight / 5);
+        $newImg = imagecreatetruecolor($newWidth, $newHeight);
+//分配颜色 + alpha，将颜色填充到新图上
+        $alpha = imagecolorallocatealpha($newImg, 0, 0, 0, 127);
+        imagefill($newImg, 0, 0, $alpha);
+
+//将源图拷贝到新图上，并设置在保存 PNG 图像时保存完整的 alpha 通道信息
+        imagecopyresampled($newImg, $srcImg, 0, 0, 0, 0, $newWidth, $newHeight, $srcWidth, $srcHeight);
+        imagesavealpha($newImg, true);
+        imagepng($newImg, $filename);
+    }
+
+        /*
+            * 图片缩略图
+        * $srcfile 来源图片，
+        * $rate 缩放比,默认为缩小一半,或者具体宽度象素值
+        * $filename 输出图片文件名jpg
+        * 例如: resizeimage("zt32.gif",0.1);
+    * 例如: resizeimage("zt32.gif",250　);
+    * 说明:调用时直接把函数的结果放在HTML文件IMG标签中的SRC属性里
+        */
+    function get_narrow_img($srcfile,$rate=.5, $filename = "" ){
+        $size=getimagesize($srcfile);
+        switch($size[2]){
+            case 1:
+                $img=imagecreatefromgif($srcfile);
+                break;
+            case 2:
+                $img=imagecreatefromjpeg($srcfile);
+                break;
+            case 3:
+                $img=imagecreatefrompng($srcfile);
+                break;
+            default:
+                exit;
+        }
+    //源图片的宽度和高度
+        $srcw=imagesx($img);
+        $srch=imagesy($img);
+    //目的图片的宽度和高度
+        if($size[0] <= $rate || $size[1] <= $rate){
+            $dstw=$srcw;
+            $dsth=$srch;
+        }else{
+            if($rate <= 1){
+                $dstw=floor($srcw*$rate);
+                $dsth=floor($srch*$rate);
+            }else {
+                $dstw=$rate;
+                $rate = $rate/$srcw;
+                $dsth=floor($srch*$rate);
+            }
+        }
+//    echo "$dstw,$dsth,$srcw,$srch,$filename ";
+    //新建一个真彩色图像
+
+        $im=imagecreatetruecolor($dstw,$dsth);
+        $black=imagecolorallocate($im,255,255,255);
+        imagefilledrectangle($im,0,0,$dstw,$dsth,$black);
+        imagecopyresized($im,$img,0,0,0,0,$dstw,$dsth,$srcw,$srch);
+    // 以 JPEG 格式将图像输出到浏览器或文件
+
+        if($filename) {
+    //图片保存输出
+            imagejpeg($im, $filename);
+        }else {
+    //图片输出到浏览器
+            imagejpeg($im);
+        }
+    //释放图片
+        imagedestroy($im);
+        imagedestroy($img);
+    }
+    /**
+     * a.合成图片信息 复制一张图片的矩形区域到另外一张图片的矩形区域
+     * @param [type] $bg_image [目标图]
+     * @param [type] $sub_image [被添加图]
+     * @param [type] $add_x [目标图x坐标位置]
+     * @param [type] $add_y [目标图y坐标位置]
+     * @param [type] $add_w [目标图宽度区域]
+     * @param [type] $add_h [目标图高度区域]
+     * @param [type] $out_image [输出图路径]
+     * @return [type] [description]
+     */
+    function image_copy_image($bg_image,$sub_image,$add_x,$add_y,$add_w,$add_h,$out_image)
+    {
+        if ($sub_image) {
+            $bg_image_c = imagecreatefromstring(file_get_contents($bg_image));
+            $sub_image_c = imagecreatefromstring(file_get_contents($sub_image));
+            imagecopyresampled($bg_image_c, $sub_image_c, $add_x, $add_y, 0, 0, $add_w, $add_h, imagesx($sub_image_c), imagesy($sub_image_c));
+//保存到out_image
+            imagejpeg($bg_image_c, $out_image, 80);
+            imagedestroy($sub_image_c);
+            imagedestroy($bg_image_c);
+        }
+    }
+
+    function spliceImage($photo,$kuang,$out_image){
+        //将两幅图分别取到两个画布中
+        $image_kuang = imagecreatefrompng($kuang);
+        $image_photo = imagecreatefrompng($photo);
+        //创建一个新的，和大图一样大的画布
+        $image_3     = imageCreatetruecolor(imagesx($image_kuang),imagesy($image_kuang));
+        //为真彩色画布创建白色背景，再设置为透明
+        $color = imagecolorallocate($image_3, 255, 255, 255);
+        imagefill($image_3, 0, 0, $color);
+        imageColorTransparent($image_3, $color);
+        /**
+         * 制作水印的方法
+         * 先copy框再copy图片 这就添加水印的方法，先复制大图，再复制小图，小图覆盖大图
+        imagecopyresampled($image_3,$image_kuang,0,0,0,0,imagesx($image_kuang),imagesy($image_kuang),imagesx($image_kuang),imagesy($image_kuang));
+        imagecopymerge($image_3,$image_photo, 21,77,0,0,imagesx($image_photo),imagesy($image_photo), 100);
+         **/
+
+        /**
+         * 先copy图片，再copy画框，实现png的透明效果，将图片嵌入到画框里
+         *  imagecopymerge与imagecopy的不同：
+         *  imagecopymerge 函数可以支持两个图像叠加时，设置叠加层的透明度。imagecopymerge比imagecopy多一个参数，来设置透明度
+         *                  PHP内部源码里，imagecopymerge在透明度参数为100时，直接调用imagecopy函数。
+         *  imagecopy 函数则不支持叠加透明，但拷贝时可以保留png图像的原透明信息，而imagecopymerge却不支持图片的本身的透明拷贝
+         *  即：使用imagecopymerge函数，可以实现打上透明度为30%的淡淡的水印图标，但图片本身的png就会变得像IE6不支持png透明那样，背景不透明了。
+         *  如果使用imagecopy函数，可以保留图片本身的透明信息，但无法实现30%的淡淡水印叠加，
+         */
+        imagecopy($image_3,$image_kuang, 0,0,0,0,imagesx($image_kuang),imagesy($image_kuang));
+
+        imagecopyresampled($image_3,$image_photo,220,140,0,0,imagesx($image_photo),imagesy($image_photo),imagesx($image_photo),imagesy($image_photo));
+        //imagecopymerge($image_3,$image_kuang, 0,0,0,0,imagesx($image_kuang),imagesy($image_kuang), 70);
+//        //获得要保存的文件名
+//        $photoArray =   explode('/',$photo);
+//        $fileName   =   explode('.',end($photoArray));
+//        $fileName   =   $fileName[0].'_n.png';
+//        //将图片保存为png格式
+//        //存储图片路径
+//        $newImage   =   "images/".$fileName;
+        imagepng($image_3, $out_image);
+//        //返回图片路径
+//        $imageUrl   =   "images/".$fileName;
+//        return $imageUrl;
+    }
+
 }

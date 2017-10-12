@@ -47,8 +47,13 @@ if (empty($from_user) || empty($avatar) || empty($nickname)) {
 
 $reply = pdo_fetch( " SELECT * FROM ".tablename('haoman_dpm_bpreply')." WHERE rid='".$rid."' " );
 
+$codes =10;
+
 $fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid = '" . $rid . "' and from_user='" . $from_user . "'");
 
+$bp = pdo_fetch("select is_img,isbp,isds,bp_pay,bp_pay2,bp_listword,bp_keyword,ishb,isvo,isbb,is_mf,is_gift from " . tablename('haoman_dpm_bpreply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
+
+$codes =$bp['bp_pay2'];
 //是否是管理员判断
 $isAdmin =0;
 $admin = pdo_fetch("select id,free_times,uses_times from " . tablename('haoman_dpm_bpadmin') . "  where admin_openid=:admin_openid and status=0 and rid=:rid", array(':admin_openid' => $from_user,':rid'=>$rid));
@@ -59,19 +64,32 @@ $guest_id = $_GPC['guest_id'];
 $item_id = $_GPC['item_id'];
 $messages = $_GPC['message'];
 $pay_type = $_GPC['type'];
+$new_type =$_GPC['new_type'];
+
+if($new_type==2){
+    //新版发红包
+    $guest_id = $_GPC['object'] ;
+    $item_id = $_GPC['item'];
+    $messages = $_GPC['content'];
+}
+
 if(empty($nickname)){
     $nickname = trim($_GPC['nickname']);
 }
 
-if(empty($nickname) || empty($avatar)){
+if(empty($nickname) || empty($avatar)||$avatar=='/0'){
     $nickname = $fans['nickname'];
-    $avatar = tomedia($fans['avatar']);
+    if($fans['avatar']&&$fans['avatar']!='/0'){
+        $avatar = tomedia($fans['avatar']);
+    }else{
+        $avatar = '../addons/haoman_dpm/images/item8.jpg';
+    }
 }
 
 if(empty($guest_id)&&empty($item_id)){
     $data = array(
         'success' => 100,
-        'msg' => "请输入打赏不存在",
+        'msg' => "输入的打赏不存在",
     );
 
     echo json_encode($data);
@@ -153,9 +171,9 @@ if (empty($result)) {
             $ress =  $this->modify($transid,$update);
 
             $data = array(
-                'success' => 1,
+                'success' => 2,
                 'isAdmin'=>1,
-                'msg' => "提交霸屏支付成功",
+                'msg' => "提交打赏支付成功",
             );
 //        $ret = pdo_update('haoman_dpm_guest', array('type'=>$item_list['type']+1), array('id'=>$item_list['id']));
             echo json_encode($data);
@@ -168,7 +186,7 @@ if (empty($result)) {
 
     if($token=='onBridge'){
         $data = array('fee' => floatval($item_list['price']), 'uniacid' => $_W['uniacid'], 'ordersn' => date('YmdHi').random(8, 1), 'openid' => $from_user, 'nickname' => $nickname, 'status' => 0, 'title' => "大屏幕霸屏费用", 'xq' => '微信支付', 'addtime' => date('Y-m-d H:i:s', time()));
-        $params = array('tid' => $tid, 'ordersn' => $tid, 'title' => "大屏幕霸屏费用", 'user' => $from_user, 'fee' => floatval($item_list['price']), 'module' => 'haoman_dpm',);
+        $params = array('tid' => $tid, 'ordersn' => $tid, 'title' => "大屏幕打赏费用", 'user' => $from_user, 'fee' => floatval($item_list['price']), 'module' => 'haoman_dpm',);
 
 
         $log = pdo_get('core_paylog', array('uniacid' => $_W['uniacid'], 'module' => $params['module'], 'tid' => $params['tid']));
@@ -181,6 +199,7 @@ if (empty($result)) {
         $params = base64_encode(json_encode($params));
     }
     $data = array(
+        'code' => $codes,
         'success' => 1,
         'params' => $params,
         'arr' => $data,

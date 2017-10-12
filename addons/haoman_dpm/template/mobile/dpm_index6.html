@@ -7,7 +7,10 @@
     <script type="text/javascript" src="../addons/haoman_base/base/semantic.min.js"></script>
     <link rel="stylesheet" href="../addons/haoman_dpm/img6/style.css?v=24323233" type="text/css">
     <link rel="stylesheet" href="../addons/haoman_base/base/semantic.min.css" type="text/css">
+    <!--<link rel="stylesheet" href="../addons/haoman_dpm/common/segoeuiemoji.css" type="text/css">-->
     <script type="text/javascript" src="../addons/haoman_base/base/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../addons/haoman_dpm/new_messages/emojione.js"></script>
+
     <style type="text/css">
         body{
         {if $reply['is_transparent']!=1}
@@ -191,7 +194,7 @@
         if (typeof(oneimgsrc) == 'string') {
             $("#mone").find(".msgcon").html('<img src="' + oneimgsrc + '"/>');
         } else {
-            $("#mone").find(".msgcon").text(oneword);
+            $("#mone").find(".msgcon").text(emojione.toImage(oneword));
         }
         $("#mone").find("span").first().html(onenickname);
         $("#mone").find("img").first().attr('src', onesrc);
@@ -278,14 +281,15 @@
         $.post(url, {
             len:meslen
         }, function(d) {
-            d = eval("(" + d + ")"); 
+
+            d = eval("(" + d + ")");
             // alert(d);return;
             // alert(d);
             // console.log(d['data']);
 
             if (d['ret'] == 1) {
                 $.each(d['data'], function(i, v) {
-                    mesdata.push(new Array(v['id'], v['avatar'], v['nickname'], v['word'], v['wordimg'], v['fromtype']));
+                    mesdata.push(new Array(v['id'], v['avatar'], v['nickname'], emojione.toImage(v['word']), v['wordimg'], v['fromtype']));
                     lastid = v['id'];
 
                     // cur = o_cur;

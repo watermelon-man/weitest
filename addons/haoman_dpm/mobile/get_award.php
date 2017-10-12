@@ -250,7 +250,7 @@ if($reply['most_num_times']>0){
 								'createtime' => time(),
 								'consumetime' => $consumetime,
 								'iszhuangyuan' => $awardinfo['sort'],
-								'status' => 1,
+								'status' => 2,
 							);
 
                           	$nu = $credit/100;
@@ -317,10 +317,7 @@ if($reply['most_num_times']>0){
                                 $awardid = pdo_insertid();
 								$tempss = pdo_update('haoman_dpm_fans', array('today_most_times' => $fans['today_most_times'] + 1,'todaynum' => $fans['todaynum'] + 1,'awardnum' => $fans['awardnum'] + 1,'qhb_awardnum' => $fans['qhb_awardnum'] + 1,'zhongjiang' => 1), array('id' => $fans['id']));
 								$sendhongbao = $this->sendhb($record, $user);
-//								if (is_error($sendhongbao['isok'])) {
-//
-//									$awardinfo['prizename'] = $awardinfo['prizename'] . "虽然您中了红包，但是我们不真发哦！";
-//								} else {
+
 
 									if ($sendhongbao['isok']) {
 
@@ -332,7 +329,9 @@ if($reply['most_num_times']>0){
 											$actions = "亲爱的管理员，有粉丝红包领取失败！\n原因：".$sendhongbao['error_msg'];
 											$this->sendText($reply['hb_lose_openid'],$actions);
 										}
-                                        pdo_update('haoman_dpm_award', array('status' => 1), array('id' => $awardid));
+//                                        pdo_update('haoman_dpm_award', array('status' => 1), array('id' => $awardid));
+
+                                        pdo_update('haoman_dpm_fans', array('totalnum' => $fans['totalnum'] + $credit), array('id' => $fans['id']));
 
                                         $inserts = array(
                                             'uniacid' => $uniacid,
@@ -497,7 +496,7 @@ if($reply['most_num_times']>0){
 							pdo_update('haoman_dpm_fans', array('today_most_times' => $fans['today_most_times'] + 1,'todaynum' => $fans['todaynum'] + 1,'awardnum' => $fans['awardnum'] + 1,'qhb_awardnum' => $fans['qhb_awardnum'] + 1, 'zhongjiang' => 1), array('id' => $fans['id']));
 							pdo_update('haoman_dpm_prize', array('prizedraw' => $awardinfo['prizedraw'] + 1), array('id' => $prizetype));
 
-							mc_credit_update($fansID, 'credit1', $jifen, array($fansID, '咻一咻活动抽中' . $jifen . '积分'));
+							mc_credit_update($fansID, 'credit1', $jifen, array($fansID, '大屏幕活动抽中' . $jifen . '积分'));
 
 
 						}

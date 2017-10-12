@@ -397,21 +397,21 @@
         <div class="menu">
             <ul>
 
-                {if $bp['isbb']==1}
-                <li class="express_love">
-                    <i class="icon iconfont icon-aixin"></i>
-                    表白Ta
-                </li>
-                {/if}
+                <!--{if $bp['isbb']==1}-->
+                <!--<li class="express_love">-->
+                    <!--<i class="icon iconfont icon-aixin"></i>-->
+                    <!--表白Ta-->
+                <!--</li>-->
+                <!--{/if}-->
                 {if $bp['is_mf']==1}
                 <li class="send_msg">私聊Ta</li>
                 {/if}
-                {if $bp['is_gift']==1}
-                <li class="send_gift">
-                    <i class="icon iconfont icon-gift"></i>
-                    送礼物
-                </li>
-                {/if}
+                <!--{if $bp['is_gift']==1}-->
+                <!--<li class="send_gift">-->
+                    <!--<i class="icon iconfont icon-gift"></i>-->
+                    <!--送礼物-->
+                <!--</li>-->
+                <!--{/if}-->
                 <!--<li class="userTip">点击屏幕返回</li>-->
                 <li>点击屏幕返回</li>
 
@@ -447,9 +447,9 @@
         {if $xys['isxys']==0}
         <li class="wall_menu_charts" onclick="showrule();"></li>
         {/if}
-        {if $bp['is_gift']==1}
-        <li class="wall_menu_gift"></li>
-        {/if}
+        <!--{if $bp['is_gift']==1}-->
+        <!--<li class="wall_menu_gift"></li>-->
+        <!--{/if}-->
          {if $fashb['is_ty']==1}
         <li class="wall_menu_ty" onclick="go_ty();"></li>
         {/if}
@@ -1395,7 +1395,7 @@
                     ajax_imageUpload(base64,rotate,function(src,bigSrc){
                         upload.done(src,bigSrc,type);
                     },function(errorMsg){
-                        upload.error();
+                        upload.error(errorMsg);
                     })
                 }
             })

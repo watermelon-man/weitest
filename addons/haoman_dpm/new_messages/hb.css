@@ -1,0 +1,265 @@
+.hb_status_panel {
+  background-color: #d5463a;
+  padding: 5rem 0px 3rem 0px;
+  border-radius: 5px;
+  background-image: url("hb_header.png");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  box-shadow: 0px 0px 5px #c90000;
+}
+.hb_status_panel .avatar {
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  border: 4px #ffffff solid;
+}
+.hb_status_panel .nickname {
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+.hb_status_panel .open_btn {
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  display: block;
+  margin: 4rem auto 0px auto;
+  background-image: url("hb_open.png");
+  background-size: 100% 100%;
+}
+.hb_status_panel .hb_ctx {
+  color: #dddddd;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  margin: 0.7rem 0px 1rem 0px;
+}
+.hb_status_panel .money {
+  margin: 2rem 0px;
+  height: 5rem;
+  font-size: 3.6rem;
+  color: #FFFFFF;
+}
+.hb_status_panel .money span {
+  font-size: 2.4rem;
+}
+.hb_status_panel .show_log {
+  color: #FFF790;
+  font-size: 1rem;
+}
+.hb_status_panel .hbb_tip {
+  margin-top: 2.8rem;
+  color: #FFF790;
+  font-size: 0.8rem;
+}
+.talker_info .barname {
+  float: left;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  margin: 0.5rem 2rem;
+  padding: 0px 2rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #FFFFFF;
+  font-size: 1.1rem;
+}
+.hb_panel label {
+  color: #333333;
+  text-align: left;
+  width: 100%;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.hb_panel label small {
+  color: #999999;
+  font-size: 0.8rem;
+}
+.hb_panel .payment {
+  overflow: auto;
+}
+.hb_panel .payment ul li {
+  color: #9A77D8;
+  float: left;
+  padding: 0.5rem 1rem;
+  border: 1px solid #9A77D8;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+}
+.hb_panel .payment ul .active {
+  color: #ffffff;
+  background-color: #9A77D8;
+}
+.hb_panel .payment .wechat:before {
+  content: "\e62a";
+}
+.hb_panel .payment .hbb:before {
+  content: "\e61d";
+}
+.hb_panel .field {
+  width: 95%;
+  text-align: right;
+  background-color: #F3F3F3;
+  border-radius: 5px;
+  padding-right: 5%;
+}
+.hb_panel .field.null_title {
+  margin-top: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+.hb_panel .field input,
+.hb_panel .field select {
+  text-align: right;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0px;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  color: #999999;
+  width: 60px;
+}
+.hb_panel .field textarea {
+  background-color: rgba(0, 0, 0, 0);
+  border: 0px;
+  padding: 5%;
+  width: 95%;
+  font-size: 1.2rem;
+}
+.hb_panel .hbb_money {
+  font-size: 0.8rem;
+  color: #c90000;
+  opacity: 0;
+}
+.qrcode_panel img {
+  width: 100%;
+}
+.bp_panel .bp_img_field {
+  position: relative;
+  display: inline-block;
+}
+.bp_panel .bp_img_field .photo_file {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+}
+.bp_panel .bp_tc {
+  overflow: auto;
+  margin-bottom: 5vw;
+  font-size: 0.9rem;
+}
+.bp_panel .bp_tc .bp_tc_item {
+  display: inline-block;
+  padding: 0.3rem !important;
+  margin: 0.3rem;
+  background-color: #FFFFFF;
+  border: 1px solid #a380ff;
+  color: #a380ff;
+  border-radius: 2px;
+  width: 40%;
+}
+.bp_panel .bp_tc .bp_tc_item .time {
+  font-size: 1.1rem;
+}
+.bp_panel .bp_tc .bp_tc_item.active {
+  color: #ffffff;
+  background-color: #a380ff;
+  border: 1px solid #8328ff;
+}
+.bp_panel .bp_ctx {
+  overflow: auto;
+}
+.bp_panel .bp_ctx span img {
+  width: 15vw;
+  height: 15vw;
+  border-radius: 3px;
+  border: 1px #dddddd solid;
+}
+.bp_panel .bp_ctx textarea {
+  width: 40vw;
+  border: 1px #eeeeee solid;
+  height: 15vw;
+}
+.bp_panel .admin_bp {
+  margin-top: 20px;
+}
+.hb_logs {
+  max-height: 80vh;
+  overflow: auto;
+}
+.hb_logs ul li {
+  padding: 0.5rem 0rem;
+  margin: 0.5rem 0px;
+  overflow: auto;
+  border-bottom: 1px dashed #999999;
+}
+.hb_logs ul li .avatar {
+  background-size: 100% auto;
+  background-position: left center;
+  background-repeat: no-repeat;
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  float: left;
+}
+.hb_logs ul li p {
+  width: 70%;
+  float: right;
+  overflow: auto;
+}
+.hb_logs ul li .nickname {
+  float: left;
+}
+.hb_logs ul li .money {
+  float: right;
+  color: #c90000;
+}
+.hb_logs ul li .time {
+  color: #999999;
+  font-size: 0.8rem;
+  margin-top: 1.2rem;
+  text-align: left;
+}
+.hb_logs ul li.fee_tip {
+  color: #999999;
+  font-size: 0.8rem;
+}
+.hb_logs {
+  max-height: 80vh;
+  overflow: auto;
+}
+.hb_logs ul li {
+  padding: 0.5rem 0rem;
+  margin: 0.5rem 0px;
+  overflow: auto;
+  border-bottom: 1px dashed #999999;
+}
+.hb_logs ul li .avatar {
+  background-size: 100% auto;
+  background-position: left center;
+  background-repeat: no-repeat;
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  float: left;
+}
+.hb_logs ul li p {
+  width: 70%;
+  float: right;
+  overflow: auto;
+}
+.hb_logs ul li .nickname {
+  float: left;
+}
+.hb_logs ul li .money {
+  float: right;
+  color: #c90000;
+}
+.hb_logs ul li .time {
+  color: #999999;
+  font-size: 0.8rem;
+  margin-top: 1.2rem;
+  text-align: left;
+}
+.hb_logs ul li.fee_tip {
+  color: #999999;
+  font-size: 0.8rem;
+}

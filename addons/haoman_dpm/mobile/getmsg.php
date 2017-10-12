@@ -32,8 +32,8 @@ if($fanss['is_back']==1){
     $isBack=1;
 }
 
-$bp = pdo_fetch("select isbp,isds,ismbp,isvo from " . tablename('haoman_dpm_bpreply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
-if($bp['isbp']==1||$bp['isds']==1||$bp['isvo']){
+$bp = pdo_fetch("select isbp,isds,ismbp,isvo,isbb,is_gift,openscreen from " . tablename('haoman_dpm_bpreply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
+if($bp['isbp']==1||$bp['isds']==1||$bp['isvo']||$bp['is_gift']||$bp['isbb']){
     $isopend =1;
 }else{
     $isopend =0;
@@ -52,13 +52,28 @@ if($op=='new'){
 
         foreach ($list as &$v){
             $v['wordimg'] = tomedia($v['wordimg']);
+
+            if($v['type']==7||$v['type']==6){
+
+                $v['extend_params'] = pdo_fetch("SELECT * FROM " . tablename('haoman_dpm_bbgift') . " WHERE id =:id  ",array(':id'=>$v['gift_id']));
+                $v['wordimg'] = tomedia($v['extend_params']['bb_pic']);
+            }
+
+            $v['word'] = $this->emoji_decode($v['word'] );
+            $v['uid'] = $uid;
         }
    unset($v);
+    if($bp['openscreen']==0){
+        $openscreen = 1;
+    }else{
+        $openscreen = 0;
+    }
         if($list){
             $result = array(
                 'maxid' => $maxid,
-                'isOpened' => $isopend,
+                'isOpened' => $openscreen,
                 'msg' => $list,
+                'uid' => $uid,
                 'count' => 0,
                 'del' => '',
                 'data' => 0,
@@ -68,7 +83,7 @@ if($op=='new'){
         }else{
             $result = array(
                 'maxid' => $maxid,
-                'isOpened' => $isopend,
+                'isOpened' => $openscreen,
                 'msg' => 0,
                 'count' => 0,
                 'del' => '',

@@ -125,9 +125,9 @@
 
         if (B) {
             if (b == "0") {
-                l(B.avatar, B.nickname, face.replaceText(cutstr(B.word,600)), B.id)
+                l(B.avatar, B.nickname, face.replaceText(cutstr(emojione.toImage(B.word),600)), B.id)
             } else {
-                o(B.avatar, B.nickname, face.replaceText(cutstr(B.word,600)), B.id)
+                o(B.avatar, B.nickname, face.replaceText(cutstr(emojione.toImage(B.word),600)), B.id)
             }
 
         }

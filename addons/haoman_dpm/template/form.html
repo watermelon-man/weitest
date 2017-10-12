@@ -331,6 +331,9 @@
 				<label class="radio-inline">
 					<input type="radio" name="ismessage" value="1" disabled {if $reply['ismessage']==1} checked="checked"{/if}/>聊天界面
 				</label>
+				<label class="radio-inline">
+					<input type="radio" name="ismessage" value="2" disabled {if $reply['ismessage']==2} checked="checked"{/if}/>新版聊天界面
+				</label>
 				<input type="hidden" name="ismessage" value="{$reply['ismessage']}" />
 
 				<div class="help-block">手机端消息页面的样式，聊天:类似QQ群聊。修改样式请在【活动开关设置】里面修改</div>
@@ -1093,6 +1096,19 @@
 				<div class="help-block">控制微信端签到资料填写时，是否需要填写的内容！不用签到，默认跳转到消息<span style="color: red">报名时不能选择不用签到！！！</span></div>
 			</div>
 		</div>
+		  <!--<div class="form-group">-->
+			  <!--<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启拍照上传图片功能</label>-->
+			  <!--<div class="col-sm-9">-->
+				  <!--<label class="radio-inline">-->
+					  <!--<input type="radio" name="IsFansImg" onclick="$('#FansImgTitle').hide();" value="0" {if $reply['isfansimg']==0} checked="checked"{/if}/>关闭-->
+				  <!--</label>-->
+				  <!--<label class="radio-inline">-->
+					  <!--<input type="radio" name="IsFansImg" onclick="$('#FansImgTitle').show();" value="1" {if $reply['isfansimg']==1} checked="checked"{/if}/>开启-->
+				  <!--</label>-->
+				  <!--<input style="{if $reply['isfansimg']==0}display: none;{/if}width:250px;" type="text" class="form-control" id="FansImgTitle" placeholder="请输入功能标题" name="FansImgTitle"  value="{$reply['fansimgtitle']}">-->
+				  <!--<div class="help-block">默认关闭，开启拍照上传图片功能，粉丝签到可选择是否上传图片(强制)，该功能可以适应在需要上传身份证明，或是其他需要粉丝提供图片的场景上。开启后，可以自定义上传按钮显示的标题</div>-->
+			  <!--</div>-->
+		  <!--</div>-->
 		  <div class="form-group">
 			<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否手机号码匹配</label>
 			<div class="col-sm-9">
@@ -2536,6 +2552,16 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">红包霸屏基数</label>
+						<div class="col-sm-9 col-xs-6">
+							<div class="input-group">
+								<input type="number" class="form-control" name="hb_base" value="{$fanshb['hb_base']}"/>
+								<span class="input-group-addon">点</span>
+							</div>
+							<div class="help-block"> 默认为1。红包霸屏时间=基数值*支付红包金额(元);如：支付100元，基数为1，既霸屏时间100秒。</div>
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-xs-12 col-sm-3 col-md-2 control-label">手续费</label>
 						<div class="col-sm-9 col-xs-6">
 							<div class="input-group">
@@ -2546,17 +2572,30 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="start_picurl" class="control-label col-xs-12 col-sm-3 col-md-2">聊天顶部banner</label>
-						<div class="col-sm-9 col-xs-12">
-							{php echo tpl_form_field_image('top_bg', $fanshb['top_bg']);}
-							<div class="help-block">不上传使用默认背景，尺寸为：750*120</div>
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝是否需要关注</label>
+						<div class="col-sm-9">
+							<label class="radio-inline">
+								<input type="radio" name="is_follow" value="0" disabled {if $fanshb['is_follow']==0} checked="checked"{/if}/>不需要
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="is_follow" value="1" disabled {if $fanshb['is_follow']==1} checked="checked"{/if}/>需要
+							</label>
+							<input type="hidden" name="is_follow" value="{$fanshb['is_follow']}" />
+							<div class="help-block">默认不关注。如果要关注请上传关注二维码。修改状态请在【活动开关设置】里面修改</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="start_picurl" class="control-label col-xs-12 col-sm-3 col-md-2">公众号logo</label>
+						<label for="start_picurl" class="control-label col-xs-12 col-sm-3 col-md-2">聊天顶部banner或关注二维码</label>
+						<div class="col-sm-9 col-xs-12">
+							{php echo tpl_form_field_image('top_bg', $fanshb['top_bg']);}
+							<div class="help-block">不上传使用默认背景，尺寸为：750*120.新聊天模式内当关注二维码使用。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="start_picurl" class="control-label col-xs-12 col-sm-3 col-md-2">logo或新聊天背景</label>
 						<div class="col-sm-9 col-xs-12">
 							{php echo tpl_form_field_image('bp_logo', $fanshb['bp_logo']);}
-							<div class="help-block">不上传使用默认背景，尺寸为：750*120</div>
+							<div class="help-block">不上传使用默认背景，logo尺寸为：120*120,新聊天背景尺寸：750*1334</div>
 						</div>
 					</div>
 					<!--<div class="form-group">-->

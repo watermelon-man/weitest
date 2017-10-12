@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>聊天室</title>
+    <!--<link rel="stylesheet" href="css/style.css">-->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script type="text/javascript" src="../addons/haoman_base/base/jquery.min.js"></script>
+    <script type="text/javascript" src="../addons/haoman_base/base/web_socket.js"></script>
+</head>
+<body onload="connect();">
+<div class="head"></div>
+<div id="wrapper">
+    <div id="message">
+
+    </div>
+    <div id="action">
+        <textarea id="data"></textarea>
+        <button id="send">发送</button>
+    </div>
+
+</div>
+<script>
+    $('#send').click(function () {
+        var mes = $("#data").val();
+        $.ajax({
+            url: '{php echo $this->createMobileUrl('wxceshi',array('go'=>'a'))}',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data: {
+                "message": mes,
+                "type": 1,
+            },
+            success: function(data) {
+            },
+
+        });
+    })
+</script>
+<script>
+    function connect() {
+        // 创建websocket
+        ws = new WebSocket("ws://"+document.domain+":7272");//插件的链接命令
+        ws.onopen = onopen;//方法自己设置随意
+        ws.onmessage = onmessage;//自己设置随意
+    }
+    function onopen()    {
+
+        // 登录
+//        var login_data = '{"type":"login","client_name":"'+name.replace(/"/g, '\\"')+'","room_id":"1"}';
+        console.log("websocket握手成功");
+        ws.send(login_data); //ws.send（发送信息）；
+    }
+    function onmessage(e) {
+
+        var data = eval("("+e.data+")");
+        console.log(e.data);
+        switch(data['message_type']){
+            case 'ping':
+                ws.send({"type":"pong"});
+              console.log('222');
+                break;
+            case 'init':
+                console.log('1');
+                // 利用jquery发起ajax请求，将client_id发给后端进行uid绑定
+                $.post("{php echo $this->createMobileUrl('wsend',array('rid'=>$rid))}", {client_id: data.client_id}, function(data){}, 'json');
+                break;
+            case 'logMessage':
+                console.log(data.data);
+
+                break;
+        }
+    }
+</script>
+</body>
+</html>

@@ -7,6 +7,7 @@ $type = intval($_GPC['type_']);
 
 $reply = pdo_fetch("SELECT isckmessage,is_realname FROM " . tablename('haoman_dpm_reply') . " WHERE uniacid=:uniacid AND rid = :rid LIMIT 1", array(':uniacid' => $uniacid, ':rid' => $rid));
 
+$fanshb = pdo_fetch("select is_show_screen from " . tablename('haoman_dpm_hb_setting') . " where rid = :rid order by `id` asc", array(':rid' => $rid));
 
 
 if($reply['isckmessage'] == 0){
@@ -19,9 +20,9 @@ if($reply['isckmessage'] == 0){
     $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and id>:id  and is_back !=1 and is_xy !=1 ORDER BY id DESC limit 50",array(':rid'=>$rid,':uniacid'=>$uniacid,':id'=>$len));
 }
 
-foreach ($list as $k=>$vv){
-
-}
+//foreach ($list as $k=>$vv){
+//
+//}
 
     foreach ($list as $k=>&$v){
         if($reply['is_realname']==1) {
@@ -30,10 +31,13 @@ foreach ($list as $k=>$vv){
                 $v['nickname'] = "匿名用户!";
             }
         }
-        if($v['is_bp']!=1){
+        $v['wordimg'] = tomedia($v['wordimg']);
+        $v['word'] = $this->emoji_decode($v['word'] );
+
+        if($v['is_bp']!=1&&$fanshb['is_show_screen']!=1){
             $new_list[$k]=$v;
         }
-        $v['wordimg'] = tomedia($v['wordimg']);
+
     }
     unset($v);
 $new_list = array_values($new_list);

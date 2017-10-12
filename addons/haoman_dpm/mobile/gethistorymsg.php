@@ -42,6 +42,7 @@ foreach($list as &$v){
     $times = date("m-d H:i", $v['createtime']) ;
 //            $v['createtime'] = date("m-d H:i", $v['createtime']) ;
     $v['wordimg'] = tomedia($v['wordimg']);
+    $v['word'] = $this->emoji_decode($v['word'] );
     if(empty($v['avatar'])){
         $v['avatar']="../addons/haoman_dpm/img9/ava_default.jpg";
     }

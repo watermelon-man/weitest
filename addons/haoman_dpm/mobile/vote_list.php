@@ -47,7 +47,7 @@ if($from_user!=$openid){
 
 $now = time();
 
-$toupiao = pdo_fetchall("select * from " . tablename('haoman_dpm_toupiao') . " where rid = :rid and `name` LIKE :keyword or `number`  LIKE :keyword  and status =0 and vote_id=0 order by `id` desc", array(':rid' => $rid,':keyword' => "%{$key}%"));
+$toupiao = pdo_fetchall("select * from " . tablename('haoman_dpm_toupiao') . " where rid = :rid and uniacid = uniacid and (`name` LIKE :keyword or `number`  LIKE :keyword)  and status =0 and vote_id=0 order by `id` desc", array(':rid' => $rid,':uniacid'=>$uniacid,':keyword' => "%{$key}%"));
 
 if($toupiao==false){
     $data = array(

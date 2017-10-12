@@ -122,7 +122,7 @@ $addad_url = $addad[$num1][adlink];
 
 
 //卡券
-$cardArry = $this->getCardTicket($rid,$from_user);
+$cardArry = $this->getCardTicket($rid,$from_user,$id=0);
 
 $awardlist = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_award') . " WHERE rid = :rid and uniacid = :uniacid ORDER BY createtime DESC limit 15 ",array(':rid'=>$rid,':uniacid'=>$uniacid));
 foreach ($awardlist as &$lists) {

@@ -83,11 +83,15 @@ if($bp_index!=$pbtime){
     exit;
 }
 
-if(empty($nickname) || empty($avatar)){
+if(empty($nickname) || empty($avatar)||$avatar=='/0'){
     $nickname = $fans['nickname'];
-    $avatar = tomedia($fans['avatar']);
-}
+    if($fans['avatar']&&$fans['avatar']!='/0'){
+        $avatar = tomedia($fans['avatar']);
+    }else{
+        $avatar = '../addons/haoman_dpm/images/item8.jpg';
+    }
 
+}
 if(empty($message)&&empty($bppic)){
     $data = array(
         'success' => 100,

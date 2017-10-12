@@ -58,7 +58,7 @@
                     <tr style="font-size: 12px;">
                         <td style="width: 60%">聊天抢红包(金额:{php echo $row['credit']})</td>
                         <td style="width:25%;">{php echo date('m/d H:i',$row['createtime'])}</td>
-                        <td style="width: 15%"><strong>{if $row['status']==1}未兑奖{else}已兑奖{/if}</strong></td>
+                        <td style="width: 15%"><strong>{if $row['status']==1}未兑奖{else}已下发{/if}</strong></td>
                     </tr>
                     {/loop}
                 </tbody>

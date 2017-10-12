@@ -13,17 +13,19 @@ if ($_W['account']['level'] != 4) {
 }
 
 $sex =intval($_GPC['type']);
-$page =intval($_GPC['page']);
+//$page =intval($_GPC['page']);
 
 $index = 100;
-
-$start = ($page+1) * $index;
+$params = array(':rid' => $rid, ':uniacid' => $_W['uniacid']);
+$page = max(1, intval($_GPC['page']));
+$start = ($page-1) * $index;
 $limit .= " LIMIT {$start},{$index}";
 //$reply = pdo_fetch("SELECT is_realname FROM " . tablename('haoman_dpm_reply') . " WHERE uniacid=:uniacid AND rid = :rid LIMIT 1", array(':uniacid' => $uniacid, ':rid' => $rid));
 if(!empty($sex)){
     $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_fans') . " WHERE rid = :rid and uniacid = :uniacid and is_back !=1 and sex=:sex ORDER BY id DESC limit 100",array(':rid'=>$rid,':uniacid'=>$uniacid,':sex'=>$sex));
+
 }else{
-    $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_fans') . " WHERE rid = :rid and uniacid = :uniacid and is_back !=1  ORDER BY id DESC ".$limit,array(':rid'=>$rid,':uniacid'=>$uniacid));
+    $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_fans') . " WHERE rid = :rid and uniacid = :uniacid and is_back !=1  ORDER BY id DESC ".$limit,$params);
 
 }
 foreach($list as &$v){

@@ -80,6 +80,12 @@ if (empty($reply)) {
 	message('非法访问，请重新发送消息进入活动页面！');
 }
 
+if($reply['ismessage']==2){
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: {$this->createMobileUrl('new_messagesindex',array('id'=>$rid))}");
+    exit();
+}
+
 $bpmoney = pdo_fetchall("select * from " . tablename('haoman_dpm_bpmoney') . " where rid = :rid and uniacid=:uniacid and bp_type=0 order by `bp_time` asc", array(':rid' => $rid, ":uniacid" => $uniacid));
 if($bpmoney){
     $money  =1;

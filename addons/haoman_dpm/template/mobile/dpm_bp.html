@@ -18,7 +18,8 @@
     <script src="../addons/haoman_dpm/bapinimg/stars.js"></script>
     <link href="./index.php?i={$_W['uniacid']}&c=entry&m=haoman_base&do=GetCss&css=baping" rel="stylesheet" type="text/css">
     <link href="../addons/haoman_dpm/bapinimg/reward.css?v=32312313" rel="stylesheet" type="text/css">
-   
+    <script type="text/javascript" src="../addons/haoman_dpm/new_messages/emojione.js"></script>
+
     <script>
     /*音频js*/
     var audio = {
@@ -65,6 +66,7 @@
             $('#dsAudio').remove();
         }
     }
+
     var setFont = function() {
         var w = $(window).width();
         var h = $(window).height();
@@ -742,7 +744,7 @@
             if(data[x].type == 'image'){
                 img = data[x].word;
             } else if (data[x].type == 'news') {
-                txt = face.replaceText(data[x].message);
+                txt = face.replaceText(emojione.toImage(data[x].message));
                 img = data[x].imgurl;
             } else if (data[x].type == 'interact') { //就座消息
                 type = 'sit';
@@ -754,7 +756,7 @@
                   video =data[x].type;
 
                  richTime = data[x].bptime;
-                 txt = face.replaceText(data[x].word);
+                 txt = face.replaceText(emojione.toImage(data[x].word));
        //         txt = data[x].word;
                 img = data[x].wordimg;
                 //这里判断是否是为TA霸屏
@@ -770,7 +772,7 @@
                 }
             }else if (data[x].is_bp ==0&&data[x].type == 0) { //普通消息
                 type = 'pt';
-                txt = face.replaceText(data[x].word);
+                txt = face.replaceText(emojione.toImage(data[x].word));
                // txt = data[x].word;
                 img = data[x].wordimg;
 

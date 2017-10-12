@@ -5,6 +5,8 @@ $from_user = $_W['openid'];
 $uniacid = $_W['uniacid'];
 $len = intval($_GPC['last_id']);
 $bpreply = pdo_fetch("SELECT status,bp_mesages_num FROM " . tablename('haoman_dpm_bpreply') . " WHERE uniacid=:uniacid AND rid = :rid LIMIT 1", array(':uniacid' => $uniacid, ':rid' => $rid));
+$fanshb = pdo_fetch("select is_show_screen from " . tablename('haoman_dpm_hb_setting') . " where rid = :rid order by `id` asc", array(':rid' => $rid));
+
 $num = $bpreply['bp_mesages_num'];
 if($bpreply['status']==1){
    $totaldata = pdo_fetchcolumn("SELECT count(*) FROM " . tablename('haoman_dpm_messages') . " WHERE uniacid = :uniacid AND rid = :rid and status = 1 and is_back !=1 and is_xy !=1 and is_bpshow = 0", array(':uniacid' => $uniacid,':rid'=>$rid));
@@ -19,9 +21,14 @@ if($bpreply['status']==1){
            $limit =2000;
        }
    }
+if($fanshb['is_show_screen']==1){
+    $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and status = 1 and is_back !=1 and is_xy !=1 and is_bpshow = 0 and is_bp =1 ORDER BY id DESC limit {$limit}",array(':rid'=>$rid,':uniacid'=>$uniacid));
 
+}else{
+    $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and status = 1 and is_back !=1 and is_xy !=1 and is_bpshow = 0 ORDER BY id DESC limit {$limit}",array(':rid'=>$rid,':uniacid'=>$uniacid));
 
-   $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and status = 1 and is_back !=1 and is_xy !=1 and is_bpshow = 0 ORDER BY id DESC limit {$limit}",array(':rid'=>$rid,':uniacid'=>$uniacid));
+}
+
 
 
 //           $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and status =1 and id>:id  and is_back !=1 and is_xy !=1  and is_bpshow = 0   ORDER BY id DESC limit 30",array(':rid'=>$rid,':uniacid'=>$uniacid,':id'=>$len));
@@ -39,7 +46,13 @@ if($bpreply['status']==1){
             $limit =2000;
         }
     }
-   $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and is_back !=1 and is_xy !=1 and is_bpshow = 0 ORDER BY id DESC limit {$limit}",array(':rid'=>$rid,':uniacid'=>$uniacid));
+    if($fanshb['is_show_screen']==1){
+        $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and is_back !=1 and is_xy !=1 and is_bpshow = 0 and is_bp =1 ORDER BY id DESC limit {$limit}",array(':rid'=>$rid,':uniacid'=>$uniacid));
+
+    }else{
+        $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and is_back !=1 and is_xy !=1 and is_bpshow = 0 ORDER BY id DESC limit {$limit}",array(':rid'=>$rid,':uniacid'=>$uniacid));
+
+    }
 
 //   $list = pdo_fetchall("SELECT * FROM " . tablename('haoman_dpm_messages') . " WHERE rid = :rid and uniacid = :uniacid and id>:id  and is_back !=1 and is_xy !=1  and is_bpshow = 0   ORDER BY id DESC limit 30",array(':rid'=>$rid,':uniacid'=>$uniacid,':id'=>$len));
 
@@ -50,6 +63,7 @@ foreach ($list as &$v){
     if($v['wordimg']){
         $v['wordimg'] = tomedia($v['wordimg']);
     }
+    $v['word'] = $this->emoji_decode($v['word'] );
 
 }
 unset($v);

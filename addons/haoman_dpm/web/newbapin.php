@@ -27,6 +27,7 @@ if($token==2){
             'uniacid' => $_W['uniacid'],
             'sort' => 1,
             'thumb' => $_GPC['thumb'],
+            'bp_vodiobg' => $_GPC['bp_vodiobg'],
             'name' => $_GPC['bp_name'],
             'extend_from' => 0,
             'price' => $price,
@@ -51,6 +52,7 @@ if($token==2){
         $item = pdo_fetch("select * from " . tablename('haoman_dpm_bptheme') . "  where id=:uid ", array(':uid' => $uid));
         $keywords = reply_single($item['rid']);
         include $this->template('updatabp_theme');
+        exit();
 
     }elseif($operation == 'del'){
         $uid = intval($_GPC['uid']);
@@ -76,6 +78,7 @@ if($token==2){
             'sort' => 1,
             'thumb' => $_GPC['thumb'],
             'name' => $_GPC['bp_name'],
+            'bp_vodiobg' => $_GPC['bp_vodiobg'],
             'extend_from' => 0,
             'price' => $price,
             'bp_time' => $price,
@@ -95,6 +98,78 @@ if($token==2){
     }else{
 
         include $this->template('newbb_theme');
+        exit();
+    }
+
+
+}
+elseif($token==3){
+
+    if($operation == 'addad'){
+
+        $updata = array(
+            'rid' => $rid,
+            'uniacid' => $_W['uniacid'],
+            'createtime' => time(),
+            'status' => 0,
+            'bp_type' => $_GPC['bp_type'],
+            'bp_images' => $_GPC['bp_images'],
+            'bp_videos' => $_GPC['bp_videos'],
+        );
+
+        // message($keywords['name']);
+
+        $temp = pdo_insert('haoman_dpm_bpmoney', $updata);
+
+        message("添加霸屏背景成功",$this->createWebUrl('bapinshow',array('rid'=>$rid,'token'=>3)),"success");
+
+    }elseif($operation == 'up'){
+        $uid = intval($_GPC['uid']);
+        if(empty($uid)){
+            message('获取霸屏背景ID出错，请刷新后重试', '', 'error');
+        }
+        $item = pdo_fetch("select * from " . tablename('haoman_dpm_bpmoney') . "  where id=:uid ", array(':uid' => $uid));
+
+        $keywords = reply_single($item['rid']);
+        include $this->template('updatanew_bpbg');
+        exit();
+
+    }elseif($operation == 'del'){
+        $uid = intval($_GPC['uid']);
+        if(empty($uid)){
+            message('获取背景ID出错，请刷新后重试', '', 'error');
+        }
+        pdo_delete('haoman_dpm_bpmoney', array('id' => $uid));
+        message("删除霸屏背景成功",$this->createWebUrl('bapinshow',array('rid'=>$rid,'token'=>3)),"success");
+
+    }elseif($operation == 'updataad'){
+
+        $id = $_GPC['listid'];
+
+        $bp_images = $_GPC['bp_images'];
+        if($_GPC['bp_type']==4){
+            $bp_images = $_GPC['bp_images2'];
+        }
+        $updata = array(
+            'rid' => $rid,
+            'uniacid' => $_W['uniacid'],
+            'createtime' => time(),
+            'status' => 0,
+            'bp_type' => $_GPC['bp_type'],
+            'bp_images' => $_GPC['bp_images'],
+            'bp_videos' => $_GPC['bp_videos'],
+        );
+
+
+
+        $temp =  pdo_update('haoman_dpm_bpmoney',$updata,array('id'=>$id));
+
+        message("修改霸屏背景成功",$this->createWebUrl('bapinshow',array('rid'=>$rid,'token'=>3)),"success");
+
+
+    }else{
+
+        include $this->template('new_bpbg');
         exit();
     }
 

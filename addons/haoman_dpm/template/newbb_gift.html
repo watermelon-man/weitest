@@ -23,9 +23,21 @@
 				<div class="help-block">{$_GPC['do']}图片，尺寸140*120</div>
 
 			</div>
+
 			{/if}
 			{if $bb_gift==2}
-
+			<div class="form-group">
+				<label class="control-label">{$_GPC['do']}视频背景</label>
+				<div class="">
+					{if IMS_VERSION >= 0.8}
+					{php echo tpl_form_field_video('bb_vodiobg', $ds['bb_vodiobg']);}
+					<div class="help-block">视频背景mp4格式，控制在3M以内，背景视频只能播放背景效果，无法播放声音</div>
+					{else}
+					<input type="text" class="form-control" name="vodio_bg11" value="{$video['vodio_bg11']}">
+					<div class="help-block">由于微擎0.8以下版本无法上传视频，所以，请直接通过FTP把视频传到服务器，再把文件名填入这边，视频背景mp4格式，控制在3M以内，背景视频只能播放背景效果，无法播放声音</div>
+					{/if}
+				</div>
+			</div>
 			<div class="form-group">
 				<label class="control-label">{$_GPC['do']}说明</label>
 

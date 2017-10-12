@@ -15,15 +15,271 @@ $cookie = json_decode(base64_decode($_COOKIE[$cookieid]),true);
 if ($_W['account']['level'] != 4) {
     $from_user = $cookie['openid'];
 }
+$reply = pdo_fetch("select * from " . tablename('haoman_dpm_reply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
 
+$fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid = '" . $rid . "' and from_user='" . $from_user . "'");
+
+
+$token = $_GPC['token'];
+$op = $_GPC['op'];
+if($op=='new'){
+    $fashb = pdo_fetch( " SELECT top_bg,is_follow FROM ".tablename('haoman_dpm_hb_setting')." WHERE rid='".$rid."' " );
+    $is_follow=0;
+    $logRst=0;
+    $primary_money=0;
+    $getOneLog=0;
+    $is_end=0;
+    $code=0;
+    $msg='';
+    if($fashb['is_follow']==1){
+        //检测是否关注
+        if (!empty($fashb['top_bg'])) {
+            //查询是否为关注用户
+            $fansID = $_W['member']['uid'];
+            $follow = pdo_fetchcolumn("select follow from " . tablename('mc_mapping_fans') . " where uid=:uid and uniacid=:uniacid order by `fanid` desc", array(":uid" => $fansID, ":uniacid" => $uniacid));
+
+            if ($follow == 0) {
+                $is_follow =1;
+            }
+
+        }
+    }
+
+    $hbaward = pdo_fetch("select id,credit from " . tablename('haoman_dpm_hb_award') . " where  rid =:rid and from_user = :from_user and prize=:prize", array(':from_user' => $from_user,':prize'=>$hbid,':rid'=>$rid));
+
+    $hb = pdo_fetch("select * from " . tablename('haoman_dpm_hb_log') . " where  id=:id", array(':id'=>$hbid));
+    $id = $hb['id'];
+    $hbs = pdo_fetch("select * from " . tablename('haoman_dpm_hb_setting') . " where  id=:id", array(':id'=>$hbid));
+     if($token==2){
+         //拆红包
+         if($uid!=$from_user||empty($hbid)||empty($fans)){
+             $msg = '数据异常';
+         }else{
+             if(empty($hbaward)){
+                  if(empty($hb)){
+                      $msg = '该红包已经失效！！！';
+                  } else{
+                      if($hb['hbnum']-$hb['usesnum']<1){
+                          $msg = '红包已经被领完了。。。';
+                      }else{
+                          if($hb['desknum']==1){
+                              //随机红包
+                              $money = $hb['actual_money']-$hb['usemoney'];
+                              $money= $money*100;
+                              if($money>0){
+                                  $i = unserialize($hb['randommoney']);
+                                  $n =array_rand($i);
+                                  $credit= $i[$n];
+                                  unset($i[$n]);
+                                  if(count($i)==0){
+                                      $ii=0;
+                                  }else{
+                                      $ii= serialize($i);
+                                  }
+
+                              }else{
+                                  $msg = '红包已经被领完了。。。';
+                              }
+
+                          }else{
+                              //均分
+                              $ii=0;
+                              if($hb['actual_money']>0.01&&$hb['hbnum']!=0){
+                                  $a=$hb['actual_money']*100;
+                                  $b=$hb['hbnum'];
+                                  $credit = intval(intval($a)/intval($b));
+                                  $credit = $credit/100;
+                                  if($credit<0.01){
+                                      $credit=0.01;
+                                  }
+                              }else{
+                                  $credit=0.01;
+                              }
+                          }
+
+                          if($credit>0){
+
+                              pdo_update('haoman_dpm_hb_log', array('usesnum' => $hb['usesnum'] + 1,'usemoney'=>$hb['usemoney'] + $credit,'randommoney'=>$ii), array('id' => $hb['id']));
+
+                              if($hbs['hbtype']==1){
+                                  $insert = array(
+                                      'uniacid' => $uniacid,
+                                      'rid' => $rid,
+                                      'from_user' => $from_user,
+                                      'avatar' => $fans['avatar'],
+                                      'nickname' => $fans['nickname'],
+                                      'awardname' => 1,
+                                      'awardsimg' => 0,
+                                      'prizetype' => 0,
+                                      'credit' => $credit,
+                                      'prize' => $hb['id'],
+                                      'createtime' => time(),
+                                      'consumetime' => 0,
+                                      'status' => 2,
+                                  );
+
+                                  $temps = pdo_update('haoman_dpm_fans', array('fanshbnum' => $fans['fanshbnum'] + $credit), array('id' => $fans['id']));
+                                  if($temps){
+                                      $temp = pdo_insert('haoman_dpm_hb_award', $insert);
+                                      $code =1;
+                                      $msg = $credit;
+                                  }else{
+                                      $msg = '红包已派完了!';
+                                  }
+
+                              }else{
+                                  if ($credit < 1) {
+                                      //中奖记录保存
+                                      $insert = array(
+                                          'uniacid' => $uniacid,
+                                          'rid' => $rid,
+                                          'from_user' => $from_user,
+                                          'avatar' => $fans['avatar'],
+                                          'nickname' => $fans['nickname'],
+                                          'awardname' => 1,
+                                          'awardsimg' => 0,
+                                          'prizetype' => 0,
+                                          'credit' => $credit,
+                                          'prize' => $hb['id'],
+                                          'createtime' => time(),
+                                          'consumetime' => 0,
+                                          'status' => 2,
+                                      );
+
+//
+                                      $temps = pdo_update('haoman_dpm_fans',array('totalnum' => ($fans['totalnum']+$credit*100)),array('id' => $fans['id']));
+
+                                      if($temps){
+                                          $temp = pdo_insert('haoman_dpm_hb_award', $insert);
+                                          $code =1;
+                                          $msg = $credit;
+                                      }else{
+                                          $msg = '红包已派完了!';
+                                      }
+
+                                  } else {
+                                      //中奖记录保存
+                                      $insert = array(
+                                          'uniacid' => $uniacid,
+                                          'rid' => $rid,
+                                          'from_user' => $from_user,
+                                          'avatar' => $fans['avatar'],
+                                          'nickname' => $fans['nickname'],
+                                          'awardname' => 0,
+                                          'awardsimg' => 0,
+                                          'prizetype' => 0,
+                                          'credit' => $credit,
+                                          'prize' => $hb['id'],
+                                          'createtime' => time(),
+                                          'consumetime' => 0,
+                                          'status' => 2,
+                                      );
+
+
+                                      $record['fee'] = $credit; //红包金额；
+                                      $record['openid'] = $from_user;
+                                      $user['nickname'] = $fans['nickname'];
+
+                                      /*红包新商户订单号生成方式*/
+                                      $user['fansid'] = $rid.$fans['id'];
+                                      /*红包新商户订单号生成方式*/
+
+                                      $sendhongbao = $this->sendhb($record, $user);
+
+
+                                      $temp = pdo_insert('haoman_dpm_hb_award', $insert);
+                                      $awardid = pdo_insertid();
+
+
+                                      if ($sendhongbao['isok']) {
+                                          //更新提现状态
+                                          $code =1;
+                                          $msg = $credit;
+//                                          $tp = '<p class="money"><span>￥</span>'.$credit.'元</p>';
+//                                          //保存中奖人信息到fans中
+
+                                      } else {
+//                                          pdo_update('haoman_dpm_hb_award', array('status' => 1), array('id' => $awardid));
+                                          pdo_update('haoman_dpm_fans', array('totalnum' => ($fans['totalnum']+$credit*100)), array('id' => $fans['id']));
+
+                                          $inserts = array(
+                                              'uniacid' => $uniacid,
+                                              'rid' => $rid,
+                                              'from_user' => $from_user,
+                                              'money' => $credit,
+                                              'why_error' => $sendhongbao['error_msg']."**".$sendhongbao['code'],
+                                              'createtime' => time(),
+                                          );
+
+                                          pdo_insert('haoman_dpm_whyerror', $inserts);
+
+                                          if(!empty($reply['hb_lose_openid'])){
+                                              $actions = "亲爱的管理员，有粉丝红包领取失败！\n原因：".$sendhongbao['error_msg'];
+                                              $this->sendText($reply['hb_lose_openid'],$actions);
+                                          }
+                                          $code =1;
+                                          $msg = $credit;
+//
+                                      }
+
+                                  }
+                              }
+                          }
+                      }
+                  }
+             }else{
+                 $msg = '您已经拆过红包了';
+             }
+         }
+     }else{
+         //点开红包
+         if($uid!=$from_user||empty($hbid)||empty($fans)){
+             $is_end =1;
+             $msg = '数据异常';
+         }else{
+             if(empty($hbaward)){
+                 if(empty($hb)){
+                     $is_end =1;
+                     $msg = '数据异常';
+                 }else{
+                     if($hb['hbnum']-$hb['usesnum']<1){
+                         //红包拍完了
+                         $getOneLog = 1;
+                         $msg = '您来晚了';
+                     }
+                 }
+             }else{
+                 $logRst =1;
+                 $primary_money = $hbaward['credit'];
+
+             }
+         }
+     }
+
+    $data = array(
+        'code' => $code,
+        'follow' => $is_follow,
+        'img' => tomedia($fashb['top_bg']),
+        'accountname'=>$_W['account']['name'],
+        'avatar'=>empty($hb['avatar'])?'../addons/haoman_dpm/images/item8.jpg':$hb['avatar'],
+        'nickname'=>$hb['nickname'],
+        'content'=>$hb['says'],
+        'logRst'=>$logRst,
+        'id'=>$id,
+        'primary_money'=>$primary_money,
+        'getOneLog'=>$getOneLog,
+        'is_end'=>$is_end,
+        'msg' =>$msg,
+    );
+
+    echo json_encode($data);
+    exit;
+}
 
 if($uid!=$from_user||empty($hbid)){
     $tp = '<p class="money"><span>数据异常！</span></p>';
 }else{
 
-    $reply = pdo_fetch("select * from " . tablename('haoman_dpm_reply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
-
-    $fans = pdo_fetch("select id,from_user,is_back,avatar,nickname,totalnum,fanshbnum from " . tablename('haoman_dpm_fans') . " where rid =:rid and from_user = :from_user ", array(':from_user' => $from_user,':rid'=>$rid));
 
     $hbaward = pdo_fetch("select id,credit from " . tablename('haoman_dpm_hb_award') . " where  rid =:rid and from_user = :from_user and prize=:prize", array(':from_user' => $from_user,':prize'=>$hbid,':rid'=>$rid));
 
@@ -133,7 +389,7 @@ if($uid!=$from_user||empty($hbid)){
                                 'prize' => $hb['id'],
                                 'createtime' => time(),
                                 'consumetime' => 0,
-                                'status' => 1,
+                                'status' =>2,
                             );
 
 //                        $this->message(array("success" => 2, "msg" =>"4343214324324"), "");
@@ -189,7 +445,7 @@ if($uid!=$from_user||empty($hbid)){
                                 //保存中奖人信息到fans中
 
                             } else {
-                                pdo_update('haoman_dpm_hb_award', array('status' => 1), array('id' => $awardid));
+//                                pdo_update('haoman_dpm_hb_award', array('status' => 1), array('id' => $awardid));
                                 pdo_update('haoman_dpm_fans', array('totalnum' => ($fans['totalnum']+$credit*100)), array('id' => $fans['id']));
 
                                 $inserts = array(

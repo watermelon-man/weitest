@@ -6,6 +6,8 @@
 		<li{if $pay_type==2 } class="active"{/if}><a href="{php echo $this->createWebUrl('bp_order',array('rid'=>$rid,'pay_type'=>2,'delete'=>$delete));}">霸屏支付订单管理</a></li>
 		<li{if $pay_type==3} class="active"{/if}><a href="{php echo $this->createWebUrl('bp_order',array('rid'=>$rid,'pay_type'=>3,'delete'=>$delete));}">打赏支付订单管理</a></li>
 		<li{if $pay_type==4} class="active"{/if}><a href="{php echo $this->createWebUrl('bp_order',array('rid'=>$rid,'pay_type'=>4,'delete'=>$delete));}">红包支付订单管理</a></li>
+		<li{if $pay_type==6} class="active"{/if}><a href="{php echo $this->createWebUrl('bp_order',array('rid'=>$rid,'pay_type'=>6,'delete'=>$delete));}">表白支付订单管理</a></li>
+		<li{if $pay_type==7} class="active"{/if}><a href="{php echo $this->createWebUrl('bp_order',array('rid'=>$rid,'pay_type'=>7,'delete'=>$delete));}">送礼支付订单管理</a></li>
 		<li{if $pay_type==10} class="active"{/if}><a href="{php echo $this->createWebUrl('shop_order',array('rid'=>$rid,'pay_type'=>10,'delete'=>$delete));}">商城订单管理</a></li>
 	</ul>
 
@@ -291,7 +293,7 @@ $(function(){
 	$('#setqr').click(function(){
 		var submitData = {
 		        tx_total:'{$totalTXNone}',
-		        content:$("#txcontent").val()
+            content:$("#txcontent").val()
 		    };
 		$.post("{php echo $this->createWebUrl('paytxsetlog',array('rid'=>$rid))}",submitData, function(data) {
 

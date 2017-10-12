@@ -1,6 +1,7 @@
 {template 'common/header'}
 <ul class="nav nav-tabs">
-    <li{if $_GPC['do'] == 'bapin'} class="active"{/if}><a  href="{php echo $this->createWebUrl('bapin');}">霸屏金额管理</a></li>
+    <li{if $_GPC['do'] == 'bapin'} class="active"{/if}><a  href="{php echo $this->createWebUrl('bapin');}">霸屏设置管理</a></li>
+    <li><a  href="{php echo $this->createWebUrl('bp_bgup');}">霸屏大屏幕背景管理</a></li>
 </ul>
 
 
@@ -15,7 +16,8 @@
                         <thead>
                         <tr>
                             <th width="100">序列ID</th>
-                            <th width="250">活动规则</th>
+                            <th width="120">活动规则</th>
+                            <th width="120">霸屏背景</th>
                             <th width="150">霸屏主题</th>
                             <th width="150">操作</th>
                         </tr>
@@ -25,6 +27,10 @@
                         <tr>
                             <td>{$row['id']}</td>
                             <td>{$row['name']}</td>
+                            <td>
+                                <a href="{php echo $this->createWebUrl('Newbapin',array('rid' => $row['id'],'token'=>3))}" class="btn btn-primary btn-sm"> 添加背景</a>
+                                <a href="{php echo $this->createWebUrl('bapinshow', array('rid' => $row['id'],'token'=>3))}" class="btn btn-success btn-sm"> 查看背景</a>
+                            </td>
                             <td>
                                 <a href="{php echo $this->createWebUrl('Newbapin',array('rid' => $row['id'],'token'=>2))}" class="btn btn-primary btn-sm"> 添加主题</a>
                                 <a href="{php echo $this->createWebUrl('bapinshow', array('rid' => $row['id'],'token'=>2))}" class="btn btn-success btn-sm"> 查看主题</a>

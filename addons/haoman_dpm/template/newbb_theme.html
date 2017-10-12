@@ -24,6 +24,19 @@
 
 			</div>
 			<div class="form-group">
+				<label class="control-label">大屏幕视频背景</label>
+				<div class="">
+					{if IMS_VERSION >= 0.8}
+					{php echo tpl_form_field_video('bp_vodiobg', $item['bp_vodiobg']);}
+					<div class="help-block">视频背景mp4格式，控制在3M以内，背景视频只能播放背景效果，无法播放声音</div>
+					{else}
+					<input type="text" class="form-control" name="bp_vodiobg" value="{$bp['bp_vodiobg']}">
+					<div class="help-block">由于微擎0.8以下版本无法上传视频，所以，请直接通过FTP把视频传到服务器，再把文件名填入这边，视频背景mp4格式，控制在3M以内，背景视频只能播放背景效果，无法播放声音</div>
+					{/if}
+
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="price" class="control-label">主题至少霸屏金额:</label>
 				<div class="input-group">
 					<input type="text" class="form-control" name="price" value="">
@@ -70,40 +83,6 @@
 		});
 	});
 
-
-$(function(){
-
-    $(".check_all").click(function(){
-       var checked = $(this).get(0).checked;
-
-       $("input[type=checkbox]").attr("checked",checked);
-    });
-	$("input[name=deleteall]").click(function(){
-		var check = $("input:checked");
-
-		if(check.length<2){
-			alert('请选择要删除的记录!');
-			return false;
-		}
-        if( confirm("确认要删除选择的记录?")){
-		var id = new Array();
-		check.each(function(i){
-			id[i] = $(this).val();
-		});
-		$.post('{php echo $this->createWebUrl('deleteAllcard')}', {idArr:id},function(data){
-			if (data.errno ==0)
-			{
-				location.reload();
-			} else {
-				alert(data.error);
-			}
-
-
-		},'json');
-		}
-
-	});
-});
 </script>
 <script>
 function drop_confirm(msg, url){

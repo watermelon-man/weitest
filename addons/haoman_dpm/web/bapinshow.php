@@ -24,11 +24,29 @@ if($token==2){
     load()->func('tpl');
     include $this->template('bapinshow2');
     exit();
+}elseif ($token==3){
+    $t = time();
+    $pindex = max(1, intval($_GPC['page']));
+    $psize = 20;
+    $sql = 'select * from ' . tablename('haoman_dpm_bpmoney') . 'where uniacid = :uniacid and rid = :rid and bp_type in(3,4) order by `id` desc LIMIT ' . ($pindex - 1) * $psize . ',' . $psize;
+    $prarm = array(':uniacid' => $_W['uniacid'] ,':rid' => $rid);
+    $list = pdo_fetchall($sql, $prarm);
+    $count = pdo_fetchcolumn('select count(*) from ' . tablename('haoman_dpm_bpmoney') . 'where uniacid = :uniacid and rid = :rid', $prarm);
+    $pager = pagination($count, $pindex, $psize);
+
+    foreach ($list as $k => $v) {
+        $keywords = reply_single($v['rid']);
+        $list[$k]['rulename'] = $keywords['name'];
+    }
+
+    load()->func('tpl');
+    include $this->template('bapinshow3');
+    exit();
 }
 $t = time();
 $pindex = max(1, intval($_GPC['page']));
 $psize = 20;
-$sql = 'select * from ' . tablename('haoman_dpm_bpmoney') . 'where uniacid = :uniacid and rid = :rid order by `id` desc LIMIT ' . ($pindex - 1) * $psize . ',' . $psize;
+$sql = 'select * from ' . tablename('haoman_dpm_bpmoney') . 'where uniacid = :uniacid and rid = :rid and bp_type in(0,1) order by `id` desc LIMIT ' . ($pindex - 1) * $psize . ',' . $psize;
 $prarm = array(':uniacid' => $_W['uniacid'] ,':rid' => $rid);
 $list = pdo_fetchall($sql, $prarm);
 $count = pdo_fetchcolumn('select count(*) from ' . tablename('haoman_dpm_bpmoney') . 'where uniacid = :uniacid and rid = :rid', $prarm);

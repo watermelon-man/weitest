@@ -61,6 +61,9 @@
 					<label class="radio-inline">
 						<input type="radio" name="ismessage" value="1" {if $reply['ismessage']==1} checked="checked"{/if}/>聊天界面
 					</label>
+					<label class="radio-inline">
+						<input type="radio" name="ismessage" value="2" {if $reply['ismessage']==2} checked="checked"{/if}/>新版聊天界面
+					</label>
 					<div class="help-block">手机端消息页面的样式，聊天:类似QQ群聊</div>
 				</div>
 			</div>
@@ -286,6 +289,18 @@
 			霸屏相关开关
 		</div>
 		<div class="panel-body">
+			<div class="form-group" >
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启霸屏大屏幕</label>
+				<div class="col-sm-9">
+					<label class="radio-inline">
+						<input type="radio" name="openscreen" value="1"  {if $bp['openscreen']==1} checked="checked"{/if}/>关闭
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="openscreen" value="0"  {if $bp['openscreen']==0} checked="checked"{/if}/>开启
+					</label>
+					<div class="help-block">默认开启。<span style="color: red">(仅支持新聊天模式)，如果关闭，霸屏,打赏,红包,表白,送礼,涂鸦都不能使用</span></div>
+				</div>
+			</div>
 			<div class="form-group">
 				<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启霸屏</label>
 				<div class="col-sm-9">
@@ -319,7 +334,7 @@
 					<label class="radio-inline">
 						<input type="radio" name="isvo" value="1" {if $bp['isvo']==1} checked="checked"{/if}/>开启
 					</label>
-					<div class="help-block">默认关闭。<span style="color: red">必须要开通支付</span></div>
+					<div class="help-block">默认关闭。<span style="color: red">必须要开通支付(新聊天模式和霸屏一起)</span></div>
 				</div>
 			</div>
 			<div class="form-group" >
@@ -334,31 +349,52 @@
 					<div class="help-block">默认关闭。<span style="color: red">必须要开通支付</span></div>
 				</div>
 			</div>
-			<!--<div class="form-group">-->
-				<!--<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启表白</label>-->
-				<!--<div class="col-sm-9">-->
-					<!--<label class="radio-inline">-->
-						<!--<input type="radio" name="isbb" value="0" {if $bp['isbb']==0} checked="checked"{/if}/>关闭-->
-					<!--</label>-->
-					<!--<label class="radio-inline">-->
-						<!--<input type="radio" name="isbb" value="1"  {if $bp['isbb']==1} checked="checked"{/if}/>开启-->
-					<!--</label>-->
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启表白</label>
+				<div class="col-sm-9">
+					<label class="radio-inline">
+						<input type="radio" name="isbb" value="0" {if $bp['isbb']==0} checked="checked"{/if}/>关闭
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="isbb" value="1"  {if $bp['isbb']==1} checked="checked"{/if}/>开启
+					</label>
 
-					<!--<div class="help-block">默认关闭。<span style="color: red">必须要开通支付</span></div>-->
-				<!--</div>-->
-			<!--</div>-->
-			<!--<div class="form-group" >-->
-				<!--<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启好友送礼</label>-->
-				<!--<div class="col-sm-9">-->
-					<!--<label class="radio-inline">-->
-						<!--<input type="radio" name="is_gift" value="0"  {if $bp['is_gift']==0} checked="checked"{/if}/>关闭-->
-					<!--</label>-->
-					<!--<label class="radio-inline">-->
-						<!--<input type="radio" name="is_gift" value="1"  {if $bp['is_gift']==1} checked="checked"{/if}/>开启-->
-					<!--</label>-->
-					<!--<div class="help-block">默认关闭。<span style="color: red">必须要开通支付</span></div>-->
-				<!--</div>-->
-			<!--</div>-->
+					<div class="help-block">默认关闭。<span style="color: red">必须要开通支付(仅支持新聊天模式)</span></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">表白抽成</label>
+				<div class="col-sm-9 col-xs-6">
+					<div class="input-group">
+						<input type="text" class="form-control" name="bb_tc" value="{$bp['bb_tc']}"/>
+						<span class="input-group-addon">%</span>
+					</div>
+					<div class="help-block"> 0 为不收取，默认为6%，请根据需要设置,最大值100.</div>
+				</div>
+			</div>
+			<div class="form-group" >
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启好友送礼</label>
+				<div class="col-sm-9">
+					<label class="radio-inline">
+						<input type="radio" name="is_gift" value="0"  {if $bp['is_gift']==0} checked="checked"{/if}/>关闭
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="is_gift" value="1"  {if $bp['is_gift']==1} checked="checked"{/if}/>开启
+					</label>
+					<div class="help-block">默认关闭。<span style="color: red">必须要开通支付(仅支持新聊天模式)</span></div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">送礼抽成</label>
+				<div class="col-sm-9 col-xs-6">
+					<div class="input-group">
+						<input type="text" class="form-control" name="sl_tc" value="{$bp['sl_tc']}"/>
+						<span class="input-group-addon">%</span>
+					</div>
+					<div class="help-block"> 0 为不收取，默认为6%，请根据需要设置,最大值100.</div>
+				</div>
+			</div>
 			<div class="form-group">
 				<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启涂鸦</label>
 				<div class="col-sm-9">
@@ -398,7 +434,7 @@
 					<label class="radio-inline">
 						<input type="radio" name="ismbp" value="1" {if $bp['ismbp']==1} checked="checked"{/if}/>开启
 					</label>
-					<div class="help-block">默认关闭。<span style="color: red"></span></div>
+					<div class="help-block">默认关闭。新版霸屏暂时不支持<span style="color: red"></span></div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -411,6 +447,18 @@
 						<input type="radio" name="isfanshb" value="1" {if $fanshb['isfanshb']==1} checked="checked"{/if}/>开启
 					</label>
 					<div class="help-block">默认关闭。</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝抢红包是否需要关注</label>
+				<div class="col-sm-9">
+					<label class="radio-inline">
+						<input type="radio" name="is_follow" value="0"  {if $fanshb['is_follow']==0} checked="checked"{/if}/>不需要
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="is_follow" value="1"  {if $fanshb['is_follow']==1} checked="checked"{/if}/>需要
+					</label>
+					<div class="help-block">默认不关注。如果要关注请上传关注二维码。</div>
 				</div>
 			</div>
 			<div class="form-group">

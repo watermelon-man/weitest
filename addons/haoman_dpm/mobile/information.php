@@ -60,7 +60,9 @@ $reply = pdo_fetch( " SELECT * FROM ".tablename('haoman_dpm_reply')." WHERE rid=
 if($reply['is_openbbm']==1){
     message('抱歉，签到已停止，下次早点哦！', '', 'error');
 }
-
+if(empty($avatar)||$avatar=='/0'){
+    $avatar = "{$_W['siteroot']}addons/haoman_dpm/images/item8.jpg";
+}
 //2017-05-03 新增免签到
 
 $max_qd = pdo_fetchcolumn("select count(id) from " . tablename('haoman_dpm_fans') . "  where rid = :rid and uniacid=:uniacid ", array(':rid'=>$rid,':uniacid'=>$_W['uniacid']));
@@ -90,7 +92,7 @@ if($reply['ziliao']==4){
     $filename=$url."sign.txt";
 
     $handle=fopen($filename,"a+");
-    $avatar =empty($avatar)?"{$_W['siteroot']}addons/haoman_dpm/common/item2.jpg":$avatar;
+    $avatar =empty($avatar)?"{$_W['siteroot']}addons/haoman_dpm/images/item8.jpg":$avatar;
     $str=fwrite($handle,$from_user."|".$nickname."|".$avatar."|".date('Y/m/d H:i',time())."\n");
 
     fclose($handle);

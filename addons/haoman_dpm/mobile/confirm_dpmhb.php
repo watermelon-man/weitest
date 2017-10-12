@@ -48,8 +48,11 @@ if (empty($from_user) || empty($avatar) || empty($nickname)) {
 //$reply = pdo_fetch( " SELECT * FROM ".tablename('haoman_dpm_bpreply')." WHERE rid='".$rid."' " );
 
 $fashb = pdo_fetch( " SELECT * FROM ".tablename('haoman_dpm_hb_setting')." WHERE rid='".$rid."' " );
-
+$codes =10;
 $fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid = '" . $rid . "' and from_user='" . $from_user . "'");
+$bp = pdo_fetch("select is_img,isbp,isds,bp_pay,bp_pay2,bp_listword,bp_keyword,ishb,isvo,isbb,is_mf,is_gift from " . tablename('haoman_dpm_bpreply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
+
+$codes =$bp['bp_pay2'];
 
 //是否是管理员判断
 $isAdmin =0;
@@ -62,20 +65,34 @@ $hb_moneys = $_GPC['bppic'];
 $messages = empty($_GPC['message'])?'恭喜发财，大吉大利':$_GPC['message'];
 $desk = $_GPC['desk'];
 $pay_type = $_GPC['type'];
+$new_type =$_GPC['new_type'];
 
+if($new_type==2){
+    //新版发红包
+    $hb_num = $_GPC['num'] ;
+    $hb_moneys = $_GPC['total'];
+    $messages = empty($_GPC['content'])?'恭喜发财，大吉大利':$_GPC['content'];
+    $desk = $_GPC['hb_type'];
+    $paytype = $_GPC['paytype'];
+}
 if(empty($nickname)){
     $nickname = trim($_GPC['nickname']);
 }
-
-if(empty($nickname) || empty($avatar)){
+if(empty($nickname) || empty($avatar)||$avatar=='/0'){
     $nickname = $fans['nickname'];
-    $avatar = tomedia($fans['avatar']);
+    if($fans['avatar']&&$fans['avatar']!='/0'){
+        $avatar = tomedia($fans['avatar']);
+    }else{
+        $avatar = '../addons/haoman_dpm/images/item8.jpg';
+    }
+
 }
 if($fashb['hb_minmoney']==0){
-    $fashb['hb_minmoney']==1;
+    $fashb['hb_minmoney']=1;
 }
 if($hb_moneys<$fashb['hb_minmoney']){
     $data = array(
+
         'success' => 100,
         'msg' => "红包金额最少".$fashb['hb_minmoney']."元",
     );
@@ -86,6 +103,7 @@ if($hb_moneys<$fashb['hb_minmoney']){
 
 if($hb_moneys>$fashb['hb_manmoney']&&$fashb['hb_manmoney']!=0){
     $data = array(
+
         'success' => 100,
         'msg' => "红包金额最大".$fashb['hb_manmoney']."元",
     );
@@ -95,6 +113,7 @@ if($hb_moneys>$fashb['hb_manmoney']&&$fashb['hb_manmoney']!=0){
 }
 if($hb_num<1){
     $data = array(
+
         'success' => 100,
         'msg' => "红包数量最少1个",
     );
@@ -104,6 +123,7 @@ if($hb_num<1){
 }
     if($hb_moneys*100/$hb_num<1){
         $data = array(
+
             'success' => 100,
             'msg' => "每个红包最小金额0.01元!!",
         );
@@ -113,6 +133,7 @@ if($hb_num<1){
     }
 if($fashb['isfanshb']!=1){
     $data = array(
+
         'success' => 100,
         'msg' => "未开启发红包模式!!",
     );
@@ -121,11 +142,28 @@ if($fashb['isfanshb']!=1){
     exit;
 }
 
+
+
 $tid = date('YmdHi').random(8, 1);
 
 $hb_money = $hb_moneys+($hb_moneys*$fashb['counter'])/100;//支付费用加手续费
 
+
 $hb_money=sprintf("%.2f",$hb_money);
+$fhb_type = 0;
+    if($paytype==1){
+        if($hb_money>$fans['totalnum']/100){
+            $data = array(
+                'success' => 100,
+                'msg' => "账户余额不足!!",
+            );
+
+            echo json_encode($data);
+            exit;
+        }else{
+            $fhb_type =1;
+        }
+    }
 
 $result = pdo_insert('haoman_dpm_pay_order', array(
     'uniacid' => $_W['uniacid'],
@@ -142,6 +180,7 @@ $result = pdo_insert('haoman_dpm_pay_order', array(
     'rid' => $rid,
     'status' => 1,
     'pay_addr' => $hb_money,
+    'fansid' => $fhb_type,
     'isadmin' => 0,
     'pay_type' => 4,
     'createtime' => time(),
@@ -151,6 +190,7 @@ $result = pdo_insert('haoman_dpm_pay_order', array(
 
 if (empty($result)) {
     $data = array(
+
         'success' => 100,
         'msg' => "红包发送失败",
     );
@@ -176,7 +216,8 @@ if (empty($result)) {
             $ress =  $this->modify($transid,$update);
 
             $data = array(
-                'success' => 1,
+                'code' => 10,
+                'success' => 2,
                 'isAdmin'=>1,
                 'msg' => "提交红包支付成功",
             );
@@ -189,9 +230,31 @@ if (empty($result)) {
         }
     }
 
+    if($fhb_type==1){
+        //账户余额发红包非管理员
+            $update = array();
+            $update['status'] = 2;
+            $update['paytime'] = TIMESTAMP;
+            $transid = $tid;
+            $update['orderid'] = 2;
+            $update['isadmin'] = 0;
+            $update['pay_total'] = $hb_money;
+
+            $ress =  $this->modify($transid,$update);
+
+            $data = array(
+                'code' => 10,
+                'success' => 2,
+                'isAdmin'=>1,
+                'msg' => "提交红包支付成功",
+            );
+    //        $ret = pdo_update('haoman_dpm_guest', array('type'=>$item_list['type']+1), array('id'=>$item_list['id']));
+            echo json_encode($data);
+            exit;
+    }
 
 
-    if($token=='onBridge'){
+    if($token=='onBridge'&&$codes==1){
         $data = array('fee' => floatval($hb_money), 'uniacid' => $_W['uniacid'], 'ordersn' => date('YmdHi').random(8, 1), 'openid' => $from_user, 'nickname' => $nickname, 'status' => 0, 'title' => "大屏幕红包费用", 'xq' => '微信支付', 'addtime' => date('Y-m-d H:i:s', time()));
         $params = array('tid' => $tid, 'ordersn' => $tid, 'title' => "大屏幕红包费用", 'user' => $from_user, 'fee' => floatval($hb_money), 'module' => 'haoman_dpm',);
         $log = pdo_get('core_paylog', array('uniacid' => $_W['uniacid'], 'module' => $params['module'], 'tid' => $params['tid']));
@@ -204,6 +267,7 @@ if (empty($result)) {
         $params = base64_encode(json_encode($params));
     }
     $data = array(
+        'code' => $codes,
         'success' => 1,
         'params' => $params,
         'arr' => $data,

@@ -37,6 +37,7 @@ $reply = pdo_fetch( " SELECT * FROM ".tablename('haoman_dpm_reply')." WHERE rid=
     $mobile = trim($_GPC['mobile']);
     $address = trim($_GPC['address']);
     $qdword = trim($_GPC['qdword']);
+    $fansimg = trim($_GPC['fansimg']);
     $tokens = $_GPC['tokens'];
     if($tokens==1){
         $sex = $_GPC['sex'];
@@ -140,6 +141,7 @@ if(empty($fans)){
         'is_back' => 0,
         'sex' => $sex,
         'awardingid' => $max_qd,
+        'fansImg' => $fansimg,
         'createtime' => time(),
     );
 
@@ -154,6 +156,7 @@ if(empty($fans)){
     $fans['mobile'] = $mobile;
     $fans['address'] = $address;
     $fans['qdword'] = $qdword;
+    $fans['fansImg'] = $fansimg;
     $fans['sex'] = $sex;
     pdo_update('haoman_dpm_fans',$fans,array('id'=>$fans['id']));
 }

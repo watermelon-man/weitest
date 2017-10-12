@@ -22,7 +22,7 @@ if($operation == 'updataneiding'){
 $id = $_GPC['listid'];
 
 $keywords = reply_single($_GPC['rulename']);
-$fans = pdo_fetch("select id from " . tablename('haoman_dpm_fans') . "  where from_user=:from_user ", array(':from_user' => trim($_GPC['openid'])));
+$fans = pdo_fetch("select id from " . tablename('haoman_dpm_fans') . "  where rid =:rid and  from_user=:from_user ", array(':rid'=>$rid,':from_user' => trim($_GPC['openid'])));
 
 $updata = array(
     'rid'=>$rid,
@@ -44,7 +44,7 @@ message("更新内定人员成功",$this->createWebUrl('draw_default',array('rid
 
 }elseif($operation == 'newneiding'){
 $keywords = reply_single($_GPC['rulename']);
-$fans = pdo_fetch("select id from " . tablename('haoman_dpm_fans') . "  where from_user=:from_user ", array(':from_user' => trim($_GPC['openid'])));
+$fans = pdo_fetch("select id from " . tablename('haoman_dpm_fans') . "  where rid =:rid and  from_user=:from_user ", array(':rid'=>$rid,':from_user' => trim($_GPC['openid'])));
 
 $updata = array(
     'rid'=>$rid,

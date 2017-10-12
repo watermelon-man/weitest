@@ -108,10 +108,10 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="opacity" class="control-label col-xs-12 col-sm-3 col-md-2">霸屏背景颜色透明度</label>
+				<label for="opacity" class="control-label col-xs-12 col-sm-3 col-md-2">霸屏背景颜色透明度(霸屏背景视频图片样式)</label>
 				<div class="col-sm-9 col-xs-12">
 					<input type="text" id="bp_opacity" class="form-control" placeholder="" name="bp_opacity" value="{$fanshb['bp_opacity']}">
-					<div class="help-block">霸屏背景颜色透明度，0-1之间，1，表示不透明。</div>
+					<div class="help-block">霸屏背景颜色透明度，0-1之间，1，表示不透明。(新模式霸屏下，0表示使用图片背景，1表示视频背景)</div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -151,7 +151,7 @@
 				<label class="radio-inline">
 					<input type="radio" name="ispmd" value="1" {if $bp['ispmd']==1} checked="checked"{/if}/>不显示
 				</label>
-				<div class="help-block">默认显示。<span style="color: red"></span></div>
+				<div class="help-block">默认显示。新聊天模式下暂时无效<span style="color: red"></span></div>
 			</div>
 		</div>
 		<div class="form-group">
@@ -164,6 +164,18 @@
 					<input type="radio" name="is_messages" value="1" {if $fanshb['is_messages']==1} checked="checked"{/if}/>不允许
 				</label>
 				<div class="help-block">默认允许。不允许：聊天界面底部的输入窗口将不显示<span style="color: red"></span></div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">大屏幕是否显示普通消息</label>
+			<div class="col-sm-9">
+				<label class="radio-inline">
+					<input type="radio" name="is_show_screen" value="0" {if $fanshb['is_show_screen']==0} checked="checked"{/if}/>允许
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="is_show_screen" value="1" {if $fanshb['is_show_screen']==1} checked="checked"{/if}/>不允许
+				</label>
+				<div class="help-block">默认显示。如选择不显示，大屏幕上将不会显示普通聊天消息，手机端不影响</div>
 			</div>
 		</div>
 		<div class="form-group">
@@ -181,17 +193,17 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="start_picurl" class="control-label col-xs-12 col-sm-3 col-md-2">聊天顶部banner</label>
+			<label for="start_picurl" class="control-label col-xs-12 col-sm-3 col-md-2">聊天顶部banner(新模式下可以上传未关注二维码)</label>
 			<div class="col-sm-9 col-xs-12">
 				{php echo tpl_form_field_image('top_bg', $fanshb['top_bg']);}
 				<div class="help-block">不上传使用默认背景，尺寸为：750*120</div>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="start_picurl" class="control-label col-xs-12 col-sm-3 col-md-2">logo</label>
+			<label for="start_picurl" class="control-label col-xs-12 col-sm-3 col-md-2">logo或新聊天背景</label>
 			<div class="col-sm-9 col-xs-12">
 				{php echo tpl_form_field_image('bp_logo', $fanshb['bp_logo']);}
-				<div class="help-block">不上传不使用</div>
+				<div class="help-block">logo尺寸为：120*120(不上传不使用),新聊天背景尺寸：750*1334(不上传用默认)</div>
 			</div>
 		</div>
 			<div class="form-group col-sm-12">

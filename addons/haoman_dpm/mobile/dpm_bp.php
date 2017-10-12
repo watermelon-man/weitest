@@ -25,10 +25,19 @@ if($isbp!='isbp'){
 //检查登陆状态
 }
 
-
-if($bpreply['isbp']==0&&$bpreply['isds']==0){
+if($bpreply['openscreen']!=0){
     message('未开启大屏幕功能，请先后台开启！', '', 'error');
 }
+
+if($reply['ismessage']==2){
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: {$this->createMobileUrl('dpm_newbp',array('rid'=>$rid))}");
+    exit();
+}
+
+//if($bpreply['isbp']==0&&$bpreply['isds']==0){
+//    message('未开启大屏幕功能，请先后台开启！', '', 'error');
+//}
 
 load()->model('reply');
 $keywords = reply_single($rid);

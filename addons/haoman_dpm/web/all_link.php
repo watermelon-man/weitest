@@ -9,6 +9,30 @@ if($_W['isajax']){
 	$rid = $_GPC['rid'];
 	$itemID = $_GPC['itemID'];
 	switch ($itemID) {
+		case -2: //微信端消息
+			$linkUrl = $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&m=haoman_dpm&do=new_messagesindex&id='.$rid;
+			$imgName = "haomandpm_new_messagesindex".$_W['uniacid'].$rid;
+			$imgUrl = "../addons/haoman_dpm/qrcode/".$imgName.".png";
+            load()->func('file');
+            mkdirs(ROOT_PATH . '/qrcode');
+            $dir = $imgUrl;
+            $flag = file_exists($dir);
+            if($flag == false){
+                //生成二维码图片
+                $errorCorrectionLevel = "L";
+                $matrixPointSize = "4";
+                QRcode::png($linkUrl,$imgUrl,$errorCorrectionLevel,$matrixPointSize);
+                //生成二维码图片
+            }
+
+//			$this->QRcode($imgName,$linkUrl,$imgUrl);
+			$data = array(
+		        'flag' => 1,
+		        'url' => $linkUrl,
+		        'qrcode' => $imgUrl,
+		        'msg' => "",
+		    );
+			break;
 		case -1: //微信端消息
 			$linkUrl = $_W['siteroot'].'app/index.php?i='.$_W['uniacid'].'&c=entry&m=haoman_dpm&do=mob_bjlist&id='.$rid;
 			$imgName = "haomandpm_bjlist".$_W['uniacid'].$rid;

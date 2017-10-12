@@ -65,6 +65,7 @@ if($operation == 'updataad'){
     $insert_bp = array(
         'rid' => $rid,
         'uniacid' => $_W['uniacid'],
+        'openscreen' => intval($_GPC['openscreen']),
         'isbp' => intval($_GPC['isbp']),
         'isds' => intval($_GPC['isds']),
         'ismbp' => intval($_GPC['ismbp']),
@@ -73,6 +74,8 @@ if($operation == 'updataad'){
         'is_gift' => intval($_GPC['is_gift']),
         'is_mf' => intval($_GPC['is_mf']),
         'is_img' => intval($_GPC['is_img']),
+        'bb_tc' => intval($_GPC['bb_tc']),
+        'sl_tc' => intval($_GPC['sl_tc']),
         'bd_starttime' => strtotime($_GPC['bd_times']['start']),
         'bd_endtime' => strtotime($_GPC['bd_times']['end']),
     );
@@ -98,6 +101,7 @@ if($operation == 'updataad'){
         'hbtype' => intval($_GPC['hbtype']),
         'is_setadmin' => intval($_GPC['is_setadmin']),
         'is_ty' => intval($_GPC['is_ty']),
+        'is_follow' => intval($_GPC['is_follow']),
     );
 
     $insert_shouqian = array(

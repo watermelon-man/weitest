@@ -46,9 +46,19 @@ if (empty($from_user) || empty($avatar) || empty($nickname)) {
 
 
 $reply = pdo_fetch( " SELECT * FROM ".tablename('haoman_dpm_bpreply')." WHERE rid='".$rid."' " );
-
+$codes =10;
 $fans = pdo_fetch("select * from " . tablename('haoman_dpm_fans') . " where rid = '" . $rid . "' and from_user='" . $from_user . "'");
+$bp = pdo_fetch("select is_img,isbp,isds,bp_pay,bp_pay2,bp_listword,bp_keyword,ishb,isvo,isbb,is_mf,is_gift,bb_tc,sl_tc from " . tablename('haoman_dpm_bpreply') . " where rid = :rid order by `id` desc", array(':rid' => $rid));
+  if($bp['bb_tc']<0){
+      $charge = 0;
+  }elseif ($bp['bb_tc']>100){
+      $charge = 100;
+  }else{
+      $charge = $bp['bb_tc'];
+  }
 
+
+$codes =$bp['bp_pay2'];
 //是否是管理员判断
 $isAdmin =0;
 $admin = pdo_fetch("select id,free_times,uses_times from " . tablename('haoman_dpm_bpadmin') . "  where admin_openid=:admin_openid and status=0 and rid=:rid", array(':admin_openid' => $from_user,':rid'=>$rid));
@@ -83,9 +93,13 @@ if(empty($item_id)||empty($item_theme_id)){
     exit;
 }
 
-if(empty($nickname) || empty($avatar)){
+if(empty($nickname) || empty($avatar)||$avatar=='/0'){
     $nickname = $fans['nickname'];
-    $avatar = tomedia($fans['avatar']);
+    if($fans['avatar']&&$fans['avatar']!='/0'){
+        $avatar = tomedia($fans['avatar']);
+    }else{
+        $avatar = '../addons/haoman_dpm/images/item8.jpg';
+    }
 }
 
 //if(empty($guest_id)&&empty($item_id)){
@@ -112,6 +126,8 @@ if($reply['isbb']!=1){
 $item_list = pdo_fetch("SELECT bb_name,bb_pic,bb_says FROM " . tablename('haoman_dpm_bbgift') . " WHERE rid = :rid and uniacid = :uniacid and type =2 and id=:id ORDER BY id desc",array(':rid'=>$rid,':uniacid'=>$_W['uniacid'],':id'=>$item_id));
 //时间
 $item_theme = pdo_fetch("SELECT bb_price,bb_time FROM " . tablename('haoman_dpm_bbgift') . " WHERE rid = :rid and uniacid = :uniacid and type =3 and id=:id ORDER BY id desc",array(':rid'=>$rid,':uniacid'=>$_W['uniacid'],':id'=>$item_theme_id));
+
+$images = empty($images)?$item_list['bb_pic']:$images;
 
 if(empty($item_list)||empty($item_theme)){
     $data = array(
@@ -148,6 +164,7 @@ $result = pdo_insert('haoman_dpm_pay_order', array(
     'pay_type' => 6,
     'psy_type' => 6,
     'createtime' => time(),
+    'closetime' => $charge,
 ));
 
 
@@ -193,7 +210,7 @@ if (empty($result)) {
         }
     }
 
-    if($token=='onBridge'){
+    if($token=='onBridge'&&$codes==1){
         $data = array('fee' => floatval($pay_total), 'uniacid' => $_W['uniacid'], 'ordersn' => date('YmdHi').random(8, 1), 'openid' => $from_user, 'nickname' => $nickname, 'status' => 0, 'title' => "大屏幕表白费用", 'xq' => '微信支付', 'addtime' => date('Y-m-d H:i:s', time()));
         $params = array('tid' => $tid, 'ordersn' => $tid, 'title' => "大屏幕表白费用", 'user' => $from_user, 'fee' => floatval($pay_total), 'module' => 'haoman_dpm',);
 

@@ -17,11 +17,11 @@ $custom = pdo_fetchall("select * from " . tablename('haoman_dpm_custom') . " whe
 if($reply['timenum'] == 0){
     $url = $this->createMobileUrl('dpm_index',array('rid'=>$rid));
 }else{
-    if($reply['registimg']==1){
-        $url = $this->createMobileUrl('dpm_bp',array('rid'=>$rid));
-    }else{
+//    if($reply['registimg']==1){
+//        $url = $this->createMobileUrl('dpm_bp',array('rid'=>$rid));
+//    }else{
         $url = $this->createMobileUrl('dpm_messages',array('rid'=>$rid));
-    }
+//    }
 
 }
 load()->model('reply');

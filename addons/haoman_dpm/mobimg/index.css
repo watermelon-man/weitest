@@ -210,7 +210,32 @@ body {
     height: 100%;
     border: none;
 }
+.blue_btn {
+    display: block;
+    width: 610px;
+    height: 94px;
+    line-height: 94px;
+    border-radius: 11px;
+    -webkit-border-radius: 11px;
+    text-align: center;
+    font-weight: 100;
+    font-size: 36px;
+    color: #fff;
+    background: #11a1f4;
+    margin: 0 auto;
+    padding: 0;
+    box-shadow: 0 -4px 6px #11a1f4 inset, 0px 2px 1px rgba(255, 255, 255, 0.5) inset;
+    margin-bottom: 15px;
+}
 
+.sendImg{
+    width: 600px;
+    margin: 0 auto;
+    display: none;
+    height: 250px;
+    border: 4px #eee solid;
+    border-radius: 5px;
+}
 .yellow_btn {
     display: block;
     width: 270px;
