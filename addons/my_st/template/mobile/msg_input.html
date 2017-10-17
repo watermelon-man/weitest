@@ -18,6 +18,22 @@
 
 
     <title>信息填写</title>
+    <style>
+        .comment1_text li img{
+            width: 20px;
+            margin-left: 2px;
+        }
+        #classNum{
+            width: 80%;
+            border: 0px;
+            font-size: 14px;
+            color: #c0c0c0;
+            margin-left: 0;
+        }
+        #className option{
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
 <div class="bg_color min_height">
@@ -30,7 +46,8 @@
                     <!--<img class="h_logo" src="{MODULE_URL}template/mobile/images/logo.png" />-->
                 <!--</a>-->
             <!--</p>-->
-            <p class="f_title">社团活动扫码签到信息填写界面</p>
+            <!--<p class="f_title">社团活动扫码签到信息填写界面</p>-->
+            <p class="f_title">河南省商务学校学生社团是学生基于共同的兴趣爱好，由校团委与学生工作处组织成立的学生团体。目前共分为：文艺素养类、体育健身类、技能拓展类三类，共计24个涵盖不同领域的社团。</p>
         </div>
     </div>
     <!--头部 end-->  <!--内容 start-->
@@ -49,11 +66,21 @@
                     <i class="icon IconPwd"></i>
                     <span class="s_input_box"><input placeholder="请输入微信号" class="input_pwd j-rp-pwd" name="answer" type="text" id="answer"></span>
                 </li>
+                <li>
+                    <i class="icon"><img src="../addons/my_st/template/mobile/images/shetuan.png"></i>
+                    
+                    <select name="" id="classNum"> 
+                        <option value='' disabled selected style='display:none;'>请选择您的班级</option>  
+                        {loop $banji $row}
+                            <option value="{$row['id']}">{$row['classname']}</option> 
+                        {/loop}
+                    </select> 
+                </li>
             </ul>
             <!--<p class="note_agreet"><i class="ag_icon" id="xieyi"></i><span class="text">我已阅读并同意 <u><a class="blu" href="/protocol/registerprotocol">乐视用户协议</a></u></span></p>-->
             <p class="btn l_top1 blue_btn"><span class="j-rp-rBtn">提&nbsp;&nbsp;交</span></p><!--不可点 grey_btn，可点击 blue_btn，触发 touch_btn-->
         </div>
-
+        <p>请按实填写个人信息，参与报名</p>
 
         <div class="posi_bottom regi_posi_bottom">
 
@@ -85,9 +112,11 @@
         }
 
         $(".blue_btn").click(function(){
+            $(this).removeClass("blue_btn").addClass("grey_btn");
             var mobilePhone = $("#mobile_input").val();
             var xingming = $("#xingming").val();
             var answer = $("#answer").val();
+            var banji = $("#classNum").val();
             if (xingming.length == 0) {
                 $("#show_msg").html('请输入姓名');
                 $(".operate_alert").show();
@@ -127,10 +156,12 @@
                 data : {
                     "mobile" : mobilePhone,
                     "xingming" : xingming,
-                    "answer" : answer
+                    "answer" : answer,
+                    "banji" : banji
                 },
                 success: function (msg) {
-                    if(msg == 1) {
+//                    alert(msg);
+                    if(msg == 1 || msg == 3) {
                         $("#show_msg").html('信息填写成功');
                         $(".operate_alert").show();
                         setTimeout(function(){
@@ -138,6 +169,9 @@
                             var url = "<?php echo $this->createMobileUrl('Index');?>";
                             document.location.href = url;
                         },1500);
+                    }
+                    else{
+                        $(this).removeClass("grey_btn").addClass("blue_btn");
                     }
                 },
             });

@@ -34,11 +34,15 @@
 
     <script src="{MODULE_URL}template/mobile/js/jquery.min.js"></script>
     <script src="{MODULE_URL}template/mobile/js/amazeui.min.js"></script>
-
+    <link rel="stylesheet" href="../addons/my_st/template/mobile/css/mui.css"/>
     <link rel="stylesheet" href="{MODULE_URL}template/mobile/css/amazeui.min.css">
-
+    
     <style>
 
+        .header img{
+            width: 100%;
+            height: 200px;
+        }
         .am-list-item-bar {
             margin-top: .5rem;
             text-align: right;
@@ -70,12 +74,12 @@
 
 <body>
 <div class="header">
-
+    <img src="<?php echo tomedia($shetuan['pic']);?>" alt="">
 </div>
 <div class="main-page">
     <div data-am-widget="tabs" class="am-tabs am-tabs-d2">
         <ul class="am-tabs-nav am-cf">
-            <li class="am-active" ><a href="[data-tab-panel-0]" id="all">简介</a></li>
+            <li class="am-active" ><a href="[data-tab-panel-0]" id="all">详情</a></li>
             <li class="" ><a href="[data-tab-panel-1]" id="my">活动</a></li>
         </ul>
 
@@ -83,8 +87,19 @@
 
         <div class="am-tabs-bd">
             <div data-tab-panel-0 class="am-tab-panel am-active">
-                <?php echo htmlspecialchars_decode($shetuan['info']);?>
-
+                <!--<fieldset style="margin-bottom:10px;">-->
+                <div style="border-bottom:1px solid #eee;">
+                    <h4>社团简介</h4>
+                    <p><?php echo htmlspecialchars_decode($shetuan['jianjie']);?></p>
+                </div>
+                <div>
+                    <h4>入团规则</h4>
+                    <p><?php echo htmlspecialchars_decode($shetuan['info']);?></p>
+                </div>
+                <div id="textArea" class="mui-input-row" style="display:<?php echo $students_apply?'none':'block';?>;">
+                    <h4>申请理由</h4>
+                    <textarea id="reason" name="reason"></textarea>
+                </div>
                 <div class="listen" style="display:<?php echo $students_apply?'none':'block';?>;  height:50px;text-align: center;background-color:orange;  border-radius: 12px;margin-top:10%;padding-top:2%;">
                     <a href="javascript:;" title="" style="font-size:30px;color: white;">申请入社</a>
                 </div>
@@ -135,6 +150,7 @@
     $(document).ready(function(){
         //点击传参到后台控制器
         $(".listen").click(function(){
+            var reason = $("#reason").val();
             var shetuan_id = $(".shetuanid").attr('id');
             $.ajax({
                 url: "<?php echo $this->createMobileUrl('Apply');?>",
@@ -142,10 +158,17 @@
                 type: 'post',
                 data : {
                     "shetuan_id" : shetuan_id,  //可以放变量也可以放常量
+                    "reason":reason
                 },
                 success: function (msg) {   //成功后回调
-                    alert('申请递交成功，请耐心等待管理员审核~');
-                    $(".listen").hide();
+                    var message = JSON.parse(msg);
+                    if(message.code == 200){
+                        alert(message.message);
+                        $(".listen").hide();
+                        $("#textArea").hide();
+                    }else{
+                        alert("申请递交失败");
+                    }
                 },
             });
         });

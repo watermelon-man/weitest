@@ -1,6 +1,20 @@
 {template 'common/header'}
-
+<style>
+    .main .classBtn{
+        background-color: #428bca;
+        color: white;
+        margin-bottom: 10px;
+        float: right;
+    }
+    .main .classBtn:hover{
+        background-color: #3071a9;
+    }
+    .main .classBtn a:hover{
+        color:white;
+    }
+</style>
 <div class="main">
+    <button class='classBtn btn'><a href="{php echo $this->createWebUrl('shetuan')}">返回社团分类列表</a></button>
     <div class="panel-heading" style="font-size:20px;"><span style="color:red; font-weight:bold;">社员</span></div>
     <div class="panel panel-default">
         <div class="panel-body table-responsive">
@@ -9,8 +23,11 @@
                 <tr>
                     <th>姓名</th>
                     <th>手机</th>
-                    <th>微信号</th>
+                    <th>班级</th>
+                   <!-- <th>微信号</th> -->
+                    <th width="30%">申请理由</th>
                     <th>申请时间</th>
+                    <th>状态</th>
                     <th style="text-align:right;">操作</th>
                 </tr>
                 </thead>
@@ -19,11 +36,17 @@
                 <tr>
                     <td>{$row['name']}</td>
                     <td>{$row['mobile']}</td>
-                    <td>{$row['wx']}</td>
+                    <td>{$row['classname']}</td>
+                   <!-- <td>{$row['wx']}</td> -->
+                    <td width="30%">{$row['reason']}</td>
                     <td><?php echo date('Y-m-d H:m:s',$row['createtime']);?></td>
                     <td>
-                        <a href="{php echo $this->createWebUrl('CheckStudents', array('student_id' => $row['id'],'shetuan_id' => $row['shetuan_id']))}" class="label label-success" data-toggle="tooltip" data-placement="top" title="点击审核通过" style="display:<?php echo $row['status']==1?'none':'block';?>; height:20px;width:35%;float:right;"><i class="fa fa-cog fa-spin"></i> 待审核</a>
-                        <a href="javascript:;" class="label label-warning" data-toggle="tooltip" data-placement="top" title="已通过" style="display:<?php echo $row['status']==1?'block':'none';?>; height:20px;width:35%;float:right; "><i class="fa fa-cog fa-spin"></i> 已通过</a>
+                        <a href="{php echo $this->createWebUrl('CheckStudents', array('student_id' => $row['id'],'shetuan_id' => $row['shetuan_id']))}" class="label label-success" data-toggle="tooltip" data-placement="top" title="点击审核通过" style="display:<?php echo $row['status']==1?'none':'block';?>; height:20px;width:100px;"><i class="fa fa-cog fa-spin"></i> 待审核</a>
+                        <a href="javascript:;" class="label label-warning" data-toggle="tooltip" data-placement="top" title="已通过" style="display:<?php echo $row['status']==1?'block':'none';?>; height:20px;width:100px; "><i class="fa fa-cog fa-spin"></i> 已通过</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-default" data-toggle="tooltip" data-placement="top" href="#" onclick="drop_confirm('您确定要退团吗?', '{php echo $this->createWebUrl('StudentsDelete',array('id' => $row['id'],'shetuan_id' => $shetuan_id));}');" title="退团" style="float: right;"><i class="fa fa-times"></i></a>
+
                     </td>
                 </tr>
                 {/loop}

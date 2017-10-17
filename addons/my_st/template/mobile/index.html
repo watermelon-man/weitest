@@ -61,6 +61,11 @@
         text-align:center;
         padding-top:5px;
     }
+    .am-list-item-text{
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
 </style>
 
     <!--那个网友修改后天界的东西-->
@@ -105,15 +110,15 @@
 <div class="main-page">
     <div data-am-widget="tabs" class="am-tabs am-tabs-d2">
         <ul class="am-tabs-nav am-cf">
-            <li class="am-active" ><a href="[data-tab-panel-0]" id="all">活动</a></li>
+            <li class="am-active" ><a id="all">活动</a></li>
             <!--<li class="" ><a href="[data-tab-panel-1]" id="">新闻</a></li>-->
-            <li class="" ><a href="[data-tab-panel-2]" id="">社团</a></li>
+            <li class="" ><a id="">社团</a></li>
         </ul>
 
 
         <!--那个网友修改后天界的东西-->
         <!--S==文字轮播-->
-        <div class="box" style="margin-top:2px;background-color:darkgrey;">
+<!--        <div class="box" style="margin-top:2px;background-color:darkgrey;">
             <div class="t_news">
                 <b>最新播报：</b>
                 <ul class="news_li">
@@ -123,35 +128,37 @@
                 </ul>
                 <ul class="swap"></ul>
             </div>
-        </div>
+        </div>-->
         <!--E==文字轮播-->
 
         <div class="am-tabs-bd">
-            <div data-tab-panel-0 class="am-tab-panel am-active">
+            <div class="am-tab-panel am-active">
                 <!--所有会议/活动-->
                 <div data-am-widget="list_news" class="am-list-news am-list-news-default">
                     <div class="am-list-news-bd">
                         <ul class="am-list" id="hdjx_huodong">
                             {loop $shetuan_activity $k $row}
                             <!--缩略图在标题右边-->
-                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right">
+                            <a style="width: 100%;height: 100%;" href="{php echo $this->createMobileUrl('ActivityInfo',array('id' => $row['id']))}" class="">
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right" style="border-bottom: 1px solid #e5e5e5;">
                                 <div class=" am-u-sm-8 am-list-main">
-                                    <h3 class="am-list-item-hd"><a href="{php echo $this->createMobileUrl('ActivityInfo',array('id' => $row['id']))}" class="">{$row['activity_name']}</a></h3>
-                                    <div class="am-list-item-text" id="huodong0" data-index="0">{$row['activity_remark']}</div>
-                                    <div class="am-list-item-bar">
-                                        <span class="am-list-item-time"><?php echo date('m-d',$row['createtime']);?></span>
-                                        <span class="am-list-icon">{$row['name']}</span>
-                                    </div>
-                                    <div class="am-list-item-bar">
-                                        <span class="am-list-item-time">活动截止日期：<?php echo date('Y-m-d',$row['updatetime']);?></span>
-                                    </div>
+                                        <p class="am-list-item-hd"><span class="am-list-icon" style="font-weight:900;color:#ff6666;">{$row['name']}</span>——{$row['activity_name']}</p>
+                                        <div class="am-list-item-text" id="huodong0" data-index="0">{$row['activity_remark']}</div>
+                                        <div class="am-list-item-bar">
+                                            <span class="am-list-item-time"><?php echo date('m-d',$row['createtime']);?>&nbsp;&nbsp;</span>
+                                        </div>
+                                        <div class="am-list-item-bar">
+                                            <span class="am-list-item-time">活动截止日期：<?php echo date('Y-m-d',$row['updatetime']);?></span>
+                                        </div>
+                                    <!--</a>-->
                                 </div>
                                 <div class="am-u-sm-4 am-list-thumb">
-                                    <a href="{php echo $this->createMobileUrl('ActivityInfo',array('id' => $row['id']))}" class="">
-                                        <img src="<?php echo tomedia($row['activity_pic']);?>" alt="">
-                                    </a>
+                                    <!--<a href="{php echo $this->createMobileUrl('ActivityInfo',array('id' => $row['id']))}" class="">-->
+                                        <img src="<?php echo tomedia($row['activity_pic']);?>" alt="" style="height:80px; width:100%;">
+                                    <!--</a>-->
                                 </div>
                             </li>
+                            </a>
                             {/loop}
                         </ul>
                     </div>
@@ -193,19 +200,21 @@
             </div>-->
 
             <!--社团-->
-            <div data-tab-panel-2 class="am-tab-panel ">
+            <div class="am-tab-panel ">
                 <!--申请入社-->
                 <ul class="am-list">
                     {loop $shetuan $k $row}
                     <!--缩略图在标题右边-->
                     <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right">
                         <div class=" am-u-sm-8 am-list-main">
-                            <h3 class="am-list-item-hd"><a href="{php echo $this->createMobileUrl('ShetuanInfo',array('id' => $row['id']))}" class="">{$row['name']}</a></h3>
-                            <div class="am-list-item-text" data-index="0">{$row['jianjie']}</div>
-                            <div class="am-list-item-bar">
-                                <span class="am-list-item-time"><?php echo date('Y-m-d',$row['createtime']);?></span>
-                                <span class="am-list-icon">已有社员: {$row['students']}人</span>
-                            </div>
+                            <a href="{php echo $this->createMobileUrl('ShetuanInfo',array('id' => $row['id']))}" class="">
+                            <p class="am-list-item-hd">{$row['name']}</p>
+                                <div class="am-list-item-text" data-index="0">{$row['jianjie']}</div>
+                                <div class="am-list-item-bar">
+                                    <span class="am-list-item-time"><?php echo date('Y-m-d',$row['createtime']);?></span>
+                                    <span class="am-list-icon">已有社员: {$row['students']}人</span>
+                                </div>
+                            </a>
                         </div>
                         <div class="am-u-sm-4 am-list-thumb">
                             <a href="{php echo $this->createMobileUrl('ShetuanInfo',array('id' => $row['id']))}" class="">
@@ -231,6 +240,11 @@
 <script src="{MODULE_URL}template/mobile/js/bootstrap.js"></script>
 
 </body>
-
+<script>
+    $(".am-tab-panel").on("click",function(){
+        $(".am-active").siblings().addClass(".am-active");
+        $(".am-active").removeClass("am-active");
+    })
+</script>
 
 </html>

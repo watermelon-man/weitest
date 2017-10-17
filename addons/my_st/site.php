@@ -61,6 +61,7 @@ class My_stModuleSite extends WeModuleSite {
 //        $data['uniacid'] = $uniacid;
         $data['openid'] = $openid;
         $data['shetuan_id'] = $shetuan_id;
+        $data['reason']     = $_GPC['reason'];
         $data['createtime'] = time();
         //每个成员最多申请两个社团。
         $students_apply = pdo_fetchcolumn("SELECT count(*) FROM " . tablename('my_st_students') . " WHERE uniacid = '{$uniacid}' AND openid = '{$openid}'");
@@ -240,6 +241,9 @@ class My_stModuleSite extends WeModuleSite {
     public function doMobileUserMsg() {
         global $_GPC;
         global $_W;
+        //获取班级信息
+        $banji = pdo_getall('sanshi_class',array('weid'=>$_W['uniacid']));
+//        var_dump($banji);
         include $this->template('msg_input');
     }
 
@@ -255,14 +259,17 @@ class My_stModuleSite extends WeModuleSite {
         $data['touxiang'] = $pic;
         $data['name'] = $_GPC['xingming'];
         $data['wx'] = $_GPC['answer'];
+        $data['class'] = $_GPC['banji'];
         $data['mobile'] = $_GPC['mobile'];
         $data['openid'] = $openid;
         $data['uniacid'] = $uniacid;
         $data['createtime'] = time();
         //判断是否已经添加过用户信息。
-        $user = pdo_get('my_st_msg', array('uniacid' => $uniacid,'open_id'=>$openid));
+        $user = pdo_get('my_st_msg', array('uniacid' => $uniacid,'openid'=>$openid));
         if($user){
-            message('信息已经填写过了，请重新进入', $this->createMobileUrl('Index'));
+            print_r(3);
+            exit;
+//            message('信息已经填写过了，请重新进入', $this->createMobileUrl('Index'));
         }else{
             $result = pdo_insert('my_st_msg', $data);
             if ($result) {
@@ -411,7 +418,8 @@ class My_stModuleSite extends WeModuleSite {
         $shetuan_id = $_GPC['shetuan_id'];
         $pindex = max(1, intval($_GPC['page']));
         $psize = 15;
-        $student_info = pdo_fetchall("SELECT a.id,a.shetuan_id , a.createtime, a.status ,b.name,b.wx,b.mobile  FROM " . tablename('my_st_students') . " a LEFT JOIN " . tablename('my_st_msg') . " b ON a.openid = b.openid " . " WHERE a.uniacid = '{$uniacid}' AND a.shetuan_id = '{$shetuan_id}' ORDER BY a.createtime DESC LIMIT " . ($pindex - 1) * $psize . ',' . $psize);
+        $student_info = pdo_fetchall("SELECT a.id,a.shetuan_id , a.createtime, a.status,a.reason,b.name,b.wx,b.mobile,c.classname  FROM " . tablename('my_st_students') . " a LEFT JOIN " . tablename('my_st_msg') . " b ON a.openid = b.openid " . " LEFT JOIN ". tablename('sanshi_class')." c ON b.class = c.id WHERE a.uniacid = '{$uniacid}' AND a.shetuan_id = '{$shetuan_id}' ORDER BY a.createtime DESC LIMIT " . ($pindex - 1) * $psize . ',' . $psize);
+//        var_dump($student_info);
         $total = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('my_st_students') . " WHERE uniacid = '{$uniacid}' AND shetuan_id = '{$shetuan_id}'");
         $pager = pagination($total, $pindex, $psize);
         include $this->template('students');
