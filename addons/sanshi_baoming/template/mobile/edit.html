@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>报名</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../addons/sanshi_baoming/template/mobile/dist/css/mui.css">
+	<link rel="stylesheet" type="text/css" href="../addons/sanshi_baoming/template/mobile/css/form.css">
+</head>
+<script type="text/javascript" src="../addons/sanshi_baoming/template/mobile/js/jquery.min.js"></script>
+<script type="text/javascript" src="../addons/sanshi_baoming/template/mobile/dist/js/mui.js"></script>
+<body>
+	<header>
+		<img src="{php echo tomedia($info['image'])}" alt="">
+		<div>
+			<p>在线报名表！</p>
+		</div>
+	</header>
+	<article>
+		<div class="leading">
+			请填写以下信息
+		</div>
+		<form action="{php echo $this->createMobileUrl('saveform');}" id="information" method="post" class="mui-input-group">  
+	    	<div class="mui-input-row mui-radio mui-left">
+				<label>性别</label>
+	            <span class="radio_inline mui-radio">
+                        <input name="sex" type="radio" id="radio_man" {if $record['sex'] == '1'} checked {/if}  value="1">
+	                <label for="radio_man">男</label>
+                        <input name="sex" type="radio" id="radio_woman" {if $record['sex'] == '2'} checked {/if} value="2"> 
+	                <label for="radio_woman">女</label>        
+	            </span>           
+			</div>
+		    <div class="mui-input-row">
+		        <label>您的姓名<span>*</span></label>
+		        <input type="text" placeholder="请输入您的姓名" name="name" value="{$record['name']}">
+		    </div>
+		    <div class="mui-input-row">
+		        <label>所选专业<span>*</span></label>
+		        <!-- <input type="button" value="请选择您的课程"> -->
+		        <textarea name="major" value="" placeholder="请选择专业(最多三项)" readonly="true"></textarea>
+		    </div>
+		    <div class="mui-input-row">
+		        <label>联系方式<span>*</span></label>
+		        <input type="text" placeholder="请输入您的手机号" name="mobile" value="{$record['mobile']}">
+		    </div>
+		    <div class="mui-input-row">
+		        <label>QQ/微信</label>
+		        <input type="text" placeholder="请输入您的QQ号或微信号" name="qq" value="{$record['qq']}">
+		    </div>
+		    <div class="mui-input-row">
+		        <label>毕业院校</label>
+		        <input type="text" placeholder="请输入您的毕业院校" name="school" value="{$record['school']}">
+                        <input class="form-control" name="id"  type="hidden" value="{$record['id']}" placeholder="">
+		    </div>
+                    
+			<div id="className" class="mui-popover">
+				<!-- <form id="courses" class="mui-input-group">   -->
+                                {loop $list $row}
+		            <div class="mui-input-row mui-checkbox mui-left">  
+		                <label>{$row['major']}</label>  
+                                <input class="major" name="major[]" value="{$row['id']}" type="checkbox" {if in_array($row['id'],$pieces)} checked {/if}>  
+		            </div>  
+                                {/loop}
+		        <!-- </form> -->
+			</div>
+	    </form>
+	</article>
+	<div id="details" class="mui-popover">
+		详细介绍详细介绍详细介绍详细介绍详细介绍详细介绍详细介绍详细介绍详细介绍详细介绍详细介绍详细介绍详细介绍
+	</div>  
+	<button type="button" class="mui-btn">提交信息</button>
+</body>
+<script type="text/javascript" src="../addons/sanshi_baoming/template/mobile/js/form.js"></script>
+</html>

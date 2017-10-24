@@ -1,0 +1,76 @@
+{template 'common/header'}
+
+<style>
+    .main .classBtn{
+        background-color: #428bca;
+        color: white;
+        margin-bottom: 10px;
+    }
+    .main .classBtn:hover{
+        background-color: #3071a9;
+    }
+    .main .classBtn a:hover{
+        color:white;
+    }
+    form .form-group:nth-of-type(4) label{
+        padding-top: 2px;
+    }
+    div .form-control{
+        display: inline-block;
+        width: 60%;
+    }
+</style>
+<div class="main">
+   <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+            <button class='classBtn btn'><a href="{php echo $this->createWebUrl('major')}">返回专业管理</a></button>
+            <form action="{php echo $this->createWebUrl('saveaddmajor')}" method="post" class="form-horizontal" role="form" id="form1">
+                <input type="hidden" name="op" value="post" />
+                            <div class="form-group">
+                                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">专业名称</label>
+                                    <div class="col-sm-8 col-lg-9 col-xs-12">
+                                            <input class="form-control" name="majorname" id="" type="text" value="{$row['major']}" placeholder="专业名称" onblur="checkName()">
+                                            <span style='color:red;margin-left:10px;display: none;'>*专业名称不能为空</span>
+                                    </div>
+                            </div>
+			    <div class="form-group">
+                                <div class="col-md-4 col-lg-2"></div>
+                                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
+                                    <input style="width:10%" type="button" value="提交" class="btn btn-primary col-lg-1"/>
+                                    <input type="hidden" name="token" value="{$_W['token']}" />	
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            </div>
+			</form>
+          
+        </div>
+    </div>
+</div>
+<script>
+    var isNull = false;
+    function checkName(){
+        if(!$(".form-group input[name=majorname]")[0].value){
+            $(".form-group input[name=majorname]").next().css("display","inline-block");
+            isNull = true;
+        }else{
+            $(".form-group input[name=majorname]").next().css("display","none");
+            isNull = false;
+        }
+    }
+//    function checkIntro(){
+//        if(!$(".form-group textarea")[0].value){
+//            $(".form-group textarea").next().css("display","inline-block");
+//            isNull = true;
+//        }else{
+//            $(".form-group textarea").next().css("display","none");
+//            isNull = false;
+//        }
+//    }
+    $(".form-group input[type=button]").on("click",function(){
+        checkName();
+//        checkIntro();
+        if(!isNull){$("#form1").submit();}
+    });
+</script>
+{template 'common/footer'}

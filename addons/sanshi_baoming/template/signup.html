@@ -1,0 +1,112 @@
+{template 'common/header'}
+<style>
+    .main .classBtn{
+        background-color: #428bca;
+        color: white;
+        margin-bottom: 10px;
+        float: right;
+    }
+    .main .classBtn:hover{
+        background-color: #3071a9;
+    }
+    .main .classBtn a:hover{
+        color:white;
+    }
+    .panel-info{
+        padding: 10px;
+    }
+    .fa-check{
+        color: green;
+    }
+    .fa-close{
+        color: red;
+    }
+</style>
+<div class="main">
+    <!--<button class='classBtn btn'><a href="{php echo $this->createWebUrl('topic')}">返回报名列表</a></button>-->
+    <h3>{$topic['topicname']}</h3>
+<!--    <div class="panel panel-info">
+        <p>{$topic['topicdesc']}</p>
+    </div>-->
+
+    <div class="main">
+        <div class="panel panel-default">
+            <div class="panel-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                        <tr>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>专业名称</th>
+                            <th>联系方式</th>
+                            <th>QQ/微信</th>
+                            <th>毕业院校</th>
+                            <!--<th>备注</th>-->
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {loop $list $item}
+                        <tr>
+                            <td>{$item['discuss']}</td>	
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>{if $item['checked'] == 1}
+                                <i class="fa fa-check"><span style="display:none;">{$item['id']}</span></i>
+                                {else}
+                                <i class="fa fa-close"><span style="display:none;">{$item['id']}</span></i>{/if}
+                            </td>
+                            <td style="text-align:left;">
+                                <a href="{php echo $this->createWebUrl('discussdelete', array('op' => 'delete', 'id' => $item['id'],'topic_id' => $topic['id']))}" onclick="return confirm('确认删除吗？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                        {/loop}
+                    </tbody>
+                </table>
+                {$pager}
+            </div>
+        </div>
+    </div>
+    <script>
+        require(['bootstrap'], function () {
+            $('.btn').hover(function () {
+                $(this).tooltip('show');
+            }, function () {
+                $(this).tooltip('hide');
+            });
+        });
+//        $(".main table td>i").on("click",function(){
+//            var isCheck = 1;
+//            if($(this).hasClass("fa-check")){
+//                $(this).removeClass("fa-check");
+//                $(this).addClass("fa-close");
+//            }else{
+//                $(this).removeClass("fa-close");
+//                $(this).addClass("fa-check");
+//                isCheck = 2;
+//            }
+//            var id = $(this).children("span")[0].innerHTML;
+//            checkChange(id,isCheck);
+//        });
+//        function checkChange(id,isCheck){
+//            $.ajax({
+//                type: "POST",
+//                url: "{php echo $this->createWebUrl('check')}",
+//                data: {
+//                    "discuss_id": id,
+//                    "checked": isCheck
+//                },
+//                success: function (data) {
+//                    console.log(data.code);
+//                },
+//                error: function () {
+//                      console.log("提交数据失败！");
+//                }
+//            });
+//        }
+    </script>
+
+    {template 'common/footer'}
+

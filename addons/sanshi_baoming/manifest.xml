@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="">
+	<application setting="false">
+		<name><![CDATA[微报名]]></name>
+		<identifie><![CDATA[sanshi_baoming]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[用于学校的生源报名]]></ability>
+		<description><![CDATA[用于学校的生源报名]]></description>
+		<author><![CDATA[tyzy313481929]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+		<supports>
+			<item type="app" />
+		</supports>
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="详情管理" do="basic" state="sanshi_baoming_baisc" direct="false" />
+			<entry title="专业管理" do="major" state="sanshi_baoming_major" direct="false" />
+			<entry title="报名管理" do="enter" state="sanshi_baoming_enter" direct="false" />
+		</menu>
+                <cover>
+			<entry title="报名入口" do="index" state="" direct="false" />
+		</cover>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[
+    CREATE TABLE IF NOT EXISTS `ims_sanshi_baoming_major` (
+        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+        `weid` int(10) unsigned NOT NULL DEFAULT '0',
+        `majorname` varchar(255) NOT NULL COMMENT '专业名称',
+        `is_del` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '是否删除，1未删除，2已删除',
+        PRIMARY KEY (`id`)
+    ) ENGINE=Innodb  DEFAULT CHARSET=utf8;
+
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

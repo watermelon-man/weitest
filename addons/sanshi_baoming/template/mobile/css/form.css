@@ -1,0 +1,164 @@
+*,html,body{
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
+li{
+	list-style: none;
+}
+.radio_inline{
+    display: inline-block;
+    width: 65%;
+}
+.radio_inline label{
+    width: 20%;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.radio_inline input[type=radio]{
+    width: 15%;             
+    right: auto;
+}
+header{
+	position: relative;
+}
+header img{
+	width: 100%;
+}
+header div{
+	background:rgba(0,0,0,0.4); 
+	position: absolute;
+	width: 100%;
+	bottom: 5px;
+}
+header div p{
+	color: #f5f5ed;
+	padding-left: 1.5rem;
+	font-size: 14px;
+	line-height: 26px;
+	margin-bottom: 0;
+}
+article{
+	margin: 0.8rem 0.5rem;
+	border: 1px solid #898989;
+	border-radius: 5px;
+	padding: 0 0.6rem;
+	background: white;
+}
+.mui-table-view-cell:after{
+	left: 0;
+}
+article{
+	position: relative;
+	padding: 0;
+	font-size: 16px;
+}
+article .mui-input-row label{
+	font-size: 14px;
+}
+article .mui-input-row label>span{
+	color: red;
+}
+article .mui-input-row input{
+	font-size: 14px;
+}
+article .leading{
+	background-color: #eeeeee;
+	border-radius: 5px;
+	border-bottom: 1px solid #898989;
+	color: #818181;
+    padding: 0.4rem 0 0.4rem 1rem;
+}
+article .mui-table-view:before{
+	height: 0;
+}
+article .mui-radio{
+    margin-bottom: -3px;
+}
+#information .mui-radio label{
+	padding-left: 0;
+}
+article .mui-radio label{
+	float: left; 
+	width: 21%;
+	margin-left: 9%;
+}
+article .mui-radio input[type='radio']{
+	top: 2px;
+}
+article .mui-radio input[type='radio']:before{
+	font-size: 16px;
+	line-height: 32px;
+}
+article .mui-radio input[type='radio']:nth-of-type(1){
+	left: 20%;
+}
+article .mui-radio input[type='radio']:nth-of-type(2){
+	left: 49%;
+}
+article .mui-input-row input[type='button']{
+    text-align: left;
+    color: rgba(0, 0, 0, .6);
+    top: 2px;
+}
+.mui-input-group .mui-input-row:nth-of-type(3){
+	height: auto;
+}
+article .mui-input-row textarea{
+	font-size: 14px;
+	float: none;
+	border: 1px solid rgba(0, 0, 0, .2);
+    padding: 5px 12px;
+    /* float: none; */
+    width: 61%;
+    /* height: 30px; */
+    border-radius: 8px;
+}
+article .mui-input-row+div{
+	margin-bottom: 2px;
+}
+article .mui-input-row+div label{
+	float: none;    
+	width: 33%;
+	display: inline-block;
+}
+article .mui-input-row+div input[type='text']{
+	border: 1px solid rgba(0, 0, 0, .2);
+    padding: 5px 12px;
+    float: none;
+    height: 30px;
+    width: 61%;
+    border-radius: 8px;
+}
+article .mui-popover .mui-checkbox label{
+	width: auto;
+}
+
+#details{
+	padding: 10px;
+}
+#className{
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 10px 0;
+}
+.mui-input-group:before{
+	height: 0;
+}
+.mui-input-group .mui-input-row:after{
+	height: 0;
+}
+.mui-input-group:after{
+	height: 0;
+}
+body>.mui-btn{
+	background-color: #44790d;
+	color: white;
+    width: 64%;
+    margin: 0 18%;
+    padding: 8px 0;
+    font-size: 16px;
+}

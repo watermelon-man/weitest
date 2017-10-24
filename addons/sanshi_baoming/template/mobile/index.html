@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>报名</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../addons/sanshi_baoming/template/mobile/dist/css/mui.css">
+	<link rel="stylesheet" type="text/css" href="../addons/sanshi_baoming/template/mobile/css/index.css">
+</head>
+<script type="text/javascript" src="../addons/sanshi_baoming/template/mobile/js/jquery.min.js"></script>
+<script type="text/javascript" src="../addons/sanshi_baoming/template/mobile/dist/js/mui.js"></script>
+<body>
+	<header>
+            <img src="{php echo tomedia($info['image'])}" alt="">
+		<div>
+			<p>在线报名表！</p>
+		</div>
+	</header>
+	<article>
+		<ul class="mui-table-view">
+		    <li class="mui-table-view-cell">简介</li>
+		    <li class="mui-table-view-cell">{$info['simple']}</li>
+		    <!-- <li class="mui-table-view-cell"><a href="" id="openPopover" class="mui-navigate-right mui-btn-block">详细介绍</a></li> -->
+		</ul>
+	</article>
+	<article>
+		<ul class="mui-table-view">
+		    <li class="mui-table-view-cell">详细介绍</li>
+		    <li class="mui-table-view-cell">{$info['detailed']}</li>
+		</ul>
+	</article>
+    {if $exist}
+       <a href="{php echo $this->CreateMobileUrl('edit')}" class="mui-btn" title="">修改报名信息</a>
+    {else}
+	<a href="{php echo $this->CreateMobileUrl('form')}" class="mui-btn" title="">我要报名</a>
+        {/if}
+</body>
+</html>
